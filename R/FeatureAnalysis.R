@@ -1,14 +1,34 @@
+#' @title FeatureAnalysis
+#' @description a function can generate mz vs rt plot and QC distribution plot,
+#' also can filter isotope,rsd and zero value.
+#' @author Shine Shen
+#' \email{qq951633542@@163.com}
+#' @param data a dataframe include name,mz,rt and isotope columns,
+#' the rest of all are sample and QC columns..
+#' @param sample.info a dataframe include sample.name,injection.order,
+#' class,batch and group columns.
+#' @return  All the results can be got form other functions and instruction.
+#' @export
+#' @examples
+#' \donttest{
+#' ##---- Be sure the format of data and sample.info is correct!! ----
+#load the demo data
+#'data(data, package = "Shine")
+#'data(sample.info, package = "Shine")
+
+#'##create a folder for demo
+#'dir.create("demo")
+#'setwd("demo")
+
+#'# export the demo data as csv
+#'write.csv(data, "data.csv",sep = ",", row.names = FALSE)
+#'write.csv(sample.info, "sample.info.csv",sep = ",", row.names = FALSE)
+
+#'# Analysis process
+#'FeatureAnalysis(data = "data.csv",sample.info = "sample.info.csv")
+#' }
 FeatureAnalysis <- function(data = NULL,sample.info = NULL) {
   cat("Analyzing data...\n")
-  #load needed packages
-  need.packages1<-c("mixOmics","ggrepel","gplots")
-  packages<-library()[[2]][,1]
-  for (i in need.packages1) {
-    if (!any(packages==i)) {install.packages(i)}
-  }
-  require(mixOmics)
-  require(ggrepel)
-  require(gplots)
   cat("Isotope filtering...\n")
 ###remove [M+n],\\ make [] lose the ability of function，
 isotop_filter<-function(data){

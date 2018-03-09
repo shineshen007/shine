@@ -1,15 +1,36 @@
+#' @title StaAnalysis
+#' @description a function can generate PCA,PLSDA,heatmap,
+#' s plot of foldchange and volcano plot, also can calculate vip value.
+#' @author Shine Shen
+#' \email{qq951633542@@163.com}
+#' @param data a dataframe include name,mz,rt and isotope columns,
+#' the rest of all are sample and QC columns.
+#' @param sample.info a dataframe include sample.name,injection.order,
+#' class,batch and group columns.
+#' @param group group set
+#' @return  All the results can be got form other functions and instruction.
+#' @export
+#' @examples
+#' \donttest{
+#' ##---- Be sure the format of data and sample.info is correct!! ----
+#load the demo data
+#'data(data, package = "Shine")
+#'data(sample.info, package = "Shine")
+
+#'##create a folder for demo
+#'dir.create("demo")
+#'setwd("demo")
+
+#'# export the demo data as csv
+#'write.csv(data, "data.csv",sep = ",", row.names = FALSE)
+#'write.csv(sample.info, "sample.info.csv",sep = ",", row.names = FALSE)
+
+#'# Analysis process
+#'StaAnalysis(data = "data.csv",sample.info = "sample.info.csv",group =c("S","P"))
+#' }
 StaAnalysis<- function(data = NULL,sample.info = NULL,
                        group = c("case","control")){
   cat("Analyzing data...\n")
-  #load needed packages
-  need.packages1<-c("mixOmics","ggrepel","gplots")
-  packages<-library()[[2]][,1]
-  for (i in need.packages1) {
-    if (!any(packages==i)) {install.packages(i)}
-  }
-  require(mixOmics)
-  require(ggrepel)
-  require(gplots)
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
   qc.name<-sample.info$sample.name[sample.info$class=="QC"]
@@ -51,7 +72,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,
             legend =TRUE,
             style="ggplot2",
             title = 'PCA')
-  plot(pcap)
+
   dev.off()
 
   cat("Draw PLSDA plot...\n")
