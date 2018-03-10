@@ -171,5 +171,5 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,
   dev.off()
 
   cat("StaAnalysis is done\n")
-  dev.off()
+
 }
