@@ -34,8 +34,8 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL) {
   cat("Isotope filtering...\n")
 ###remove [M+n],\\ make [] lose the ability of function，
 isotop_filter<-function(data){
-  temp<- data[c(grep("\\[M\\]",data$isotope),
-                which(data$isotope == "")),]
+  temp<- data[c(grep("\\[M\\]",data$isotopes),
+                which(data$isotopes == "")),]
 }
 data <-isotop_filter(data)
 write.csv(data,"filter.isotope.csv",row.names = FALSE)
@@ -53,6 +53,21 @@ write.csv(data,"filter.isotope.csv",row.names = FALSE)
   sample.tag<-cbind(tags,sample)
 
   rownames(sample)<-rownames(qc)<-tags$name
+
+  cat("Zero filtering...\n")
+  ###zero filter
+  zero_filter <- function(data){
+    temp_zero <- data
+    num.zero <- sapply(seq(nrow(temp_zero)), function(i){
+      temp.num.zero <- sum(temp_zero[i,]== 0)
+    })
+    num.sample <- ncol(temp_zero)
+    idx.filter <- which(num.zero >= num.sample/2)
+    temp_zero <- temp_zero[-idx.filter,]
+    temp_zero <- data.frame(data[-idx.filter,], temp_zero)
+  }
+  filter.zero.data <- zero_filter(data)
+  write.csv(filter.zero.data,"filter.zero.csv",row.names = FALSE)
 
   cat("Calculate RSD...\n")
 ###calculate RSD
@@ -96,21 +111,6 @@ write.csv(data,"filter.isotope.csv",row.names = FALSE)
     }
   filter.rsd.data <- RSD_filter(data_rsd)
   write.csv(filter.rsd.data,"filter.rsd.csv",row.names = FALSE)
-
-  cat("Zero filtering...\n")
-  ###zero filter
-  zero_filter <- function(filter.rsd.data){
-    temp_zero <- filter.rsd.data
-    num.zero <- sapply(seq(nrow(temp_zero)), function(i){
-    temp.num.zero <- sum(temp_zero[i,]== 0)
-  })
-  num.sample <- ncol(temp_zero)
-  idx.filter <- which(num.zero >= num.sample/2)
-  temp_zero <- temp_zero[-idx.filter,]
-  temp_zero <- data.frame(filter.rsd.data[-idx.filter,], temp_zero)
-}
-filter.zero.data <- zero_filter(filter.rsd.data)
-write.csv(filter.zero.data,"filter.zero.csv",row.names = FALSE)
 
 cat("Draw mz VS RT plot...\n")
 #### mz VS RT plot
