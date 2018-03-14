@@ -29,6 +29,8 @@
 #' }
 FeatureAnalysis <- function(data = NULL,sample.info = NULL) {
   cat("Analyzing data...\n")
+  require(mixOmics)
+  require(ggrepel);  require(gplots)
   cat("Isotope filtering...\n")
 ###remove [M+n],\\ make [] lose the ability of function，
 isotop_filter<-function(data){

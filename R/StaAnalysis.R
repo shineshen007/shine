@@ -31,6 +31,8 @@
 StaAnalysis<- function(data = NULL,sample.info = NULL,
                        group = c("case","control")){
   cat("Analyzing data...\n")
+  require(mixOmics)
+  require(ggrepel);  require(gplots)
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
   qc.name<-sample.info$sample.name[sample.info$class=="QC"]
