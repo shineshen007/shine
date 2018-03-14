@@ -29,8 +29,8 @@ data(sample.info, package = "Shine")
 dir.create("demo")
 setwd("demo")
 # export the demo data as csv
-write.csv(data, "data.csv",sep = ",", row.names = FALSE)
-write.csv(sample.info, "sample.info.csv",sep = ",", row.names = FALSE)
+write.csv(data, "data.csv", row.names = FALSE)
+write.csv(sample.info, "sample_info.csv", row.names = FALSE)
 # Analysis process
 FeatureAnalysis(data = "data.csv",sample.info = "sample.info.csv")
 }
