@@ -51,13 +51,14 @@ write.csv(data,"filter.isotope.csv",row.names = FALSE)
   tags <- data[,c(1:4)]
 
   sample.tag<-cbind(tags,sample)
+  data_pre<- as.matrix(cbind(qc,sample))
 
   rownames(sample)<-rownames(qc)<-tags$name
 
   cat("Zero filtering...\n")
   ###zero filter
-  zero_filter <- function(data){
-    temp_zero <- data
+  zero_filter <- function(data_pre){
+    temp_zero <- data_pre
     num.zero <- sapply(seq(nrow(temp_zero)), function(i){
       temp.num.zero <- sum(temp_zero[i,]== 0)
     })
