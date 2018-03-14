@@ -67,7 +67,7 @@ write.csv(data,"filter.isotope.csv",row.names = FALSE)
 
   cat("Draw QC distribution plot...\n")
 ### QC distribution plot
-  png(file="QC distribution.png", width = 900, height = 800,pointsize = 24)
+  png(file="QC distribution.png", width = 900, height = 800,res = 56*2)
   scatter.data<-as.data.frame(rsd.data[order(rsd.data)])
   id<-c(1:nrow(data))
   data_qc<- cbind(scatter.data,id)
@@ -112,7 +112,7 @@ write.csv(filter.zero.data,"filter.zero.csv",row.names = FALSE)
 
 cat("Draw mz VS RT plot...\n")
 #### mz VS RT plot
-png(file="mz.rt.png", width = 900, height = 800,pointsize = 24)
+png(file="mz.rt.png", width = 900, height = 800,res = 56*2)
 col <- apply(data[,-c(1:4,ncol(qc))],1,median)
 mr <- ggplot(data,aes(x=rt,y=mz,colour=log10(col)))+
   geom_point()+

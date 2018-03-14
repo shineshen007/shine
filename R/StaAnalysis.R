@@ -62,7 +62,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,
 
   cat("Draw PCA plot...\n")
   ###PCA
-  png(file="PCA.png", width = 900, height = 800,pointsize = 24)
+  png(file="PCA.png", width = 900, height = 800,res = 56*2)
   temp<-data[,-c(1:4)]
   pca<-pca(t(temp), ncomp=2, scale=T)
   pcap<-plotIndiv(pca,
@@ -77,7 +77,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,
 
   cat("Draw PLSDA plot...\n")
   ###PLS-DA
-  png(file="PLSDA.png", width = 900, height = 800,pointsize = 24)
+  png(file="PLSDA.png", width = 900, height = 800,res = 56*2)
   datat<-sample
   row.names(datat)<-data[,1]
   datatm<-as.matrix(datat)
@@ -103,7 +103,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,
   row.names<-data$name
   x<-data[,-c(1:4)]
   y<-as.matrix(x)
-  png(file="heatmap.png", width = 900, height = 800)
+  png(file="heatmap.png", width = 900, height = 800,res = 56*2)
   hm <- heatmap.2(y,Rowv = TRUE,
             col = redgreen,
             scale = "row",
@@ -129,7 +129,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,
   Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 1,
                                  ifelse(log2(fc) < -1,
                                         "Down","Up"),"Not Sig"))
-  png(file="volcano plot.png", width = 900, height = 800,pointsize = 24)
+  png(file="volcano plot.png", width = 900, height = 800,res = 56*2)
   volc <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
     geom_point(aes(color = Significant)) +
     scale_color_manual(values = c("green", "grey","red")) +
@@ -154,7 +154,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,
   dev.off()
 
   cat("Draw S plot of foldchange...\n")
-  png(file="S plot of foldchange.png", width = 900, height = 800)
+  png(file="S plot of foldchange.png", width = 900, height = 800,res = 56*2)
   ##S plot of foldchange
   index<-c(1:nrow(f))
   datas <- cbind(index,f)
