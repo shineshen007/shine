@@ -22,7 +22,7 @@
 
 #'# export the demo data as csv
 #'write.csv(data, "data.csv", row.names = FALSE)
-#'write.csv(sample_info, "sample_info.csv", row.names = FALSE)
+#'write.csv(sample.info, "sample.info.csv", row.names = FALSE)
 
 #'# Analysis process
 #'FeatureAnalysis(data = "data.csv",sample.info = "sample.info.csv")

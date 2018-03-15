@@ -7,7 +7,8 @@
 #' the rest of all are sample and QC columns.
 #' @param sample.info a dataframe include sample.name,injection.order,
 #' class,batch and group columns.
-#' @param group group set
+#' @param group group set.
+#' @param p.cutoff defult is 0.05
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -23,10 +24,11 @@
 
 #'# export the demo data as csv
 #'write.csv(data, "data.csv", row.names = FALSE)
-#'write.csv(sample_info, "sample_info.csv", row.names = FALSE)
+#'write.csv(sample.info, "sample.info.csv", row.names = FALSE)
 
 #'# Analysis process
-#'StaAnalysis(data = "data.csv",sample.info = "sample.info.csv",group =c("S","P"))
+#'StaAnalysis(data = "data.csv",sample.info = "sample.info.csv",group =c("S","P"),
+#'p.cutoff = 0.05)
 #' }
 StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
                        group = c("case","control")){

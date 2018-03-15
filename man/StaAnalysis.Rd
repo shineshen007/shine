@@ -4,7 +4,8 @@
 \alias{StaAnalysis}
 \title{StaAnalysis}
 \usage{
-StaAnalysis(data = NULL, sample.info = NULL, group = c("case", "control"))
+StaAnalysis(data = NULL, sample.info = NULL, p.cutoff = 0.05,
+  group = c("case", "control"))
 }
 \arguments{
 \item{data}{a dataframe include name,mz,rt and isotope columns,
