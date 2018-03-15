@@ -28,12 +28,13 @@
 #'# Analysis process
 #'StaAnalysis(data = "data.csv",sample.info = "sample.info.csv",group =c("S","P"))
 #' }
-StaAnalysis<- function(data = NULL,sample.info = NULL,
+StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
                        group = c("case","control")){
   cat("Analyzing data...\n")
   require(mixOmics)
   require(ggrepel);  require(gplots)
   ##create a folder for analysis
+  path <-getwd()
   dir.create("StaAnalysis")
   setwd("StaAnalysis")
   ###data preparation
@@ -51,6 +52,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,
 
   group2.index <- which(class == group[1])
   group1.index <- which(class == group[2])
+
   cat("Calculate Foldchange...\n")
   fc <- apply(data_pfc,1,function(x) {
     median(x[group2.index]+0.1)/ median(x[group1.index]+0.1)
@@ -106,17 +108,19 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,
   #### heatmap
   row.names<-data$name
   x<-data[,-c(1:4)]
+  x<-x[,-c(1:ncol(qc))]
   y<-as.matrix(x)
-  png(file="heatmap.png", width = 900, height = 800,res = 56*2)
-  hm <- heatmap.2(y,Rowv = TRUE,
+  png(file="heatmap.png", width = 1600, height = 1200,res = 56*2)
+  hm <- heatmap.2(y,
             col = redgreen,
+            keysize = 1,
+            xlab = "group",
+            ylab = "metabolites",
+            dendrogram = "column",
             scale = "row",
-            key = TRUE,
-            keysize=1.5,
-            symkey = FALSE,
             density.info = "none",
             trace = "none",
-            cexRow = 0.5,
+            cexRow = 0.1,
             cexCol = 0.5)
 
   dev.off()
@@ -147,7 +151,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,
          title="Volcano plot")+
     xlim(c(-5, 5))+
     geom_text_repel(
-      data = subset(vol, p < 0.05&abs(log2(fc))>1),###fc的绝对值大于1
+      data = subset(vol, p < p.cutoff&abs(log2(fc))>1.5),###fc的绝对值大于1
       max.iter = 100000,
       aes(label = name),
       size = 4,
@@ -173,6 +177,8 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,
   plot(splot)
 
   dev.off()
+  ##back origin work directory
+  setwd(path)
 
   cat("StaAnalysis is done\n")
 

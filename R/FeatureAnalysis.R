@@ -32,8 +32,10 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL) {
   require(ggrepel);  require(gplots)
   cat("Analyzing data...\n")
   ##create a folder for analysis
+  path <-getwd()
   dir.create("FeatureAnalysis")
   setwd("FeatureAnalysis")
+
   cat("Isotope filtering...\n")
 ###remove [M+n],\\ make [] lose the ability of function，
 isotop_filter<-function(data){
@@ -126,6 +128,8 @@ mr <- ggplot(data,aes(x=rt,y=mz,colour=log10(col)))+
   theme(legend.position = c(0.95,0.9))
 plot(mr)
 dev.off()
+##back origin work directory
+setwd(path)
 
 cat("FeatureAnalysis is done\n")
 }
