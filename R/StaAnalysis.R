@@ -84,7 +84,6 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,
   ###PLS-DA
   png(file="PLSDA.png", width = 900, height = 800,res = 56*2)
   datat<-sample
-  row.names(datat)<-data[,1]
   datatm<-as.matrix(datat)
   XXt<-t(datatm)
   group_pls<-as.data.frame(sample.info$group)
