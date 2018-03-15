@@ -33,6 +33,9 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,
   cat("Analyzing data...\n")
   require(mixOmics)
   require(ggrepel);  require(gplots)
+  ##create a folder for analysis
+  dir.create("StaAnalysis")
+  setwd("StaAnalysis")
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
   qc.name<-sample.info$sample.name[sample.info$class=="QC"]

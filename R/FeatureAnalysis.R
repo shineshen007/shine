@@ -28,9 +28,12 @@
 #'FeatureAnalysis(data = "data.csv",sample.info = "sample.info.csv")
 #' }
 FeatureAnalysis <- function(data = NULL,sample.info = NULL) {
-  cat("Analyzing data...\n")
   require(mixOmics)
   require(ggrepel);  require(gplots)
+  cat("Analyzing data...\n")
+  ##create a folder for analysis
+  dir.create("FeatureAnalysis")
+  setwd("FeatureAnalysis")
   cat("Isotope filtering...\n")
 ###remove [M+n],\\ make [] lose the ability of function，
 isotop_filter<-function(data){
