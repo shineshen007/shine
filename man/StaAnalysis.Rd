@@ -5,7 +5,7 @@
 \title{StaAnalysis}
 \usage{
 StaAnalysis(data = NULL, sample.info = NULL, p.cutoff = 0.05,
-  group = c("case", "control"))
+  group = c("case", "control"), heatmap = FALSE, splot = FALSE)
 }
 \arguments{
 \item{data}{a dataframe include name,mz,rt and isotope columns,
@@ -14,9 +14,13 @@ the rest of all are sample and QC columns.}
 \item{sample.info}{a dataframe include sample.name,injection.order,
 class,batch and group columns.}
 
-\item{p.cutoff}{defult is 0.05}
+\item{p.cutoff}{default is 0.05.}
 
 \item{group}{group set.}
+
+\item{heatmap}{default is FALSE.}
+
+\item{splot}{default is FALSE.}
 }
 \value{
 All the results can be got form other functions and instruction.

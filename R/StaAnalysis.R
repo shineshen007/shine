@@ -8,9 +8,9 @@
 #' @param sample.info a dataframe include sample.name,injection.order,
 #' class,batch and group columns.
 #' @param group group set.
-#' @param p.cutoff default is 0.05
-#' @param heatmap default is FALSE
-#' @param splot default is FALSE
+#' @param p.cutoff default is 0.05.
+#' @param heatmap default is FALSE.
+#' @param splot default is FALSE.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples

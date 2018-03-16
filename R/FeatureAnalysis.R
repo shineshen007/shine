@@ -4,13 +4,13 @@
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
 #' @param data a dataframe include name,mz,rt and isotope columns,
-#' the rest of all are sample and QC columns..
+#' the rest of all are sample and QC columns.
 #' @param sample.info a dataframe include sample.name,injection.order,
 #' class,batch and group columns.
 #' @param zero.filter default is FALSE,if the zero value exsit in your data,
 #' make FALSE to TRUE.
-#' @param RSD.filter default is FALSE,if the percentage of qc rsd >30% more than
-#' 70%,almost after normalization,make FALSE to TRUE.
+#' @param RSD.filter default is FALSE,if the percentage of qc rsd larger than 0.3
+#'  more than 0.7,almost after normalization,make FALSE to TRUE.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples

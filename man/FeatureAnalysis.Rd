@@ -4,14 +4,21 @@
 \alias{FeatureAnalysis}
 \title{FeatureAnalysis}
 \usage{
-FeatureAnalysis(data = NULL, sample.info = NULL)
+FeatureAnalysis(data = NULL, sample.info = NULL, zero.filter = FALSE,
+  RSD.filter = FALSE)
 }
 \arguments{
 \item{data}{a dataframe include name,mz,rt and isotope columns,
-the rest of all are sample and QC columns..}
+the rest of all are sample and QC columns.}
 
 \item{sample.info}{a dataframe include sample.name,injection.order,
 class,batch and group columns.}
+
+\item{zero.filter}{default is FALSE,if the zero value exsit in your data,
+make FALSE to TRUE.}
+
+\item{RSD.filter}{default is FALSE,if the percentage of qc rsd larger than 0.3
+more than 0.7,almost after normalization,make FALSE to TRUE.}
 }
 \value{
 All the results can be got form other functions and instruction.
