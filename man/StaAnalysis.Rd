@@ -14,7 +14,9 @@ the rest of all are sample and QC columns.}
 \item{sample.info}{a dataframe include sample.name,injection.order,
 class,batch and group columns.}
 
-\item{group}{group set}
+\item{p.cutoff}{defult is 0.05}
+
+\item{group}{group set.}
 }
 \value{
 All the results can be got form other functions and instruction.
@@ -33,9 +35,10 @@ dir.create("demo")
 setwd("demo")
 # export the demo data as csv
 write.csv(data, "data.csv", row.names = FALSE)
-write.csv(sample_info, "sample_info.csv", row.names = FALSE)
+write.csv(sample.info, "sample.info.csv", row.names = FALSE)
 # Analysis process
-StaAnalysis(data = "data.csv",sample.info = "sample.info.csv",group =c("S","P"))
+StaAnalysis(data = "data.csv",sample.info = "sample.info.csv",group =c("S","P"),
+p.cutoff = 0.05)
 }
 }
 \author{

@@ -8,7 +8,9 @@
 #' @param sample.info a dataframe include sample.name,injection.order,
 #' class,batch and group columns.
 #' @param group group set.
-#' @param p.cutoff defult is 0.05
+#' @param p.cutoff default is 0.05
+#' @param heatmap default is FALSE
+#' @param splot default is FALSE
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -31,7 +33,7 @@
 #'p.cutoff = 0.05)
 #' }
 StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
-                       group = c("case","control")){
+                       group = c("case","control"),heatmap = FALSE,splot = FALSE){
   cat("Analyzing data...\n")
   require(mixOmics)
   require(ggrepel);  require(gplots)
@@ -106,6 +108,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
   vip<-vip(plsda.datatm)
   write.csv(vip,"VIP.csv",row.names = F)
 
+  if(heatmap){
   cat("Draw Heatmap...\n")
   #### heatmap
   row.names<-data$name
@@ -126,7 +129,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
             cexCol = 0.5)
 
   dev.off()
-
+}
   cat("Draw Volcano plot...\n")
   #### volcano plot(double line)###data only contain 3 columns:name,p,fc
   f<-as.data.frame(fc)
@@ -163,6 +166,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
   plot(volc)
   dev.off()
 
+  if(splot){
   cat("Draw S plot of foldchange...\n")
   png(file="S plot of foldchange.png", width = 900, height = 800,res = 56*2)
   ##S plot of foldchange
@@ -179,6 +183,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
   plot(splot)
 
   dev.off()
+}
   ##back origin work directory
   setwd(path)
 
