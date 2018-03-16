@@ -11,6 +11,7 @@
 #' @param p.cutoff default is 0.05.
 #' @param heatmap default is FALSE.
 #' @param splot default is FALSE.
+#' @param pcorrect default is TRUE.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -33,7 +34,8 @@
 #'p.cutoff = 0.05)
 #' }
 StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
-                       group = c("case","control"),heatmap = FALSE,splot = FALSE){
+                       group = c("case","control"),heatmap = FALSE,
+                       splot = FALSE,pcorrect = TRUE){
   cat("Analyzing data...\n")
   require(mixOmics)
   require(ggrepel);  require(gplots)
@@ -67,13 +69,14 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
         t.test(x[group1.index], x[group2.index])
       })
 
-  pv <- unlist(lapply(t.test, function(x)
+  p <- unlist(lapply(t.test, function(x)
     x$p.value))
-  p <- p.adjust(p = pv, method = "fdr",n=length(pv))
-
+  if(pcorrect){
+  p <- p.adjust(p = p, method = "fdr",n=length(p))
+}
   cat("Draw PCA plot...\n")
   ###PCA
-  png(file="PCA.png", width = 900, height = 800,res = 56*2)
+  png(file="PCA.png", width = 1200, height = 1000,res = 56*2)
   temp<-data[,-c(1:4)]
   pca<-pca(t(temp), ncomp=2, scale=T)
   pcap<-plotIndiv(pca,
@@ -88,7 +91,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
 
   cat("Draw PLSDA plot...\n")
   ###PLS-DA
-  png(file="PLSDA.png", width = 900, height = 800,res = 56*2)
+  png(file="PLSDA.png", width = 1200, height = 1000,res = 56*2)
   datat<-sample
   datatm<-as.matrix(datat)
   XXt<-t(datatm)
@@ -142,7 +145,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
   Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 1,
                                  ifelse(log2(fc) < -1,
                                         "Down","Up"),"Not Sig"))
-  png(file="volcano plot.png", width = 900, height = 800,res = 56*2)
+  png(file="volcano plot.png", width = 1200, height = 1000,res = 56*2)
   volc <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
     geom_point(aes(color = Significant)) +
     scale_color_manual(values = c("green", "grey","red")) +
@@ -156,7 +159,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
          title="Volcano plot")+
     xlim(c(-5, 5))+
     geom_text_repel(
-      data = subset(vol, p < p.cutoff&abs(log2(fc))>1.5),###fc的绝对值大于1
+      data = subset(vol, p < p.cutoff&abs(log2(fc))>0.5),###fc的绝对值大于1
       max.iter = 100000,
       aes(label = name),
       size = 4,
