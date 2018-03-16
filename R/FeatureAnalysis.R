@@ -7,6 +7,10 @@
 #' the rest of all are sample and QC columns..
 #' @param sample.info a dataframe include sample.name,injection.order,
 #' class,batch and group columns.
+#' @param zero.filter default is FALSE,if the zero value exsit in your data,
+#' make FALSE to TRUE.
+#' @param RSD.filter default is FALSE,if the percentage of qc rsd >30% more than
+#' 70%,almost after normalization,make FALSE to TRUE.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -27,7 +31,8 @@
 #'# Analysis process
 #'FeatureAnalysis(data = "data.csv",sample.info = "sample.info.csv")
 #' }
-FeatureAnalysis <- function(data = NULL,sample.info = NULL) {
+FeatureAnalysis <- function(data = NULL,sample.info = NULL,
+                            zero.filter = FALSE,RSD.filter = FALSE) {
   require(mixOmics)
   require(ggrepel);  require(gplots)
   cat("Analyzing data...\n")
@@ -35,15 +40,6 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL) {
   path <-getwd()
   dir.create("FeatureAnalysis")
   setwd("FeatureAnalysis")
-
-  cat("Isotope filtering...\n")
-###remove [M+n],\\ make [] lose the ability of function，
-isotop_filter<-function(data){
-  temp<- data[c(grep("\\[M\\]",data$isotopes),
-                which(data$isotopes == "")),]
-}
-data <-isotop_filter(data)
-write.csv(data,"filter.isotope.csv",row.names = FALSE)
 
 ###data preparation
 
@@ -57,6 +53,22 @@ write.csv(data,"filter.isotope.csv",row.names = FALSE)
 
   sample.tag<-cbind(tags,sample)
 
+  cat("Zero checking...\n")
+  ###zero check
+  zero_check <- function(data){
+    check_zero <- data[,-c(1:4)]
+    numb.zero <- sapply(seq(nrow(check_zero)), function(i){
+      check.num.zero <- sum(check_zero[i,]== 0)
+    })
+    numb.sample <- ncol(check_zero)
+    idx.check <- which(numb.zero >= numb.sample/2)
+    check_zero <- check_zero[idx.check,]
+    check_zero <- data.frame(data[idx.check,c(1:4)], check_zero)
+  }
+  zero.data <- zero_check(data)
+  write.csv(zero.data,"zero.rows.csv",row.names = FALSE)
+
+  if(zero.filter){
   cat("Zero filtering...\n")
   ###zero filter
   zero_filter <- function(data){
@@ -69,8 +81,17 @@ write.csv(data,"filter.isotope.csv",row.names = FALSE)
     temp_zero <- temp_zero[-idx.filter,]
     temp_zero <- data.frame(data[-idx.filter,c(1:4)], temp_zero)
   }
-  filter.zero.data <- zero_filter(data)
-  write.csv(filter.zero.data,"filter.zero.csv",row.names = FALSE)
+  data <- zero_filter(data)
+  write.csv(data,"filter.zero.csv",row.names = FALSE)
+}
+  cat("Isotope filtering...\n")
+  ###remove [M+n],\\ make [] lose the ability of function，
+  isotope_filter<-function(data){
+    temp<- data[c(grep("\\[M\\]",data$isotopes),
+                  which(data$isotopes == "")),]
+  }
+  filter.isotope.data <-isotope_filter(data)
+  write.csv(filter.isotope.data,"filter.isotope.csv",row.names = FALSE)
 
   cat("Calculate RSD...\n")
 ###calculate RSD
@@ -89,7 +110,7 @@ write.csv(data,"filter.isotope.csv",row.names = FALSE)
 ### QC distribution plot
   png(file="QC distribution.png", width = 900, height = 800,res = 56*2)
   scatter.data<-as.data.frame(rsd.data[order(rsd.data)])
-  id<-c(1:nrow(data))
+  id<-c(1:nrow(qc))
   data_qc<- cbind(scatter.data,id)
   qc_dis<- ggplot(data_qc,aes(x=id,y=rsd.data[order(rsd.data)]))+
     xlab("Feature Index")+
@@ -99,9 +120,10 @@ write.csv(data,"filter.isotope.csv",row.names = FALSE)
   plot(qc_dis)
   dev.off()
 
+  if(RSD.filter){
   cat("RSD filtering...\n")
   ###RSD filter
-  data_rsd<-cbind(sample.tag,qc)
+  data_rsd <- filter.isotope.data
   RSD_filter <- function(data_rsd){
     temp_rsd <- data_rsd[,-c(1:ncol(sample.tag))]
     rsd <- sapply(seq(nrow(temp_rsd)), function(i){
@@ -113,8 +135,8 @@ write.csv(data,"filter.isotope.csv",row.names = FALSE)
    temp_rsd <- data.frame(data_rsd[-idx.filter,c(1:ncol(sample.tag))], temp_rsd)
     }
   filter.rsd.data <- RSD_filter(data_rsd)
-  write.csv(filter.rsd.data,"filter.rsd.csv",row.names = FALSE)
-
+  write.csv(filter.rsd.data,"data for sta.csv",row.names = FALSE)
+}
 cat("Draw mz VS RT plot...\n")
 #### mz VS RT plot
 png(file="mz.rt.png", width = 900, height = 800,res = 56*2)
