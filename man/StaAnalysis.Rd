@@ -5,7 +5,8 @@
 \title{StaAnalysis}
 \usage{
 StaAnalysis(data = NULL, sample.info = NULL, p.cutoff = 0.05,
-  group = c("case", "control"), heatmap = FALSE, splot = FALSE)
+  group = c("case", "control"), heatmap = FALSE, splot = FALSE,
+  pcorrect = TRUE)
 }
 \arguments{
 \item{data}{a dataframe include name,mz,rt and isotope columns,
@@ -21,6 +22,8 @@ class,batch and group columns.}
 \item{heatmap}{default is FALSE.}
 
 \item{splot}{default is FALSE.}
+
+\item{pcorrect}{default is TRUE.}
 }
 \value{
 All the results can be got form other functions and instruction.

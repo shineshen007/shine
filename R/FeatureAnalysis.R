@@ -126,10 +126,7 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
   data_rsd <- filter.isotope.data
   RSD_filter <- function(data_rsd){
     temp_rsd <- data_rsd[,-c(1:ncol(sample.tag))]
-    rsd <- sapply(seq(nrow(temp_rsd)), function(i){
-      SD <- sd(temp_rsd[i,])
-      MEAN<-sum(temp_rsd[i,])/ncol(qc)
-      rsd<-SD/MEAN})
+    rsd <- rsd.data
    idx.filter <- which(rsd >= 0.3)
    temp_rsd <- temp_rsd[-idx.filter,]
    temp_rsd <- data.frame(data_rsd[-idx.filter,c(1:ncol(sample.tag))], temp_rsd)

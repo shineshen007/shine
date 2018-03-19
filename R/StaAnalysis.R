@@ -77,7 +77,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
   cat("Draw PCA plot...\n")
   ###PCA
   png(file="PCA.png", width = 1200, height = 1000,res = 56*2)
-  temp<-data[,-c(1:4)]
+  temp<-data_pfc
   pca<-pca(t(temp), ncomp=2, scale=T)
   pcap<-plotIndiv(pca,
             group = sample.info$group,
@@ -115,7 +115,7 @@ StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
   cat("Draw Heatmap...\n")
   #### heatmap
   row.names<-data$name
-  x<-data[,-c(1:4)]
+  x<-data_pfc
   x<-x[,-c(1:ncol(qc))]
   y<-as.matrix(x)
   png(file="heatmap.png", width = 1600, height = 1200,res = 56*2)
