@@ -11,6 +11,7 @@
 #' make FALSE to TRUE.
 #' @param RSD.filter default is FALSE,if the percentage of qc rsd larger than 0.3
 #'  more than 0.7,almost after normalization,make FALSE to TRUE.
+#' @param zero.check default is TRUE.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -32,7 +33,8 @@
 #'FeatureAnalysis(data = "data.csv",sample.info = "sample.info.csv")
 #' }
 FeatureAnalysis <- function(data = NULL,sample.info = NULL,
-                            zero.filter = FALSE,RSD.filter = FALSE) {
+                            zero.filter = FALSE,RSD.filter = FALSE,
+                            zero.check = TRUE) {
   require(mixOmics)
   require(ggrepel);  require(gplots)
   cat("Analyzing data...\n")
@@ -53,6 +55,7 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
 
   sample.tag<-cbind(tags,sample)
 
+  if(zero.check){
   cat("Zero checking...\n")
   ###zero check
   zero_check <- function(data){
@@ -67,6 +70,7 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
   }
   zero.data <- zero_check(data)
   write.csv(zero.data,"zero.rows.csv",row.names = FALSE)
+}
 
   if(zero.filter){
   cat("Zero filtering...\n")
@@ -98,8 +102,8 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
   RSD <- function(qc){
     temp_rsd <- qc
     rsd <- sapply(seq(nrow(temp_rsd)), function(i){
-      SD <- sd(temp_rsd[i,])
-      MEAN<-sum(temp_rsd[i,])/ncol(qc)
+      SD <- sd(temp_rsd[i,],na.rm = TRUE)
+      MEAN<-sum(temp_rsd[i,],na.rm = TRUE)/ncol(qc)
       rsd<-SD/MEAN
     })
   }
@@ -109,6 +113,9 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
   cat("Draw QC distribution plot...\n")
 ### QC distribution plot
   png(file="QC distribution.png", width = 900, height = 800,res = 56*2)
+  d <- read.csv("rsd.csv")
+  percent <- round(sum(d$x<0.3)/nrow(d),3)
+  txt <- paste(percent*100,"%")
   scatter.data<-as.data.frame(rsd.data[order(rsd.data)])
   id<-c(1:nrow(qc))
   data_qc<- cbind(scatter.data,id)
@@ -116,6 +123,7 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
     xlab("Feature Index")+
     ylab("Relative Standard Deviation(RSD)")+
     geom_point(aes(colour=scatter.data<0.3))+
+    geom_text(data = d,aes(x= 400,y= 1.2,label= txt))
     geom_hline(aes(yintercept=0.3,linetype="dashed"))
   plot(qc_dis)
   dev.off()

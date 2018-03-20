@@ -5,7 +5,7 @@
 \title{FeatureAnalysis}
 \usage{
 FeatureAnalysis(data = NULL, sample.info = NULL, zero.filter = FALSE,
-  RSD.filter = FALSE)
+  RSD.filter = FALSE, zero.check = TRUE)
 }
 \arguments{
 \item{data}{a dataframe include name,mz,rt and isotope columns,
@@ -19,6 +19,8 @@ make FALSE to TRUE.}
 
 \item{RSD.filter}{default is FALSE,if the percentage of qc rsd larger than 0.3
 more than 0.7,almost after normalization,make FALSE to TRUE.}
+
+\item{zero.check}{default is TRUE.}
 }
 \value{
 All the results can be got form other functions and instruction.
