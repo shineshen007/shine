@@ -145,7 +145,7 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
 cat("Draw mz VS RT plot...\n")
 #### mz VS RT plot
 png(file="mz.rt.png", width = 900, height = 800,res = 56*2)
-col <- apply(data[,-c(1:4,ncol(qc))],1,median)
+col <- apply(sample,1,median)
 mr <- ggplot(data,aes(x=rt,y=mz,colour=log10(col)))+
   geom_point()+
   scale_color_gradient(low = 'lightgreen', high = 'darkred')+
