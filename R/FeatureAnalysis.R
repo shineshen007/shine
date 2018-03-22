@@ -100,11 +100,11 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
   cat("Calculate RSD...\n")
 ###calculate RSD
   RSD <- function(qc){
-    temp_rsd <- qc
-    rsd <- sapply(seq(nrow(temp_rsd)), function(i){
-      SD <- sd(temp_rsd[i,],na.rm = TRUE)
-      MEAN<-sum(temp_rsd[i,],na.rm = TRUE)/ncol(qc)
-      rsd<-SD/MEAN
+    qc_rsd <- qc
+    rsd_qc <- sapply(seq(nrow(qc_rsd)), function(i){
+      SD <- sd(qc_rsd[i,],na.rm = TRUE)
+      MEAN <- sum(qc_rsd[i,],na.rm = TRUE)/ncol(qc)
+      rsd_qc <- SD/MEAN
     })
   }
   rsd.data <- RSD(qc)##run function
@@ -131,13 +131,17 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
   if(RSD.filter){
   cat("RSD filtering...\n")
   ###RSD filter
-  data_rsd <- filter.isotope.data
-  RSD_filter <- function(data_rsd){
-    temp_rsd <- data_rsd[,-c(1:ncol(sample.tag))]
-    rsd <- rsd.data
-   idx.filter <- which(rsd >= 0.3)
-   temp_rsd <- temp_rsd[-idx.filter,]
-   temp_rsd <- data.frame(data_rsd[-idx.filter,c(1:ncol(sample.tag))], temp_rsd)
+    data_rsd <- filter.isotope.data
+    RSD_filter <- function(data_rsd){
+      temp_rsd <- data_rsd[,-c(1:ncol(sample.tag))]
+          rsd <- sapply(seq(nrow(temp_rsd)), function(i){
+          SD <- sd(temp_rsd[i,])
+          MEAN<-sum(temp_rsd[i,])/ncol(qc)
+          rsd<-SD/MEAN
+          })
+      idx.filter <- which(rsd >= 0.3)
+      temp_rsd <- temp_rsd[-idx.filter,]
+      temp_rsd <- data.frame(data_rsd[-idx.filter,c(1:ncol(sample.tag))], temp_rsd)
     }
   filter.rsd.data <- RSD_filter(data_rsd)
   write.csv(filter.rsd.data,"data for sta.csv",row.names = FALSE)
