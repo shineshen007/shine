@@ -140,8 +140,7 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
           rsd<-SD/MEAN
           })
       idx.filter <- which(rsd >= 0.3)
-      temp_rsd <- temp_rsd[-idx.filter,]
-      temp_rsd <- data.frame(data_rsd[-idx.filter,c(1:ncol(sample.tag))], temp_rsd)
+      rsd_data <- data_rsd[-idx.filter,]
     }
   filter.rsd.data <- RSD_filter(data_rsd)
   write.csv(filter.rsd.data,"data for sta.csv",row.names = FALSE)
