@@ -51,22 +51,19 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
   sample<-data[,match(sample.name,colnames(data))]
   qc<-data[,match(qc.name,colnames(data))]
 
-  tags <- data[,c(1:4)]
-
-  sample.tag<-cbind(tags,sample)
+  sample.qc<-cbind(sample,qc)
 
   if(zero.check){
   cat("Zero checking...\n")
   ###zero check
   zero_check <- function(data){
-    check_zero <- data[,-c(1:4)]
+    check_zero <- sample.qc
     numb.zero <- sapply(seq(nrow(check_zero)), function(i){
       check.num.zero <- sum(check_zero[i,]== 0)
     })
     numb.sample <- ncol(check_zero)
     idx.check <- which(numb.zero >= numb.sample/2)
     check_zero <- check_zero[idx.check,]
-    check_zero <- data.frame(data[idx.check,c(1:4)], check_zero)
   }
   zero.data <- zero_check(data)
   write.csv(zero.data,"zero.rows.csv",row.names = FALSE)
@@ -76,14 +73,13 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
   cat("Zero filtering...\n")
   ###zero filter
   zero_filter <- function(data){
-    temp_zero <- data[,-c(1:4)]
+    temp_zero <- sample.qc
     num.zero <- sapply(seq(nrow(temp_zero)), function(i){
       temp.num.zero <- sum(temp_zero[i,]== 0)
     })
     num.sample <- ncol(temp_zero)
     idx.filter <- which(num.zero >= num.sample/2)
     temp_zero <- temp_zero[-idx.filter,]
-    temp_zero <- data.frame(data[-idx.filter,c(1:4)], temp_zero)
   }
   data <- zero_filter(data)
   write.csv(data,"filter.zero.csv",row.names = FALSE)
@@ -133,7 +129,9 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
   ###RSD filter
     data_rsd <- filter.isotope.data
     RSD_filter <- function(data_rsd){
-      temp_rsd <- data_rsd[,-c(1:ncol(sample.tag))]
+      qc.rsd.name<-sample.info$sample.name[sample.info$class=="QC"]
+      qc_rsd<-data_rsd[,match(qc.rsd.name,colnames(data_rsd))]
+      temp_rsd <- qc_rsd
           rsd <- sapply(seq(nrow(temp_rsd)), function(i){
           SD <- sd(temp_rsd[i,])
           MEAN<-sum(temp_rsd[i,])/ncol(qc)
