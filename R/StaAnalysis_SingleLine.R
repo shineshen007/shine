@@ -191,6 +191,6 @@ StaAnalysis_SingleLine <- function(data = NULL,sample.info = NULL,p.cutoff = 0.0
   ##back origin work directory
   setwd(path)
 
-  cat("StaAnalysis is done\n")
+  cat("StaAnalysis_SingleLine is done\n")
 
 }
