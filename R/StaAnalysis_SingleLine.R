@@ -34,7 +34,7 @@
 #'StaAnalysis(data = "data.csv",sample.info = "sample.info.csv",group =c("S","P"),
 #'p.cutoff = 0.05)
 #' }
-StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
+StaAnalysis_SingleLine <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
                        group = c("case","control"),heatmap = FALSE,
                        splot = FALSE,pcorrect = TRUE){
   cat("Analyzing data...\n")

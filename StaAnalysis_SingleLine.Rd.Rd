@@ -2,8 +2,13 @@
 % Please edit documentation in R/StaAnalysis.R, R/StaAnalysis_SingleLine.R
 \name{StaAnalysis}
 \alias{StaAnalysis}
+\alias{StaAnalysis}
 \title{StaAnalysis}
 \usage{
+StaAnalysis(data = NULL, sample.info = NULL, p.cutoff = 0.05,
+  group = c("case", "control"), heatmap = FALSE, splot = FALSE,
+  pcorrect = TRUE)
+
 StaAnalysis(data = NULL, sample.info = NULL, p.cutoff = 0.05,
   group = c("case", "control"), heatmap = FALSE, splot = FALSE,
   pcorrect = TRUE)
@@ -25,14 +30,34 @@ class,batch and group columns.}
 
 \item{pcorrect}{default is TRUE.}
 
+\item{data}{a dataframe include name,mz,rt and isotope columns,
+the rest of all are sample and QC columns.}
 
+\item{sample.info}{a dataframe include sample.name,injection.order,
+class,batch and group columns.}
+
+\item{group}{group set.}
+
+\item{p.cutoff}{default is 0.05.}
+
+\item{heatmap}{default is FALSE.}
+
+\item{splot}{default is FALSE.}
+
+\item{pcorrect}{default is TRUE.}
 }
 \value{
+All the results can be got form other functions and instruction.
+
 All the results can be got form other functions and instruction.
 }
 \description{
 a function can generate PCA,PLSDA,heatmap,
 s plot of foldchange and volcano plot, also can calculate vip value.
+
+a function can generate PCA,PLSDA,heatmap,
+s plot of foldchange and single line volcano plot,
+also can calculate vip value.
 }
 \examples{
 \donttest{
@@ -49,9 +74,25 @@ write.csv(sample.info, "sample.info.csv", row.names = FALSE)
 StaAnalysis(data = "data.csv",sample.info = "sample.info.csv",group =c("S","P"),
 p.cutoff = 0.05)
 }
+\donttest{
+##---- Be sure the format of data and sample.info is correct!! ----
+data(data, package = "Shine")
+data(sample.info, package = "Shine")
+##create a folder for demo
+dir.create("demo")
+setwd("demo")
+# export the demo data as csv
+write.csv(data, "data.csv", row.names = FALSE)
+write.csv(sample.info, "sample.info.csv", row.names = FALSE)
+# Analysis process
+StaAnalysis(data = "data.csv",sample.info = "sample.info.csv",group =c("S","P"),
+p.cutoff = 0.05)
 }
 }
 \author{
+Shine Shen
+\email{qq951633542@163.com}
+
 Shine Shen
 \email{qq951633542@163.com}
 }
