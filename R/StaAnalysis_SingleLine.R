@@ -1,6 +1,7 @@
 #' @title StaAnalysis_SingleLine
 #' @description a function can generate PCA,PLSDA,heatmap,
-#' s plot of foldchange and single line volcano plot, also can calculate vip value.
+#' s plot of foldchange and single line volcano plot,
+#' also can calculate vip value.
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
 #' @param data a dataframe include name,mz,rt and isotope columns,
