@@ -3,6 +3,7 @@
 export(FeatureAnalysis)
 export(NAfilter)
 export(PathwayBarplot)
+export(PathwayMatch)
 export(StaAnalysis)
 export(StaAnalysis_SingleLine)
 export(UniqueCompound)
