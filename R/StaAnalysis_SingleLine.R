@@ -18,21 +18,6 @@
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
-#load the demo data
-#'data(data, package = "Shine")
-#'data(sample.info, package = "Shine")
-
-#'##create a folder for demo
-#'dir.create("demo")
-#'setwd("demo")
-
-#'# export the demo data as csv
-#'write.csv(data, "data.csv", row.names = FALSE)
-#'write.csv(sample.info, "sample.info.csv", row.names = FALSE)
-
-#'# Analysis process
-#'StaAnalysis(data = "data.csv",sample.info = "sample.info.csv",group =c("S","P"),
-#'p.cutoff = 0.05)
 #' }
 StaAnalysis_SingleLine <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
                        group = c("case","control"),heatmap = FALSE,
@@ -42,8 +27,8 @@ StaAnalysis_SingleLine <- function(data = NULL,sample.info = NULL,p.cutoff = 0.0
   require(ggrepel);  require(gplots)
   ##create a folder for analysis
   path <-getwd()
-  dir.create("StaAnalysis")
-  setwd("StaAnalysis")
+  dir.create("StaAnalysis_SingleLine")
+  setwd("StaAnalysis_SingleLine")
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
   qc.name<-sample.info$sample.name[sample.info$class=="QC"]
@@ -57,8 +42,9 @@ StaAnalysis_SingleLine <- function(data = NULL,sample.info = NULL,p.cutoff = 0.0
 
   class<- sample.info[,"group"]
 
-  group2.index <- which(class == group[1])
-  group1.index <- which(class == group[2])
+  group1.index <- which(class == group[1])
+  group2.index <- which(class == group[2])
+  sample.index <- which(sample.info$class=="Subject")
 
   cat("Calculate Foldchange...\n")
   fc <- apply(data_pfc,1,function(x) {
@@ -97,7 +83,7 @@ StaAnalysis_SingleLine <- function(data = NULL,sample.info = NULL,p.cutoff = 0.0
   datatm<-as.matrix(datat)
   XXt<-t(datatm)
   group_pls<-as.data.frame(sample.info$group)
-  YY<-group_pls[-c(1:ncol(qc)),]
+  YY<-group_pls[sample.index,]
   plsda.datatm <-plsda(XXt, YY, ncomp = 2)
   pls <- plotIndiv(plsda.datatm,
             ind.names = T,

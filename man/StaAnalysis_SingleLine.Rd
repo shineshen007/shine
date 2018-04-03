@@ -36,17 +36,6 @@ also can calculate vip value.
 \examples{
 \donttest{
 ##---- Be sure the format of data and sample.info is correct!! ----
-data(data, package = "Shine")
-data(sample.info, package = "Shine")
-##create a folder for demo
-dir.create("demo")
-setwd("demo")
-# export the demo data as csv
-write.csv(data, "data.csv", row.names = FALSE)
-write.csv(sample.info, "sample.info.csv", row.names = FALSE)
-# Analysis process
-StaAnalysis(data = "data.csv",sample.info = "sample.info.csv",group =c("S","P"),
-p.cutoff = 0.05)
 }
 }
 \author{
