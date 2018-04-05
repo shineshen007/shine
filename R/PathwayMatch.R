@@ -19,6 +19,7 @@ PathwayMatch<- function(data = NULL,sample.info = NULL,
                        group = c("case","control"),
                        pcorrect = TRUE,pathway.name = pathway){
   require(xlsx)
+  require(rJava);  require(xlsxjars)
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
 
