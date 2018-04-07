@@ -2,8 +2,7 @@
 #' @description a function can match differetiate metabolites in differentiate pathway.
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
-#' @param data a dataframe include name,mz,rt and isotope columns,
-#' the rest of all are sample and QC columns.
+#' @param data a dataframe from MetDNA named Quantitative.pathway.metabolite.result.
 #' @param sample.info a dataframe include sample.name,injection.order,
 #' class,batch and group columns.
 #' @param group group set.
@@ -31,7 +30,6 @@ PathwayMatch<- function(data = NULL,sample.info = NULL,
 
   group1.index <- which(class == group[1])
   group2.index <- which(class == group[2])
-  sample.index <- which(sample.info$class=="Subject")
 
   fc <- apply(sample,1,function(x) {
     median(x[group2.index]+0.1)/ median(x[group1.index]+0.1)
