@@ -24,7 +24,7 @@ StaAnalysis_SingleLine <- function(data = NULL,sample.info = NULL,p.cutoff = 0.0
                        splot = FALSE,pcorrect = TRUE){
   cat("Analyzing data...\n")
   require(mixOmics)
-  require(ggrepel);  require(gplots)
+  require(ggrepel);  require(pheatmap)
   ##create a folder for analysis
   path <-getwd()
   dir.create("StaAnalysis_SingleLine")
@@ -101,22 +101,17 @@ StaAnalysis_SingleLine <- function(data = NULL,sample.info = NULL,p.cutoff = 0.0
   if(heatmap){
   cat("Draw Heatmap...\n")
   #### heatmap
-  row.names<-data$name
-  x<-data_pfc
-  x<-x[,-c(1:ncol(qc))]
-  y<-as.matrix(x)
-  png(file="heatmap.png", width = 1600, height = 1200,res = 56*2)
-  hm <- heatmap.2(y,
-            col = redgreen,
-            keysize = 1,
-            xlab = "group",
-            ylab = "metabolites",
-            dendrogram = "column",
-            scale = "row",
-            density.info = "none",
-            trace = "none",
-            cexRow = 0.1,
-            cexCol = 0.5)
+    x<-sample
+    y<-as.matrix(x)
+    anno<-data.frame(sample.info[,-c(2:4)],row.names = T)
+    png(file="heatmap.png", width = 1600, height = 1200,res = 56*2)
+    hm <- pheatmap::pheatmap(y,color=colorRampPalette(c("green","black","red"))(1000),
+                             border_color=NA,
+                             scale = "row",
+                             fontsize=10,
+                             fontsize_row=8,
+                             fontsize_col=6,
+                             annotation=anno)
 
   dev.off()
 }
