@@ -17,8 +17,6 @@
 PathwayMatch<- function(data = NULL,sample.info = NULL,
                        group = c("case","control"),
                        pcorrect = TRUE,pathway.name = pathway){
-  require(xlsx)
-  require(rJava);  require(xlsxjars)
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
 
@@ -59,5 +57,5 @@ PathwayMatch<- function(data = NULL,sample.info = NULL,
   match<-data.frame(data.path$fc[match(i,y)])
   cyto<-cbind(path,match)
   colnames(cyto)<-c("pathway","metabolites","fc")
-  write.xlsx(cyto,"cytoscape.xlsx",row.names = F)
+  write.csv(cyto,"cytoscape.csv",row.names = F)
 }
