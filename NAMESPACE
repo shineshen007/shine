@@ -2,8 +2,12 @@
 
 export(FeatureAnalysis)
 export(NAfilter)
+export(PCA)
+export(PLSDA)
 export(PathwayBarplot)
 export(PathwayMatch)
 export(StaAnalysis)
 export(StaAnalysis_SingleLine)
 export(UniqueCompound)
+export(heatmap)
+export(volcano)
