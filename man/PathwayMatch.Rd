@@ -8,8 +8,7 @@ PathwayMatch(data = NULL, sample.info = NULL, group = c("case",
   "control"), pcorrect = TRUE, pathway.name = pathway)
 }
 \arguments{
-\item{data}{a dataframe include name,mz,rt and isotope columns,
-the rest of all are sample and QC columns.}
+\item{data}{a dataframe from MetDNA named Quantitative.pathway.metabolite.result.}
 
 \item{sample.info}{a dataframe include sample.name,injection.order,
 class,batch and group columns.}
