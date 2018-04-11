@@ -12,7 +12,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-Heatmap<- function(data = NULL,sample.info = NULL){
+Heatmap <- function(data = NULL,sample.info = NULL){
   require(pheatmap)
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]

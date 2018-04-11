@@ -17,7 +17,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-PLSDA<- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
+PLSDA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
                  both = FALSE,neither = TRUE){
   require(mixOmics)
   ###data preparation

@@ -45,16 +45,16 @@
 #'
 #' @format A list contain pathway information:
 #' \describe{
-#'   \item{hsa}{ID}
+#'   \item{hsa.kegg.pathway}{ID of all compounds in hsa.kegg.pathway}
 #' }
-"h"
+"hsa.kegg.pathway"
 #' pathway data for mouse
 #'
 #' A dataset containing the pathway information:
 #'
 #' @format A list contain pathway information:
 #' \describe{
-#'   \item{mmu}{ID}
+#'   \item{mmu.kegg.pathway}{ID of all compounds in mmu.kegg.pathway}
 #' }
-"m"
+"mmu.kegg.pathway"
 

@@ -16,7 +16,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-PCA<- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
+PCA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
                both = FALSE,neither = TRUE){
   require(mixOmics)
   ###data preparation

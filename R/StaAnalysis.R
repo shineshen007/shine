@@ -17,8 +17,23 @@
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
+#' #' #' #load the demo data
+#' data(data, package = "Shine")
+#' data(sample.info, package = "Shine")
+#'
+#' ##create a folder for Shine demo
+#' dir.create("Demo for Shine")
+#' setwd("Demo for Shine")
+#'
+#' # export the demo data as csv
+#' write.csv(data, "data.csv", row.names = FALSE)
+#' write.csv(sample.info, "sample.info.csv", row.names = FALSE)
+#'
+#' #run StaAnalysis
+#' StaAnalysis(data = data,sample.info = sample.info,group = c("G","M"),
+#' pcorrect = F)
 #' }
-StaAnalysis<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
+StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
                        group = c("case","control"),heatmap = FALSE,
                        splot = FALSE,pcorrect = TRUE){
   cat("Analyzing data...\n")
