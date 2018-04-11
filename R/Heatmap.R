@@ -1,4 +1,4 @@
-#' @title heatmap
+#' @title Heatmap
 #' @description a function can generate heatmap
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
@@ -12,7 +12,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-heatmap<- function(data = NULL,sample.info = NULL){
+Heatmap<- function(data = NULL,sample.info = NULL){
   require(pheatmap)
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
