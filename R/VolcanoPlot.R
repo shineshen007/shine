@@ -25,8 +25,13 @@ volcano <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
   require(ggrepel);  require(gplots)
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
+  qc.name<-sample.info$sample.name[sample.info$class=="QC"]
 
   sample<-data[,match(sample.name,colnames(data))]
+  qc<-data[,match(qc.name,colnames(data))]
+
+  data_pfc<- as.matrix(cbind(qc,sample))
+
   name <- as.character(data[,"name"])
 
   class<- sample.info[,"group"]
@@ -35,14 +40,14 @@ volcano <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
   group2.index <- which(class == group[2])
 
   cat("Calculate Foldchange...\n")
-  fc <- apply(sample,1,function(x) {
+  fc <- apply(data_pfc,1,function(x) {
     median(x[group2.index]+0.1)/ median(x[group1.index]+0.1)
   })
 
   cat("Calculate P value...\n")
-  t.test <- apply(sample, 1, function(x) {
-        t.test(x[group1.index], x[group2.index])
-      })
+  t.test <- apply(data_pfc, 1, function(x) {
+    t.test(x[group1.index], x[group2.index])
+  })
 
   p <- unlist(lapply(t.test, function(x)
     x$p.value))
