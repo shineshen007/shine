@@ -53,6 +53,7 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
   sample.index <- which(sample.info$class=="Subject")
 
   cat("Calculate Foldchange...\n")
+  #must use the data_pfc,because the index include the qc in sampl.info
   fc <- apply(data_pfc,1,function(x) {
     median(x[group2.index]+0.1)/ median(x[group1.index]+0.1)
   })
