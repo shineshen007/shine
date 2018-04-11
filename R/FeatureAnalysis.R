@@ -126,8 +126,8 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
       qc_rsd<-data_rsd[,match(qc.rsd.name,colnames(data_rsd))]
       temp_rsd <- qc_rsd
       rsd <- sapply(seq(nrow(temp_rsd)), function(i){
-        SD <- sd(temp_rsd[i,])
-        MEAN<-sum(temp_rsd[i,])/ncol(qc)
+        SD <- sd(temp_rsd[i,],na.rm = TRUE)
+        MEAN<-sum(temp_rsd[i,],na.rm = TRUE)/ncol(qc)
         rsd<-SD/MEAN
       })
       idx.filter <- which(rsd >= 0.3)
