@@ -18,8 +18,8 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 volcano<- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
-                       group = c("case","control"),pcorrect = TRUE,singleline = FALSE,
-                   doubleline = TRUE){
+                       group = c("case","control"),pcorrect = TRUE,singleline = TRUE,
+                   doubleline = FALSE){
   cat("Analyzing data...\n")
   require(mixOmics)
   require(ggrepel);  require(gplots)

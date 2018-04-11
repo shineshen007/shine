@@ -5,8 +5,8 @@
 \title{volcano}
 \usage{
 volcano(data = NULL, sample.info = NULL, p.cutoff = 0.05,
-  group = c("case", "control"), pcorrect = TRUE, singleline = FALSE,
-  doubleline = TRUE)
+  group = c("case", "control"), pcorrect = TRUE, singleline = TRUE,
+  doubleline = FALSE)
 }
 \arguments{
 \item{data}{a dataframe include name,mz,rt and isotope columns,
