@@ -14,10 +14,6 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' library(Shine)
-#' data("hsa.kegg.pathway",package="Shine")
-#' data("mmu.kegg.pathway",package="Shine")
-#' load(h)
-#' load(m)
 #' pathway<-hsa.kegg.pathway$'Cysteine and methionine metabolism'
 #' PathwayMatch(data = data,sample.info = sample.info,group = c("S","P"),
 #' pcorrect = F,pathway.name = "Cysteine and methionine metabolism")
