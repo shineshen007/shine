@@ -32,17 +32,9 @@ also can filter isotope,rsd and zero value.
 \examples{
 \donttest{
 ##---- Be sure the format of data and sample.info is correct!! ----
-#' #load the demo data
-data(data, package = "Shine")
-data(sample.info, package = "Shine")
-
 ##create a folder for Shine demo
 dir.create("Demo for Shine")
 setwd("Demo for Shine")
-
-# export the demo data as csv
-write.csv(data, "data.csv", row.names = FALSE)
-write.csv(sample.info, "sample.info.csv", row.names = FALSE)
 
 #run FeatureAnalysis
 FeatureAnalysis(data = data,sample.info = sample.info,RSD.filter = T,
