@@ -22,11 +22,13 @@ Heatmap <- function(data = NULL,sample.info = NULL){
   #### heatmap
   x<-sample
   y<-as.matrix(x)
+  bk = unique(c(seq(-2,2, 0.04)))
   anno<-data.frame(sample.info[,-c(2:4)],row.names = T)
   png(file="heatmap.png", width = 1600, height = 1200,res = 56*2)
-  hm <- pheatmap::pheatmap(y,color=colorRampPalette(c("green","black","red"))(1000),
+  hm <- pheatmap::pheatmap(y,color=colorRampPalette(c("green","white","red"))(100),
                            border_color=NA,
                            scale = "row",
+                           breaks = bk,
                            fontsize=10,
                            fontsize_row=8,
                            fontsize_col=6,
