@@ -36,8 +36,17 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
   dir.create("FeatureAnalysis")
   setwd("FeatureAnalysis")
 
-  ###data preparation
+  cat("Isotope filtering...\n")
+  ###remove [M+n],\\ make [] lose the ability of function，
+  isotope_filter<-function(data){
+    temp<- data[c(grep("\\[M\\]",data$isotopes),
+                  which(data$isotopes == "")),]
+  }
+  filter.isotope.data <-isotope_filter(data)
+  write.csv(filter.isotope.data,"filter.isotope.csv",row.names = FALSE)
 
+  ###data preparation
+  data<-filter.isotope.data
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
   qc.name<-sample.info$sample.name[sample.info$class=="QC"]
 
@@ -66,25 +75,18 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
     cat("Zero filtering...\n")
     ###zero filter
     zero_filter <- function(data){
-      temp_zero <- sample.qc
+      temp_zero <- data[,-c(1:4)]
       num.zero <- sapply(seq(nrow(temp_zero)), function(i){
         temp.num.zero <- sum(temp_zero[i,]== 0)
       })
       num.sample <- ncol(temp_zero)
       idx.filter <- which(num.zero >= num.sample/2)
       temp_zero <- temp_zero[-idx.filter,]
+      temp <- data.frame(data[-idx.filter,c(1:4)], temp_zero)
     }
-    data <- zero_filter(data)
+    data_zero_filter <- zero_filter(data)
     write.csv(data,"filter.zero.csv",row.names = FALSE)
   }
-  cat("Isotope filtering...\n")
-  ###remove [M+n],\\ make [] lose the ability of function，
-  isotope_filter<-function(data){
-    temp<- data[c(grep("\\[M\\]",data$isotopes),
-                  which(data$isotopes == "")),]
-  }
-  filter.isotope.data <-isotope_filter(data)
-  write.csv(filter.isotope.data,"filter.isotope.csv",row.names = FALSE)
 
   cat("Calculate RSD...\n")
   ###calculate RSD
@@ -120,7 +122,7 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
   if(RSD.filter){
     cat("RSD filtering...\n")
     ###RSD filter
-    data_rsd <- filter.isotope.data
+    data_rsd <- data_zero_filter
     RSD_filter <- function(data_rsd){
       qc.rsd.name<-sample.info$sample.name[sample.info$class=="QC"]
       qc_rsd<-data_rsd[,match(qc.rsd.name,colnames(data_rsd))]
