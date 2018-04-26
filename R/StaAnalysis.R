@@ -29,8 +29,14 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
                        group = c("case","control"),heatmap = FALSE,
                        splot = FALSE,pcorrect = TRUE){
   cat("Analyzing data...\n")
-  require(mixOmics)
+  require(mixOmics);require(data.table)
   require(ggrepel);  require(pheatmap)
+
+  cat("Import data...\n")
+  data <- fread("data for sta.csv")
+  sample.info <- read.csv("sample.info.csv")
+  data<-as.data.frame(data)
+
   ##create a folder for analysis
   path <-getwd()
   dir.create("StaAnalysis")
