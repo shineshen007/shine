@@ -28,8 +28,13 @@
 FeatureAnalysis <- function(data = NULL,sample.info = NULL,
                             zero.filter = FALSE,RSD.filter = FALSE,
                             zero.check = TRUE) {
-  require(mixOmics)
+  require(data.table)
   require(ggrepel);  require(gplots)
+  cat("Import data...\n")
+  data <- fread("data.csv")
+  sample.info <- read.csv("sample.info.csv")
+  data<-as.data.frame(data)
+
   cat("Analyzing data...\n")
   ##create a folder for analysis
   path <-getwd()
