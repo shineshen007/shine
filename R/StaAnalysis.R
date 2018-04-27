@@ -34,8 +34,9 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
 
   cat("Import data...\n")
   data <- fread("data for sta.csv")
+  data <- setDF(data)
   sample.info <- read.csv("sample.info.csv")
-  data<-as.data.frame(data)
+
 
   ##create a folder for analysis
   path <-getwd()

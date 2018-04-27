@@ -32,8 +32,8 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
   require(ggrepel);  require(gplots)
   cat("Import data...\n")
   data <- fread("data.csv")
+  data <- setDF(data)
   sample.info <- read.csv("sample.info.csv")
-  data<-as.data.frame(data)
 
   cat("Analyzing data...\n")
   ##create a folder for analysis
