@@ -20,14 +20,13 @@
 #' ##create a folder for Shine demo
 #' dir.create("Demo for Shine")
 #' setwd("Demo for Shine")
-#' #load the demo data
+#' ##load the demo data
 #' data(data, package = "Shine")
 #' data(sample.info, package = "Shine")
-
-#' # export the demo data as csv
+#' ##export the demo data as csv
 #' write.csv(data, "data.csv", row.names = FALSE)
-#' write.csv(sample.information, "sample.info.csv", row.names = FALSE)
-#' #run StaAnalysis
+#' write.csv(sample.info, "sample.info.csv", row.names = FALSE)
+#' ##run StaAnalysis
 #' StaAnalysis(data = data,sample.info = sample.info,group = c("G","M"),
 #' pcorrect = F)
 #' }
