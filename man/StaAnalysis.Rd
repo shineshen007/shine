@@ -38,7 +38,7 @@ s plot of foldchange and volcano plot, also can calculate vip value.
 ##create a folder for Shine demo
 dir.create("Demo for Shine")
 setwd("Demo for Shine")
-
+#load the demo data
 #run StaAnalysis
 StaAnalysis(data = data,sample.info = sample.info,group = c("G","M"),
 pcorrect = F)

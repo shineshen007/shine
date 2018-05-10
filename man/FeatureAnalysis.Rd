@@ -35,7 +35,6 @@ also can filter isotope,rsd and zero value.
 ##create a folder for Shine demo
 dir.create("Demo for Shine")
 setwd("Demo for Shine")
-
 #run FeatureAnalysis
 FeatureAnalysis(data = data,sample.info = sample.info,RSD.filter = T,
 zero.check = F)
