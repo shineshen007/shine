@@ -23,10 +23,9 @@
 #' #load the demo data
 #' data(data, package = "Shine")
 #' data(sample.info, package = "Shine")
-
 #' # export the demo data as csv
 #' write.csv(data, "data.csv", row.names = FALSE)
-#' write.csv(sample.information, "sample.info.csv", row.names = FALSE)
+#' write.csv(sample.info, "sample.info.csv", row.names = FALSE)
 #' #run FeatureAnalysis
 #' FeatureAnalysis(data = data,sample.info = sample.info,RSD.filter = T,
 #' zero.check = F)
