@@ -95,7 +95,9 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
       temp <- data.frame(data[-idx.filter,c(1:4)], temp_zero)
     }
     data_zero_filter <- zero_filter(data)
+    data <- data_zero_filter
     write.csv(data,"filter.zero.csv",row.names = FALSE)
+
   }
 
   cat("Calculate RSD...\n")
@@ -132,7 +134,7 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
   if(RSD.filter){
     cat("RSD filtering...\n")
     ###RSD filter
-    data_rsd <- data_zero_filter
+    data_rsd <- data
     RSD_filter <- function(data_rsd){
       qc.rsd.name<-sample.info$sample.name[sample.info$class=="QC"]
       qc_rsd<-data_rsd[,match(qc.rsd.name,colnames(data_rsd))]
