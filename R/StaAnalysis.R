@@ -12,6 +12,8 @@
 #' @param heatmap default is FALSE.
 #' @param splot default is FALSE.
 #' @param pcorrect default is TRUE.
+#' @param t.test defalt is TRUE.
+#' @param wilcox.test default is FALSE.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -32,7 +34,7 @@
 #' }
 StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
                        group = c("case","control"),heatmap = FALSE,
-                       splot = FALSE,pcorrect = TRUE){
+                       splot = FALSE,t.test =TRUE,wilcox.test = FALSE,pcorrect = TRUE){
   cat("Analyzing data...\n")
   require(mixOmics);require(data.table)
   require(ggrepel);  require(pheatmap)
@@ -71,12 +73,22 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
   })
 
   cat("Calculate P value...\n")
+  if(t.test){
   t.test <- apply(data_pfc, 1, function(x) {
         t.test(x[group1.index], x[group2.index])
       })
-
   p <- unlist(lapply(t.test, function(x)
     x$p.value))
+  }
+
+  if(wilcox.test){
+    wilcox.test <- apply(data_pfc, 1, function(x) {
+      wilcox.test(x[group1.index], x[group2.index])
+    })
+    p <- unlist(lapply(wilcox.test, function(x)
+      x$p.value))
+  }
+
   if(pcorrect){
   p <- p.adjust(p = p, method = "fdr",n=length(p))
 }

@@ -6,7 +6,7 @@
 \usage{
 StaAnalysis(data = NULL, sample.info = NULL, p.cutoff = 0.05,
   group = c("case", "control"), heatmap = FALSE, splot = FALSE,
-  pcorrect = TRUE)
+  t.test = TRUE, wilcox.test = FALSE, pcorrect = TRUE)
 }
 \arguments{
 \item{data}{a dataframe include name,mz,rt and isotope columns,
@@ -22,6 +22,10 @@ class,batch and group columns.}
 \item{heatmap}{default is FALSE.}
 
 \item{splot}{default is FALSE.}
+
+\item{t.test}{defalt is TRUE.}
+
+\item{wilcox.test}{default is FALSE.}
 
 \item{pcorrect}{default is TRUE.}
 }
@@ -44,7 +48,7 @@ data(sample.info, package = "Shine")
 ##export the demo data as csv
 write.csv(data, "data.csv", row.names = FALSE)
 write.csv(sample.info, "sample.info.csv", row.names = FALSE)
-#run StaAnalysis
+##run StaAnalysis
 StaAnalysis(data = data,sample.info = sample.info,group = c("G","M"),
 pcorrect = F)
 }
