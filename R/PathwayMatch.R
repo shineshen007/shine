@@ -21,6 +21,11 @@
 PathwayMatch <- function(data = NULL,sample.info = NULL,
                        group = c("case","control"),
                        pcorrect = TRUE,pathway.name = pathway){
+  require(data.table)
+  cat("Import data...\n")
+  data <- fread("data.csv")
+  data <- setDF(data)
+  sample.info <- read.csv("sample.info.csv")
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
 
