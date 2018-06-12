@@ -20,6 +20,11 @@
 volcano <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
                        group = c("case","control"),pcorrect = TRUE,singleline = TRUE,
                    doubleline = FALSE){
+  require(data.table)
+  cat("Import data...\n")
+  data <- fread("data.csv")
+  data <- setDF(data)
+  sample.info <- read.csv("sample.info.csv")
   cat("Analyzing data...\n")
   require(mixOmics)
   require(ggrepel);  require(gplots)

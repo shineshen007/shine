@@ -20,6 +20,11 @@
 PLSDA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
                  both = FALSE,neither = TRUE){
   require(mixOmics)
+  require(data.table)
+  cat("Import data...\n")
+  data <- fread("data.csv")
+  data <- setDF(data)
+  sample.info <- read.csv("sample.info.csv")
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
   sample<-data[,match(sample.name,colnames(data))]
