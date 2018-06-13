@@ -6,7 +6,7 @@
 \usage{
 volcano(data = NULL, sample.info = NULL, p.cutoff = 0.05,
   group = c("case", "control"), pcorrect = TRUE, singleline = TRUE,
-  doubleline = FALSE)
+  doubleline = FALSE, unitest = c("t.test", "wilcox.test"))
 }
 \arguments{
 \item{data}{a dataframe include name,mz,rt and isotope columns,
@@ -24,6 +24,8 @@ class,batch and group columns.}
 \item{singleline}{default is FALSE.}
 
 \item{doubleline}{default is TRUE.}
+
+\item{unitest}{t.test or wilcox.test.}
 }
 \value{
 All the results can be got form other functions and instruction.
