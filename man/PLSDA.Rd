@@ -21,6 +21,8 @@ class,batch and group columns.}
 \item{both}{default is FALSE.}
 
 \item{neither}{default is TRUE.}
+
+\item{group}{group info.}
 }
 \value{
 All the results can be got form other functions and instruction.
