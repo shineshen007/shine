@@ -5,7 +5,7 @@
 \title{StaAnalysis}
 \usage{
 PLSDA(data = NULL, sample.info = NULL, ind = FALSE, ellipse = FALSE,
-  both = FALSE, neither = TRUE)
+  both = FALSE, neither = TRUE, group = c("case", "control"))
 }
 \arguments{
 \item{data}{a dataframe include name,mz,rt and isotope columns,

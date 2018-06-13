@@ -6,7 +6,7 @@
 \usage{
 StaAnalysis(data = NULL, sample.info = NULL, p.cutoff = 0.05,
   group = c("case", "control"), heatmap = FALSE, splot = FALSE,
-  t.test = TRUE, wilcox.test = FALSE, pcorrect = TRUE)
+  unitest = c("t.test", "wilcox.test"), pcorrect = TRUE)
 }
 \arguments{
 \item{data}{a dataframe include name,mz,rt and isotope columns,
@@ -23,9 +23,7 @@ class,batch and group columns.}
 
 \item{splot}{default is FALSE.}
 
-\item{t.test}{defalt is TRUE.}
-
-\item{wilcox.test}{default is FALSE.}
+\item{unitest}{t.test or wilcox.test.}
 
 \item{pcorrect}{default is TRUE.}
 }
