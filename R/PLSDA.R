@@ -11,6 +11,7 @@
 #' @param ellipse default is FALSE.
 #' @param both default is FALSE.
 #' @param neither default is TRUE.
+#' @param group group info.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
