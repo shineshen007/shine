@@ -11,6 +11,7 @@
 #' @param pcorrect default is TRUE.
 #' @param doubleline default is TRUE.
 #' @param singleline default is FALSE.
+#' @param unitest t.test or wilcox.test.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -18,8 +19,9 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 volcano <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
-                       group = c("case","control"),pcorrect = TRUE,singleline = TRUE,
-                   doubleline = FALSE){
+                       group = c("case","control"),pcorrect = TRUE,
+                    singleline = TRUE,
+                   doubleline = FALSE,unitest =c("t.test","wilcox.test")){
   require(data.table)
   cat("Import data...\n")
   data <- fread("data.csv")
@@ -51,11 +53,11 @@ volcano <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
   })
 
   cat("Calculate P value...\n")
-  t.test <- apply(data_pfc, 1, function(x) {
-    t.test(x[group1.index], x[group2.index])
+  test <- apply(data_pfc, 1, function(x) {
+    unitest(x[group1.index], x[group2.index])
   })
 
-  p <- unlist(lapply(t.test, function(x)
+  p <- unlist(lapply(test, function(x)
     x$p.value))
   if(pcorrect){
   p <- p.adjust(p = p, method = "fdr",n=length(p))
