@@ -18,18 +18,21 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 PLSDA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
-                 both = FALSE,neither = TRUE){
+                 both = FALSE,neither = TRUE,group = c("case","control")){
   require(mixOmics)
   require(data.table)
   cat("Import data...\n")
   data <- fread("data.csv")
   data <- setDF(data)
   sample.info <- read.csv("sample.info.csv")
+  class<- sample.info[,"group"]
+
+  group1.index <- which(class == group[1])
+  group2.index <- which(class == group[2])
+  sample.info<-sample.info[c(group1.index,group2.index),]
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
   sample<-data[,match(sample.name,colnames(data))]
-
-  class<- sample.info[,"group"]
 
   sample.index <- which(sample.info$class=="Subject")
 
