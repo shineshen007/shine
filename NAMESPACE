@@ -2,6 +2,7 @@
 
 export(FeatureAnalysis)
 export(Heatmap)
+export(ISboxplot)
 export(IsotopeFilter)
 export(NAfilter)
 export(PCA)
