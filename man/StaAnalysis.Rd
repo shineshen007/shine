@@ -5,8 +5,8 @@
 \title{StaAnalysis}
 \usage{
 StaAnalysis(data = NULL, sample.info = NULL, p.cutoff = 0.05,
-  group = c("case", "control"), heatmap = FALSE, splot = FALSE,
-  unitest = c("t.test", "wilcox.test"), pcorrect = TRUE)
+  group = c("case", "control"), splot = FALSE, unitest = c("t.test",
+  "wilcox.test"), pcorrect = TRUE)
 }
 \arguments{
 \item{data}{a dataframe include name,mz,rt and isotope columns,
@@ -18,8 +18,6 @@ class,batch and group columns.}
 \item{p.cutoff}{default is 0.05.}
 
 \item{group}{group set.}
-
-\item{heatmap}{default is FALSE.}
 
 \item{splot}{default is FALSE.}
 

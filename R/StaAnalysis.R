@@ -9,7 +9,6 @@
 #' class,batch and group columns.
 #' @param group group set.
 #' @param p.cutoff default is 0.05.
-#' @param heatmap default is FALSE.
 #' @param splot default is FALSE.
 #' @param pcorrect default is TRUE.
 #' @param unitest t.test or wilcox.test.
@@ -32,7 +31,7 @@
 #' pcorrect = F)
 #' }
 StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
-                       group = c("case","control"),heatmap = FALSE,
+                       group = c("case","control"),
                        splot = FALSE,unitest =c("t.test","wilcox.test"),pcorrect = TRUE){
   cat("Analyzing data...\n")
   require(mixOmics);require(data.table)
@@ -119,25 +118,6 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
   vip<-vip(plsda.datatm)
   write.csv(vip,"VIP.csv",row.names = F)
 
-  if(heatmap){
-  cat("Draw Heatmap...\n")
-  #### heatmap
-    x<-sample
-    y<-as.matrix(x)
-    bk = unique(c(seq(-2,2, 0.04)))
-    anno<-data.frame(sample.info[,-c(2:4)],row.names = T)
-    png(file="heatmap.png", width = 1600, height = 1200,res = 56*2)
-    hm <- pheatmap::pheatmap(y,color=colorRampPalette(c("green","black","red"))(1000),
-                             border_color=NA,
-                             scale = "row",
-                             breaks = bk,
-                             fontsize=10,
-                             fontsize_row=8,
-                             fontsize_col=6,
-                             annotation=anno)
-
-  dev.off()
-}
   cat("Draw Volcano plot...\n")
   #### volcano plot(double line)###data only contain 3 columns:name,p,fc
   f<-as.data.frame(fc)
