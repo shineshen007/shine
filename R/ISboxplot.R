@@ -19,5 +19,6 @@ ISboxplot <- function(sample = NULL){
   gplot <- ggboxplot(data = data1,x="mz",y="scale(values)",color = "mz",
                   palette = "jco",add = "jitter",xlab = "Internal Standard",
                   ylab = "Peak Area",title = "Boxplot of Internal Standard")
+  plot(gplot)
   dev.off()
 }
