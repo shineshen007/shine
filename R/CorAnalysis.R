@@ -10,7 +10,7 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 CorAnalysis<-function(data){
-  require(corrplot);require(corrplot);require(corrplot)
+  require(corrplot);require(PerformanceAnalytics)
   data<-read.csv("data.csv")
   core<-data[,-1]
   cor<-cor(core)
