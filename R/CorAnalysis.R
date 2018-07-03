@@ -16,7 +16,8 @@ CorAnalysis<-function(data){
   cor<-cor(core)
   #co plot
   png(file="cor plot.png", width = 1200, height = 1000,res = 56*2)
-  corrplot(cor,type="upper", order="hclust", tl.col="black", tl.srt=45,tl.cex = 0.8)
+  corrplot(cor,type="upper", order="hclust", tl.col="black", tl.srt=45,tl.cex = 0.8,
+           addCoefasPercent = TRUE,cl.lim = c(-100,100),addCoef.col = "black")
   dev.off()
   #chart plot
   png(file="chart plot.png", width = 1200, height = 1000,res = 56*2)
