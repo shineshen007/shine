@@ -20,7 +20,7 @@
 #' }
 volcano <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
                        group = c("case","control"),pcorrect = TRUE,
-                    singleline = TRUE,
+                    singleline = TRUE,xlim=c(-5,5),
                    doubleline = FALSE,unitest =c("t.test","wilcox.test")){
   require(data.table)
   cat("Import data...\n")
@@ -88,7 +88,7 @@ volcano <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
     labs(x="log2 (Fold change)",
          y="-log10 (p-value)",
          title="Volcano plot")+
-    xlim(c(-5, 5))+
+    xlim(xlim)+
     geom_text_repel(
       data = subset(vol, p < p.cutoff&abs(log2(fc))>1),###fc的绝对值大于1
       max.iter = 100000,
@@ -116,7 +116,7 @@ volcano <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
       labs(x="log2 (Fold change)",
            y="-log10 (p-value)",
            title="Volcano plot")+
-      xlim(c(-5, 5))+
+      xlim(xlim)+
       geom_text_repel(
         data = subset(vol, p < p.cutoff),###fc的绝对值大于1
         max.iter = 100000,
