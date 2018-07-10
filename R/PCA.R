@@ -48,7 +48,7 @@ PCA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
             ind.names = T,###label
             ellipse = F,###confidence interval
             legend =TRUE,
-            style="ggplot2",
+            style="graphics",
             title = 'PCA')
 
   dev.off()
@@ -63,7 +63,7 @@ PCA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
                     ind.names = F,###label
                     ellipse = T,###confidence interval
                     legend =TRUE,
-                    style="ggplot2",
+                    style="graphics",
                     title = 'PCA')
 
     dev.off()
@@ -78,7 +78,7 @@ PCA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
                     ind.names = T,###label
                     ellipse = T,###confidence interval
                     legend =TRUE,
-                    style="ggplot2",
+                    style="graphics",
                     title = 'PCA')
 
     dev.off()
@@ -93,7 +93,7 @@ PCA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
                     ind.names = F,###label
                     ellipse = F,###confidence interval
                     legend =TRUE,
-                    style="ggplot2",
+                    style="graphics",
                     title = 'PCA')
 
     dev.off()

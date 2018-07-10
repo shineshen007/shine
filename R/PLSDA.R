@@ -51,7 +51,7 @@ PLSDA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
             ind.names = T,
             ellipse = F,
             legend =TRUE,
-            style="ggplot2",
+            style="graphics",
             title = 'PLS-DA')
   dev.off()
   }
@@ -68,7 +68,7 @@ PLSDA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
                      ind.names = F,
                      ellipse = T,
                      legend =TRUE,
-                     style="ggplot2",
+                     style="graphics",
                      title = 'PLS-DA')
     dev.off()
   }
@@ -85,7 +85,7 @@ PLSDA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
                      ind.names = T,
                      ellipse = T,
                      legend =TRUE,
-                     style="ggplot2",
+                     style="graphics",
                      title = 'PLS-DA')
     dev.off()
   }
@@ -102,7 +102,7 @@ PLSDA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
                      ind.names = F,
                      ellipse = F,
                      legend =TRUE,
-                     style="ggplot2",
+                     style="graphics",
                      title = 'PLS-DA')
     dev.off()
   }
