@@ -4,10 +4,9 @@
 \alias{volcano}
 \title{volcano}
 \usage{
-volcano(data = NULL, sample.info = NULL, p.cutoff = 0.05,
-  group = c("case", "control"), pcorrect = TRUE, singleline = TRUE,
-  xlim = c(-5, 5), doubleline = FALSE, unitest = c("t.test",
-  "wilcox.test"))
+volcano(data = NULL, sample.info = NULL, p.cutoff = 0, group = c("case",
+  "control"), pcorrect = TRUE, singleline = TRUE, xlim = c(-5, 5),
+  doubleline = FALSE, unitest = c("t.test", "wilcox.test"))
 }
 \arguments{
 \item{data}{a dataframe include name,mz,rt and isotope columns,
@@ -23,6 +22,8 @@ class,batch and group columns.}
 \item{pcorrect}{default is TRUE.}
 
 \item{singleline}{default is FALSE.}
+
+\item{xlim}{xlim}
 
 \item{doubleline}{default is TRUE.}
 

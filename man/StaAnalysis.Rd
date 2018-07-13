@@ -4,7 +4,7 @@
 \alias{StaAnalysis}
 \title{StaAnalysis}
 \usage{
-StaAnalysis(data = NULL, sample.info = NULL, p.cutoff = 0.05,
+StaAnalysis(data = NULL, sample.info = NULL, p.cutoff = 0,
   group = c("case", "control"), splot = FALSE, unitest = c("t.test",
   "wilcox.test"), pcorrect = TRUE)
 }
