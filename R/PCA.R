@@ -49,6 +49,7 @@ PCA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
             ellipse = F,###confidence interval
             legend =TRUE,
             style="graphics",
+            abline = T,
             title = 'PCA')
 
   dev.off()
@@ -64,6 +65,7 @@ PCA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
                     ellipse = T,###confidence interval
                     legend =TRUE,
                     style="graphics",
+                    abline = T,
                     title = 'PCA')
 
     dev.off()
@@ -79,6 +81,7 @@ PCA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
                     ellipse = T,###confidence interval
                     legend =TRUE,
                     style="graphics",
+                    abline = T,
                     title = 'PCA')
 
     dev.off()
@@ -94,6 +97,7 @@ PCA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
                     ellipse = F,###confidence interval
                     legend =TRUE,
                     style="graphics",
+                    abline = T,
                     title = 'PCA')
 
     dev.off()
