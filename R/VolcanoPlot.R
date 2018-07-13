@@ -7,6 +7,7 @@
 #' @param sample.info a dataframe include sample.name,injection.order,
 #' class,batch and group columns.
 #' @param group group set.
+#' @param xlim xlim
 #' @param p.cutoff default is 0.05.
 #' @param pcorrect default is TRUE.
 #' @param doubleline default is TRUE.
@@ -82,8 +83,8 @@ volcano <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
   volc1 <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
     geom_point(aes(color = Significant)) +
     scale_color_manual(values = c("green", "grey","red")) +
-    annotate("text",x=xlim[2]-1,y=quantile(-log10(p)),label=group2)+
-    annotate("text",x=xlim[2]-1.5,y=quantile(-log10(p)),label=group1)+
+    annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9),label=group2)+
+    annotate("text",x=xlim[2]-1.5,y=quantile(-log10(p),0.9),label=group1)+
     theme_bw(base_size = 16) +
     geom_vline(xintercept=c(-1,1),
                lty=4,col="orange",lwd=1)+ # 在x轴-1.5与1.5的位置画两根竖线
@@ -112,8 +113,8 @@ volcano <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
     volc2 <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
       geom_point(aes(color = Significant)) +
       scale_color_manual(values = c("green", "grey","red")) +
-      annotate("text",x=xlim[2]-1,y=quantile(-log10(p)),label=group2)+
-      annotate("text",x=xlim[2]-1.5,y=quantile(-log10(p)),label=group1)+
+      annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9),label=group2)+
+      annotate("text",x=xlim[2]-1.5,y=quantile(-log10(p),0.9),label=group1)+
       theme_bw(base_size = 16) +
       geom_vline(xintercept= 0,
                  lty=4,col="orange",lwd=1)+ # 在x轴-1.5与1.5的位置画两根竖线
