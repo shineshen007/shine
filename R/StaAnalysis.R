@@ -8,6 +8,7 @@
 #' @param sample.info a dataframe include sample.name,injection.order,
 #' class,batch and group columns.
 #' @param group group set.
+#' @param xlim xlim.
 #' @param p.cutoff default is 0.05.
 #' @param splot default is FALSE.
 #' @param pcorrect default is TRUE.
@@ -32,7 +33,8 @@
 #' }
 StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
                        group = c("case","control"),
-                       splot = FALSE,unitest =c("t.test","wilcox.test"),pcorrect = TRUE){
+                       splot = FALSE,unitest =c("t.test","wilcox.test"),
+                       pcorrect = TRUE,xlim = c(-5,5)){
   cat("Analyzing data...\n")
   require(mixOmics);require(data.table)
   require(ggrepel);  require(pheatmap)
@@ -147,7 +149,7 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
     labs(x="log2 (Fold change)",
          y="-log10 (p-value)",
          title="Volcano plot")+
-    xlim(c(-5, 5))+
+    xlim(xlim)+
     geom_text_repel(
       data = subset(vol, p < p.cutoff&abs(log2(fc))>1),###fc的绝对值大于1
       max.iter = 100000,

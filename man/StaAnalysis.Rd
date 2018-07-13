@@ -6,7 +6,7 @@
 \usage{
 StaAnalysis(data = NULL, sample.info = NULL, p.cutoff = 0,
   group = c("case", "control"), splot = FALSE, unitest = c("t.test",
-  "wilcox.test"), pcorrect = TRUE)
+  "wilcox.test"), pcorrect = TRUE, xlim = c(-5, 5))
 }
 \arguments{
 \item{data}{a dataframe include name,mz,rt and isotope columns,
@@ -24,6 +24,8 @@ class,batch and group columns.}
 \item{unitest}{t.test or wilcox.test.}
 
 \item{pcorrect}{default is TRUE.}
+
+\item{xlim}{xlim.}
 }
 \value{
 All the results can be got form other functions and instruction.
