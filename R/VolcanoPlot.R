@@ -7,7 +7,7 @@
 #' @param sample.info a dataframe include sample.name,injection.order,
 #' class,batch and group columns.
 #' @param group group set.
-#' @param xlim xlim
+#' @param xlim xlim.
 #' @param p.cutoff default is 0.05.
 #' @param pcorrect default is TRUE.
 #' @param doubleline default is TRUE.
@@ -21,7 +21,7 @@
 #' }
 volcano <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
                        group = c("case","control"),pcorrect = TRUE,
-                    singleline = TRUE,xlim=c(-5,5),
+                    singleline = TRUE,xlim = c(-5,5),
                    doubleline = FALSE,unitest =c("t.test","wilcox.test")){
   require(data.table)
   cat("Import data...\n")

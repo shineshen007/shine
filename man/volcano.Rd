@@ -23,7 +23,7 @@ class,batch and group columns.}
 
 \item{singleline}{default is FALSE.}
 
-\item{xlim}{xlim}
+\item{xlim}{xlim.}
 
 \item{doubleline}{default is TRUE.}
 
