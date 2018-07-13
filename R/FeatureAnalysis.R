@@ -49,7 +49,7 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
   cat("Isotope filtering...\n")
   ###remove [M+n],\\ make [] lose the ability of function，
   isotope_filter<-function(data){
-    temp<- data[c(grep("\\[M\\]",data$isotopes),
+    temp<- data[c(grep("\\[M\\]",data$isotope),
                   which(data$isotopes == "")),]
   }
   filter.isotope.data <-isotope_filter(data)
