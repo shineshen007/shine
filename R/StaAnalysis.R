@@ -30,7 +30,7 @@
 #' StaAnalysis(data = data,sample.info = sample.info,group = c("G","M"),
 #' pcorrect = F)
 #' }
-StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
+StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
                        group = c("case","control"),
                        splot = FALSE,unitest =c("t.test","wilcox.test"),pcorrect = TRUE){
   cat("Analyzing data...\n")
@@ -91,7 +91,8 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
             ind.names = F,###label
             ellipse = F,###confidence interval
             legend =TRUE,
-            style="ggplot2",
+            style="graphics",
+            abline = T,
             title = 'PCA')
 
   dev.off()
@@ -127,6 +128,8 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
   vol<-read.csv("vol.csv")
   fc<- vol$fc
   p<- vol$p
+  group1<-group[1]
+  group2<-group[2]
   Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 1,
                                  ifelse(log2(fc) < -1,
                                         "Down","Up"),"Not Sig"))
@@ -134,6 +137,8 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0.05,
   volc <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
     geom_point(aes(color = Significant)) +
     scale_color_manual(values = c("green", "grey","red")) +
+    annotate("text",x=xlim[2]-1,y=quantile(-log10(p)),label=group2)+
+    annotate("text",x=xlim[2]-1.5,y=quantile(-log10(p)),label=group1)+
     theme_bw(base_size = 16) +
     geom_vline(xintercept=c(-1,1),
                lty=4,col="orange",lwd=1)+ # 在x轴-1.5与1.5的位置画两根竖线
