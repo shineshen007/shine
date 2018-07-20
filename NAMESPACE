@@ -2,6 +2,7 @@
 
 export(CorAnalysis)
 export(FeatureAnalysis)
+export(ForestAnalysis)
 export(Heatmap)
 export(ISboxplot)
 export(IsotopeFilter)
