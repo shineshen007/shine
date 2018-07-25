@@ -13,6 +13,7 @@
 #' @param doubleline default is TRUE.
 #' @param singleline default is FALSE.
 #' @param unitest t.test or wilcox.test.
+#' @param fc.cutoff default is 1
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -21,7 +22,7 @@
 #' }
 volcano <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
                        group = c("case","control"),pcorrect = TRUE,
-                    singleline = TRUE,xlim = c(-5,5),
+                    singleline = TRUE,xlim = c(-5,5),fc.cutoff = 1,
                    doubleline = FALSE,unitest =c("t.test","wilcox.test")){
   require(data.table)
   cat("Import data...\n")
@@ -95,7 +96,7 @@ volcano <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
          title="Volcano plot")+
     xlim(xlim)+
     geom_text_repel(
-      data = subset(vol, p < p.cutoff&abs(log2(fc))>1),###fc的绝对值大于1
+      data = subset(vol, p < p.cutoff&abs(log2(fc))>fc.cutoff),###fc的绝对值大于1
       max.iter = 100000,
       aes(label = name),
       size = 4,
