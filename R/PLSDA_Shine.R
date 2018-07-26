@@ -1,4 +1,4 @@
-#' @title StaAnalysis
+#' @title PLSDA_Shine
 #' @description a function can generate PCA,PLSDA,heatmap,
 #' s plot of foldchange and volcano plot, also can calculate vip value.
 #' @author Shine Shen
@@ -18,7 +18,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-PLSDA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
+PLSDA_Shine <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
                  both = FALSE,neither = TRUE,group = c("case","control")){
   require(mixOmics)
   require(data.table)

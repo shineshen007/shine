@@ -1,4 +1,4 @@
-#' @title PCA
+#' @title PCA_Shine
 #' @description a function can generate PCA.
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
@@ -16,7 +16,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-PCA <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
+PCA_Shine <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
                both = FALSE,neither = TRUE){
   require(mixOmics)
   require(data.table)
