@@ -1,4 +1,4 @@
-#' @title Heatmap
+#' @title Heatmap_Shine
 #' @description a function can generate heatmap
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
@@ -12,7 +12,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-Heatmap <- function(data = NULL,sample.info = NULL){
+Heatmap_Shine <- function(data = NULL,sample.info = NULL){
   require(pheatmap);require(data.table)
   cat("Import data...\n")
   data <- fread("data.csv")
