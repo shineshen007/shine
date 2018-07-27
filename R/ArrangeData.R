@@ -12,13 +12,12 @@ ArrangeData <- function(){
   require(data.table)
   data <- fread("peaktable.csv")
   data<- setDF(data)
-  data<-data[c(1:50),]
   data<-data[,-c(2:4,6,7,9:13)]
   colnames(data)[2] <- 'mz'
   colnames(data)[3] <- 'rt'
   write.csv(data,"data for svr.csv",row.names = F)
   colnames<-as.data.frame(colnames(data))
   colnames<-colnames[-c(1:3),]
-  write.csv(colnames,"colnames.csv",row.names = F)
+  write.csv(colnames,"sample.name.csv",row.names = F)
 
 }
