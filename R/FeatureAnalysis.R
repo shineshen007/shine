@@ -177,7 +177,7 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
                               2:add 4 function:data_filter,BindData,ArrangeData,DataID
                               3:update function name:PCA--PCA_Shine,PLSDA--PLSDA_Shine,
                               Heatmap--Heatmap_Shine
-                        Version 0.9.50
+                        Version 0.9.51
                         --------------
                         "
   )
