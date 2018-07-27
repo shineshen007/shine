@@ -11,13 +11,19 @@
 ArrangeData <- function(){
   require(data.table)
   data <- fread("peaktable.csv")
+  info <- fread("sample.info.csv")
+  info<-setDF(info)
+  info<-info[,-1]
   data<- setDF(data)
   data<-data[,-c(2:4,6,7,9:13)]
   colnames(data)[2] <- 'mz'
   colnames(data)[3] <- 'rt'
   write.csv(data,"data for svr.csv",row.names = F)
   colnames<-as.data.frame(colnames(data))
-  colnames<-colnames[-c(1:3),]
+  colnames<-as.data.frame(colnames[-c(1:3),])
+  colnames(colnames)[1] <- 'sample.name'
   write.csv(colnames,"sample.name.csv",row.names = F)
+  info<-cbind(colnames,info)
+  write.csv(info,"info.csv",row.names = F)
 
 }
