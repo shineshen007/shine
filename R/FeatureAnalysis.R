@@ -170,11 +170,11 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.9.50.
+  packageStartupMessage("Shine 0.9.51.
                         Maintainer: Xia Shen.
                         \n2018-07-27
                         News: 1:only two groups in PLSDA
-                              2:add 3 function:data filter,BindData,ArrangeData to filter data
+                              2:add 4 function:data_filter,BindData,ArrangeData,DataID
                               3:update function name:PCA--PCA_Shine,PLSDA--PLSDA_Shine,
                               Heatmap--Heatmap_Shine
                         Version 0.9.50

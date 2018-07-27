@@ -3,6 +3,7 @@
 export(ArrangeData)
 export(BindData)
 export(CorAnalysis)
+export(DataID)
 export(FeatureAnalysis)
 export(ForestAnalysis)
 export(Heatmap_Shine)
