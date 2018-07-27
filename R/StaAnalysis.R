@@ -45,10 +45,7 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
   sample.info <- read.csv("sample.info.csv")
 
 
-  ##create a folder for analysis
-  path <-getwd()
-  dir.create("StaAnalysis")
-  setwd("StaAnalysis")
+
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
   qc.name<-sample.info$sample.name[sample.info$class=="QC"]
@@ -64,7 +61,6 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
 
   group1.index <- which(class == group[1])
   group2.index <- which(class == group[2])
-  sample.index <- which(sample.info$class=="Subject")
 
   cat("Calculate Foldchange...\n")
   #must use the data_pfc,because the index include the qc in sampl.info
@@ -82,7 +78,12 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
 
   if(pcorrect){
   p <- p.adjust(p = p, method = "fdr",n=length(p))
-}
+  }
+  ##create a folder for analysis
+    path <-getwd()
+    dir.create("StaAnalysis")
+    setwd("StaAnalysis")
+
   cat("Draw PCA plot...\n")
   ###PCA
   png(file="PCA.png", width = 1200, height = 1000,res = 56*2)
@@ -102,14 +103,20 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
   cat("Draw PLSDA plot...\n")
   ###PLS-DA
   png(file="PLSDA.png", width = 1200, height = 1000,res = 56*2)
-  datat<-sample
+  sample.info1<-sample.info[c(group1.index,group2.index),]
+  ###data preparation
+  sample.name1<-sample.info1$sample.name[sample.info1$class=="Subject"]
+  sample1<-data[,match(sample.name1,colnames(data))]
+  sample.index <- which(sample.info1$class=="Subject")
+  #begin
+  datat<-sample1
   datatm<-as.matrix(datat)
   XXt<-t(datatm)
-  group_pls<-as.data.frame(sample.info$group)
+  group_pls<-as.data.frame(sample.info1$group)
   YY<-group_pls[sample.index,]
   plsda.datatm <-plsda(XXt, YY, ncomp = 2)
   pls <- plotIndiv(plsda.datatm,
-            ind.names = T,
+            ind.names = F,
             ellipse = T,
             legend =TRUE,
             style="graphics",
