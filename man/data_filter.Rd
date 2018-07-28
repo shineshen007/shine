@@ -4,12 +4,10 @@
 \alias{data_filter}
 \title{data_filter}
 \usage{
-data_filter(data = NULL, p = 0.05, comp1 = 1, comp2 = 1,
-  fc_toplimit = 1.2, fc_lowerlimit = 0.8)
+data_filter(p = 0.05, comp1 = 1, comp2 = 1, fc_toplimit = 1.2,
+  fc_lowerlimit = 0.8)
 }
 \arguments{
-\item{data}{data.}
-
 \item{p}{p value}
 
 \item{comp1}{component 1 in PLSDA}
