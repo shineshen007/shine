@@ -11,7 +11,7 @@
 DataID <- function(){
   require(data.table)
   data <- fread("data_after_pre.csv")
-  info <- fread("sample.info.csv")
+  info <- fread("info.csv")
   info<-setDF(info)
   data<- setDF(data)
   data<-data[,-1]
