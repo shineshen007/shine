@@ -17,5 +17,5 @@ DataID <- function(){
   data<-data[,-1]
   info<-info[,-c(2:4)]
   write.csv(data,"data for dna.csv",row.names = F)
-  write.csv(info,"info.csv",row.names = F)
+  write.csv(info,"sample.info.csv",row.names = F)
 }

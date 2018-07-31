@@ -136,7 +136,7 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
   write.csv(data_vol,"vol.csv",row.names = F)
   data_pfc_vip<-cbind(data_vol,vip,data)
   write.csv(data_pfc_vip,"data_pfc_vip.csv",row.names = F)
-  data_filter(data=data)
+  data_filter()
   vol<-read.csv("vol.csv")
   fc<- vol$fc
   p<- vol$p
