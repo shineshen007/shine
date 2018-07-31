@@ -175,7 +175,6 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
                         \n2018-07-31
                         News: 1:only two groups in PLSDA
                               2:add 4 function:data_filter,BindData,ArrangeData,DataID
-                              3:add OneShot function to do all work
                         Version 0.9.52
                         --------------
                         "
