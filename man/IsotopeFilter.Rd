@@ -4,7 +4,7 @@
 \alias{IsotopeFilter}
 \title{IsotopeFilter}
 \usage{
-IsotopeFilter(data = NULL)
+IsotopeFilter()
 }
 \arguments{
 \item{data}{a dataframe include name,mz,rt and isotope columns,

@@ -4,16 +4,10 @@
 \alias{FeatureAnalysis}
 \title{FeatureAnalysis}
 \usage{
-FeatureAnalysis(data = NULL, sample.info = NULL, zero.filter = FALSE,
-  RSD.filter = FALSE, zero.check = TRUE)
+FeatureAnalysis(zero.filter = FALSE, RSD.filter = FALSE,
+  zero.check = TRUE)
 }
 \arguments{
-\item{data}{a dataframe include name,mz,rt and isotope columns,
-the rest of all are sample and QC columns.}
-
-\item{sample.info}{a dataframe include sample.name,injection.order,
-class,batch and group columns.}
-
 \item{zero.filter}{default is FALSE,if the zero value exsit in your data,
 make FALSE to TRUE.}
 
