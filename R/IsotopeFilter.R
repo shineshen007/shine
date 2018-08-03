@@ -2,8 +2,6 @@
 #' @description a function can filter isotope.
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
-#' @param data a dataframe include name,mz,rt and isotope columns,
-#' the rest of all are sample and QC columns.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
