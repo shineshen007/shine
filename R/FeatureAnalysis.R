@@ -170,12 +170,11 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.9.52.
+  packageStartupMessage("Shine 0.9.53.
                         Maintainer: Xia Shen.
-                        \n2018-07-31
-                        News: 1:only two groups in PLSDA
-                              2:add 4 function:data_filter,BindData,ArrangeData,DataID
-                        Version 0.9.52
+                        \n2018-08-03
+                        News: 1:no PCA in StaAnalysis
+                        Version 0.9.53
                         --------------
                         "
   )

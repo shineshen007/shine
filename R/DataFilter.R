@@ -1,4 +1,4 @@
-#' @title data_filter
+#' @title DataFilter
 #' @description a function to filter p value more than 0.05 or any value you can choose,
 #' foldchange less than 1.2 and more than 0.8 or any value you can choose,
 #' and vip less than 1 or any value you can choose
@@ -15,7 +15,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-data_filter <- function(p=0.05,comp1=1,comp2=1,
+DataFilter <- function(p=0.05,comp1=1,comp2=1,
                         fc_toplimit=1.2,fc_lowerlimit=0.8){
   require(data.table)
   data <- fread("data_pfc_vip.csv")

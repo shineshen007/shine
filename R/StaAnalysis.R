@@ -84,21 +84,21 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
     dir.create("StaAnalysis")
     setwd("StaAnalysis")
 
-  cat("Draw PCA plot...\n")
+  ###cat("Draw PCA plot...\n")
   ###PCA
-  png(file="PCA.png", width = 1200, height = 1000,res = 56*2)
-  temp<-data_pfc
-  pca<-pca(t(temp), ncomp=2, scale=T)
-  pcap<-plotIndiv(pca,
-            group = sample.info$group,
-            ind.names = F,###label
-            ellipse = F,###confidence interval
-            legend =TRUE,
-            style="graphics",
-            abline = T,
-            title = 'PCA')
+  ###png(file="PCA.png", width = 1200, height = 1000,res = 56*2)
+  ###temp<-data_pfc
+  ###pca<-pca(t(temp), ncomp=2, scale=T)
+  ###pcap<-plotIndiv(pca,
+  ###          group = sample.info$group,
+  ###         ind.names = F,###label
+  ###          ellipse = F,###confidence interval
+  ###          legend =TRUE,
+  ###          style="graphics",
+  ###          abline = T,
+  ###          title = 'PCA')
 
-  dev.off()
+  ###dev.off()
 
   cat("Draw PLSDA plot...\n")
   ###PLS-DA
