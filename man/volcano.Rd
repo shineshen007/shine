@@ -4,17 +4,11 @@
 \alias{volcano}
 \title{volcano}
 \usage{
-volcano(data = NULL, sample.info = NULL, p.cutoff = 0, group = c("case",
-  "control"), pcorrect = TRUE, singleline = TRUE, xlim = c(-5, 5),
-  fc.cutoff = 1, doubleline = FALSE, unitest = c("t.test", "wilcox.test"))
+volcano(p.cutoff = 0, group = c("case", "control"), pcorrect = TRUE,
+  singleline = TRUE, xlim = c(-5, 5), fc.cutoff = 1, doubleline = FALSE,
+  unitest = c("t.test", "wilcox.test"))
 }
 \arguments{
-\item{data}{a dataframe include name,mz,rt and isotope columns,
-the rest of all are sample and QC columns.}
-
-\item{sample.info}{a dataframe include sample.name,injection.order,
-class,batch and group columns.}
-
 \item{p.cutoff}{default is 0.05.}
 
 \item{group}{group set.}

@@ -4,7 +4,7 @@
 \alias{PathwayBarplot}
 \title{pathway enrichment barplot}
 \usage{
-PathwayBarplot(data = NULL)
+PathwayBarplot(data)
 }
 \arguments{
 \item{data}{a dataframe include name,mz,rt and isotope columns,

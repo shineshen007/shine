@@ -4,15 +4,10 @@
 \alias{PathwayMatch}
 \title{PathwayMatch}
 \usage{
-PathwayMatch(data = NULL, sample.info = NULL, group = c("case",
-  "control"), pcorrect = TRUE, pathway.name = pathway)
+PathwayMatch(group = c("case", "control"), pcorrect = TRUE,
+  pathway.name = pathway)
 }
 \arguments{
-\item{data}{a dataframe from MetDNA named Quantitative.pathway.metabolite.result.}
-
-\item{sample.info}{a dataframe include sample.name,injection.order,
-class,batch and group columns.}
-
 \item{group}{group set.}
 
 \item{pcorrect}{default is TRUE.}

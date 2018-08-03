@@ -4,17 +4,10 @@
 \alias{PLSDA_Shine}
 \title{PLSDA_Shine}
 \usage{
-PLSDA_Shine(data = NULL, sample.info = NULL, ind = FALSE,
-  ellipse = FALSE, both = FALSE, neither = TRUE, group = c("case",
-  "control"))
+PLSDA_Shine(ind = FALSE, ellipse = FALSE, both = FALSE, neither = TRUE,
+  group = c("case", "control"))
 }
 \arguments{
-\item{data}{a dataframe include name,mz,rt and isotope columns,
-the rest of all are sample and QC columns.}
-
-\item{sample.info}{a dataframe include sample.name,injection.order,
-class,batch and group columns.}
-
 \item{ind}{default is FALSE.}
 
 \item{ellipse}{default is FALSE.}

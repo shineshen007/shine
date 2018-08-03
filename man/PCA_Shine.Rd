@@ -4,16 +4,9 @@
 \alias{PCA_Shine}
 \title{PCA_Shine}
 \usage{
-PCA_Shine(data = NULL, sample.info = NULL, ind = FALSE, ellipse = FALSE,
-  both = FALSE, neither = TRUE)
+PCA_Shine(ind = FALSE, ellipse = FALSE, both = FALSE, neither = TRUE)
 }
 \arguments{
-\item{data}{a dataframe include name,mz,rt and isotope columns,
-the rest of all are sample and QC columns.}
-
-\item{sample.info}{a dataframe include sample.name,injection.order,
-class,batch and group columns.}
-
 \item{ind}{default is FALSE.}
 
 \item{ellipse}{default is FALSE.}

@@ -4,14 +4,19 @@
 \alias{Heatmap_Shine}
 \title{Heatmap_Shine}
 \usage{
-Heatmap_Shine(data = NULL, sample.info = NULL)
+Heatmap_Shine(colour = c("green", "white", "red"), a = -2, b = 2,
+  c = 0.04, d = 100)
 }
 \arguments{
-\item{data}{a dataframe include name,mz,rt and isotope columns,
-the rest of all are sample and QC columns.}
+\item{colour}{colour selection.}
 
-\item{sample.info}{a dataframe include sample.name,injection.order,
-class,batch and group columns.}
+\item{a}{lowerlimt of colour.}
+
+\item{b}{toplimit of colour}
+
+\item{c}{(abs(a)+b)/d}
+
+\item{d}{default 100}
 }
 \value{
 All the results can be got form other functions and instruction.
