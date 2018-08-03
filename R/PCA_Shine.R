@@ -2,10 +2,6 @@
 #' @description a function can generate PCA.
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
-#' @param data a dataframe include name,mz,rt and isotope columns,
-#' the rest of all are sample and QC columns.
-#' @param sample.info a dataframe include sample.name,injection.order,
-#' class,batch and group columns.
 #' @param ind default is FALSE.
 #' @param ellipse default is FALSE.
 #' @param both default is FALSE.
@@ -16,7 +12,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-PCA_Shine <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
+PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                both = FALSE,neither = TRUE){
   require(mixOmics)
   require(data.table)

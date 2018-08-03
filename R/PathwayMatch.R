@@ -2,9 +2,6 @@
 #' @description a function can match differetiate metabolites in differentiate pathway.
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
-#' @param data a dataframe from MetDNA named Quantitative.pathway.metabolite.result.
-#' @param sample.info a dataframe include sample.name,injection.order,
-#' class,batch and group columns.
 #' @param group group set.
 #' @param pcorrect default is TRUE.
 #' @param pathway.name it is the pathway you want to match.
@@ -18,8 +15,7 @@
 #' PathwayMatch(data = data,sample.info = sample.info,group = c("S","P"),
 #' pcorrect = F,pathway.name = "Cysteine and methionine metabolism")
 #' }
-PathwayMatch <- function(data = NULL,sample.info = NULL,
-                       group = c("case","control"),
+PathwayMatch <- function(group = c("case","control"),
                        pcorrect = TRUE,pathway.name = pathway){
   require(data.table)
   cat("Import data...\n")

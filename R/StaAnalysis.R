@@ -3,10 +3,6 @@
 #' s plot of foldchange and volcano plot, also can calculate vip value.
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
-#' @param data a dataframe include name,mz,rt and isotope columns,
-#' the rest of all are sample and QC columns.
-#' @param sample.info a dataframe include sample.name,injection.order,
-#' class,batch and group columns.
 #' @param group group set.
 #' @param xlim xlim.
 #' @param p.cutoff default is 0.05.
@@ -31,7 +27,7 @@
 #' StaAnalysis(data = data,sample.info = sample.info,group = c("G","M"),
 #' pcorrect = F)
 #' }
-StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
+StaAnalysis <- function(p.cutoff = 0,
                        group = c("case","control"),
                        splot = FALSE,unitest =c("t.test","wilcox.test"),
                        pcorrect = TRUE,xlim = c(-5,5)){
@@ -136,7 +132,7 @@ StaAnalysis <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
   write.csv(data_vol,"vol.csv",row.names = F)
   data_pfc_vip<-cbind(data_vol,vip,data)
   write.csv(data_pfc_vip,"data_pfc_vip.csv",row.names = F)
-  data_filter()
+  DataFilter()
   vol<-read.csv("vol.csv")
   fc<- vol$fc
   p<- vol$p

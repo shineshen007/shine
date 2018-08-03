@@ -3,10 +3,6 @@
 #' also can filter isotope,rsd and zero value.
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
-#' @param data a dataframe include name,mz,rt and isotope columns,
-#' the rest of all are sample and QC columns.
-#' @param sample.info a dataframe include sample.name,injection.order,
-#' class,batch and group columns.
 #' @param zero.filter default is FALSE,if the zero value exsit in your data,
 #' make FALSE to TRUE.
 #' @param RSD.filter default is FALSE,if the percentage of qc rsd larger than 0.3
@@ -30,8 +26,7 @@
 #' FeatureAnalysis(data = data,sample.info = sample.info,RSD.filter = T,
 #' zero.check = F)
 #' }
-FeatureAnalysis <- function(data = NULL,sample.info = NULL,
-                            zero.filter = FALSE,RSD.filter = FALSE,
+FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
                             zero.check = TRUE) {
   require(data.table)
   require(ggrepel);  require(gplots)
@@ -170,11 +165,12 @@ FeatureAnalysis <- function(data = NULL,sample.info = NULL,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.9.53.
+  packageStartupMessage("Shine 0.9.60.
                         Maintainer: Xia Shen.
                         \n2018-08-03
                         News: 1:no PCA in StaAnalysis
-                        Version 0.9.53
+                              2:remove data and sample.info parameter in some functions
+                        Version 0.9.60
                         --------------
                         "
   )
