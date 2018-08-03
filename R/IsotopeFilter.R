@@ -10,7 +10,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-IsotopeFilter <- function(data = NULL) {
+IsotopeFilter <- function() {
 
   require(data.table)
   cat("Import data...\n")

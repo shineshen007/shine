@@ -3,10 +3,6 @@
 #' s plot of foldchange and volcano plot, also can calculate vip value.
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
-#' @param data a dataframe include name,mz,rt and isotope columns,
-#' the rest of all are sample and QC columns.
-#' @param sample.info a dataframe include sample.name,injection.order,
-#' class,batch and group columns.
 #' @param ind default is FALSE.
 #' @param ellipse default is FALSE.
 #' @param both default is FALSE.
@@ -18,7 +14,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-PLSDA_Shine <- function(data = NULL,sample.info = NULL,ind = FALSE,ellipse = FALSE,
+PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                  both = FALSE,neither = TRUE,group = c("case","control")){
   require(mixOmics)
   require(data.table)

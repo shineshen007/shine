@@ -2,10 +2,6 @@
 #' @description a function can generate volcano plot.
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
-#' @param data a dataframe include name,mz,rt and isotope columns,
-#' the rest of all are sample and QC columns.
-#' @param sample.info a dataframe include sample.name,injection.order,
-#' class,batch and group columns.
 #' @param group group set.
 #' @param xlim xlim.
 #' @param p.cutoff default is 0.05.
@@ -20,8 +16,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-volcano <- function(data = NULL,sample.info = NULL,p.cutoff = 0,
-                       group = c("case","control"),pcorrect = TRUE,
+volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
                     singleline = TRUE,xlim = c(-5,5),fc.cutoff = 1,
                    doubleline = FALSE,unitest =c("t.test","wilcox.test")){
   require(data.table)

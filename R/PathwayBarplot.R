@@ -2,7 +2,7 @@
 #' @export
 #' @param data a dataframe include name,mz,rt and isotope columns,
 #' the rest of all are sample and QC columns.
-PathwayBarplot <- function(data = NULL){
+PathwayBarplot <- function(data){
   require(data.table)
   cat("Import data...\n")
   data <- fread("data.csv")
