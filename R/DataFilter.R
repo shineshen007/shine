@@ -16,7 +16,7 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 DataFilter <- function(p=0.05,comp1=1,comp2=1,
-                        fc_toplimit=1.2,fc_lowerlimit=0.8){
+                        fc_toplimit=4/3,fc_lowerlimit=3/4){
   require(data.table)
   data <- fread("data_pfc_vip.csv")
   data <- setDF(data)
