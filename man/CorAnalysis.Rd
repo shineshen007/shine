@@ -4,10 +4,7 @@
 \alias{CorAnalysis}
 \title{CorAnalysis}
 \usage{
-CorAnalysis(data)
-}
-\arguments{
-\item{data}{a dataframe to do correlation analysis.}
+CorAnalysis()
 }
 \value{
 All the results can be got form other functions and instruction.
