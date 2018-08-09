@@ -5,7 +5,7 @@
 \title{PLSDA_Shine}
 \usage{
 PLSDA_Shine(ind = FALSE, ellipse = FALSE, both = FALSE, neither = TRUE,
-  group = c("case", "control"))
+  group = c("case", "control"), multiclass = FALSE)
 }
 \arguments{
 \item{ind}{default is FALSE.}
@@ -17,6 +17,8 @@ PLSDA_Shine(ind = FALSE, ellipse = FALSE, both = FALSE, neither = TRUE,
 \item{neither}{default is TRUE.}
 
 \item{group}{group info.}
+
+\item{multiclass}{multiclass plsda}
 }
 \value{
 All the results can be got form other functions and instruction.
