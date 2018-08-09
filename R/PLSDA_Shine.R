@@ -8,6 +8,7 @@
 #' @param both default is FALSE.
 #' @param neither default is TRUE.
 #' @param group group info.
+#' @param multiclass multiclass plsda
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -15,7 +16,8 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
-                 both = FALSE,neither = TRUE,group = c("case","control")){
+                 both = FALSE,neither = TRUE,
+                 group = c("case","control"),multiclass=FALSE){
   require(mixOmics)
   require(data.table)
   cat("Import data...\n")
@@ -23,6 +25,32 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
   data <- setDF(data)
   sample.info <- read.csv("sample.info.csv")
   class<- sample.info[,"group"]
+
+  cat("Draw PLSDA plot...\n")
+  if(multiclass){
+    sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
+    sample<-data[,match(sample.name,colnames(data))]
+    sample.index <- which(sample.info$class=="Subject")
+    ###PLS-DA
+    png(file="PLSDA.png", width = 1200, height = 1000,res = 56*2)
+    datat<-sample
+    datatm<-as.matrix(datat)
+    XXt<-t(datatm)
+    group_pls<-as.data.frame(sample.info$group)
+    YY<-group_pls[sample.index,]
+    plsda.datatm <-plsda(XXt, YY, ncomp = 2)
+    pls <- plotIndiv(plsda.datatm,
+                     ind.names = F,
+                     ellipse = T,
+                     legend =TRUE,
+                     style="graphics",
+                     title = 'PLS-DA')
+    dev.off()
+    cat("Calculate VIP...\n")
+    ###VIP
+    vip<-vip(plsda.datatm)
+    write.csv(vip,"VIP.csv",row.names = F)
+  }
 
   group1.index <- which(class == group[1])
   group2.index <- which(class == group[2])
@@ -102,4 +130,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      title = 'PLS-DA')
     dev.off()
   }
+  cat("Calculate VIP...\n")
+  ###VIP
+  vip<-vip(plsda.datatm)
+  write.csv(vip,"VIP.csv",row.names = F)
 }
