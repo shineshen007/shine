@@ -17,8 +17,8 @@ CorAnalysis<-function(number.cex = 0.6,number.digits=4,
                       adjust = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none")){
   require(corrplot);require(PerformanceAnalytics)
   require(psych)
-  data1<-read.csv("data1.csv")
-  data2<-read.csv("data2.csv")
+  data1<-read.csv("data1.csv",check.names = F)
+  data2<-read.csv("data2.csv",check.names = F)
   core1<-data1[,-1]
   core2<-data2[,-1]
   cor<-corr.test(core1,core2,adjust = adjust)

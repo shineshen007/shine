@@ -11,7 +11,7 @@
 #' }
 ISboxplot <- function(sample = NULL){
   require(ggpubr);
-  data <- read.csv("IS data.csv")
+  data <- read.csv("IS data.csv",check.names = F)
   mz <- c(rep(c(273.0762,271.0616),sample))
   data1 <- stack(data)
   data1 <- cbind(data1,mz)
