@@ -11,6 +11,7 @@
 #' library(Shine)
 #' PathwayMatch(group = c("S","P"))
 #' }
+<<<<<<< HEAD
 PathwayMatch <- function(group = c("case","control")){
   require(xlsx)
   pathway.p<-read.csv("Pathway.enrichment.analysis.csv")
@@ -22,6 +23,17 @@ PathwayMatch <- function(group = c("case","control")){
     sample.info <- read.csv("sample.info.csv")
     ###data preparation
     sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
+=======
+PathwayMatch <- function(group = c("case","control"),
+                       pcorrect = TRUE,pathway.name = pathway){
+  require(data.table)
+  cat("Import data...\n")
+  data <- fread("data.csv")
+  data <- setDF(data)
+  sample.info <- read.csv("sample.info.csv")
+  ###data preparation
+  sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
+>>>>>>> 7ea8e313908cb10e3912ce341ff409637eb25bbf
 
     sample<-data[,match(sample.name,colnames(data))]
 
