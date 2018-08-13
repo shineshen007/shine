@@ -165,7 +165,6 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 }
 
 .onAttach <- function(libname, pkgname){
-<<<<<<< HEAD
   packageStartupMessage("Shine 0.9.66.
                         Maintainer: Xia Shen.
                         \n2018-08-13
@@ -173,15 +172,6 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
                         News: 1: edit corAnalysis
                               2: update PathwayMatch
                         Version 0.9.66
-=======
-  packageStartupMessage("Shine 0.9.65.
-                        Maintainer: Xia Shen.
-                        \n2018-08-09
-                        Notes: sample name in pos and neg mode must be identical
-                        News: 1: edit corAnalysis
-                              2: add multiclass plsda
-                        Version 0.9.65
->>>>>>> 7ea8e313908cb10e3912ce341ff409637eb25bbf
                         --------------
                         "
   )

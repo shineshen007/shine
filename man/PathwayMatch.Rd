@@ -4,12 +4,7 @@
 \alias{PathwayMatch}
 \title{PathwayMatch}
 \usage{
-<<<<<<< HEAD
 PathwayMatch(group = c("case", "control"))
-=======
-PathwayMatch(group = c("case", "control"), pcorrect = TRUE,
-  pathway.name = pathway)
->>>>>>> 7ea8e313908cb10e3912ce341ff409637eb25bbf
 }
 \arguments{
 \item{group}{group set.}
