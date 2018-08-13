@@ -4,15 +4,10 @@
 \alias{PathwayMatch}
 \title{PathwayMatch}
 \usage{
-PathwayMatch(group = c("case", "control"), pcorrect = TRUE,
-  pathway.name = pathway)
+PathwayMatch(group = c("case", "control"))
 }
 \arguments{
 \item{group}{group set.}
-
-\item{pcorrect}{default is TRUE.}
-
-\item{pathway.name}{it is the pathway you want to match.}
 }
 \value{
 All the results can be got form other functions and instruction.
@@ -24,9 +19,7 @@ a function can match differetiate metabolites in differentiate pathway.
 \donttest{
 ##---- Be sure the format of data and sample.info is correct!! ----
 library(Shine)
-pathway<-hsa.kegg.pathway$'Cysteine and methionine metabolism'
-PathwayMatch(data = data,sample.info = sample.info,group = c("S","P"),
-pcorrect = F,pathway.name = "Cysteine and methionine metabolism")
+PathwayMatch(group = c("S","P"))
 }
 }
 \author{
