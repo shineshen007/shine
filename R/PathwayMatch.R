@@ -11,27 +11,26 @@
 #' library(Shine)
 #' PathwayMatch(group = c("S","P"))
 #' }
-PathwayMatch <- function(group = c("case","control")){
+PathwayMatch<-function(group=c("case","control")){
   require(xlsx)
+  data <- read.csv("Quantitative.pathway.metabolite.result.csv")
+  sample.info <- read.csv("sample.info.csv")
+  ###data preparation
+  sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
+
+  sample<-data[,match(sample.name,colnames(data))]
+
+  name <- as.character(data[,"compound.name"])
+
+  class<- sample.info[,"group"]
+
   pathway.p<-read.csv("Pathway.enrichment.analysis.csv")
   nume<-length(which(pathway.p$FDR<0.05))
   path1<-as.character(pathway.p[1:nume,1])
   c<-data.frame(NULL)
   pathwayy<-function(){
-    data <- read.csv("Quantitative.pathway.metabolite.result.csv")
-    sample.info <- read.csv("sample.info.csv")
-    ###data preparation
-    sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
-
-    sample<-data[,match(sample.name,colnames(data))]
-
-    name <- as.character(data[,"compound.name"])
-
-    class<- sample.info[,"group"]
-
     group1.index <- which(class == group[1])
     group2.index <- which(class == group[2])
-
     fc <- apply(sample,1,function(x) {
       median(x[group2.index]+0.1)/ median(x[group1.index]+0.1)
     })
@@ -46,6 +45,20 @@ PathwayMatch <- function(group = c("case","control")){
     p <- p.adjust(p = p, method = "fdr",n=length(p))
 
     f<-as.data.frame(fc)
+    ##get kegg code
+    dfc<-data[,1:2]
+    dfc<-cbind(dfc,f)
+    rn<-dim(dfc)[1]
+    lfc<-which(dfc$fc<0.75)
+    tfc<-which(dfc$fc>0.75)
+    ab<-data.frame(1:rn)
+    colnames(ab)<-"colour"
+    ab[lfc,]<-"green"
+    ab[tfc,]<-"red"
+    dfc<-cbind(dfc,ab)
+    dfc<-dfc[,c(1,3,2,4)]
+    write.csv(dfc,"kegg.csv",row.names = F)
+    #
     pvalue<-as.data.frame(p)
     data_vol<-cbind(name,f,pvalue)
     #get the vol.csc file ,merge with Quantitative.pathway.metabolite.result.csv
@@ -73,6 +86,8 @@ PathwayMatch <- function(group = c("case","control")){
     d<-pathwayy()
     temp.c <- rbind(a,d)
     c <- rbind(c, temp.c)
+
   }
   write.xlsx(c,"cytoscape.xlsx",row.names = F)
+
 }
