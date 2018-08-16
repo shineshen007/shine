@@ -3,6 +3,7 @@
 export(ArrangeData)
 export(BindData)
 export(CorAnalysis)
+export(CoxAnalysis)
 export(DataFilter)
 export(DataID)
 export(FeatureAnalysis)

@@ -165,13 +165,14 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.9.67.
+  packageStartupMessage("Shine 0.9.68.
                         Maintainer: Xia Shen.
-                        \n2018-08-14
+                        \n2018-08-16
                         Notes: sample name in pos and neg mode must be identical
                         News: 1: edit corAnalysis
                               2: update PathwayMatch and generate kegg match file
-                        Version 0.9.67
+                              3: add CoxAnalysis function
+                        Version 0.9.68
                         --------------
                         "
   )
