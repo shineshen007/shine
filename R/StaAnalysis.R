@@ -145,8 +145,8 @@ StaAnalysis <- function(p.cutoff = 0,
     annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group2)+
     annotate("text",x=xlim[2]-1.5,y=quantile(-log10(p),0.9999),label=group1)+
     theme_bw(base_size = 16) +
-    geom_vline(xintercept=c(-1,1),
-               lty=4,col="orange",lwd=1)+ # 在x轴-1.5与1.5的位置画两根竖线
+    geom_vline(xintercept=c(-0.41,0.41),
+               lty=4,col="orange",lwd=1)+ # 在x轴-0.41与0.41的位置画两根竖线
     geom_hline(yintercept = -log10(0.05),
                lty=4,col="orange",lwd=1)+ #在p value 0.05的位置画一根横线
     labs(x="log2 (Fold change)",
