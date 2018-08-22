@@ -42,6 +42,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     pls <- plotIndiv(plsda.datatm,
                      ind.names = F,
                      ellipse = T,
+                     point.lwd=3,#point line size
                      legend =TRUE,
                      style="graphics",
                      title = 'PLS-DA')
@@ -91,6 +92,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     pls <- plotIndiv(plsda.datatm,
                      ind.names = F,
                      ellipse = T,
+                     point.lwd=3,#point line size
                      legend =TRUE,
                      style="graphics",
                      title = 'PLS-DA')
@@ -125,6 +127,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     pls <- plotIndiv(plsda.datatm,
                      ind.names = F,
                      ellipse = F,
+                     point.lwd=3,#point line size
                      legend =TRUE,
                      style="graphics",
                      title = 'PLS-DA')

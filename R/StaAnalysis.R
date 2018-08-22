@@ -112,6 +112,7 @@ StaAnalysis <- function(p.cutoff = 0,
   pls <- plotIndiv(plsda.datatm,
             ind.names = F,
             ellipse = T,
+            point.lwd=3,#point line size
             legend =TRUE,
             style="graphics",
             title = 'PLS-DA')

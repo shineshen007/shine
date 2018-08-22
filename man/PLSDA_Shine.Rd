@@ -4,8 +4,8 @@
 \alias{PLSDA_Shine}
 \title{PLSDA_Shine}
 \usage{
-PLSDA_Shine(ind = FALSE, ellipse = FALSE, both = FALSE, neither = TRUE,
-  group = c("case", "control"), multiclass = FALSE)
+PLSDA_Shine(ind = FALSE, ellipse = FALSE, both = FALSE,
+  neither = TRUE, group = c("case", "control"), multiclass = FALSE)
 }
 \arguments{
 \item{ind}{default is FALSE.}

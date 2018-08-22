@@ -4,7 +4,8 @@
 \alias{PCA_Shine}
 \title{PCA_Shine}
 \usage{
-PCA_Shine(ind = FALSE, ellipse = FALSE, both = FALSE, neither = TRUE)
+PCA_Shine(ind = FALSE, ellipse = FALSE, both = FALSE,
+  neither = TRUE)
 }
 \arguments{
 \item{ind}{default is FALSE.}

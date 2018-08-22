@@ -40,7 +40,7 @@ Heatmap_Shine <- function(colour = c("green","white","red"),a=-2,b=2,c=0.04,
   anno<-data.frame(sample.info[,-c(2:4)],row.names = T)
   png(file="heatmap.png", width = 1600, height = 1200,res = 56*2)
   hm <- pheatmap::pheatmap(y,color=colorRampPalette(colour)(d),
-                           border_color=NA,
+                           border_color = "grey60",
                            scale = "none",
                            breaks = bk,
                            fontsize=10,

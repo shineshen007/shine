@@ -32,6 +32,10 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
   name <- as.character(data[,"name"])
 
   class<- sample.info[,"group"]
+  colour<-c("SeaGreen","goldenrod","Firebrick","DimGrey","NavyBlue","LightSlateBlue",
+            "Magenta","HotPink2","DeepSkyBlue2","Green1")#10 color
+  lev<-length(levels(class))
+  cl<-colour[1:lev]
 
   cat("Draw PCA plot...\n")
   if(ind){
@@ -60,6 +64,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     ind.names = F,###label
                     ellipse = T,###confidence interval
                     legend =TRUE,
+                    col=cl,
+                    point.lwd=3,
                     style="graphics",
                     abline = T,
                     title = 'PCA')
@@ -92,6 +98,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     ind.names = F,###label
                     ellipse = F,###confidence interval
                     legend =TRUE,
+                    col=cl,
+                    point.lwd=3,
                     style="graphics",
                     abline = T,
                     title = 'PCA')

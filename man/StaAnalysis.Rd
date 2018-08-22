@@ -4,9 +4,9 @@
 \alias{StaAnalysis}
 \title{StaAnalysis}
 \usage{
-StaAnalysis(p.cutoff = 0, group = c("case", "control"), splot = FALSE,
-  unitest = c("t.test", "wilcox.test"), pcorrect = TRUE, xlim = c(-5, 5),
-  paired = FALSE)
+StaAnalysis(p.cutoff = 0, group = c("case", "control"),
+  splot = FALSE, unitest = c("t.test", "wilcox.test"),
+  pcorrect = TRUE, xlim = c(-5, 5), paired = FALSE)
 }
 \arguments{
 \item{p.cutoff}{default is 0.05.}
