@@ -10,6 +10,7 @@
 #' @param singleline default is FALSE.
 #' @param unitest t.test or wilcox.test.
 #' @param fc.cutoff default is 1
+#' @param paired paired test in t.test and wilcox.test,default is FALSE.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -18,7 +19,7 @@
 #' }
 volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
                     singleline = TRUE,xlim = c(-5,5),fc.cutoff = 1,
-                   doubleline = FALSE,unitest =c("t.test","wilcox.test")){
+                   doubleline = FALSE,unitest =c("t.test","wilcox.test"),paired = FALSE){
   require(data.table)
   cat("Import data...\n")
   data <- fread("data.csv")
@@ -51,7 +52,7 @@ volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
 
   cat("Calculate P value...\n")
   test <- apply(data_pfc, 1, function(x) {
-    unitest(x[group1.index], x[group2.index])
+    unitest(x[group1.index], x[group2.index],paired = paired)
   })
 
   p <- unlist(lapply(test, function(x)
@@ -72,8 +73,8 @@ volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
   group1<-group[1]
   group2<-group[2]
   if(doubleline){
-  Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 1,
-                                 ifelse(log2(fc) < -1,
+  Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 0.41,
+                                 ifelse(log2(fc) < -0.41,
                                         "Down","Up"),"Not Sig"))
   png(file="volcano plot doubleline.png", width = 1200, height = 1000,res = 56*2)
   volc1 <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
@@ -82,7 +83,7 @@ volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
     annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group2)+
     annotate("text",x=xlim[2]-1.5,y=quantile(-log10(p),0.9999),label=group1)+
     theme_bw(base_size = 16) +
-    geom_vline(xintercept=c(-1,1),
+    geom_vline(xintercept=c(-0.41,0.41),
                lty=4,col="orange",lwd=1)+ # 在x轴-1.5与1.5的位置画两根竖线
     geom_hline(yintercept = -log10(0.05),
                lty=4,col="orange",lwd=1)+ #在p value 0.05的位置画一根横线
@@ -113,7 +114,7 @@ volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
       annotate("text",x=xlim[2]-1.5,y=quantile(-log10(p),0.9999),label=group1)+
       theme_bw(base_size = 16) +
       geom_vline(xintercept= 0,
-                 lty=4,col="orange",lwd=1)+ # 在x轴-1.5与1.5的位置画两根竖线
+                 lty=4,col="orange",lwd=1)+
       geom_hline(yintercept = -log10(0.05),
                  lty=4,col="orange",lwd=1)+ #在p value 0.05的位置画一根横线
       labs(x="log2 (Fold change)",
@@ -121,7 +122,7 @@ volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
            title="Volcano plot")+
       xlim(xlim)+
       geom_text_repel(
-        data = subset(vol, p < p.cutoff),###fc的绝对值大于1
+        data = subset(vol, p < p.cutoff),
         max.iter = 100000,
         aes(label = name),
         size = 4,

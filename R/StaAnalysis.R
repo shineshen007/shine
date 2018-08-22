@@ -155,7 +155,7 @@ StaAnalysis <- function(p.cutoff = 0,
          title="Volcano plot")+
     xlim(xlim)+
     geom_text_repel(
-      data = subset(vol, p < p.cutoff&abs(log2(fc))>1),###fc的绝对值大于1
+      data = subset(vol, p < p.cutoff&abs(log2(fc))>0.41),###fc的绝对值大于1
       max.iter = 100000,
       aes(label = name),
       size = 4,

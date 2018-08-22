@@ -6,7 +6,7 @@
 \usage{
 volcano(p.cutoff = 0, group = c("case", "control"), pcorrect = TRUE,
   singleline = TRUE, xlim = c(-5, 5), fc.cutoff = 1, doubleline = FALSE,
-  unitest = c("t.test", "wilcox.test"))
+  unitest = c("t.test", "wilcox.test"), paired = FALSE)
 }
 \arguments{
 \item{p.cutoff}{default is 0.05.}
@@ -24,6 +24,8 @@ volcano(p.cutoff = 0, group = c("case", "control"), pcorrect = TRUE,
 \item{doubleline}{default is TRUE.}
 
 \item{unitest}{t.test or wilcox.test.}
+
+\item{paired}{paired test in t.test and wilcox.test,default is FALSE.}
 }
 \value{
 All the results can be got form other functions and instruction.
