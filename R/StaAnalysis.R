@@ -9,6 +9,7 @@
 #' @param splot default is FALSE.
 #' @param pcorrect default is TRUE.
 #' @param unitest t.test or wilcox.test.
+#' @param paired paired test in t.test and wilcox.test,default is FALSE.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -30,7 +31,7 @@
 StaAnalysis <- function(p.cutoff = 0,
                        group = c("case","control"),
                        splot = FALSE,unitest =c("t.test","wilcox.test"),
-                       pcorrect = TRUE,xlim = c(-5,5)){
+                       pcorrect = TRUE,xlim = c(-5,5),paired = FALSE){
   cat("Analyzing data...\n")
   require(mixOmics);require(data.table)
   require(ggrepel);  require(pheatmap)
@@ -65,7 +66,7 @@ StaAnalysis <- function(p.cutoff = 0,
   cat("Calculate P value...\n")
 
     test <- apply(data_pfc, 1, function(x) {
-      unitest(x[group1.index], x[group2.index])
+      unitest(x[group1.index], x[group2.index],paired = paired)
     })
     p <- unlist(lapply(test, function(x)
       x$p.value))
