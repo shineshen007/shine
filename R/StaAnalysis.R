@@ -40,8 +40,6 @@ StaAnalysis <- function(p.cutoff = 0,
   data <- setDF(data)
   sample.info <- read.csv("sample.info.csv")
 
-
-
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
   qc.name<-sample.info$sample.name[sample.info$class=="QC"]
@@ -76,7 +74,6 @@ StaAnalysis <- function(p.cutoff = 0,
   p <- p.adjust(p = p, method = "fdr",n=length(p))
   }
   ##create a folder for analysis
-    path <-getwd()
     dir.create("StaAnalysis")
     setwd("StaAnalysis")
 
@@ -138,8 +135,8 @@ StaAnalysis <- function(p.cutoff = 0,
   p<- vol$p
   group1<-group[1]
   group2<-group[2]
-  Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 1,
-                                 ifelse(log2(fc) < -1,
+  Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 0.41,
+                                 ifelse(log2(fc) < -0.41,
                                         "Down","Up"),"Not Sig"))
   png(file="volcano plot.png", width = 1200, height = 1000,res = 56*2)
   volc <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
@@ -186,7 +183,7 @@ StaAnalysis <- function(p.cutoff = 0,
   dev.off()
 }
   ##back origin work directory
-  setwd(path)
+  setwd("..//")
 
   cat("StaAnalysis is done\n")
 

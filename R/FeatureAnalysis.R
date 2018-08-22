@@ -8,6 +8,7 @@
 #' @param RSD.filter default is FALSE,if the percentage of qc rsd larger than 0.3
 #'  more than 0.7,almost after normalization,make FALSE to TRUE.
 #' @param zero.check default is TRUE.
+#' @param mzrt default is FALSE.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -27,7 +28,7 @@
 #' zero.check = F)
 #' }
 FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
-                            zero.check = TRUE) {
+                            zero.check = TRUE,mzrt = FALSE) {
   require(data.table)
   require(ggrepel);  require(gplots)
   cat("Import data...\n")
@@ -37,7 +38,6 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 
   cat("Analyzing data...\n")
   ##create a folder for analysis
-  path <-getwd()
   dir.create("FeatureAnalysis")
   setwd("FeatureAnalysis")
 
@@ -146,33 +146,36 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
     write.csv(filter.rsd.data,"data for sta.csv",row.names = FALSE)
   }
   cat("Draw mz VS RT plot...\n")
-  #### mz VS RT plot
-  png(file="mz.rt.png", width = 900, height = 800,res = 56*2)
-  col <- apply(sample,1,median)
-  mr <- ggplot(data,aes(x=rt,y=mz,colour=log10(col)))+
-    geom_point()+
-    scale_color_gradient(low = 'lightgreen', high = 'darkred')+
-    xlab("Retention time(s)")+
-    ylab("Mass to charge ratio(m/z)")+
-    labs(colour="log10(intensity)")+
-    theme(legend.position = c(0.95,0.9))
-  plot(mr)
-  dev.off()
+  if(mzrt){
+    #### mz VS RT plot
+    png(file="mz.rt.png", width = 900, height = 800,res = 56*2)
+    col <- apply(sample,1,median)
+    mr <- ggplot(data,aes(x=rt,y=mz,colour=log10(col)))+
+      geom_point()+
+      scale_color_gradient(low = 'lightgreen', high = 'darkred')+
+      xlab("Retention time(s)")+
+      ylab("Mass to charge ratio(m/z)")+
+      labs(colour="log10(intensity)")+
+      theme(legend.position = c(0.95,0.9))
+    plot(mr)
+    dev.off()
+  }
+
   ##back origin work directory
-  setwd(path)
+  setwd("..//")
 
   cat("FeatureAnalysis is done\n")
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.9.68.
+  packageStartupMessage("Shine 0.9.69.
                         Maintainer: Xia Shen.
                         \n2018-08-16
                         Notes: sample name in pos and neg mode must be identical
                         News: 1: edit corAnalysis
                               2: update PathwayMatch and generate kegg match file
                               3: add CoxAnalysis function
-                        Version 0.9.68
+                        Version 0.9.69
                         --------------
                         "
   )

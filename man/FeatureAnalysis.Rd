@@ -5,7 +5,7 @@
 \title{FeatureAnalysis}
 \usage{
 FeatureAnalysis(zero.filter = FALSE, RSD.filter = FALSE,
-  zero.check = TRUE)
+  zero.check = TRUE, mzrt = FALSE)
 }
 \arguments{
 \item{zero.filter}{default is FALSE,if the zero value exsit in your data,
@@ -15,6 +15,8 @@ make FALSE to TRUE.}
 more than 0.7,almost after normalization,make FALSE to TRUE.}
 
 \item{zero.check}{default is TRUE.}
+
+\item{mzrt}{default is FALSE.}
 }
 \value{
 All the results can be got form other functions and instruction.
