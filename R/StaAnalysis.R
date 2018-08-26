@@ -10,6 +10,7 @@
 #' @param pcorrect default is TRUE.
 #' @param unitest t.test or wilcox.test.
 #' @param paired paired test in t.test and wilcox.test,default is FALSE.
+#' @param h the height of group index,default is 0.2
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -31,7 +32,7 @@
 StaAnalysis <- function(p.cutoff = 0,
                        group = c("case","control"),
                        splot = FALSE,unitest =c("t.test","wilcox.test"),
-                       pcorrect = TRUE,xlim = c(-5,5),paired = FALSE){
+                       pcorrect = TRUE,xlim = c(-5,5),paired = FALSE,h=0.2){
   cat("Analyzing data...\n")
   require(mixOmics);require(data.table)
   require(ggrepel);  require(pheatmap)
@@ -112,7 +113,9 @@ StaAnalysis <- function(p.cutoff = 0,
   pls <- plotIndiv(plsda.datatm,
             ind.names = F,
             ellipse = T,
-            point.lwd=3,#point line size
+            pch = 15,#point shape
+            cex=1.6,#point size
+            point.lwd=3,# line size
             legend =TRUE,
             style="graphics",
             title = 'PLS-DA')
@@ -142,10 +145,10 @@ StaAnalysis <- function(p.cutoff = 0,
                                         "Down","Up"),"Not Sig"))
   png(file="volcano plot.png", width = 1200, height = 1000,res = 56*2)
   volc <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
-    geom_point(aes(color = Significant)) +
+    geom_point(aes(color = Significant),size=3) +
     scale_color_manual(values = c("green", "grey","red")) +
-    annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group2)+
-    annotate("text",x=xlim[2]-1.5,y=quantile(-log10(p),0.9999),label=group1)+
+    annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999)-h,label=group2)+
+    annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group1)+
     theme_bw(base_size = 16) +
     geom_vline(xintercept=c(-0.41,0.41),
                lty=4,col="orange",lwd=1)+ # 在x轴-0.41与0.41的位置画两根竖线

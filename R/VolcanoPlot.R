@@ -11,6 +11,7 @@
 #' @param unitest t.test or wilcox.test.
 #' @param fc.cutoff default is 1
 #' @param paired paired test in t.test and wilcox.test,default is FALSE.
+#' @param h the height of group index,default is 0.2
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -19,7 +20,8 @@
 #' }
 volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
                     singleline = TRUE,xlim = c(-5,5),fc.cutoff = 1,
-                   doubleline = FALSE,unitest =c("t.test","wilcox.test"),paired = FALSE){
+                   doubleline = FALSE,unitest =c("t.test","wilcox.test"),
+                   paired = FALSE,h=0.2){
   require(data.table)
   cat("Import data...\n")
   data <- fread("data.csv")
@@ -78,10 +80,10 @@ volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
                                         "Down","Up"),"Not Sig"))
   png(file="volcano plot doubleline.png", width = 1200, height = 1000,res = 56*2)
   volc1 <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
-    geom_point(aes(color = Significant)) +
+    geom_point(aes(color = Significant),size=3) +
     scale_color_manual(values = c("green", "grey","red")) +
-    annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group2)+
-    annotate("text",x=xlim[2]-1.5,y=quantile(-log10(p),0.9999),label=group1)+
+    annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999)-h,label=group2)+
+    annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group1)+
     theme_bw(base_size = 16) +
     geom_vline(xintercept=c(-0.41,0.41),
                lty=4,col="orange",lwd=1)+ # 在x轴-1.5与1.5的位置画两根竖线
@@ -108,10 +110,10 @@ volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
                                           "Down","Up"),"Not Sig"))
     png(file="volcano plot sinleline.png", width = 1200, height = 1000,res = 56*2)
     volc2 <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
-      geom_point(aes(color = Significant)) +
+      geom_point(aes(color = Significant),size=3) +
       scale_color_manual(values = c("green", "grey","red")) +
-      annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group2)+
-      annotate("text",x=xlim[2]-1.5,y=quantile(-log10(p),0.9999),label=group1)+
+      annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999)-h,label=group2)+
+      annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group1)+
       theme_bw(base_size = 16) +
       geom_vline(xintercept= 0,
                  lty=4,col="orange",lwd=1)+

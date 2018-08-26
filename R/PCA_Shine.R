@@ -36,10 +36,12 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
             "Magenta","HotPink2","DeepSkyBlue2","Green1")#10 color
   lev<-length(levels(class))
   cl<-colour[1:lev]
+  shape <-c(15:18,7:14)
+  pch<-shape[1:lev]
 
   cat("Draw PCA plot...\n")
   if(ind){
-  ###PCA
+  ###PCA"
   png(file="PCA ind.png", width = 1200, height = 1000,res = 56*2)
   temp<-data_pfc
   pca<-pca(t(temp), ncomp=2, scale=T)
@@ -48,6 +50,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
             ind.names = T,###label
             ellipse = F,###confidence interval
             legend =TRUE,
+            pch = pch,
+            cex=1.6,
             style="graphics",
             abline = T,
             title = 'PCA')
@@ -65,7 +69,9 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     ellipse = T,###confidence interval
                     legend =TRUE,
                     col=cl,
+                    pch = pch,
                     point.lwd=3,
+                    cex=1.6,
                     style="graphics",
                     abline = T,
                     title = 'PCA')
@@ -83,6 +89,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     ellipse = T,###confidence interval
                     legend =TRUE,
                     style="graphics",
+                    pch = pch,
+                    cex=1.6,
                     abline = T,
                     title = 'PCA')
 
@@ -100,6 +108,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     legend =TRUE,
                     col=cl,
                     point.lwd=3,
+                    pch = pch,
+                    cex=1.6,
                     style="graphics",
                     abline = T,
                     title = 'PCA')

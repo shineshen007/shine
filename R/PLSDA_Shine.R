@@ -37,11 +37,19 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     datatm<-as.matrix(datat)
     XXt<-t(datatm)
     group_pls<-as.data.frame(sample.info$group)
+    colour<-c("SeaGreen","goldenrod","Firebrick","DimGrey","NavyBlue","LightSlateBlue",
+              "Magenta","HotPink2","DeepSkyBlue2","Green1")#10 color
+    lev<-length(levels(class))
+    cl<-colour[1:lev]
+    shape <-c(15:18,7:14)
+    pch<-shape[1:lev]
     YY<-group_pls[sample.index,]
     plsda.datatm <-plsda(XXt, YY, ncomp = 2)
     pls <- plotIndiv(plsda.datatm,
                      ind.names = F,
                      ellipse = T,
+                     pch = pch,
+                     cex=1.6,
                      point.lwd=3,#point line size
                      legend =TRUE,
                      style="graphics",
@@ -75,6 +83,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
   pls <- plotIndiv(plsda.datatm,
             ind.names = T,
             ellipse = F,
+            pch = 15,
+            cex=1.6,
             legend =TRUE,
             style="graphics",
             title = 'PLS-DA')
@@ -92,6 +102,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     pls <- plotIndiv(plsda.datatm,
                      ind.names = F,
                      ellipse = T,
+                     pch = 15,
+                     cex=1.6,
                      point.lwd=3,#point line size
                      legend =TRUE,
                      style="graphics",
@@ -110,6 +122,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     pls <- plotIndiv(plsda.datatm,
                      ind.names = T,
                      ellipse = T,
+                     pch = 15,
+                     cex=1.6,
                      legend =TRUE,
                      style="graphics",
                      title = 'PLS-DA')
@@ -126,6 +140,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     plsda.datatm <-plsda(XXt, YY, ncomp = 2)
     pls <- plotIndiv(plsda.datatm,
                      ind.names = F,
+                     pch = 15,
+                     cex=1.6,
                      ellipse = F,
                      point.lwd=3,#point line size
                      legend =TRUE,
