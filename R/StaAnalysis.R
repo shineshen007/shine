@@ -113,7 +113,7 @@ StaAnalysis <- function(p.cutoff = 0,
   pls <- plotIndiv(plsda.datatm,
             ind.names = F,
             ellipse = T,
-            pch = 15,#point shape
+            pch = 16,#point shape
             cex=1.6,#point size
             point.lwd=3,# line size
             legend =TRUE,
