@@ -3,6 +3,7 @@
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
 #' @param group group set.
+#' @param hsa hsa or mmu
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -11,7 +12,7 @@
 #' library(Shine)
 #' PathwayMatch(group = c("S","P"))
 #' }
-PathwayMatch<-function(group=c("case","control")){
+PathwayMatch<-function(group=c("case","control"),hsa=TRUE){
   require(xlsx)
   data <- read.csv("Quantitative.pathway.metabolite.result.csv")
   sample.info <- read.csv("sample.info.csv")
@@ -23,7 +24,6 @@ PathwayMatch<-function(group=c("case","control")){
   name <- as.character(data[,"compound.name"])
 
   class<- sample.info[,"group"]
-
   pathway.p<-read.csv("Pathway.enrichment.analysis.csv")
   nume<-length(which(pathway.p$FDR<0.05))
   path1<-as.character(pathway.p[1:nume,1])
@@ -78,6 +78,7 @@ PathwayMatch<-function(group=c("case","control")){
     colnames(cyto)<-c("pathway.p","pathway","metabolites","fc")
     cyto<-cyto
   }
+  if(hsa){
   for (i in 1:nume){
     pathway.name<-path1[i]
     pathway.d<-hsa.kegg.pathway[pathway.name]
@@ -86,7 +87,17 @@ PathwayMatch<-function(group=c("case","control")){
     d<-pathwayy()
     temp.c <- rbind(a,d)
     c <- rbind(c, temp.c)
-
+  }
+  }else{
+    for (i in 1:nume){
+      pathway.name<-path1[i]
+      pathway.d<-mmu.kegg.pathway[pathway.name]
+      pathway<-pathway.d[[1]]
+      a<-NULL
+      d<-pathwayy()
+      temp.c <- rbind(a,d)
+      c <- rbind(c, temp.c)
+}
   }
   write.xlsx(c,"cytoscape.xlsx",row.names = F)
 

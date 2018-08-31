@@ -4,10 +4,12 @@
 \alias{PathwayMatch}
 \title{PathwayMatch}
 \usage{
-PathwayMatch(group = c("case", "control"))
+PathwayMatch(group = c("case", "control"), hsa = TRUE)
 }
 \arguments{
 \item{group}{group set.}
+
+\item{hsa}{hsa or mmu}
 }
 \value{
 All the results can be got form other functions and instruction.
