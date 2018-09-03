@@ -9,6 +9,7 @@
 #'  more than 0.7,almost after normalization,make FALSE to TRUE.
 #' @param zero.check default is TRUE.
 #' @param mzrt default is FALSE.
+#' @param FilterIsotope default is TRUE.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -28,7 +29,7 @@
 #' zero.check = F)
 #' }
 FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
-                            zero.check = TRUE,mzrt = FALSE) {
+                            zero.check = TRUE,mzrt = FALSE,FilterIsotope=TRUE) {
   require(data.table)
   require(ggrepel);  require(gplots)
   cat("Import data...\n")
@@ -40,18 +41,17 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
   ##create a folder for analysis
   dir.create("FeatureAnalysis")
   setwd("FeatureAnalysis")
-
+  if(FilterIsotope){
   cat("Isotope filtering...\n")
   ###remove [M+n],\\ make [] lose the ability of function，
   isotope_filter<-function(data){
     temp<- data[c(grep("\\[M\\]",data$isotope),
                   which(data$isotope == "")),]
   }
-  filter.isotope.data <-isotope_filter(data)
-  write.csv(filter.isotope.data,"filter.isotope.csv",row.names = FALSE)
-
+  data <-isotope_filter(data)
+  write.csv(data,"filter.isotope.csv",row.names = FALSE)
+  }
   ###data preparation
-  data<-filter.isotope.data
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
   qc.name<-sample.info$sample.name[sample.info$class=="QC"]
 
@@ -168,14 +168,15 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.9.73.
+  packageStartupMessage("Shine 0.9.75.
                         Maintainer: Xia Shen.
-                        \n2018-08-31
+                        \n2018-09-3
                         Notes: sample name in pos and neg mode must be identical
-                        News: 1: add paired in unitest
+                        News: 1: FilterIsotope default is TRUE
                               2: update PathwayMatch and add mmu species
-
-                        Version 0.9.73
+                              3: add OR output in forestanalysis
+                              4: add biclass function
+                        Version 0.9.75
                         --------------
                         "
   )
