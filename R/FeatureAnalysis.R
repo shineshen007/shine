@@ -110,7 +110,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 
   cat("Draw QC distribution plot...\n")
   ### QC distribution plot
-  png(file="QC distribution.png", width = 900, height = 800,res = 56*2)
+  tiff(file="QC distribution.tiff", width = 900, height = 800,res = 56*2)
   d <- read.csv("rsd.csv")
   percent <- round(sum(d$x<0.3)/nrow(d),3)
   txt <- paste(percent*100,"%")
@@ -148,7 +148,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
   cat("Draw mz VS RT plot...\n")
   if(mzrt){
     #### mz VS RT plot
-    png(file="mz.rt.png", width = 900, height = 800,res = 56*2)
+    tiff(file="mz.rt.tiff", width = 900, height = 800,res = 56*2)
     col <- apply(sample,1,median)
     mr <- ggplot(data,aes(x=rt,y=mz,colour=log10(col)))+
       geom_point()+
@@ -168,15 +168,17 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.9.75.
+  packageStartupMessage("Shine 0.9.76.
                         Maintainer: Xia Shen.
-                        \n2018-09-3
+                        \n2018-09-04
+
                         Notes: sample name in pos and neg mode must be identical
+
                         News: 1: FilterIsotope default is TRUE
                               2: update PathwayMatch and add mmu species
                               3: add OR output in forestanalysis
                               4: add biclass function
-                        Version 0.9.75
+                        Version 0.9.76
                         --------------
                         "
   )

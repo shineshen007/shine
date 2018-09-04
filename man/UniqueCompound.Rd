@@ -7,8 +7,7 @@
 UniqueCompound(data)
 }
 \arguments{
-\item{data}{a dataframe include name,mz,rt and isotope columns,
-the rest of all are sample and QC columns.}
+\item{data}{a dataframe must include compound name and ID.}
 }
 \description{
 unique compound

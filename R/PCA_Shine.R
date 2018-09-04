@@ -42,7 +42,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
   cat("Draw PCA plot...\n")
   if(ind){
   ###PCA"
-  png(file="PCA ind.png", width = 1200, height = 1000,res = 56*2)
+  tiff(file="PCA ind.tiff", width = 1200, height = 1000,res = 56*2)
   temp<-data_pfc
   pca<-pca(t(temp), ncomp=2, scale=T)
   pcap<-plotIndiv(pca,
@@ -60,7 +60,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
   }
   if(ellipse){
     ###PCA
-    png(file="PCA ellipse.png", width = 1200, height = 1000,res = 56*2)
+    tiff(file="PCA ellipse.tiff", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<-pca(t(temp), ncomp=2, scale=T)
     pcap<-plotIndiv(pca,
@@ -80,7 +80,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
   }
   if(both){
     ###PCA
-    png(file="PCA both.png", width = 1200, height = 1000,res = 56*2)
+    tiff(file="PCA both.tiff", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<-pca(t(temp), ncomp=2, scale=T)
     pcap<-plotIndiv(pca,
@@ -98,7 +98,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
   }
   if(neither){
     ###PCA
-    png(file="PCA neither.png", width = 1200, height = 1000,res = 56*2)
+    tiff(file="PCA neither.tiff", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<-pca(t(temp), ncomp=2, scale=T)
     pcap<-plotIndiv(pca,

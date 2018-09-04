@@ -81,7 +81,7 @@ StaAnalysis <- function(p.cutoff = 0,
 
   ###cat("Draw PCA plot...\n")
   ###PCA
-  ###png(file="PCA.png", width = 1200, height = 1000,res = 56*2)
+  ###tiff(file="PCA.tiff", width = 1200, height = 1000,res = 56*2)
   ###temp<-data_pfc
   ###pca<-pca(t(temp), ncomp=2, scale=T)
   ###pcap<-plotIndiv(pca,
@@ -97,7 +97,7 @@ StaAnalysis <- function(p.cutoff = 0,
 
   cat("Draw PLSDA plot...\n")
   ###PLS-DA
-  png(file="PLSDA.png", width = 1200, height = 1000,res = 56*2)
+  tiff(file="PLSDA.tiff", width = 1200, height = 1000,res = 56*2)
   sample.info1<-sample.info[c(group1.index,group2.index),]
   ###data preparation
   sample.name1<-sample.info1$sample.name[sample.info1$class=="Subject"]
@@ -143,7 +143,7 @@ StaAnalysis <- function(p.cutoff = 0,
   Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 0.41,
                                  ifelse(log2(fc) < -0.41,
                                         "Down","Up"),"Not Sig"))
-  png(file="volcano plot.png", width = 1200, height = 1000,res = 56*2)
+  tiff(file="volcano plot.tiff", width = 1200, height = 1000,res = 56*2)
   volc <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
     geom_point(aes(color = Significant),size=3) +
     scale_color_manual(values = c("green", "grey","red")) +
@@ -171,7 +171,7 @@ StaAnalysis <- function(p.cutoff = 0,
 
   if(splot){
   cat("Draw S plot of foldchange...\n")
-  png(file="S plot of foldchange.png", width = 900, height = 800,res = 56*2)
+  tiff(file="S plot of foldchange.tiff", width = 900, height = 800,res = 56*2)
   ##S plot of foldchange
   index<-c(1:nrow(f))
   datas <- cbind(index,f)

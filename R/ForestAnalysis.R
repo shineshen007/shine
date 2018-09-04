@@ -52,7 +52,7 @@ ForestAnalysis<-function(group = c("case","control")){
   require(meta)
   metaresult<-metabin(expose_1,case_all,expose_2,control_all,data=fdt,sm="OR",
                       studlab=paste(data$compound.name),comb.random=FALSE)
-  png(file="forest plot.png", width = 1200, height = 1000,res = 56*2)
+  tiff(file="forest plot.tiff", width = 1200, height = 1000,res = 56*2)
   forest(metaresult)
   dev.off()
 

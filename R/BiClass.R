@@ -25,7 +25,7 @@ BiClass <- function(){
                        labels=c("after", "before"))
   logit.perf <- table(test$group, logit.pred,
                       dnn=c("Actual", "Predicted"))
-  png(file="logistic.png", width = 1200, height = 1000,res = 56*2)
+  tiff(file="logistic.tiff", width = 1200, height = 1000,res = 56*2)
   #logistic
   roc<-plot.roc(test[,1],prob,print.auc=T, max.auc.polygon=TRUE,print.thres=F,col="black")
   dev.off()
@@ -37,7 +37,7 @@ BiClass <- function(){
 
   pred.svm<-as.numeric(svm.pred)
   pred.svm[which(pred.svm==2)] <- 0
-  png(file="svm.png", width = 1200, height = 1000,res = 56*2)
+  tiff(file="svm.tiff", width = 1200, height = 1000,res = 56*2)
   #svm
   roc.svm<-plot.roc(test[,1],pred.svm,print.auc=T, print.thres=F,col="red")
   dev.off()
@@ -52,7 +52,7 @@ BiClass <- function(){
 
   pred.rf<-as.numeric(rf.pred)
   pred.svm[which(pred.rf==2)] <- 0
-  png(file="rf.png", width = 1200, height = 1000,res = 56*2)
+  tiff(file="rf.tiff", width = 1200, height = 1000,res = 56*2)
   #rf
   roc.rf<-plot.roc(test[,1],pred.rf,print.auc=T,
                    col="blue",print.thres=F,auc.polygon=F)

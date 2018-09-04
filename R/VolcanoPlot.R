@@ -78,7 +78,7 @@ volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
   Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 0.41,
                                  ifelse(log2(fc) < -0.41,
                                         "Down","Up"),"Not Sig"))
-  png(file="volcano plot doubleline.png", width = 1200, height = 1000,res = 56*2)
+  tiff(file="volcano plot doubleline.tiff", width = 1200, height = 1000,res = 56*2)
   volc1 <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
     geom_point(aes(color = Significant),size=3) +
     scale_color_manual(values = c("green", "grey","red")) +
@@ -108,7 +108,7 @@ volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
     Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 0,
                                    ifelse(log2(fc) < 0,
                                           "Down","Up"),"Not Sig"))
-    png(file="volcano plot sinleline.png", width = 1200, height = 1000,res = 56*2)
+    tiff(file="volcano plot sinleline.tiff", width = 1200, height = 1000,res = 56*2)
     volc2 <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
       geom_point(aes(color = Significant),size=3) +
       scale_color_manual(values = c("green", "grey","red")) +
