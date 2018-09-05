@@ -49,8 +49,8 @@ PathwayMatch<-function(group=c("case","control"),hsa=TRUE){
     dfc<-data[,1:2]
     dfc<-cbind(dfc,f)
     rn<-dim(dfc)[1]
-    lfc<-which(dfc$fc<0.75)
-    tfc<-which(dfc$fc>0.75)
+    lfc<-which(dfc$fc<1)
+    tfc<-which(dfc$fc>1)
     ab<-data.frame(1:rn)
     colnames(ab)<-"colour"
     ab[lfc,]<-"green"
