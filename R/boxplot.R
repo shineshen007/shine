@@ -18,10 +18,10 @@ BoxPlot <- function(metabolite=NULL){
   colnames(Gender)<-"Gender"
 
   col <- colnames(data)
-  m <- match(metabolit,col)
+  m <- match(metabolite,col)
   d <- data[,m]
   scale <- scale(d)
-  ylab <- metabolit
+  ylab <- metabolite
   data1 <- cbind(data,Gender,scale)
   tiff(file="boxplot of sex.tiff", width = 1200, height = 700,res = 56*2)
   s <- ggboxplot(data = data1,x="Gender",y = "scale",color = "Gender",
