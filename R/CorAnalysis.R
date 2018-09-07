@@ -26,8 +26,8 @@ CorAnalysis<-function(number.cex = 0.6,number.digits=4,
   r<-cor[["r"]]
   tiff(file="bicor plot.tiff", width = 1200, height = 1000,res = 56*2)
   col=colorRampPalette(c("navy","white","firebrick3"))
-  corrplot(r,tl.col=col(10), tl.srt=45,tl.cex = 0.8,number.cex = number.cex,
-           addCoefasPercent = TRUE,cl.lim = c(-1,1),addCoef.col = "black")
+  corrplot(r,tl.col="black", tl.srt=45,tl.cex = 0.8,number.cex = number.cex,
+           addCoefasPercent = TRUE,cl.lim = c(-1,1),addCoef.col = "black",col = col(10))
   dev.off()
 
   p<-cor[["p"]]
