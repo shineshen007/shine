@@ -50,7 +50,6 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
             ind.names = T,###label
             ellipse = F,###confidence interval
             legend =TRUE,
-            pch = pch,
             cex=1.6,
             style="graphics",
             abline = T,
@@ -89,7 +88,6 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     ellipse = T,###confidence interval
                     legend =TRUE,
                     style="graphics",
-                    pch = pch,
                     cex=1.6,
                     abline = T,
                     title = 'PCA')
