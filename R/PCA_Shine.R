@@ -32,7 +32,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
   name <- as.character(data[,"name"])
 
   class<- sample.info[,"group"]
-  colour<-c("SeaGreen","goldenrod","Firebrick","DimGrey","NavyBlue","LightSlateBlue",
+  colour<-c("Turquoise3","Gold1","Firebrick1","Purple4","NavyBlue","LightSlateBlue",
             "Magenta","HotPink2","DeepSkyBlue2","Green1")#10 color
   lev<-length(levels(class))
   cl<-colour[1:lev]
