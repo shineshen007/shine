@@ -6,7 +6,7 @@
 \usage{
 StaAnalysis(p.cutoff = 0, group = c("case", "control"),
   splot = FALSE, unitest = c("t.test", "wilcox.test"),
-  pcorrect = TRUE, xlim = c(-5, 5), paired = FALSE, h = 0.2)
+  pcorrect = TRUE, xlim = c(-3, 3), paired = FALSE, h = 0.2)
 }
 \arguments{
 \item{p.cutoff}{default is 0.05.}
