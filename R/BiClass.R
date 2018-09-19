@@ -13,9 +13,8 @@ BiClass <- function(){
   require(pROC)
   require(e1071)
   require(randomForest)
-  require(data.table)
-  data <- fread("data.csv")
-  data<-setDF(data)
+  data <- read.csv("data.csv",stringsAsFactors = T)
+
   d <- dim(data)
   split <- sample(d[1],d[1]*(2/3))
   train<-data[split,]
