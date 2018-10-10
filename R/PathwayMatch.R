@@ -4,6 +4,7 @@
 #' \email{qq951633542@@163.com}
 #' @param group group set.
 #' @param hsa hsa or mmu
+#' @param pathway.fdr default is 0.05
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -12,7 +13,7 @@
 #' library(Shine)
 #' PathwayMatch(group = c("S","P"))
 #' }
-PathwayMatch<-function(group=c("case","control"),hsa=TRUE){
+PathwayMatch<-function(group=c("case","control"),hsa=TRUE,pathway.fdr=0.05){
   require(xlsx)
   data <- read.csv("Quantitative.pathway.metabolite.result.csv")
   sample.info <- read.csv("sample.info.csv")
@@ -25,7 +26,7 @@ PathwayMatch<-function(group=c("case","control"),hsa=TRUE){
 
   class<- sample.info[,"group"]
   pathway.p<-read.csv("Pathway.enrichment.analysis.csv")
-  nume<-length(which(pathway.p$FDR<0.05))
+  nume<-length(which(pathway.p$FDR<pathway.fdr))
   path1<-as.character(pathway.p[1:nume,1])
   c<-data.frame(NULL)
   pathwayy<-function(){
