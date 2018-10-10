@@ -4,12 +4,15 @@
 \alias{PathwayMatch}
 \title{PathwayMatch}
 \usage{
-PathwayMatch(group = c("case", "control"), hsa = TRUE)
+PathwayMatch(group = c("case", "control"), hsa = TRUE,
+  pathway.fdr = 0.05)
 }
 \arguments{
 \item{group}{group set.}
 
 \item{hsa}{hsa or mmu}
+
+\item{pathway.fdr}{default is 0.05}
 }
 \value{
 All the results can be got form other functions and instruction.
