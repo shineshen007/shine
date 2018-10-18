@@ -4,7 +4,10 @@
 \alias{BiClass}
 \title{BiClass}
 \usage{
-BiClass()
+BiClass(times = 1001)
+}
+\arguments{
+\item{times}{the loop times in sample selection,default is 1001,and the number must be odd number.}
 }
 \value{
 All the results can be got form other functions and instruction.
