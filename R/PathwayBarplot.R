@@ -1,12 +1,11 @@
 #' pathway enrichment barplot
 #' @export
-#' @param data a dataframe include name,mz,rt and isotope columns,
-#' the rest of all are sample and QC columns.
-PathwayBarplot <- function(data){
+#' @param row the rows be selected to plot,default is 30.
+PathwayBarplot <- function(row = 30){
   require(ggplot2)
   cat("Import data...\n")
   data <- read.csv("data.csv")
-  data <- data[1:30,]
+  data <- data[1:row,]
   group <- ifelse(data$p < 0.05,"sig", "not sig")
   pb<- ggplot(data,aes(reorder(pathway,-p),-log10(p)))+##-p control the order
     geom_bar(aes(fill=group),stat = "identity",position="dodge",width=0.8)+

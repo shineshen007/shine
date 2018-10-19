@@ -4,11 +4,10 @@
 \alias{PathwayBarplot}
 \title{pathway enrichment barplot}
 \usage{
-PathwayBarplot(data)
+PathwayBarplot(row = 30)
 }
 \arguments{
-\item{data}{a dataframe include name,mz,rt and isotope columns,
-the rest of all are sample and QC columns.}
+\item{row}{the rows be selected to plot,default is 30.}
 }
 \description{
 pathway enrichment barplot
