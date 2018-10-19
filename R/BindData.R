@@ -8,7 +8,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-BindData <- function(){
+BindData <- function(){#bind pos and neg mode data
   require(data.table)
   data_pos <- fread("data pos.csv")
   data_pos<- setDF(data_pos)

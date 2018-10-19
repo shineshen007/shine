@@ -43,13 +43,13 @@ volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
 
   class<- sample.info[,"group"]
 
-  group1.index <- which(class == group[1])
-  group2.index <- which(class == group[2])
+  group1.index <- which(class == group[1])#case
+  group2.index <- which(class == group[2])#control
 
   cat("Calculate Foldchange...\n")
   #must use the data_pfc,because the index include the qc in sampl.info
   fc <- apply(data_pfc,1,function(x) {
-    median(x[group2.index]+0.1)/ median(x[group1.index]+0.1)
+    median(x[group1.index]+0.1)/ median(x[group2.index]+0.1)
   })
 
   cat("Calculate P value...\n")
@@ -72,7 +72,7 @@ volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
   vol<-read.csv("vol.csv")
   fc<- vol$fc
   p<- vol$p
-  group1<-group[1]
+  group1<-group[1]#group index on the plot
   group2<-group[2]
   if(doubleline){
   Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 0.41,
@@ -86,13 +86,13 @@ volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
     annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group1)+
     theme_bw(base_size = 16) +
     geom_vline(xintercept=c(-0.41,0.41),
-               lty=4,col="orange",lwd=1)+ # 在x轴-1.5与1.5的位置画两根竖线
+               lty=4,col="orange",lwd=1)+ # add vetical line
     geom_hline(yintercept = -log10(0.05),
-               lty=4,col="orange",lwd=1)+ #在p value 0.05的位置画一根横线
+               lty=4,col="orange",lwd=1)+ #add hori line
     labs(x="log2 (Fold change)",
          y="-log10 (p-value)",
          title="Volcano plot")+
-    xlim(xlim)+
+    xlim(xlim)+#add changable xlim
     geom_text_repel(
       data = subset(vol, p < p.cutoff&abs(log2(fc))>fc.cutoff),###fc的绝对值大于1
       max.iter = 100000,
@@ -118,7 +118,7 @@ volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
       geom_vline(xintercept= 0,
                  lty=4,col="orange",lwd=1)+
       geom_hline(yintercept = -log10(0.05),
-                 lty=4,col="orange",lwd=1)+ #在p value 0.05的位置画一根横线
+                 lty=4,col="orange",lwd=1)+ #
       labs(x="log2 (Fold change)",
            y="-log10 (p-value)",
            title="Volcano plot")+

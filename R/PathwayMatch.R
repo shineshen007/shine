@@ -33,7 +33,7 @@ PathwayMatch<-function(group=c("case","control"),hsa=TRUE,pathway.fdr=0.05){
     group1.index <- which(class == group[1])
     group2.index <- which(class == group[2])
     fc <- apply(sample,1,function(x) {
-      median(x[group2.index]+0.1)/ median(x[group1.index]+0.1)
+      median(x[group1.index]+0.1)/ median(x[group2.index]+0.1)
     })
 
     t.test <- apply(sample, 1, function(x) {

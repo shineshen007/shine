@@ -10,7 +10,7 @@ ArrangeData()
 All the results can be got form other functions and instruction.
 }
 \description{
-a function to arrange data
+a function to arrange data for svr
 }
 \examples{
 \donttest{

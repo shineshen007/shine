@@ -61,7 +61,7 @@ StaAnalysis <- function(p.cutoff = 0,
   cat("Calculate Foldchange...\n")
   #must use the data_pfc,because the index include the qc in sampl.info
   fc <- apply(data_pfc,1,function(x) {
-    median(x[group2.index]+0.1)/ median(x[group1.index]+0.1)
+    median(x[group1.index]+0.1)/ median(x[group2.index]+0.1)
   })
 
   cat("Calculate P value...\n")
@@ -151,15 +151,15 @@ StaAnalysis <- function(p.cutoff = 0,
     annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group1)+
     theme_bw(base_size = 16) +
     geom_vline(xintercept=c(-0.41,0.41),
-               lty=4,col="orange",lwd=1)+ # 在x轴-0.41与0.41的位置画两根竖线
+               lty=4,col="orange",lwd=1)+ #
     geom_hline(yintercept = -log10(0.05),
-               lty=4,col="orange",lwd=1)+ #在p value 0.05的位置画一根横线
+               lty=4,col="orange",lwd=1)+ #
     labs(x="log2 (Fold change)",
          y="-log10 (p-value)",
          title="Volcano plot")+
     xlim(xlim)+
     geom_text_repel(
-      data = subset(vol, p < p.cutoff&abs(log2(fc))>0.41),###fc的绝对值大于1
+      data = subset(vol, p < p.cutoff&abs(log2(fc))>0.41),###
       max.iter = 100000,
       aes(label = name),
       size = 4,

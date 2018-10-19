@@ -84,10 +84,10 @@ BiClass <- function(times = 1001#must be odd
   colnames(v) <- c("index","auc")
   label="95% CI"
   p <- ggplot(mapping=aes(v$index, v$auc)) +
-    theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),
+    theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
           panel.background = element_blank(),axis.line = element_line(colour = "black"),legend.position = "none")+
     geom_quasirandom(aes(color="grey"))+
-    labs(x="a",
+    labs(x=NULL,
          y="Area Under Curve(AUC)",
          title="AUC Distribution plot")+
     geom_segment(mapping = aes(x=0.9,y=upper_lg),xend=1.1,yend=upper_lg)+
@@ -126,7 +126,7 @@ BiClass <- function(times = 1001#must be odd
     theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),
           panel.background = element_blank(),axis.line = element_line(colour = "black"),legend.position = "none")+
     geom_quasirandom(aes(color="grey"))+
-    labs(x="a",
+    labs(x=NULL,
          y="Area Under Curve(AUC)",
          title="AUC Distribution plot")+
     geom_segment(mapping = aes(x=0.9,y=upper_svm),xend=1.1,yend=upper_svm)+
@@ -192,7 +192,7 @@ BiClass <- function(times = 1001#must be odd
     theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),
           panel.background = element_blank(),axis.line = element_line(colour = "black"),legend.position = "none")+
     geom_quasirandom(aes(color="grey"))+
-    labs(x="a",
+    labs(x=NULL,
          y="Area Under Curve(AUC)",
          title="AUC Distribution plot")+
     geom_segment(mapping = aes(x=0.9,y=upper_rf),xend=1.1,yend=upper_rf)+
