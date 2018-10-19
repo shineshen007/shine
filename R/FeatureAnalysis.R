@@ -175,7 +175,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
                         Notes: sample name in pos and neg mode must be identical
 
                         News: 1: optimize Biclass function
-
+                              2: optimize Pathwaybaplot apperance
                         Version 0.9.80
                         --------------
                         "
