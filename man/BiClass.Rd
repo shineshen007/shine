@@ -4,10 +4,17 @@
 \alias{BiClass}
 \title{BiClass}
 \usage{
-BiClass(times = 1001)
+BiClass(times = 1001, logistic = TRUE, RandomForest = TRUE,
+  SVM = TRUE)
 }
 \arguments{
 \item{times}{the loop times in sample selection,default is 1001,and the number must be odd number.}
+
+\item{logistic}{do logistic regression}
+
+\item{RandomForest}{do RandomForest}
+
+\item{SVM}{do support vector machine}
 }
 \value{
 All the results can be got form other functions and instruction.

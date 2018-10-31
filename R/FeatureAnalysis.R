@@ -168,15 +168,15 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.9.80.
+  packageStartupMessage("Shine 0.9.81.
                         Maintainer: Xia Shen.
-                        \n2018-10-19
+                        \n2018-10-31
 
                         Notes: sample name in pos and neg mode must be identical
 
                         News: 1: optimize Biclass function
                               2: optimize Pathwaybaplot apperance
-                        Version 0.9.80
+                        Version 0.9.81
                         --------------
                         "
   )

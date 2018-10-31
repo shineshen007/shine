@@ -3,13 +3,19 @@
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
 #' @param times the loop times in sample selection,default is 1001,and the number must be odd number.
+#' @param logistic do logistic regression
+#' @param RandomForest do RandomForest
+#' @param SVM do support vector machine
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-BiClass <- function(times = 1001#must be odd
+BiClass <- function(times = 1001,#must be odd
+                    logistic = TRUE,
+                    RandomForest = TRUE,
+                    SVM = TRUE
                     ){
   require(pROC)
   require(ggbeeswarm)
@@ -37,7 +43,7 @@ BiClass <- function(times = 1001#must be odd
     auc_lg <- roc_lg[["auc"]][1]
     a_lg <- NULL
     aa_lg <- c(a_lg,auc_lg)
-    au_lg <- c(au_lg,aa_lg)
+    au_lg <- c(au_lg,aa_lg)#get 1000 times auc value
 
     #svm
     fit.svm<-svm(group~.,data = train, probability = TRUE)
@@ -63,6 +69,7 @@ BiClass <- function(times = 1001#must be odd
 
   }
   #logistic
+  if(logistic){
   AUC_lg_med <- median(au_lg)
   num_auc_lg <- which(au_lg==AUC_lg_med)[1]#select the median auc split
 
@@ -100,9 +107,10 @@ BiClass <- function(times = 1001#must be odd
     annotate("text", x=1.25, y=med_lg-0.01, label=med_lg, colour='black', size=5)+
     annotate("text", x=1.25, y=lower_lg-0.01, label=lower_lg, colour='black', size=5)+
     ggsave("AUC logistic.png",width=10,height=6)
-
+  }
 
   #SVM
+  if(SVM){
   AUC_svm_med <- median(au_svm)
   num_auc_svm <- which(au_svm==AUC_svm_med)[1]
 
@@ -140,9 +148,10 @@ BiClass <- function(times = 1001#must be odd
     annotate("text", x=1.25, y=lower_svm-0.01, label=lower_svm, colour='black', size=5)+
     ggsave("AUC svm.png",width=10,height=6)
 
-
+}
 
   #random forest
+  if(RandomForest){
   AUC_rf_med <- median(au_rf)
   num_auc_rf <- which(au_rf==AUC_rf_med)[1]
   ind <- num[[num_auc_rf]]
@@ -206,5 +215,5 @@ BiClass <- function(times = 1001#must be odd
     annotate("text", x=1.25, y=lower_rf-0.01, label=lower_rf, colour='black', size=5)+
     ggsave("AUC rf.png",width=10,height=6)
 }
-
+}
 
