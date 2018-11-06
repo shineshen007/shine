@@ -4,12 +4,15 @@
 \alias{CorAnalysis}
 \title{CorAnalysis}
 \usage{
-CorAnalysis(number.cex = 0.6, number.digits = 4, adjust = c("holm",
-  "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none"))
+CorAnalysis(number.cex = 0.6, tl.cex = 0.6, number.digits = 4,
+  adjust = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY",
+  "fdr", "none"))
 }
 \arguments{
 \item{number.cex}{The cex parameter to send to the call to text when
 writing the correlation coefficients into the plot.}
+
+\item{tl.cex}{font size of label}
 
 \item{number.digits}{indicating the number of decimal digits to be added
 into the plot. Non-negative integer or NULL, default 4.}

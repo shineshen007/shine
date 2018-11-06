@@ -2,6 +2,7 @@
 #' @description a function can do correlation analysis
 #' @param number.cex The cex parameter to send to the call to text when
 #' writing the correlation coefficients into the plot.
+#' @param tl.cex font size of label
 #' @param number.digits indicating the number of decimal digits to be added
 #' into the plot. Non-negative integer or NULL, default 4.
 #' @param adjust What adjustment for multiple tests should be used
@@ -13,7 +14,9 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-CorAnalysis<-function(number.cex = 0.6,number.digits=4,
+CorAnalysis<-function(number.cex = 0.6,#number size in cicle
+                      tl.cex = 0.6,#font size of label
+                      number.digits=4,
                       adjust = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none")){
   require(corrplot);require(PerformanceAnalytics)
   require(psych)
@@ -26,13 +29,13 @@ CorAnalysis<-function(number.cex = 0.6,number.digits=4,
   r<-cor[["r"]]
   tiff(file="bicor plot.tiff", width = 1200, height = 1000,res = 56*2)
   col=colorRampPalette(c("navy","white","firebrick3"))
-  corrplot(r,tl.col="black", tl.srt=45,tl.cex = 0.8,number.cex = number.cex,
+  corrplot(r,tl.col="black", tl.srt=45,tl.cex = tl.cex,number.cex = number.cex,
            addCoefasPercent = TRUE,cl.lim = c(-1,1),addCoef.col = "black",col = col(10))
   dev.off()
 
   p<-cor[["p"]]
   tiff(file="pvalue plot.tiff", width = 1200, height = 1000,res = 56*2)
-  corrplot(p,tl.col="black", tl.srt=45,tl.cex = 0.8,number.cex = number.cex,
+  corrplot(p,tl.col="black", tl.srt=45,tl.cex = tl.cex,number.cex = number.cex,
            cl.lim = c(0,1),addCoef.col = "black",number.digits = number.digits)
   dev.off()
 
