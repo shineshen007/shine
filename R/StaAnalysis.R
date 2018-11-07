@@ -91,10 +91,15 @@ StaAnalysis <- function(p.cutoff = 0,
     tiff(file="PCA.tiff", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<-pca(t(temp), ncomp=2, scale=T)
-    pcap<-plotIndiv(pca,group = sample.info$group,
+    pcap<-plotIndiv(pca,
+                    group = sample.info$group,
                     ind.names = F,###label
                     ellipse = F,###confidence interval
                     legend =TRUE,
+
+                    point.lwd=3,
+
+                    cex=1.6,
                     style="graphics",
                     abline = T,
                     title = 'PCA')
