@@ -19,7 +19,7 @@ DataFilter(p = 0.05, comp1 = 1, comp2 = 1, fc_toplimit = 4/3,
 \item{fc_lowerlimit}{lower limit of fold change}
 }
 \value{
-All the results can be got form other functions and instruction.
+filter p,foldchange,vip value that do not match the condition .
 }
 \description{
 a function to filter p value more than 0.05 or any value you can choose,

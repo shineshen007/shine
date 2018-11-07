@@ -9,7 +9,7 @@
 #' @param comp2 component 2 in PLSDA
 #' @param fc_toplimit top limit of fold change
 #' @param fc_lowerlimit lower limit of fold change
-#' @return  All the results can be got form other functions and instruction.
+#' @return  filter p,foldchange,vip value that do not match the condition .
 #' @export
 #' @examples
 #' \donttest{

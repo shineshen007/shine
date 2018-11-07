@@ -7,7 +7,7 @@
 BindData()
 }
 \value{
-All the results can be got form other functions and instruction.
+bind pos and neg data.
 }
 \description{
 a function to combind data.

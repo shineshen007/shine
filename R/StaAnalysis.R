@@ -11,6 +11,7 @@
 #' @param unitest t.test or wilcox.test.
 #' @param paired paired test in t.test and wilcox.test,default is FALSE.
 #' @param h the height of group index,default is 0.2
+#' @param PCA draw PCA plot or not
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -31,8 +32,13 @@
 #' }
 StaAnalysis <- function(p.cutoff = 0,
                        group = c("case","control"),
-                       splot = FALSE,unitest =c("t.test","wilcox.test"),
-                       pcorrect = TRUE,xlim = c(-3,3),paired = FALSE,h=0.2){
+                       splot = FALSE,
+                       unitest =c("t.test","wilcox.test"),
+                       pcorrect = TRUE,
+                       xlim = c(-3,3),
+                       paired = FALSE,
+                       h=0.2,
+                       PCA = FALSE){
   cat("Analyzing data...\n")
   require(mixOmics);require(data.table)
   require(ggrepel);  require(pheatmap)
@@ -79,21 +85,22 @@ StaAnalysis <- function(p.cutoff = 0,
     dir.create("StaAnalysis")
     setwd("StaAnalysis")
 
-  ###cat("Draw PCA plot...\n")
-  ###PCA
-  ###tiff(file="PCA.tiff", width = 1200, height = 1000,res = 56*2)
-  ###temp<-data_pfc
-  ###pca<-pca(t(temp), ncomp=2, scale=T)
-  ###pcap<-plotIndiv(pca,
-  ###          group = sample.info$group,
-  ###         ind.names = F,###label
-  ###          ellipse = F,###confidence interval
-  ###          legend =TRUE,
-  ###          style="graphics",
-  ###          abline = T,
-  ###          title = 'PCA')
 
-  ###dev.off()
+  if(PCA){
+    cat("Draw PCA plot...\n")
+    tiff(file="PCA.tiff", width = 1200, height = 1000,res = 56*2)
+    temp<-data_pfc
+    pca<-pca(t(temp), ncomp=2, scale=T)
+    pcap<-plotIndiv(pca,group = sample.info$group,
+                    ind.names = F,###label
+                    ellipse = F,###confidence interval
+                    legend =TRUE,
+                    style="graphics",
+                    abline = T,
+                    title = 'PCA')
+    dev.off()
+  }
+
 
   cat("Draw PLSDA plot...\n")
   ###PLS-DA

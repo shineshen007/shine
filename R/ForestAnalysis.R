@@ -16,7 +16,7 @@ ForestAnalysis<-function(group = c("case","control")){
   data <- setDF(data)
   sample.info <- read.csv("sample.info.csv")
 
-  case.name<-sample.info$sample.name[sample.info$group==group[1]]
+  case.name<-sample.info$sample.name[sample.info$group==group[1]]#get case name
   control.name<-sample.info$sample.name[sample.info$group==group[2]]
 
   case<-data[,match(case.name,colnames(data))]
@@ -26,7 +26,7 @@ ForestAnalysis<-function(group = c("case","control")){
     u<-mean(x)+sd(x)
     l<-mean(x)-sd(x)
     c<-c(l,u)
-  })
+  })#caculate the cutoff
 
   a<-apply(case, 1, function(x){
     length(which(x<mse[1]))
@@ -80,7 +80,7 @@ ForestAnalysis<-function(group = c("case","control")){
   oddr<-data.frame(apply(dt, 1, function(x){
     or <- (dt[,1]/dt[,3])/(dt[,2]/dt[,4])
 
-  }))
+  }))#caculate OR
   oddr <- data.frame(oddr[,1])
   colnames(oddr) <- "OR"
 
@@ -89,7 +89,7 @@ ForestAnalysis<-function(group = c("case","control")){
   lowerci<-data.frame(apply(dta, 1, function(x){
     lower <- exp(log(dta[,5])-sqrt(1/dt[,1]+1/dt[,2]+1/dt[,3]+1/dt[,4])*1.96)
 
-  }))
+  }))#caculate 95% CI
   lowerci <- data.frame(lowerci[,1])
 
   upperci<-data.frame(apply(dta, 1, function(x){

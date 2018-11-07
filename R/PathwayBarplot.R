@@ -1,7 +1,8 @@
 #' pathway enrichment barplot
 #' @export
 #' @param row the rows be selected to plot,default is 30.
-PathwayBarplot <- function(row = 30){
+PathwayBarplot <- function(row = 30#draw the first 30 pathways
+                           ){
   require(ggplot2)
   cat("Import data...\n")
   data <- read.csv("data.csv")

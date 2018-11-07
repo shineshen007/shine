@@ -6,7 +6,8 @@
 \usage{
 StaAnalysis(p.cutoff = 0, group = c("case", "control"),
   splot = FALSE, unitest = c("t.test", "wilcox.test"),
-  pcorrect = TRUE, xlim = c(-3, 3), paired = FALSE, h = 0.2)
+  pcorrect = TRUE, xlim = c(-3, 3), paired = FALSE, h = 0.2,
+  PCA = FALSE)
 }
 \arguments{
 \item{p.cutoff}{default is 0.05.}
@@ -24,6 +25,8 @@ StaAnalysis(p.cutoff = 0, group = c("case", "control"),
 \item{paired}{paired test in t.test and wilcox.test,default is FALSE.}
 
 \item{h}{the height of group index,default is 0.2}
+
+\item{PCA}{draw PCA plot or not}
 }
 \value{
 All the results can be got form other functions and instruction.

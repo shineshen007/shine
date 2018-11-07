@@ -52,11 +52,11 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
   write.csv(data,"filter.isotope.csv",row.names = FALSE)
   }
   ###data preparation
-  sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
-  qc.name<-sample.info$sample.name[sample.info$class=="QC"]
+  sample.name<-sample.info$sample.name[sample.info$class=="Subject"]#get sample index
+  qc.name<-sample.info$sample.name[sample.info$class=="QC"]#get qc index
 
-  sample<-data[,match(sample.name,colnames(data))]
-  qc<-data[,match(qc.name,colnames(data))]
+  sample<-data[,match(sample.name,colnames(data))]#get sample matrix
+  qc<-data[,match(qc.name,colnames(data))]#get qc matrix
 
   sample.qc<-cbind(sample,qc)
 
@@ -66,7 +66,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
     zero_check <- function(data){
       check_zero <- sample.qc
       numb.zero <- sapply(seq(nrow(check_zero)), function(i){
-        check.num.zero <- sum(check_zero[i,]== 0)
+        check.num.zero <- sum(check_zero[i,]== 0)#get zero value columns
       })
       numb.sample <- ncol(check_zero)
       idx.check <- which(numb.zero >= numb.sample/2)
@@ -168,15 +168,15 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.9.81.
+  packageStartupMessage("Shine 0.9.82.
                         Maintainer: Xia Shen.
-                        \n2018-10-31
+                        \n2018-11-07
 
                         Notes: sample name in pos and neg mode must be identical
 
-                        News: 1: optimize Biclass function
-                              2: optimize Pathwaybaplot apperance
-                        Version 0.9.81
+                        News: 1: add annotation to code
+
+                        Version 0.9.82
                         --------------
                         "
   )

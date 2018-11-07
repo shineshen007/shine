@@ -7,14 +7,20 @@
 #' @param b toplimit of colour
 #' @param c (abs(a)+b)/d
 #' @param d default 100
+#' @param scale_rows scale or not
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-Heatmap_Shine <- function(colour = c("green","white","red"),a=-2,b=2,c=0.04,
-                          d=100){
+Heatmap_Shine <- function(colour = c("green","white","red"),
+                          a=-2,#lower limit
+                          b=2,#upper limit
+                          c=0.04,#(a+b)/d
+                          d=100,#interval
+                          scale_rows = TRUE
+                          ){
   require(pheatmap);require(data.table)
   cat("Import data...\n")
   data <- fread("data.csv")
@@ -33,7 +39,10 @@ Heatmap_Shine <- function(colour = c("green","white","red"),a=-2,b=2,c=0.04,
     s = apply(x, 1, sd, na.rm = T)
     return((x - m) / s)
   }
-  y<-scale_rows(y)
+  if(scale_rows){
+    y<-scale_rows(y)
+  }
+
   y[y>b]=b
   y[a>y]=a
   bk = unique(c(seq(a,b,c)))

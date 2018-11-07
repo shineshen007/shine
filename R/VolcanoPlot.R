@@ -18,10 +18,16 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-volcano <- function(p.cutoff = 0,group = c("case","control"),pcorrect = TRUE,
-                    singleline = TRUE,xlim = c(-3,3),fc.cutoff = 0.41,
-                   doubleline = FALSE,unitest =c("t.test","wilcox.test"),
-                   paired = FALSE,h=0.2){
+volcano <- function(p.cutoff = 0,
+                    group = c("case","control"),
+                    pcorrect = TRUE,
+                    singleline = TRUE,
+                    xlim = c(-3,3),
+                    fc.cutoff = 0.41,
+                    doubleline = FALSE,
+                    unitest =c("t.test","wilcox.test"),
+                    paired = FALSE,
+                    h=0.2){
   require(data.table)
   cat("Import data...\n")
   data <- fread("data.csv")

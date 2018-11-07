@@ -2,7 +2,7 @@
 #' @description a function to combind data.
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
-#' @return  All the results can be got form other functions and instruction.
+#' @return  bind pos and neg data.
 #' @export
 #' @examples
 #' \donttest{

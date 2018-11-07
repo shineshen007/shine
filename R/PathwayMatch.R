@@ -26,7 +26,7 @@ PathwayMatch<-function(group=c("case","control"),hsa=TRUE,pathway.fdr=0.05){
 
   class<- sample.info[,"group"]
   pathway.p<-read.csv("Pathway.enrichment.analysis.csv")
-  nume<-length(which(pathway.p$FDR<pathway.fdr))
+  nume<-length(which(pathway.p$FDR<pathway.fdr))#caculate differentiate pathways
   path1<-as.character(pathway.p[1:nume,1])
   c<-data.frame(NULL)
   pathwayy<-function(){
