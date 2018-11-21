@@ -28,6 +28,7 @@ volcano <- function(p.cutoff = 0,
                     unitest =c("t.test","wilcox.test"),
                     paired = FALSE,
                     h=0.2){
+
   require(data.table)
   cat("Import data...\n")
   data <- fread("data.csv")
@@ -36,6 +37,39 @@ volcano <- function(p.cutoff = 0,
   cat("Analyzing data...\n")
   require(mixOmics)
   require(ggrepel);  require(gplots)
+
+  #parameter decision
+  unitest <- match.arg(unitest)
+  group <- group
+  correct <- as.logical(pcorrect)
+  paired <- as.logical(paired)
+  p.cutoff <- as.numeric(p.cutoff)
+  fc.cutoff <- as.numeric(fc.cutoff)
+
+
+  ##save parameters
+  Volcano.parameters <- c(
+    unitest,
+    paste(group, collapse = ","),
+    correct,
+    paired,
+    p.cutoff,
+    fc.cutoff
+  )
+  Volcano.parameters <- data.frame(c(
+    "unitest",
+    "group",
+    "correct",
+    "paired",
+    "p.cutoff",
+    "fc.cutoff"
+  ),
+  Volcano.parameters, stringsAsFactors = FALSE)
+
+  Volcano <- rbind(Volcano.parameters,c("Version", "0.0.984"))
+  colnames(Volcano) <- c('parameter', 'value')
+  write.csv(Volcano,"Volcano.parameters.csv",row.names = F)
+
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
   qc.name<-sample.info$sample.name[sample.info$class=="QC"]

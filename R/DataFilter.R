@@ -20,6 +20,11 @@ DataFilter <- function(p=0.05,comp1=1,comp2=1,
   require(data.table)
   data <- fread("data_pfc_vip.csv")
   data <- setDF(data)
+        #
+        idx.pp<-which(data$p>p)
+        data_pathway<-data[-idx.pp,]
+        write.csv(data_pathway,"data pathway.csv",row.names = FALSE)
+        #
         idx.vip1<-which(data$`comp 1`<comp1)
         data<-data[-idx.vip1,]
         idx.vip2<-which(data$`comp 2`<comp2)

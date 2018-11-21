@@ -4,11 +4,7 @@
 \alias{NAfilter}
 \title{NA filter}
 \usage{
-NAfilter(data)
-}
-\arguments{
-\item{data}{a dataframe include name,mz,rt and isotope columns,
-the rest of all are sample and QC columns.}
+NAfilter()
 }
 \description{
 NA filter

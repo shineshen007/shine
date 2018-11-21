@@ -118,7 +118,7 @@ StaAnalysis <- function(p.cutoff = 0,
     ),
     StaAnalysis.parameters, stringsAsFactors = FALSE)
 
-    StaAnalysis <- rbind(StaAnalysis.parameters,c("Version", "0.0.982"))
+    StaAnalysis <- rbind(StaAnalysis.parameters,c("Version", "0.0.984"))
     colnames(StaAnalysis) <- c('parameter', 'value')
     write.csv(StaAnalysis,"StaAnalysis.parameters.csv",row.names = F)
 
@@ -183,6 +183,7 @@ StaAnalysis <- function(p.cutoff = 0,
   data_pfc_vip<-cbind(data_vol,vip,data)
   write.csv(data_pfc_vip,"data_pfc_vip.csv",row.names = F)
   DataFilter()
+  UniqueCompound()
   vol<-read.csv("vol.csv")
   fc<- vol$fc
   p<- vol$p

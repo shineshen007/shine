@@ -4,10 +4,7 @@
 \alias{UniqueCompound}
 \title{unique compound}
 \usage{
-UniqueCompound(data)
-}
-\arguments{
-\item{data}{a dataframe must include compound name and ID.}
+UniqueCompound()
 }
 \description{
 unique compound
