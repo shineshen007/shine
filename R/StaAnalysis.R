@@ -72,11 +72,20 @@ StaAnalysis <- function(p.cutoff = 0,
 
   cat("Calculate P value...\n")
 
+  if(unitest == "t.test"){
     test <- apply(data_pfc, 1, function(x) {
-      unitest(x[group1.index], x[group2.index],paired = paired)
+      t.test(x[group1.index], x[group2.index],paired = paired)
     })
     p <- unlist(lapply(test, function(x)
       x$p.value))
+  }
+  if(unitest == "wilcox.test"){
+    test <- apply(data_pfc, 1, function(x) {
+      wilcox.test(x[group1.index], x[group2.index],paired = paired)
+    })
+    p <- unlist(lapply(test, function(x)
+      x$p.value))
+  }
 
   if(pcorrect){
   p <- p.adjust(p = p, method = "fdr",n=length(p))
@@ -85,6 +94,33 @@ StaAnalysis <- function(p.cutoff = 0,
     dir.create("StaAnalysis")
     setwd("StaAnalysis")
 
+    #parameter decision
+    unitest <- match.arg(unitest)
+    group <- group
+    correct <- as.logical(pcorrect)
+    p.cutoff <- as.numeric(p.cutoff)
+    paired <- as.logical(paired)
+
+    ##save parameters
+    StaAnalysis.parameters <- c(
+      unitest,
+      paste(group, collapse = ","),
+      correct,
+      paired,
+      p.cutoff
+    )
+    StaAnalysis.parameters <- data.frame(c(
+      "unitest",
+      "group",
+      "correct",
+      "paired",
+      "p.cutoff"
+    ),
+    StaAnalysis.parameters, stringsAsFactors = FALSE)
+
+    StaAnalysis <- rbind(StaAnalysis.parameters,c("Version", "0.0.982"))
+    colnames(StaAnalysis) <- c('parameter', 'value')
+    write.csv(StaAnalysis,"StaAnalysis.parameters.csv",row.names = F)
 
   if(PCA){
     cat("Draw PCA plot...\n")
