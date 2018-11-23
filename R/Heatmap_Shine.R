@@ -19,7 +19,7 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
                           b=2,#upper limit
                           c=0.04,#(a+b)/d
                           d=100,#interval
-                          scale_rows = TRUE
+                          scale_row = TRUE
                           ){
   require(pheatmap);require(data.table)
   cat("Import data...\n")
@@ -39,7 +39,7 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
     s = apply(x, 1, sd, na.rm = T)
     return((x - m) / s)
   }
-  if(scale_rows){
+  if(scale_row){
     y<-scale_rows(y)
   }
 
