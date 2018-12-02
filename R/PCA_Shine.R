@@ -6,6 +6,7 @@
 #' @param ellipse default is FALSE.
 #' @param both default is FALSE.
 #' @param neither default is TRUE.
+#' @param QC draw the pca plot of QC.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -13,7 +14,7 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
-               both = FALSE,neither = TRUE){
+               both = FALSE,neither = TRUE,QC = FALSE){
   require(mixOmics)
   require(data.table)
   cat("Import data...\n")
@@ -35,9 +36,49 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
   colour<-c("Turquoise3","Gold1","Firebrick1","Purple4","NavyBlue","LightSlateBlue",
             "Magenta","HotPink2","DeepSkyBlue2","Green1")#10 color
   lev<-length(levels(class))
+  levb<-length(levels(batch))
   cl<-colour[1:lev]
+  clo<-colour[1:levb]
   shape <-c(15:18,7:14)
   pch<-shape[1:lev]
+  pchb<-shape[1:levb]
+
+  cat("Draw PCA plot...\n")
+  if(QC){
+    ###PCA"
+    n <- which(sample.info$group=="QC")
+    tiff(file="PCA qc both.tiff", width = 1200, height = 1000,res = 56*2)
+    temp<-qc
+    pca<-pca(t(temp), ncomp=2, scale=T)
+    pcap<-plotIndiv(pca,
+                    group = as.factor(sample.info$batch[n]),
+                    ind.names = T,###label
+                    ellipse = T,###confidence interval
+                    legend =TRUE,
+
+                    cex=1.6,
+                    style="graphics",
+                    abline = T,
+                    title = 'PCA')
+
+    dev.off()
+
+    tiff(file="PCA qc neither.tiff", width = 1200, height = 1000,res = 56*2)
+    temp<-qc
+    pca<-pca(t(temp), ncomp=2, scale=T)
+    pcap<-plotIndiv(pca,
+                    group = as.factor(sample.info$batch[n]),
+                    ind.names = F,###label
+                    ellipse = F,###confidence interval
+                    legend =TRUE,
+                    pch = pchb,
+                    cex=1.6,
+                    style="graphics",
+                    abline = T,
+                    title = 'PCA')
+
+    dev.off()
+  }
 
   cat("Draw PCA plot...\n")
   if(ind){

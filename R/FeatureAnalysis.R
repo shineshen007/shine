@@ -168,15 +168,16 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.9.84.
+  packageStartupMessage("Shine 0.9.85.
                         Maintainer: Xia Shen.
-                        \n2018-11-21
+                        \n2018-12-02
 
                         Notes: sample name in pos and neg mode must be identical
 
                         News: 1: add parameter output to StaAnalysis
+                              2: add qc pca
 
-                        Version 0.9.84
+                        Version 0.9.85
                         --------------
                         "
   )

@@ -5,7 +5,7 @@
 \title{PCA_Shine}
 \usage{
 PCA_Shine(ind = FALSE, ellipse = FALSE, both = FALSE,
-  neither = TRUE)
+  neither = TRUE, QC = FALSE)
 }
 \arguments{
 \item{ind}{default is FALSE.}
@@ -15,6 +15,8 @@ PCA_Shine(ind = FALSE, ellipse = FALSE, both = FALSE,
 \item{both}{default is FALSE.}
 
 \item{neither}{default is TRUE.}
+
+\item{QC}{draw the pca plot of QC.}
 }
 \value{
 All the results can be got form other functions and instruction.

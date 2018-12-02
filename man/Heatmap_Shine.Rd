@@ -5,7 +5,7 @@
 \title{Heatmap_Shine}
 \usage{
 Heatmap_Shine(colour = c("green", "white", "red"), a = -2, b = 2,
-  c = 0.04, d = 100, scale_rows = TRUE)
+  c = 0.04, d = 100, scale_row = TRUE)
 }
 \arguments{
 \item{colour}{colour selection.}
@@ -18,7 +18,7 @@ Heatmap_Shine(colour = c("green", "white", "red"), a = -2, b = 2,
 
 \item{d}{default 100}
 
-\item{scale_rows}{scale or not}
+\item{scale_row}{scale or not}
 }
 \value{
 All the results can be got form other functions and instruction.

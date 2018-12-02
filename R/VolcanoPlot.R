@@ -93,12 +93,21 @@ volcano <- function(p.cutoff = 0,
   })
 
   cat("Calculate P value...\n")
-  test <- apply(data_pfc, 1, function(x) {
-    unitest(x[group1.index], x[group2.index],paired = paired)
-  })
+  if(unitest == "t.test"){
+    test <- apply(data_pfc, 1, function(x) {
+      t.test(x[group1.index], x[group2.index],paired = paired)
+    })
+    p <- unlist(lapply(test, function(x)
+      x$p.value))
+  }
+  if(unitest == "wilcox.test"){
+    test <- apply(data_pfc, 1, function(x) {
+      wilcox.test(x[group1.index], x[group2.index],paired = paired)
+    })
+    p <- unlist(lapply(test, function(x)
+      x$p.value))
+  }
 
-  p <- unlist(lapply(test, function(x)
-    x$p.value))
   if(pcorrect){
   p <- p.adjust(p = p, method = "fdr",n=length(p))
 }
@@ -121,7 +130,7 @@ volcano <- function(p.cutoff = 0,
   tiff(file="volcano plot doubleline.tiff", width = 1200, height = 1000,res = 56*2)
   volc1 <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
     geom_point(aes(color = Significant),size=3) +
-    scale_color_manual(values = c("green", "grey","red")) +
+    scale_color_manual(values = c("SpringGreen3", "grey","Firebrick1")) +
     annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999)-h,label=group2)+
     annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group1)+
     theme_bw(base_size = 16) +
@@ -151,7 +160,7 @@ volcano <- function(p.cutoff = 0,
     tiff(file="volcano plot sinleline.tiff", width = 1200, height = 1000,res = 56*2)
     volc2 <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
       geom_point(aes(color = Significant),size=3) +
-      scale_color_manual(values = c("green", "grey","red")) +
+      scale_color_manual(values = c("SpringGreen3", "grey","Firebrick1")) +
       annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999)-h,label=group2)+
       annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group1)+
       theme_bw(base_size = 16) +

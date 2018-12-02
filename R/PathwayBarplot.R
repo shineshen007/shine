@@ -15,6 +15,8 @@ PathwayBarplot <- function(row = 30#draw the first 30 pathways
           legend.position = "none",axis.text.y = element_text(size = 14),#the font size of axis
           axis.title.x = element_text(size = 14),#the font size of axis title
           axis.title.y = element_text(size = 14))+
+    geom_vline(xintercept= 1.30103,#draw a line at p=0.05
+               lty=4,col="grey21",lwd=1)+
     labs(title="Pathway Enrichment Analysis")+
     coord_flip()+
     xlab('Pathway')+
