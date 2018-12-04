@@ -26,6 +26,6 @@ BindData <- function(){#bind pos and neg mode data
   #
   data_both<-rbind(data_ID_pos,data_ID_neg)
   write.csv(data_both,"data pos and neg.csv",row.names = F)
-  data<-data_both[,-c(4:6,11:17)]
+  data<-data_both[,-c(15:17)]
   write.csv(data,"data for next.csv",row.names = F)
 }
