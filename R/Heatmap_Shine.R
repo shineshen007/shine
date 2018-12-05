@@ -7,7 +7,7 @@
 #' @param b toplimit of colour
 #' @param c (abs(a)+b)/d
 #' @param d default 100
-#' @param scale_rows scale or not
+#' @param scale_row scale or not
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples

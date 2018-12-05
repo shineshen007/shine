@@ -195,7 +195,7 @@ StaAnalysis <- function(p.cutoff = 0,
   tiff(file="volcano plot.tiff", width = 1200, height = 1000,res = 56*2)
   volc <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
     geom_point(aes(color = Significant),size=3) +
-    scale_color_manual(values = c("green", "grey","red")) +
+    scale_color_manual(values = c("SpringGreen3", "grey","Firebrick1")) +
     annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999)-h,label=group2)+
     annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group1)+
     theme_bw(base_size = 16) +
@@ -224,12 +224,12 @@ StaAnalysis <- function(p.cutoff = 0,
   ##S plot of foldchange
   index<-c(1:nrow(f))
   datas <- cbind(index,f)
-  Significant_s<- as.factor(ifelse(abs(log2(datas$fc)) > 0.26,
-                                 ifelse(log2(datas$fc) < -0.27,
+  Significant_s<- as.factor(ifelse(abs(log2(datas$fc)) > 0.41,
+                                 ifelse(log2(datas$fc) < -0.41,
                                         "Down","Up"),"Not Sig"))
   splot <- ggplot(datas, aes(x = reorder(index,fc), y = log2(fc)))+
     geom_point(aes(color = Significant_s)) +
-    scale_color_manual(values = c("green", "grey","red"))+
+    scale_color_manual(values = c("SpringGreen3", "grey","Firebrick1"))+
     labs(title="S plot of foldchange")+
     xlab('Index')
   plot(splot)
