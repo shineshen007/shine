@@ -8,6 +8,9 @@
 #' @param c (abs(a)+b)/d
 #' @param d default 100
 #' @param scale_row scale or not
+#' @param size_row the font size of row
+#' @param size_col the font size of col
+#' @param fontsize the font size
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
