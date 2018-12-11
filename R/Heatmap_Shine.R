@@ -19,7 +19,10 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
                           b=2,#upper limit
                           c=0.04,#(a+b)/d
                           d=100,#interval
-                          scale_row = TRUE
+                          scale_row = TRUE,
+                          size_row=10,
+                          size_col=8,
+                          fontsize=10
                           ){
   require(pheatmap);require(data.table)
   cat("Import data...\n")
@@ -52,9 +55,9 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
                            border_color = "grey60",
                            scale = "none",
                            breaks = bk,
-                           fontsize=10,
-                           fontsize_row=8,
-                           fontsize_col=6,
+                           fontsize=fontsize,
+                           fontsize_row=size_row,
+                           fontsize_col=size_col,
                            annotation=anno)
 
   dev.off()
