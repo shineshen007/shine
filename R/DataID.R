@@ -9,11 +9,11 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 DataID <- function(){
-  require(data.table)
-  data <- fread("data_after_pre.csv")
-  info <- fread("info.csv")
-  info<-setDF(info)
-  data<- setDF(data)
+
+  data <- data.table::fread("data_after_pre.csv")
+  info <- data.table::fread("info.csv")
+  info<-data.table::setDF(info)
+  data<- data.table::setDF(data)
   data<-data[,-1]
   info<-info[,-c(2:4)]
   write.csv(data,"data for dna.csv",row.names = F)

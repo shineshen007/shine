@@ -10,10 +10,10 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 ForestAnalysis<-function(group = c("case","control")){
-  require(data.table)
+
   cat("Import data...\n")
-  data <- fread("data.csv")
-  data <- setDF(data)
+  data <- data.table::fread("data.csv")
+  data <- data.table::setDF(data)
   sample.info <- read.csv("sample.info.csv")
 
   case.name<-sample.info$sample.name[sample.info$group==group[1]]#get case name
@@ -49,8 +49,8 @@ ForestAnalysis<-function(group = c("case","control")){
   fd<-cbind(expose_1,case_all,expose_2,control_all)
   p<-as.data.frame(data$compound.name)
   fdt<-as.data.frame(cbind(p,fd))
-  require(meta)
-  metaresult<-metabin(expose_1,case_all,expose_2,control_all,data=fdt,sm="OR",
+
+  metaresult<- meta::metabin(expose_1,case_all,expose_2,control_all,data=fdt,sm="OR",
                       studlab=paste(data$compound.name),comb.random=FALSE)
   tiff(file="forest plot.tiff", width = 1200, height = 1000,res = 56*2)
   forest(metaresult)

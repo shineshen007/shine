@@ -10,7 +10,7 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 BoxPlot <- function(metabolite=NULL){
-  require(ggpubr);
+
   data <- read.csv("data.csv",check.names = F)
   #gender
   Gender <- as.data.frame(data$sex)
@@ -24,7 +24,7 @@ BoxPlot <- function(metabolite=NULL){
   ylab <- metabolite
   data1 <- cbind(data,Gender,scale)
   tiff(file="boxplot of sex.tiff", width = 1200, height = 700,res = 56*2)
-  s <- ggboxplot(data = data1,x="Gender",y = "scale",color = "Gender",
+  s <- ggpubr::ggboxplot(data = data1,x="Gender",y = "scale",color = "Gender",
             palette = "jco",add = "jitter",ylab = ylab)+
   stat_compare_means()
   plot(s)

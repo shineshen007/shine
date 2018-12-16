@@ -14,7 +14,7 @@
 #' PathwayMatch(group = c("S","P"))
 #' }
 PathwayMatch<-function(group=c("case","control"),hsa=TRUE,pathway.fdr=0.05){
-  require(xlsx)
+
   data <- read.csv("Quantitative.pathway.metabolite.result.csv")
   sample.info <- read.csv("sample.info.csv")
   ###data preparation
@@ -100,6 +100,6 @@ PathwayMatch<-function(group=c("case","control"),hsa=TRUE,pathway.fdr=0.05){
       c <- rbind(c, temp.c)
 }
   }
-  write.xlsx(c,"cytoscape.xlsx",row.names = F)
+  xlsx::write.xlsx(c,"cytoscape.xlsx",row.names = F)
 
 }

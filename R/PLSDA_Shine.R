@@ -18,11 +18,10 @@
 PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                  both = FALSE,neither = TRUE,
                  group = c("case","control"),multiclass=FALSE){
-  require(mixOmics)
-  require(data.table)
+
   cat("Import data...\n")
-  data <- fread("data.csv")
-  data <- setDF(data)
+  data <- data.table::fread("data.csv")
+  data <- data.table::setDF(data)
   sample.info <- read.csv("sample.info.csv")
   class<- sample.info[,"group"]
 
@@ -44,8 +43,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     shape <-c(15:18,7:14)
     pch<-shape[1:lev]
     YY<-group_pls[sample.index,]
-    plsda.datatm <-plsda(XXt, YY, ncomp = 2)
-    pls <- plotIndiv(plsda.datatm,
+    plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
+    pls <- mixOmics::plotIndiv(plsda.datatm,
                      ind.names = F,
                      ellipse = T,
                      pch = pch,
@@ -57,7 +56,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     dev.off()
     cat("Calculate VIP...\n")
     ###VIP
-    vip<-vip(plsda.datatm)
+    vip<-mixOmics::vip(plsda.datatm)
     write.csv(vip,"VIP.csv",row.names = F)
   }
 
@@ -79,8 +78,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
   XXt<-t(datatm)
   group_pls<-as.data.frame(sample.info$group)
   YY<-group_pls[sample.index,]
-  plsda.datatm <-plsda(XXt, YY, ncomp = 2)
-  pls <- plotIndiv(plsda.datatm,
+  plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
+  pls <- mixOmics::plotIndiv(plsda.datatm,
             ind.names = T,
             ellipse = F,
             pch = 16,
@@ -98,8 +97,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     XXt<-t(datatm)
     group_pls<-as.data.frame(sample.info$group)
     YY<-group_pls[sample.index,]
-    plsda.datatm <-plsda(XXt, YY, ncomp = 2)
-    pls <- plotIndiv(plsda.datatm,
+    plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
+    pls <- mixOmics::plotIndiv(plsda.datatm,
                      ind.names = F,
                      ellipse = T,
                      pch = 16,
@@ -118,8 +117,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     XXt<-t(datatm)
     group_pls<-as.data.frame(sample.info$group)
     YY<-group_pls[sample.index,]
-    plsda.datatm <-plsda(XXt, YY, ncomp = 2)
-    pls <- plotIndiv(plsda.datatm,
+    plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
+    pls <- mixOmics::plotIndiv(plsda.datatm,
                      ind.names = T,
                      ellipse = T,
                      pch = 16,
@@ -137,8 +136,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     XXt<-t(datatm)
     group_pls<-as.data.frame(sample.info$group)
     YY<-group_pls[sample.index,]
-    plsda.datatm <-plsda(XXt, YY, ncomp = 2)
-    pls <- plotIndiv(plsda.datatm,
+    plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
+    pls <- mixOmics::plotIndiv(plsda.datatm,
                      ind.names = F,
                      pch = 16,
                      cex=1.6,
@@ -151,6 +150,6 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
   }
   cat("Calculate VIP...\n")
   ###VIP
-  vip<-vip(plsda.datatm)
+  vip<-mixOmics::vip(plsda.datatm)
   write.csv(vip,"VIP.csv",row.names = F)
 }

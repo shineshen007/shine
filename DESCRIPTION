@@ -9,6 +9,8 @@ Description: multifunctional data analysis tools.
 License: GPL
 Encoding: UTF-8
 LazyData: true
-Imports: ggplot2,ggrepel,gplots,mixOmics,pheatmap,data.table
-Depends: R (>= 3.4.3)
+Imports: ggplot2,ggrepel,gplots,mixOmics,pheatmap,data.table,corrplot,e1071,
+         ggbeeswarm,ggpubr,pROC,randomForest,meta,survminer,survival
+Suggests: xlsx         
+Depends: R (>= 3.3)
 RoxygenNote: 6.1.1

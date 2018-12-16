@@ -27,10 +27,10 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
                           size_col=8,
                           fontsize=10
                           ){
-  require(pheatmap);require(data.table)
+
   cat("Import data...\n")
-  data <- fread("data.csv")
-  data <- setDF(data)
+  data <- data.table::fread("data.csv")
+  data <- data.table::setDF(data)
   sample.info <- read.csv("sample.info.csv")
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]

@@ -10,7 +10,7 @@
 #' }
 CoxAnalysis <- function(){
   data<-read.csv("data.csv")#data contain columns of patients'name,age,sex etc
-  require(survival);require(survminer)
+
   ###unvariate analysis
   cln <- colnames(data)
   len <- length(cln)
@@ -46,10 +46,10 @@ CoxAnalysis <- function(){
   clen <- length(covariates)
   x <- c(covariatesp,covariates[clen])
   formulas <- as.formula(paste('Surv(time, status)~', paste(x, collapse= "+")))
-  mres.cox <- coxph(formulas, data = data)
+  mres.cox <- survival::coxph(formulas, data = data)
   ##forest plot
   tiff(file="forest plot of multiv_cox.tiff", width = 1200, height = 1000,res = 56*2)
-  ggforest(mres.cox,main = "Hazard ratio",cpositions = c(0.02, 0.22, 0.4),
+  survminer::ggforest(mres.cox,main = "Hazard ratio",cpositions = c(0.02, 0.22, 0.4),
            fontsize = 0.8,refLabel = "reference", noDigits = 2,data = data)
   dev.off()
   summary(mres.cox)

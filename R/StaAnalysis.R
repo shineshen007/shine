@@ -40,12 +40,10 @@ StaAnalysis <- function(p.cutoff = 0,
                        h=0.2,
                        PCA = FALSE){
   cat("Analyzing data...\n")
-  require(mixOmics);require(data.table)
-  require(ggrepel);  require(pheatmap)
 
   cat("Import data...\n")
-  data <- fread("data for sta.csv")
-  data <- setDF(data)
+  data <- data.table::fread("data for sta.csv")
+  data <- data.table::setDF(data)
   sample.info <- read.csv("sample.info.csv")
 
   ###data preparation
@@ -126,8 +124,8 @@ StaAnalysis <- function(p.cutoff = 0,
     cat("Draw PCA plot...\n")
     tiff(file="PCA.tiff", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
-    pca<-pca(t(temp), ncomp=2, scale=T)
-    pcap<-plotIndiv(pca,
+    pca<- mixOmics::pca(t(temp), ncomp=2, scale=T)
+    pcap<- mixOmics::plotIndiv(pca,
                     group = sample.info$group,
                     ind.names = F,###label
                     ellipse = F,###confidence interval
@@ -157,8 +155,8 @@ StaAnalysis <- function(p.cutoff = 0,
   XXt<-t(datatm)
   group_pls<-as.data.frame(sample.info1$group)
   YY<-group_pls[sample.index,]
-  plsda.datatm <-plsda(XXt, YY, ncomp = 2)
-  pls <- plotIndiv(plsda.datatm,
+  plsda.datatm <- mixOmics::plsda(XXt, YY, ncomp = 2)
+  pls <- mixOmics::plotIndiv(plsda.datatm,
             ind.names = F,
             ellipse = T,
             pch = 16,#point shape
@@ -171,7 +169,7 @@ StaAnalysis <- function(p.cutoff = 0,
 
   cat("Calculate VIP...\n")
   ###VIP
-  vip<-vip(plsda.datatm)
+  vip<- mixOmics::vip(plsda.datatm)
   write.csv(vip,"VIP.csv",row.names = F)
 
   cat("Draw Volcano plot...\n")
@@ -193,7 +191,7 @@ StaAnalysis <- function(p.cutoff = 0,
                                  ifelse(log2(fc) < -0.41,
                                         "Down","Up"),"Not Sig"))
   tiff(file="volcano plot.tiff", width = 1200, height = 1000,res = 56*2)
-  volc <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
+  volc <- ggplot2::ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
     geom_point(aes(color = Significant),size=3) +
     scale_color_manual(values = c("SpringGreen3", "grey","Firebrick1")) +
     annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999)-h,label=group2)+
@@ -207,7 +205,7 @@ StaAnalysis <- function(p.cutoff = 0,
          y="-log10 (p-value)",
          title="Volcano plot")+
     xlim(xlim)+
-    geom_text_repel(
+    ggrepel::geom_text_repel(
       data = subset(vol, p < p.cutoff&abs(log2(fc))>0.41),###
       max.iter = 100000,
       aes(label = name),
@@ -227,7 +225,7 @@ StaAnalysis <- function(p.cutoff = 0,
   Significant_s<- as.factor(ifelse(abs(log2(datas$fc)) > 0.41,
                                  ifelse(log2(datas$fc) < -0.41,
                                         "Down","Up"),"Not Sig"))
-  splot <- ggplot(datas, aes(x = reorder(index,fc), y = log2(fc)))+
+  splot <- ggplot2::ggplot(datas, aes(x = reorder(index,fc), y = log2(fc)))+
     geom_point(aes(color = Significant_s)) +
     scale_color_manual(values = c("SpringGreen3", "grey","Firebrick1"))+
     labs(title="S plot of foldchange")+

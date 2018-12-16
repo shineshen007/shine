@@ -17,11 +17,8 @@ BiClass <- function(times = 1001,#must be odd
                     RandomForest = TRUE,
                     SVM = TRUE
                     ){
-  require(pROC)
-  require(ggbeeswarm)
-  require(e1071)
-  require(randomForest)
-  data <- read.csv("data.csv",stringsAsFactors = T)
+
+  data <- utils::read.csv("data.csv",stringsAsFactors = T)
   d <- dim(data)
   num <- list()#save the split list
   au_lg <- NULL#save logistic auc
@@ -39,14 +36,14 @@ BiClass <- function(times = 1001,#must be odd
     fit.log<-glm(group~.,data = train,family = binomial())
     step.fit<-step(fit.log)
     prob<-predict(step.fit,test,type="response")
-    roc_lg <- roc(test$group,prob,ci=T)
+    roc_lg <- pROC::roc(test$group,prob,ci=T)
     auc_lg <- roc_lg[["auc"]][1]
     a_lg <- NULL
     aa_lg <- c(a_lg,auc_lg)
     au_lg <- c(au_lg,aa_lg)#get 1000 times auc value
 
     #svm
-    fit.svm<-svm(group~.,data = train, probability = TRUE)
+    fit.svm<-e1071::svm(group~.,data = train, probability = TRUE)
     svm.pred <- predict(fit.svm,test, probability = TRUE)
     pred.svm <- attr (svm.pred, "probabilities")[, 1]
     roc_svm <- roc(test[,1],pred.svm,ci=T)
@@ -57,7 +54,7 @@ BiClass <- function(times = 1001,#must be odd
 
     #random forest
 
-    fit.rf<-randomForest(group~.,data = train,na.action=na.roughfix,importance=TRUE, probability = TRUE)
+    fit.rf<-randomForest::randomForest(group~.,data = train,na.action=na.roughfix,importance=TRUE, probability = TRUE)
     imp <- importance(fit.rf,type = 2)
     rf.pred<-predict(fit.rf,test, type="prob")
 
@@ -90,10 +87,10 @@ BiClass <- function(times = 1001,#must be odd
   v <- cbind(cc_lg,au_lg)
   colnames(v) <- c("index","auc")
   label="95% CI"
-  p <- ggplot(mapping=aes(v$index, v$auc)) +
+  p <- ggplot2::ggplot(mapping=aes(v$index, v$auc)) +
     theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
           panel.background = element_blank(),axis.line = element_line(colour = "black"),legend.position = "none")+
-    geom_quasirandom(aes(color="grey"))+
+    ggbeeswarm::geom_quasirandom(aes(color="grey"))+
     labs(x=NULL,
          y="Area Under Curve(AUC)",
          title="AUC Distribution plot")+
@@ -117,10 +114,10 @@ BiClass <- function(times = 1001,#must be odd
   ind <- num[[num_auc_svm]]
   train_data_svm<-data[ind,]
   test_data_svm<-data[-ind,]
-  fit.svm<-svm(group~.,data = train_data_svm,probability = T)
+  fit.svm<-e1071::svm(group~.,data = train_data_svm,probability = T)
   svm.pred <- predict(fit.svm,test_data_svm, type="prob",probability = T)
   prob.svm <- attr (svm.pred, "probabilities")[, 1]
-  roc_svm <- roc(test_data_svm[,1],prob.svm, ci=T)
+  roc_svm <- pROC::roc(test_data_svm[,1],prob.svm, ci=T)
   auc_svm <- roc_svm[["auc"]][1]
   upper_svm <- round(roc_svm[["ci"]][3],2)
   med_svm <- round(median(au_svm),2)
@@ -161,14 +158,14 @@ BiClass <- function(times = 1001,#must be odd
   imp <- importance(fit.rf,type = 2)
   rf.pred<-predict(fit.rf,test_data, type="prob")
 
-  roc_rf <- roc(test_data[,1],rf.pred[,1], ci=T)
+  roc_rf <- pROC::roc(test_data[,1],rf.pred[,1], ci=T)
 
   upper_rf <- round(roc_rf[["ci"]][3],2)
   med_rf <- round(median(au_rf),2)
   lower_rf <- round(roc_rf[["ci"]][1],2)
   tiff(file="ROC.tiff", width = 1200, height = 1000,res = 56*2)
   #roclg
-  rocc_lg<-plot.roc(roc_lg,col="black"#, print.auc = T
+  rocc_lg<-pROC::plot.roc(roc_lg,col="black"#, print.auc = T
                     #,print.thres = "best"
   )
   #rocsvm

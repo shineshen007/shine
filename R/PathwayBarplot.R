@@ -3,12 +3,11 @@
 #' @param row the rows be selected to plot,default is 30.
 PathwayBarplot <- function(row = 30#draw the first 30 pathways
                            ){
-  require(ggplot2)
   cat("Import data...\n")
   data <- read.csv("data.csv")
   data <- data[1:row,]
   group <- ifelse(data$p < 0.05,"sig", "not sig")
-  pb<- ggplot(data,aes(reorder(pathway,-p),-log10(p)))+##-p control the order
+  pb<- ggplot2::ggplot(data,aes(reorder(pathway,-p),-log10(p)))+##-p control the order
     geom_bar(aes(fill=group),stat = "identity",position="dodge",width=0.8)+
     theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
           panel.background = element_blank(),axis.line = element_line(colour = "black"),

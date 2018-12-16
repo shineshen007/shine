@@ -17,9 +17,9 @@
 #' }
 DataFilter <- function(p=0.05,comp1=1,comp2=1,
                         fc_toplimit=4/3,fc_lowerlimit=3/4){
-  require(data.table)
-  data <- fread("data_pfc_vip.csv")
-  data <- setDF(data)
+
+  data <- data.table::fread("data_pfc_vip.csv")
+  data <- data.table::setDF(data)
         #
         idx.pp<-which(data$p>p)
         data_pathway<-data[-idx.pp,]

@@ -18,8 +18,7 @@ CorAnalysis<-function(number.cex = 0.6,#number size in cicle
                       tl.cex = 0.6,#font size of label
                       number.digits=4,
                       adjust = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none")){
-  require(corrplot);require(PerformanceAnalytics)
-  require(psych)
+
   data1<-read.csv("data1.csv",check.names = F)
   data2<-read.csv("data2.csv",check.names = F)
   core1<-as.data.frame(data1[,-1])
@@ -29,7 +28,7 @@ CorAnalysis<-function(number.cex = 0.6,#number size in cicle
   r<-cor[["r"]]
   tiff(file="bicor plot.tiff", width = 1200, height = 1000,res = 56*2)
   col=colorRampPalette(c("navy","white","firebrick3"))
-  corrplot(r,tl.col="black", tl.srt=45,tl.cex = tl.cex,number.cex = number.cex,
+  corrplot::corrplot(r,tl.col="black", tl.srt=45,tl.cex = tl.cex,number.cex = number.cex,
            addCoefasPercent = TRUE,cl.lim = c(-1,1),addCoef.col = "black",col = col(10))
   dev.off()
 

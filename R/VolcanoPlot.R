@@ -29,14 +29,11 @@ volcano <- function(p.cutoff = 0,
                     paired = FALSE,
                     h=0.2){
 
-  require(data.table)
   cat("Import data...\n")
-  data <- fread("data.csv")
-  data <- setDF(data)
+  data <- data.table::fread("data.csv")
+  data <- data.table::setDF(data)
   sample.info <- read.csv("sample.info.csv")
   cat("Analyzing data...\n")
-  require(mixOmics)
-  require(ggrepel);  require(gplots)
 
   #parameter decision
   unitest <- match.arg(unitest)
@@ -128,7 +125,7 @@ volcano <- function(p.cutoff = 0,
                                  ifelse(log2(fc) < -0.41,
                                         "Down","Up"),"Not Sig"))
   tiff(file="volcano plot doubleline.tiff", width = 1200, height = 1000,res = 56*2)
-  volc1 <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
+  volc1 <- ggplot2::ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
     geom_point(aes(color = Significant),size=3) +
     scale_color_manual(values = c("SpringGreen3", "grey","Firebrick1")) +
     annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999)-h,label=group2)+
@@ -142,7 +139,7 @@ volcano <- function(p.cutoff = 0,
          y="-log10 (p-value)",
          title="Volcano plot")+
     xlim(xlim)+#add changable xlim
-    geom_text_repel(
+    ggrepel::geom_text_repel(
       data = subset(vol, p < p.cutoff&abs(log2(fc))>fc.cutoff),###fc的绝对值大于1
       max.iter = 100000,
       aes(label = name),

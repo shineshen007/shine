@@ -30,12 +30,11 @@
 #' }
 FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
                             zero.check = TRUE,mzrt = FALSE,FilterIsotope=TRUE) {
-  require(data.table)
-  require(ggrepel);  require(gplots)
+
   cat("Import data...\n")
-  data <- fread("data.csv")
-  data <- setDF(data)
-  sample.info <- read.csv("sample.info.csv")
+  data <- data.table::fread("data.csv")
+  data <- data.table::setDF(data)
+  sample.info <- utils::read.csv("sample.info.csv")
 
   cat("Analyzing data...\n")
   ##create a folder for analysis
@@ -49,7 +48,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
                   which(data$isotope == "")),]
   }
   data <-isotope_filter(data)
-  write.csv(data,"filter.isotope.csv",row.names = FALSE)
+  utils::write.csv(data,"filter.isotope.csv",row.names = FALSE)
   }
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]#get sample index
@@ -117,7 +116,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
   scatter.data<-as.data.frame(rsd.data[order(rsd.data)])
   id<-c(1:nrow(qc))
   data_qc<- cbind(scatter.data,id)
-  qc_dis<- ggplot(data_qc,aes(x=id,y=rsd.data[order(rsd.data)]))+
+  qc_dis<- ggplot2::ggplot(data_qc,aes(x=id,y=rsd.data[order(rsd.data)]))+
     xlab("Feature Index")+
     ylab("Relative Standard Deviation(RSD)")+
     geom_point(aes(colour=scatter.data<0.3))+
@@ -150,7 +149,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
     #### mz VS RT plot
     tiff(file="mz.rt.tiff", width = 900, height = 800,res = 56*2)
     col <- apply(sample,1,median)
-    mr <- ggplot(data,aes(x=rt,y=mz,colour=log10(col)))+
+    mr <- ggplot2::ggplot(data,aes(x=rt,y=mz,colour=log10(col)))+
       geom_point()+
       scale_color_gradient(low = 'lightgreen', high = 'darkred')+
       xlab("Retention time(s)")+

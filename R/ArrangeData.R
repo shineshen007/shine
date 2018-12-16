@@ -10,13 +10,12 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 ArrangeData <- function(){
-  require(data.table)
-  data <- fread("peaktable.csv")
-  data<- setDF(data)
+  data <- data.table::fread("peaktable.csv")
+  data<- data.table::setDF(data)
 
   data<-data[,-c(2:4,6,7,9:13)]#remove redundancy columns
   colnames(data)[2] <- 'mz'
   colnames(data)[3] <- 'rt'
-  write.csv(data,"data for svr.csv",row.names = F)
+  utils::write.csv(data,"data for svr.csv",row.names = F)
 
 }

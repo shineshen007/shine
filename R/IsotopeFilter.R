@@ -10,10 +10,9 @@
 #' }
 IsotopeFilter <- function() {
 
-  require(data.table)
   cat("Import data...\n")
-  data <- fread("data.csv")
-  data <- setDF(data)
+  data <- data.table::fread("data.csv")
+  data <- data.table::setDF(data)
 
   cat("Isotope filtering...\n")
   ###remove [M+n],\\ make [] lose the ability of function，

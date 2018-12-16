@@ -15,11 +15,10 @@
 #' }
 PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                both = FALSE,neither = TRUE,QC = FALSE){
-  require(mixOmics)
-  require(data.table)
+
   cat("Import data...\n")
-  data <- fread("data.csv")
-  data <- setDF(data)
+  data <- data.table::fread("data.csv")
+  data <- data.table::setDF(data)
   sample.info <- read.csv("sample.info.csv")
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
@@ -50,8 +49,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     n <- which(sample.info$group=="QC")
     tiff(file="PCA qc both.tiff", width = 1200, height = 1000,res = 56*2)
     temp<-qc
-    pca<-pca(t(temp), ncomp=2, scale=T)
-    pcap<-plotIndiv(pca,
+    pca<- mixOmics::pca(t(temp), ncomp=2, scale=T)
+    pcap<- mixOmics::plotIndiv(pca,
                     group = as.factor(sample.info$batch[n]),
                     ind.names = T,###label
                     ellipse = T,###confidence interval
@@ -66,8 +65,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
 
     tiff(file="PCA qc neither.tiff", width = 1200, height = 1000,res = 56*2)
     temp<-qc
-    pca<-pca(t(temp), ncomp=2, scale=T)
-    pcap<-plotIndiv(pca,
+    pca<- mixOmics::pca(t(temp), ncomp=2, scale=T)
+    pcap<-mixOmics::plotIndiv(pca,
                     group = as.factor(sample.info$batch[n]),
                     ind.names = F,###label
                     ellipse = F,###confidence interval
@@ -86,8 +85,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
   ###PCA"
   tiff(file="PCA ind.tiff", width = 1200, height = 1000,res = 56*2)
   temp<-data_pfc
-  pca<-pca(t(temp), ncomp=2, scale=T)
-  pcap<-plotIndiv(pca,
+  pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
+  pcap<-mixOmics::plotIndiv(pca,
             group = sample.info$group,
             ind.names = T,###label
             ellipse = F,###confidence interval
@@ -103,8 +102,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     ###PCA
     tiff(file="PCA ellipse.tiff", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
-    pca<-pca(t(temp), ncomp=2, scale=T)
-    pcap<-plotIndiv(pca,
+    pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
+    pcap<-mixOmics::plotIndiv(pca,
                     group = sample.info$group,
                     ind.names = F,###label
                     ellipse = T,###confidence interval
@@ -123,8 +122,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     ###PCA
     tiff(file="PCA both.tiff", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
-    pca<-pca(t(temp), ncomp=2, scale=T)
-    pcap<-plotIndiv(pca,
+    pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
+    pcap<-mixOmics::plotIndiv(pca,
                     group = sample.info$group,
                     ind.names = T,###label
                     ellipse = T,###confidence interval
@@ -140,8 +139,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     ###PCA
     tiff(file="PCA neither.tiff", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
-    pca<-pca(t(temp), ncomp=2, scale=T)
-    pcap<-plotIndiv(pca,
+    pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
+    pcap<-mixOmics::plotIndiv(pca,
                     group = sample.info$group,
                     ind.names = F,###label
                     ellipse = F,###confidence interval

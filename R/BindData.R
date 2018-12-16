@@ -9,15 +9,15 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 BindData <- function(){#bind pos and neg mode data
-  require(data.table)
-  data_pos <- fread("data pos.csv")
-  data_pos<- setDF(data_pos)
-  ID_pos <- fread("ID POS.csv")
-  ID_pos <- setDF(ID_pos)
-  data_neg <- fread("data neg.csv")
-  data_neg<- setDF(data_neg)
-  ID_neg <- fread("ID NEG.csv")
-  ID_neg <- setDF(ID_neg)
+
+  data_pos <- data.table::fread("data pos.csv")
+  data_pos<- data.table::setDF(data_pos)
+  ID_pos <- data.table::fread("ID POS.csv")
+  ID_pos <- data.table::setDF(ID_pos)
+  data_neg <- data.table::fread("data neg.csv")
+  data_neg<- data.table::setDF(data_neg)
+  ID_neg <- data.table::fread("ID NEG.csv")
+  ID_neg <- data.table::setDF(ID_neg)
   #
   data_ID_pos<-cbind(ID_pos,data_pos)
   write.csv(data_ID_pos,"data_ID_pos.csv",row.names = F)
