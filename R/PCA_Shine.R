@@ -31,7 +31,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
 
   name <- as.character(data[,"name"])
 
-  class<- sample.info[,"group"]
+  class<- as.factor(sample.info[,"group"])
   batch<- as.factor(sample.info$batch)
   colour<-c("Turquoise3","Gold1","Firebrick1","Purple4","NavyBlue","LightSlateBlue",
             "Magenta","HotPink2","DeepSkyBlue2","Green1")#10 color
@@ -43,8 +43,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
   pch<-shape[1:lev]
   pchb<-shape[1:levb]
 
-  cat("Draw PCA plot of QC...\n")
   if(QC){
+    cat("Draw PCA plot of QC...\n")
     ###PCA"
     n <- which(sample.info$group=="QC")
     tiff(file="PCA qc both.tiff", width = 1200, height = 1000,res = 56*2)
