@@ -4,10 +4,14 @@
 \alias{ISboxplot}
 \title{ISboxplot}
 \usage{
-ISboxplot(sample = NULL)
+ISboxplot(sample = NULL, width = 10, height = 6)
 }
 \arguments{
 \item{sample}{a numeric object show the number of sample.}
+
+\item{width}{the width of plot}
+
+\item{height}{the height of plot}
 }
 \value{
 All the results can be got form other functions and instruction.
