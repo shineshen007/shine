@@ -33,7 +33,7 @@ BiClass <- function(times = 1001,#must be odd
     train<-data[num[[i]],]
     test<-data[-num[[i]],]
     #logistic
-    fit.log<-glm(group~.,data = train,family = binomial())
+    fit.log <- glm(group~.,data = train,family = binomial())
     step.fit<-step(fit.log)
     prob<-predict(step.fit,test,type="response")
     roc_lg <- pROC::roc(test$group,prob,ci=T)
@@ -87,14 +87,14 @@ BiClass <- function(times = 1001,#must be odd
   v <- cbind(cc_lg,au_lg)
   colnames(v) <- c("index","auc")
   label="95% CI"
-  p <- ggplot2::ggplot(mapping=aes(v$index, v$auc)) +
-    theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
+  p <- ggplot2::ggplot(mapping= ggplot2::aes(v$index, v$auc)) +
+    ggplot2::theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
           panel.background = element_blank(),axis.line = element_line(colour = "black"),legend.position = "none")+
     ggbeeswarm::geom_quasirandom(aes(color="grey"))+
     labs(x=NULL,
          y="Area Under Curve(AUC)",
          title="AUC Distribution plot")+
-    geom_segment(mapping = aes(x=0.9,y=upper_lg),xend=1.1,yend=upper_lg)+
+    ggplot2::geom_segment(mapping = aes(x=0.9,y=upper_lg),xend=1.1,yend=upper_lg)+
     geom_segment(mapping = aes(x=0.7,y=med_lg),xend=1.3,yend=med_lg)+
     geom_segment(mapping = aes(x=0.9,y=lower_lg),xend=1.1,yend=lower_lg)+
     geom_segment(mapping = aes(x=1,y=upper_lg),xend=1,yend=lower_lg)+
@@ -103,7 +103,7 @@ BiClass <- function(times = 1001,#must be odd
     annotate("text", x=1.25, y=upper_lg-0.01, label=upper_lg, colour='black', size=5)+
     annotate("text", x=1.25, y=med_lg-0.01, label=med_lg, colour='black', size=5)+
     annotate("text", x=1.25, y=lower_lg-0.01, label=lower_lg, colour='black', size=5)+
-    ggsave("AUC logistic.png",width=10,height=6)
+    ggplot2::ggsave("AUC logistic.png",width=10,height=6)
   }
 
   #SVM
@@ -194,10 +194,10 @@ BiClass <- function(times = 1001,#must be odd
   v <- cbind(cc,au_rf)
   colnames(v) <- c("index","auc")
   label="95% CI"
-  p <- ggplot(mapping=aes(v$index, v$auc)) +
-    theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),
+  p <- ggplot2::ggplot(mapping = ggplot2::aes(v$index, v$auc)) +
+    ggplot2::theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),
           panel.background = element_blank(),axis.line = element_line(colour = "black"),legend.position = "none")+
-    geom_quasirandom(aes(color="grey"))+
+    geom_quasirandom(ggplot2::aes(color="grey"))+
     labs(x=NULL,
          y="Area Under Curve(AUC)",
          title="AUC Distribution plot")+

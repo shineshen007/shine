@@ -23,7 +23,7 @@ CorAnalysis<-function(number.cex = 0.6,#number size in cicle
   data2<-read.csv("data2.csv",check.names = F)
   core1<-as.data.frame(data1[,-1])
   core2<-as.data.frame(data2[,-1])
-  cor<-corr.test(core1,core2,adjust = adjust)
+  cor<-psych::corr.test(core1,core2,adjust = adjust)
   #cor plot
   r<-cor[["r"]]
   tiff(file="bicor plot.tiff", width = 1200, height = 1000,res = 56*2)

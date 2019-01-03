@@ -116,12 +116,12 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
   scatter.data<-as.data.frame(rsd.data[order(rsd.data)])
   id<-c(1:nrow(qc))
   data_qc<- cbind(scatter.data,id)
-  qc_dis<- ggplot2::ggplot(data_qc,aes(x=id,y=rsd.data[order(rsd.data)]))+
+  qc_dis<- ggplot2::ggplot(data_qc,ggplot2::aes(x=id,y=rsd.data[order(rsd.data)]))+
     xlab("Feature Index")+
     ylab("Relative Standard Deviation(RSD)")+
-    geom_point(aes(colour=scatter.data<0.3))+
+    geom_point(ggplot2::aes(colour=scatter.data<0.3))+
     geom_text(data = d,aes(x= 400,y= 1.2,label= txt))
-  geom_hline(aes(yintercept=0.3,linetype="dashed"))
+  geom_hline(ggplot2::aes(yintercept=0.3,linetype="dashed"))
   plot(qc_dis)
   dev.off()
 
@@ -149,7 +149,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
     #### mz VS RT plot
     tiff(file="mz.rt.tiff", width = 900, height = 800,res = 56*2)
     col <- apply(sample,1,median)
-    mr <- ggplot2::ggplot(data,aes(x=rt,y=mz,colour=log10(col)))+
+    mr <- ggplot2::ggplot(data,ggplot2::aes(x=rt,y=mz,colour=log10(col)))+
       geom_point()+
       scale_color_gradient(low = 'lightgreen', high = 'darkred')+
       xlab("Retention time(s)")+
