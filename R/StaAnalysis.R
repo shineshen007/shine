@@ -14,6 +14,7 @@
 #' @param PCA draw PCA plot or not
 #' @return  All the results can be got form other functions and instruction.
 #' @export
+#' @import ggplot2
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
@@ -193,7 +194,7 @@ StaAnalysis <- function(p.cutoff = 0,
                                  ifelse(log2(fc) < -0.41,
                                         "Down","Up"),"Not Sig"))
   tiff(file="volcano plot.tiff", width = 1200, height = 1000,res = 56*2)
-  volc <- ggplot2::ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
+  volc <- ggplot2::ggplot(vol, ggplot2::aes(x = log2(fc), y = -log10(p)))+
     geom_point(aes(color = Significant),size=3) +
     scale_color_manual(values = c("SpringGreen3", "grey","Firebrick1")) +
     annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999)-h,label=group2)+
