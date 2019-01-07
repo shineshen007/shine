@@ -89,8 +89,10 @@ StaAnalysis <- function(p.cutoff = 0,
   p <- p.adjust(p = p, method = "fdr",n=length(p))
   }
   ##create a folder for analysis
-    dir.create("StaAnalysis")
-    setwd("StaAnalysis")
+  FolderName <- paste("StaAnalysis",group[1],sep = " ")
+  FolderName <- paste(FolderName,group[2],sep = "&")
+    dir.create(FolderName)
+    setwd(FolderName)
 
     #parameter decision
     unitest <- match.arg(unitest)

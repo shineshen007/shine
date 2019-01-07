@@ -117,11 +117,11 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
   id<-c(1:nrow(qc))
   data_qc<- cbind(scatter.data,id)
   qc_dis<- ggplot2::ggplot(data_qc,ggplot2::aes(x=id,y=rsd.data[order(rsd.data)]))+
-    xlab("Feature Index")+
-    ylab("Relative Standard Deviation(RSD)")+
-    geom_point(ggplot2::aes(colour=scatter.data<0.3))+
-    geom_text(data = d,aes(x= 400,y= 1.2,label= txt))
-  geom_hline(ggplot2::aes(yintercept=0.3,linetype="dashed"))
+    ggplot2::xlab("Feature Index")+
+    ggplot2::ylab("Relative Standard Deviation(RSD)")+
+    ggplot2::geom_point(ggplot2::aes(colour=scatter.data<0.3))+
+    ggplot2::geom_text(data = d,aes(x= 400,y= 1.2,label= txt))
+  ggplot2::geom_hline(ggplot2::aes(yintercept=0.3,linetype="dashed"))
   plot(qc_dis)
   dev.off()
 
@@ -152,10 +152,10 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
     mr <- ggplot2::ggplot(data,ggplot2::aes(x=rt,y=mz,colour=log10(col)))+
       geom_point()+
       scale_color_gradient(low = 'lightgreen', high = 'darkred')+
-      xlab("Retention time(s)")+
-      ylab("Mass to charge ratio(m/z)")+
-      labs(colour="log10(intensity)")+
-      theme(legend.position = c(0.95,0.9))
+      ggplot2::xlab("Retention time(s)")+
+      ggplot2::ylab("Mass to charge ratio(m/z)")+
+      ggplot2::labs(colour="log10(intensity)")+
+      ggplot2::theme(legend.position = c(0.95,0.9))
     plot(mr)
     dev.off()
   }
@@ -167,16 +167,16 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.9.86.
+  packageStartupMessage("Shine 0.9.87.
                         Maintainer: Xia Shen.
-                        \n2018-12-23
+                        \n2018-01-07
 
                         Notes: sample name in pos and neg mode must be identical
 
                         News: 1: add parameter output to StaAnalysis
                               2: add qc pca
                               3: add iMatch
-                        Version 0.9.86
+                        Version 0.9.87
                         --------------
                         "
   )
