@@ -53,7 +53,7 @@ ForestAnalysis<-function(group = c("case","control")){
   metaresult<- meta::metabin(expose_1,case_all,expose_2,control_all,data=fdt,sm="OR",
                       studlab=paste(data$compound.name),comb.random=FALSE)
   tiff(file="forest plot.tiff", width = 1200, height = 1000,res = 56*2)
-  forest(metaresult)
+  meta::forest(metaresult)
   dev.off()
 
   e <- as.data.frame(expose_1)

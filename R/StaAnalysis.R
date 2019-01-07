@@ -119,7 +119,7 @@ StaAnalysis <- function(p.cutoff = 0,
     ),
     StaAnalysis.parameters, stringsAsFactors = FALSE)
 
-    StaAnalysis <- rbind(StaAnalysis.parameters,c("Version", "0.0.984"))
+    StaAnalysis <- rbind(StaAnalysis.parameters,c("Version", "0.0.987"))
     colnames(StaAnalysis) <- c('parameter', 'value')
     write.csv(StaAnalysis,"StaAnalysis.parameters.csv",row.names = F)
 

@@ -46,7 +46,7 @@ BiClass <- function(times = 1001,#must be odd
     fit.svm<-e1071::svm(group~.,data = train, probability = TRUE)
     svm.pred <- predict(fit.svm,test, probability = TRUE)
     pred.svm <- attr (svm.pred, "probabilities")[, 1]
-    roc_svm <- roc(test[,1],pred.svm,ci=T)
+    roc_svm <- pROC::roc(test[,1],pred.svm,ci=T)
     auc_svm <- roc_svm[["auc"]][1]
     a_svm <- NULL
     aa_svm <- c(a_svm,auc_svm)
@@ -54,8 +54,8 @@ BiClass <- function(times = 1001,#must be odd
 
     #random forest
 
-    fit.rf<-randomForest::randomForest(group~.,data = train,na.action=na.roughfix,importance=TRUE, probability = TRUE)
-    imp <- importance(fit.rf,type = 2)
+    fit.rf <- randomForest::randomForest(group~.,data = train,na.action=na.roughfix,importance=TRUE, probability = TRUE)
+    imp <- randomForest::importance(fit.rf,type = 2)
     rf.pred<-predict(fit.rf,test, type="prob")
 
     roc_rf <- roc(test[,1],rf.pred[,1],ci=T)
@@ -89,7 +89,7 @@ BiClass <- function(times = 1001,#must be odd
   label="95% CI"
   p <- ggplot2::ggplot(mapping= ggplot2::aes(v$index, v$auc)) +
     ggplot2::theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
-          panel.background = element_blank(),axis.line = element_line(colour = "black"),legend.position = "none")+
+          panel.background = element_blank(),axis.line = ggplot2::element_line(colour = "black"),legend.position = "none")+
     ggbeeswarm::geom_quasirandom(aes(color="grey"))+
     labs(x=NULL,
          y="Area Under Curve(AUC)",
@@ -130,7 +130,7 @@ BiClass <- function(times = 1001,#must be odd
   p <- ggplot(mapping=aes(v$index, v$auc)) +
     theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),
           panel.background = element_blank(),axis.line = element_line(colour = "black"),legend.position = "none")+
-    geom_quasirandom(aes(color="grey"))+
+    ggbeeswarm::geom_quasirandom(aes(color="grey"))+
     labs(x=NULL,
          y="Area Under Curve(AUC)",
          title="AUC Distribution plot")+
