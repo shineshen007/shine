@@ -11,6 +11,7 @@
 #' @param size_row the font size of row
 #' @param size_col the font size of col
 #' @param fontsize the font size
+#' @param border show boder or not
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -25,7 +26,8 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
                           scale_row = TRUE,
                           size_row=10,
                           size_col=8,
-                          fontsize=10
+                          fontsize=10,
+                          border = NA
                           ){
 
   cat("Import data...\n")
@@ -55,7 +57,7 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
   anno<-data.frame(sample.info[,-c(2:4)],row.names = T)
   tiff(file="heatmap.tiff", width = 1600, height = 1200,res = 56*2)
   hm <- pheatmap::pheatmap(y,color=colorRampPalette(colour)(d),
-                           border_color = "grey60",
+                           border_color = border,
                            scale = "none",
                            breaks = bk,
                            fontsize=fontsize,

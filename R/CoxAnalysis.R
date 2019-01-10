@@ -48,7 +48,7 @@ CoxAnalysis <- function(){
   formulas <- as.formula(paste('Surv(time, status)~', paste(x, collapse= "+")))
   mres.cox <- survival::coxph(formulas, data = data)
   ##forest plot
-  tiff(file="forest plot of multiv_cox.tiff", width = 1200, height = 1000,res = 56*2)
+  png(file="forest plot of multiv_cox.png", width = 1200, height = 1000,res = 56*2)
   survminer::ggforest(mres.cox,main = "Hazard ratio",cpositions = c(0.02, 0.22, 0.4),
            fontsize = 0.8,refLabel = "reference", noDigits = 2,data = data)
   dev.off()

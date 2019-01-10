@@ -19,7 +19,7 @@ PathwayBarplot <- function(row = 30#draw the first 30 pathways
     ggplot2::labs(title="Pathway Enrichment Analysis")+
     ggplot2::coord_flip()+
     ggplot2::xlab('Pathway')+
-    ggplot2::ggsave("PathwayBarplot.tiff", width = 12, height = 8)
+    ggplot2::ggsave("PathwayBarplot.png", width = 12, height = 8)
 
 }
 

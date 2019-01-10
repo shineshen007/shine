@@ -52,8 +52,8 @@ ForestAnalysis<-function(group = c("case","control")){
 
   metaresult<- meta::metabin(expose_1,case_all,expose_2,control_all,data=fdt,sm="OR",
                       studlab=paste(data$compound.name),comb.random=FALSE)
-  tiff(file="forest plot.tiff", width = 1200, height = 1000,res = 56*2)
-  meta::forest(metaresult)
+  png(file="forest plot.png", width = 1200, height = 1000,res = 56*2)
+  meta::forest(metaresult,leftlabs = c("Metabolites",NA,NA,NA,NA))
   dev.off()
 
   e <- as.data.frame(expose_1)

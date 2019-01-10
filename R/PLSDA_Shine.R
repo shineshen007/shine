@@ -31,7 +31,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     sample<-data[,match(sample.name,colnames(data))]
     sample.index <- which(sample.info$class=="Subject")
     ###PLS-DA
-    tiff(file="PLSDA.tiff", width = 1200, height = 1000,res = 56*2)
+    png(file="PLSDA.png", width = 1200, height = 1000,res = 56*2)
     datat<-sample
     datatm<-as.matrix(datat)
     XXt<-t(datatm)
@@ -72,7 +72,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
   cat("Draw PLSDA plot...\n")
   if(ind){
   ###PLS-DA
-  tiff(file="PLSDA ind.tiff", width = 1200, height = 1000,res = 56*2)
+  png(file="PLSDA ind.png", width = 1200, height = 1000,res = 56*2)
   datat<-sample
   datatm<-as.matrix(datat)
   XXt<-t(datatm)
@@ -91,7 +91,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
   }
   if(ellipse){
     ###PLS-DA
-    tiff(file="PLSDA ellipse.tiff", width = 1200, height = 1000,res = 56*2)
+    png(file="PLSDA ellipse.png", width = 1200, height = 1000,res = 56*2)
     datat<-sample
     datatm<-as.matrix(datat)
     XXt<-t(datatm)
@@ -111,7 +111,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
   }
   if(both){
     ###PLS-DA
-    tiff(file="PLSDA both.tiff", width = 1200, height = 1000,res = 56*2)
+    png(file="PLSDA both.png", width = 1200, height = 1000,res = 56*2)
     datat<-sample
     datatm<-as.matrix(datat)
     XXt<-t(datatm)
@@ -130,7 +130,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
   }
   if(neither){
     ###PLS-DA
-    tiff(file="PLSDA neither.tiff", width = 1200, height = 1000,res = 56*2)
+    png(file="PLSDA neither.png", width = 1200, height = 1000,res = 56*2)
     datat<-sample
     datatm<-as.matrix(datat)
     XXt<-t(datatm)

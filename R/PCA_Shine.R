@@ -47,7 +47,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     cat("Draw PCA plot of QC...\n")
     ###PCA"
     n <- which(sample.info$group=="QC")
-    tiff(file="PCA qc both.tiff", width = 1200, height = 1000,res = 56*2)
+    png(file="PCA qc both.png", width = 1200, height = 1000,res = 56*2)
     temp<-qc
     pca<- mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcap<- mixOmics::plotIndiv(pca,
@@ -55,7 +55,6 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     ind.names = T,###label
                     ellipse = T,###confidence interval
                     legend =TRUE,
-
                     cex=1.6,
                     style="graphics",
                     abline = T,
@@ -63,7 +62,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
 
     dev.off()
 
-    tiff(file="PCA qc neither.tiff", width = 1200, height = 1000,res = 56*2)
+    png(file="PCA qc neither.png", width = 1200, height = 1000,res = 56*2)
     temp<-qc
     pca<- mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcap<-mixOmics::plotIndiv(pca,
@@ -83,7 +82,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
   cat("Draw PCA plot...\n")
   if(ind){
   ###PCA"
-  tiff(file="PCA ind.tiff", width = 1200, height = 1000,res = 56*2)
+  png(file="PCA ind.png", width = 1200, height = 1000,res = 56*2)
   temp<-data_pfc
   pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
   pcap<-mixOmics::plotIndiv(pca,
@@ -100,7 +99,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
   }
   if(ellipse){
     ###PCA
-    tiff(file="PCA ellipse.tiff", width = 1200, height = 1000,res = 56*2)
+    png(file="PCA ellipse.png", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcap<-mixOmics::plotIndiv(pca,
@@ -120,7 +119,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
   }
   if(both){
     ###PCA
-    tiff(file="PCA both.tiff", width = 1200, height = 1000,res = 56*2)
+    png(file="PCA both.png", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcap<-mixOmics::plotIndiv(pca,
@@ -137,7 +136,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
   }
   if(neither){
     ###PCA
-    tiff(file="PCA neither.tiff", width = 1200, height = 1000,res = 56*2)
+    png(file="PCA neither.png", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcap<-mixOmics::plotIndiv(pca,

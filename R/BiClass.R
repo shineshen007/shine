@@ -163,7 +163,7 @@ BiClass <- function(times = 1001,#must be odd
   upper_rf <- round(roc_rf[["ci"]][3],2)
   med_rf <- round(median(au_rf),2)
   lower_rf <- round(roc_rf[["ci"]][1],2)
-  tiff(file="ROC.tiff", width = 1200, height = 1000,res = 56*2)
+  png(file="ROC.png", width = 1200, height = 1000,res = 56*2)
   #roclg
   rocc_lg<-pROC::plot.roc(roc_lg,col="black"#, print.auc = T
                     #,print.thres = "best"

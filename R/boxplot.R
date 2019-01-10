@@ -23,7 +23,7 @@ BoxPlot <- function(metabolite=NULL){
   scale <- scale(d)
   ylab <- metabolite
   data1 <- cbind(data,Gender,scale)
-  tiff(file="boxplot of sex.tiff", width = 1200, height = 700,res = 56*2)
+  png(file="boxplot of sex.png", width = 1200, height = 700,res = 56*2)
   s <- ggpubr::ggboxplot(data = data1,x="Gender",y = "scale",color = "Gender",
             palette = "jco",add = "jitter",ylab = ylab)+
   stat_compare_means()
@@ -32,7 +32,7 @@ BoxPlot <- function(metabolite=NULL){
 
   #diebite
 
-  tiff(file="boxplot of diebite.tiff", width = 1200, height = 700,res = 56*2)
+  png(file="boxplot of diebite.png", width = 1200, height = 700,res = 56*2)
   diabetes <- ggboxplot(data = data1,x="diabetes",y = "scale",color = "diabetes",
                  palette = "jco",add = "jitter",ylab = ylab)+
     stat_compare_means()
@@ -41,7 +41,7 @@ BoxPlot <- function(metabolite=NULL){
 
   #hypertension
 
-  tiff(file="boxplot of hypertension.tiff", width = 1200, height = 700,res = 56*2)
+  png(file="boxplot of hypertension.png", width = 1200, height = 700,res = 56*2)
   hypertension <- ggboxplot(data = data1,x="hypertension",y = "scale",color = "hypertension",
                  palette = "jco",add = "jitter",ylab = ylab)+
     stat_compare_means()
@@ -50,7 +50,7 @@ BoxPlot <- function(metabolite=NULL){
 
   # hyperlipemia
 
-  tiff(file="boxplot of hyperlipemia.tiff", width = 1200, height = 700,res = 56*2)
+  png(file="boxplot of hyperlipemia.png", width = 1200, height = 700,res = 56*2)
   hyperlipemia <- ggboxplot(data = data1,x="hyperlipemia",y = "scale",color = "hyperlipemia",
                  palette = "jco",add = "jitter",ylab = ylab)+
     stat_compare_means()
@@ -58,7 +58,7 @@ BoxPlot <- function(metabolite=NULL){
   dev.off()
 
   #smoke
-  tiff(file="boxplot of smoke.tiff", width = 1200, height = 700,res = 56*2)
+  png(file="boxplot of smoke.png", width = 1200, height = 700,res = 56*2)
   smoke <- ggboxplot(data = data1,x="smoke",y = "scale",color = "smoke",
                  palette = "jco",add = "jitter",ylab = ylab)+
     stat_compare_means()
@@ -78,7 +78,7 @@ BoxPlot <- function(metabolite=NULL){
   data2 <- cbind(data,Age,scale)
   my_comparisons <- list(c("<50", "50-60"), c("<50", "61-70"), c("<50", "70+"),c("50-60","61-70")
                          ,c("50-60","70+"),c("61-70","70+"))
-  tiff(file="boxplot of age.tiff", width = 1200, height = 700,res = 56*2)
+  png(file="boxplot of age.png", width = 1200, height = 700,res = 56*2)
   age <- ggboxplot(data = data2,x="Age",y = "scale",color = "Age",xlab = "years",
             palette = "jco",add = "jitter",ylab = ylab)+
     stat_compare_means(comparisons=my_comparisons,label.y = c(29, 35, 40,45,50,55))+

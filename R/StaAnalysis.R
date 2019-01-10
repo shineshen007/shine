@@ -119,13 +119,13 @@ StaAnalysis <- function(p.cutoff = 0,
     ),
     StaAnalysis.parameters, stringsAsFactors = FALSE)
 
-    StaAnalysis <- rbind(StaAnalysis.parameters,c("Version", "0.0.987"))
+    StaAnalysis <- rbind(StaAnalysis.parameters,c("Version", "0.0.988"))
     colnames(StaAnalysis) <- c('parameter', 'value')
     write.csv(StaAnalysis,"StaAnalysis.parameters.csv",row.names = F)
 
   if(PCA){
     cat("Draw PCA plot...\n")
-    tiff(file="PCA.tiff", width = 1200, height = 1000,res = 56*2)
+    png(file="PCA.png", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<- mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcap<- mixOmics::plotIndiv(pca,
@@ -146,7 +146,7 @@ StaAnalysis <- function(p.cutoff = 0,
 
   cat("Draw PLSDA plot...\n")
   ###PLS-DA
-  tiff(file="PLSDA.tiff", width = 1200, height = 1000,res = 56*2)
+  png(file="PLSDA.png", width = 1200, height = 1000,res = 56*2)
   sample.info1<-sample.info[c(group1.index,group2.index),]
   ###data preparation
   sample.name1<-sample.info1$sample.name[sample.info1$class=="Subject"]
@@ -193,7 +193,7 @@ StaAnalysis <- function(p.cutoff = 0,
   Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 0.41,
                                  ifelse(log2(fc) < -0.41,
                                         "Down","Up"),"Not Sig"))
-  tiff(file="volcano plot.tiff", width = 1200, height = 1000,res = 56*2)
+  png(file="volcano plot.png", width = 1200, height = 1000,res = 56*2)
   volc <- ggplot2::ggplot(vol, ggplot2::aes(x = log2(fc), y = -log10(p)))+
     geom_point(aes(color = Significant),size=3) +
     scale_color_manual(values = c("SpringGreen3", "grey","Firebrick1")) +
@@ -221,7 +221,7 @@ StaAnalysis <- function(p.cutoff = 0,
 
   if(splot){
   cat("Draw S plot of foldchange...\n")
-  tiff(file="S plot of foldchange.tiff", width = 900, height = 800,res = 56*2)
+  png(file="S plot of foldchange.png", width = 900, height = 800,res = 56*2)
   ##S plot of foldchange
   index<-c(1:nrow(f))
   datas <- cbind(index,f)
