@@ -18,6 +18,9 @@ ForestAnalysis<-function(group = c("case","control")){
 
   case.name<-sample.info$sample.name[sample.info$group==group[1]]#get case name
   control.name<-sample.info$sample.name[sample.info$group==group[2]]
+  qc.name<-sample.info$sample.name[sample.info$class=="QC"]#get qc index
+  qc.idx<-match(qc.name,colnames(data))#get qc index
+  data <- data[,-qc.idx]
 
   case<-data[,match(case.name,colnames(data))]
   control<-data[,match(control.name,colnames(data))]
@@ -51,7 +54,7 @@ ForestAnalysis<-function(group = c("case","control")){
   fdt<-as.data.frame(cbind(p,fd))
 
   metaresult<- meta::metabin(expose_1,case_all,expose_2,control_all,data=fdt,sm="OR",
-                      studlab=paste(data$compound.name),comb.random=FALSE)
+                             studlab=paste(data$compound.name),comb.random=FALSE)
   png(file="forest plot.png", width = 1200, height = 1000,res = 56*2)
   meta::forest(metaresult,leftlabs = c("Metabolites",NA,NA,NA,NA))
   dev.off()
@@ -99,7 +102,18 @@ ForestAnalysis<-function(group = c("case","control")){
   upperci <- data.frame(upperci[,1])
   result <- cbind(dta,lowerci,upperci)
   all <- cbind(oddr,lowerci,upperci,data)
-
   write.csv(all,"data_result.csv",row.names = F)
 
+  filterOR <- all[!is.na(all$OR),]
+  filterlow <- filterOR[!is.na(filterOR$lowerci...1.),]
+  filterupper <- filterlow[!is.na(filterlow$upperci...1.),]
+  fn <- which(filterupper$lowerci...1.<1&filterupper$upperci...1.>1)
+  droc <- filterupper[-fn,]
+  gn <- intersect(colnames(droc),sample.info$sample.name)
+  gnn <- sample.info$group[match(gn,sample.info$sample.name)]
+  dr <- data.frame(t(droc))
+  drc <- dr[-c(1:22),]
+  drcc <- cbind(gnn,drc)
+  colnames(drcc) <-c('group',droc$compound.name)
+  write.csv(drcc,"data for roc.csv",row.names = F)
 }

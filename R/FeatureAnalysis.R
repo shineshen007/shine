@@ -169,13 +169,12 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 .onAttach <- function(libname, pkgname){
   packageStartupMessage("Shine 0.9.88.
                         Maintainer: Xia Shen.
-                        \n2018-01-10
+                        \n2019-01-10
 
                         Notes: sample name in pos and neg mode must be identical
 
-                        News: 1: add parameter output to StaAnalysis
-                              2: add qc pca
-                              3: add iMatch
+                        News: 1: generate data for roc in ForestAnalysis
+
                         Version 0.9.88
                         --------------
                         "

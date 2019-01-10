@@ -54,7 +54,7 @@ BiClass <- function(times = 1001,#must be odd
 
     #random forest
 
-    fit.rf <- randomForest::randomForest(group~.,data = train,na.action=na.roughfix,importance=TRUE, probability = TRUE)
+    fit.rf <- randomForest::randomForest(group~.,data = train,importance=TRUE, probability = TRUE)
     imp <- randomForest::importance(fit.rf,type = 2)
     rf.pred<-predict(fit.rf,test, type="prob")
 
@@ -154,7 +154,7 @@ BiClass <- function(times = 1001,#must be odd
   ind <- num[[num_auc_rf]]
   train_data<-data[ind,]
   test_data<-data[-ind,]
-  fit.rf<-randomForest(group~.,data = train_data,na.action=na.roughfix,importance=TRUE, probability = TRUE)
+  fit.rf<-randomForest(group~.,data = train_data,importance=TRUE, probability = TRUE)
   imp <- importance(fit.rf,type = 2)
   rf.pred<-predict(fit.rf,test_data, type="prob")
 
