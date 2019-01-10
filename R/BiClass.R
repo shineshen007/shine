@@ -8,6 +8,8 @@
 #' @param SVM do support vector machine
 #' @return  All the results can be got form other functions and instruction.
 #' @export
+#' @import e1071
+#' @import ggbeeswarm
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
@@ -18,7 +20,7 @@ BiClass <- function(times = 1001,#must be odd
                     SVM = TRUE
                     ){
 
-  data <- utils::read.csv("data.csv",stringsAsFactors = T)
+  data <- utils::read.csv("data for roc.csv",stringsAsFactors = T)
   d <- dim(data)
   num <- list()#save the split list
   au_lg <- NULL#save logistic auc
@@ -154,8 +156,8 @@ BiClass <- function(times = 1001,#must be odd
   ind <- num[[num_auc_rf]]
   train_data<-data[ind,]
   test_data<-data[-ind,]
-  fit.rf<-randomForest(group~.,data = train_data,importance=TRUE, probability = TRUE)
-  imp <- importance(fit.rf,type = 2)
+  fit.rf<-randomForest::randomForest(group~.,data = train_data,importance=TRUE, probability = TRUE)
+  imp <- randomForest::importance(fit.rf,type = 2)
   rf.pred<-predict(fit.rf,test_data, type="prob")
 
   roc_rf <- pROC::roc(test_data[,1],rf.pred[,1], ci=T)

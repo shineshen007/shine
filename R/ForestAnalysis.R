@@ -5,6 +5,9 @@
 #' @param group group set.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
+#' @import meta
+#' @import survminer
+#' @import survival
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
