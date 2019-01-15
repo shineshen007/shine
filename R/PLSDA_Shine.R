@@ -25,8 +25,9 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
   sample.info <- read.csv("sample.info.csv")
   class<- sample.info[,"group"]
 
-  cat("Draw PLSDA plot...\n")
+
   if(multiclass){
+    cat("Draw PLSDA plot fot multiclass...\n")
     sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
     sample<-data[,match(sample.name,colnames(data))]
     sample.index <- which(sample.info$class=="Subject")
@@ -82,7 +83,6 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
   pls <- mixOmics::plotIndiv(plsda.datatm,
             ind.names = T,
             ellipse = F,
-            pch = 16,
             cex=1.6,
             legend =TRUE,
             style="graphics",
@@ -121,7 +121,6 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     pls <- mixOmics::plotIndiv(plsda.datatm,
                      ind.names = T,
                      ellipse = T,
-                     pch = 16,
                      cex=1.6,
                      legend =TRUE,
                      style="graphics",
