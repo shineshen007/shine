@@ -35,6 +35,10 @@ DataFilter <- function(p=0.05,comp1=1,comp2=1,
         data2<-data[idx.fc2,]
         data_mid<-rbind(data1,data2)
         idx.p<-which(data_mid$p>p)
-        data_final<-data_mid[-idx.p,]
+        if(length(idx.p)==0){
+          data_final<-data_mid
+        }else{
+          data_final<-data_mid[-idx.p,]
+        }
         write.csv(data_final,"data final.csv",row.names = FALSE)
   }
