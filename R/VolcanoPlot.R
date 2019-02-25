@@ -10,6 +10,7 @@
 #' @param singleline default is FALSE.
 #' @param unitest t.test or wilcox.test.
 #' @param fc.cutoff default is 1
+#' @param colour the colour of points
 #' @param paired paired test in t.test and wilcox.test,default is FALSE.
 #' @param h the height of group index,default is 0.2
 #' @return  All the results can be got form other functions and instruction.
@@ -20,6 +21,7 @@
 #' }
 volcano <- function(p.cutoff = 0,
                     group = c("case","control"),
+                    colour = c("SpringGreen3", "grey","Firebrick1"),
                     pcorrect = TRUE,
                     singleline = TRUE,
                     xlim = c(-3,3),
@@ -127,7 +129,7 @@ volcano <- function(p.cutoff = 0,
   png(file="volcano plot doubleline.png", width = 1200, height = 1000,res = 56*2)
   volc1 <- ggplot2::ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
     geom_point(aes(color = Significant),size=3) +
-    scale_color_manual(values = c("SpringGreen3", "grey","Firebrick1")) +
+    scale_color_manual(values = colour) +
     annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999)-h,label=group2)+
     annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group1)+
     theme_bw(base_size = 16) +
@@ -157,7 +159,7 @@ volcano <- function(p.cutoff = 0,
     png(file="volcano plot sinleline.png", width = 1200, height = 1000,res = 56*2)
     volc2 <- ggplot(vol, aes(x = log2(fc), y = -log10(p)))+
       geom_point(aes(color = Significant),size=3) +
-      scale_color_manual(values = c("SpringGreen3", "grey","Firebrick1")) +
+      scale_color_manual(values = colour) +
       annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999)-h,label=group2)+
       annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group1)+
       theme_bw(base_size = 16) +

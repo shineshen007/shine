@@ -4,7 +4,8 @@
 \alias{volcano}
 \title{volcano}
 \usage{
-volcano(p.cutoff = 0, group = c("case", "control"), pcorrect = TRUE,
+volcano(p.cutoff = 0, group = c("case", "control"),
+  colour = c("SpringGreen3", "grey", "Firebrick1"), pcorrect = TRUE,
   singleline = TRUE, xlim = c(-3, 3), fc.cutoff = 0.41,
   doubleline = FALSE, unitest = c("t.test", "wilcox.test"),
   paired = FALSE, h = 0.2)
@@ -13,6 +14,8 @@ volcano(p.cutoff = 0, group = c("case", "control"), pcorrect = TRUE,
 \item{p.cutoff}{default is 0.05.}
 
 \item{group}{group set.}
+
+\item{colour}{the colour of points}
 
 \item{pcorrect}{default is TRUE.}
 

@@ -4,10 +4,12 @@
 \alias{ForestAnalysis}
 \title{ForestAnalysis}
 \usage{
-ForestAnalysis(group = c("case", "control"))
+ForestAnalysis(group = c("case", "control"), ncol = 19)
 }
 \arguments{
 \item{group}{group set.}
+
+\item{ncol}{the columns of data}
 }
 \value{
 All the results can be got form other functions and instruction.

@@ -3,6 +3,7 @@
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
 #' @param group group set.
+#' @param ncol the columns of data
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @import meta
@@ -12,7 +13,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-ForestAnalysis<-function(group = c("case","control")){
+ForestAnalysis<-function(group = c("case","control"),ncol=19){
 
   cat("Import data...\n")
   data <- data.table::fread("data.csv")
@@ -115,7 +116,7 @@ ForestAnalysis<-function(group = c("case","control")){
   gn <- intersect(colnames(droc),sample.info$sample.name)
   gnn <- sample.info$group[match(gn,sample.info$sample.name)]
   dr <- data.frame(t(droc))
-  drc <- dr[-c(1:22),]
+  drc <- dr[-c(1:ncol),]
   drcc <- cbind(gnn,drc)
   colnames(drcc) <-c('group',droc$compound.name)
   write.csv(drcc,"data for roc.csv",row.names = F)
