@@ -109,7 +109,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 
   cat("Draw QC distribution plot...\n")
   ### QC distribution plot
-  tiff(file="QC distribution.tiff", width = 900, height = 800,res = 56*2)
+  png(file="QC distribution.png", width = 900, height = 800,res = 56*2)
   d <- read.csv("rsd.csv")
   percent <- round(sum(d$x<0.3)/nrow(d),3)
   txt <- paste(percent*100,"%")
@@ -147,7 +147,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
   cat("Draw mz VS RT plot...\n")
   if(mzrt){
     #### mz VS RT plot
-    tiff(file="mz.rt.tiff", width = 900, height = 800,res = 56*2)
+    png(file="mz.rt.png", width = 900, height = 800,res = 56*2)
     col <- apply(sample,1,median)
     mr <- ggplot2::ggplot(data,ggplot2::aes(x=rt,y=mz,colour=log10(col)))+
       geom_point()+
@@ -167,15 +167,15 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.9.90.
+  packageStartupMessage("Shine 0.9.91.
                         Maintainer: Xia Shen.
-                        \n2019-02-25
+                        \n2019-03-12
 
                         Notes: sample name in pos and neg mode must be identical
 
-                        News: 1: generate data for roc in ForestAnalysis
+                        News: 1: save train data and test data in Biclss
 
-                        Version 0.9.90
+                        Version 0.9.91
                         --------------
                         "
   )
