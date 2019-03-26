@@ -12,39 +12,81 @@
 #' @param paired paired test in t.test and wilcox.test,default is FALSE.
 #' @param h the height of group index,default is 0.2
 #' @param PCA draw PCA plot or not
+#' @param specias_pathway_database the specia of sample
+#' @param specias_compound_database the specia of sample
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @import ggplot2
 #' @examples
 #' \donttest{
-#' ##---- Be sure the format of data and sample.info is correct!! ----
-#' ##create a folder for Shine demo
-#' dir.create("Demo for Shine")
-#' setwd("Demo for Shine")
-#' ##load the demo data
-#' data(data, package = "Shine")
-#' data(sample.info, package = "Shine")
-#' ##export the demo data as csv
-#' write.csv(data, "data.csv", row.names = FALSE)
-#' write.csv(sample.info, "sample.info.csv", row.names = FALSE)
-#' ##run StaAnalysis
-#' StaAnalysis(data = data,sample.info = sample.info,group = c("G","M"),
-#' pcorrect = F)
 #' }
 StaAnalysis <- function(p.cutoff = 0,
-                       group = c("case","control"),
-                       splot = FALSE,
-                       unitest =c("t.test","wilcox.test"),
-                       pcorrect = TRUE,
-                       xlim = c(-3,3),
-                       paired = FALSE,
-                       h=0.2,
-                       PCA = FALSE){
+                        group = c("case","control"),
+                        splot = FALSE,
+                        unitest =c("t.test","wilcox.test"),
+                        specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.pathway),
+                        specias_compound_database = c(hsa_compound_ID,mmu_compound_ID),
+                        pcorrect = TRUE,
+                        xlim = c(-3,3),
+                        paired = FALSE,
+                        h=0.2,
+                        PCA = FALSE){
   cat("Analyzing data...\n")
-
   cat("Import data...\n")
   data <- data.table::fread("data for sta.csv")
   data <- data.table::setDF(data)
+  cat("filter the metabolites' score lower than 0.4...\n")
+  ##filter the score lower than 0.4
+  nr <- nrow(data)
+  nscore <- data$score
+  cs <- strsplit(nscore,split=';')
+  a1 <- data.frame(NULL)
+  a2 <- data.frame(NULL)
+  a3 <- data.frame(NULL)
+  for (i in 1:nr) {
+    cat(i); cat(" ")
+    if(length(cs[[i]]) != 1){
+      rss <- data[i,]
+      times <- length(cs[[i]])
+      for (j in 1:times) {
+        rss$score <- cs[[i]][j]
+        a1 <- rbind(a1,rss)
+      }
+    }else{
+      a2 <- data[i,]
+      a3 <- rbind(a3,a2)
+    }
+  }
+  dalls <- rbind(a3,a1)
+  idn <- which(colnames(dalls)=="ID")
+  dcsore <- dalls[,-idn]
+  ##unique ID
+  cat("unique the ID ...\n")
+  nid <- data$ID
+  cnid <- strsplit(nid,split=';')
+  a1 <- data.frame(NULL)
+  a2 <- data.frame(NULL)
+  a3 <- data.frame(NULL)
+  for (i in 1:nr) {
+    cat(i); cat(" ")
+    if(length(cnid[[i]]) != 1){
+      rss <- data[i,]
+      times <- length(cnid[[i]])
+      for (j in 1:times) {
+        rss$ID <- cnid[[i]][j]
+        a1 <- rbind(a1,rss)
+      }
+    }else{
+      a2 <- data[i,]
+      a3 <- rbind(a3,a2)
+    }
+  }
+  dall <- rbind(a3,a1)
+  idns <- which(colnames(dall)=="ID")
+  dsi <- cbind(dall[,idns],dcsore)
+  colnames(dsi)[1] <- "ID"
+  idx <- which(dsi$score < 0.4)
+  data <- dsi[-idx,]
   sample.info <- read.csv("sample.info.csv")
 
   ###data preparation
@@ -87,41 +129,41 @@ StaAnalysis <- function(p.cutoff = 0,
   }
 
   if(pcorrect){
-  p <- p.adjust(p = p, method = "fdr",n=length(p))
+    p <- p.adjust(p = p, method = "fdr",n=length(p))
   }
   ##create a folder for analysis
   FolderName <- paste("StaAnalysis",group[1],sep = " ")
   FolderName <- paste(FolderName,group[2],sep = "&")
-    dir.create(FolderName)
-    setwd(FolderName)
+  dir.create(FolderName)
+  setwd(FolderName)
 
-    #parameter decision
-    unitest <- match.arg(unitest)
-    group <- group
-    correct <- as.logical(pcorrect)
-    p.cutoff <- as.numeric(p.cutoff)
-    paired <- as.logical(paired)
+  #parameter decision
+  unitest <- match.arg(unitest)
+  group <- group
+  correct <- as.logical(pcorrect)
+  p.cutoff <- as.numeric(p.cutoff)
+  paired <- as.logical(paired)
 
-    ##save parameters
-    StaAnalysis.parameters <- c(
-      unitest,
-      paste(group, collapse = ","),
-      correct,
-      paired,
-      p.cutoff
-    )
-    StaAnalysis.parameters <- data.frame(c(
-      "unitest",
-      "group",
-      "correct",
-      "paired",
-      "p.cutoff"
-    ),
-    StaAnalysis.parameters, stringsAsFactors = FALSE)
+  ##save parameters
+  StaAnalysis.parameters <- c(
+    unitest,
+    paste(group, collapse = ","),
+    correct,
+    paired,
+    p.cutoff
+  )
+  StaAnalysis.parameters <- data.frame(c(
+    "unitest",
+    "group",
+    "correct",
+    "paired",
+    "p.cutoff"
+  ),
+  StaAnalysis.parameters, stringsAsFactors = FALSE)
 
-    StaAnalysis <- rbind(StaAnalysis.parameters,c("Version", "0.0.988"))
-    colnames(StaAnalysis) <- c('parameter', 'value')
-    write.csv(StaAnalysis,"StaAnalysis.parameters.csv",row.names = F)
+  StaAnalysis <- rbind(StaAnalysis.parameters,c("Version", "0.0.988"))
+  colnames(StaAnalysis) <- c('parameter', 'value')
+  write.csv(StaAnalysis,"StaAnalysis.parameters.csv",row.names = F)
 
   if(PCA){
     cat("Draw PCA plot...\n")
@@ -129,17 +171,17 @@ StaAnalysis <- function(p.cutoff = 0,
     temp<-data_pfc
     pca<- mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcap<- mixOmics::plotIndiv(pca,
-                    group = sample.info$group,
-                    ind.names = F,###label
-                    ellipse = F,###confidence interval
-                    legend =TRUE,
+                               group = sample.info$group,
+                               ind.names = F,###label
+                               ellipse = F,###confidence interval
+                               legend =TRUE,
 
-                    point.lwd=3,
+                               point.lwd=3,
 
-                    cex=1.6,
-                    style="graphics",
-                    abline = T,
-                    title = 'PCA')
+                               cex=1.6,
+                               style="graphics",
+                               abline = T,
+                               title = 'PCA')
     dev.off()
   }
 
@@ -160,14 +202,14 @@ StaAnalysis <- function(p.cutoff = 0,
   YY<-group_pls[sample.index,]
   plsda.datatm <- mixOmics::plsda(XXt, YY, ncomp = 2)
   pls <- mixOmics::plotIndiv(plsda.datatm,
-            ind.names = F,
-            ellipse = T,
-            pch = 16,#point shape
-            cex=1.6,#point size
-            point.lwd=3,# line size
-            legend =TRUE,
-            style="graphics",
-            title = 'PLS-DA')
+                             ind.names = F,
+                             ellipse = T,
+                             pch = 16,#point shape
+                             cex=1.6,#point size
+                             point.lwd=3,# line size
+                             legend =TRUE,
+                             style="graphics",
+                             title = 'PLS-DA')
   dev.off()
 
   cat("Calculate VIP...\n")
@@ -183,6 +225,50 @@ StaAnalysis <- function(p.cutoff = 0,
   write.csv(data_vol,"vol.csv",row.names = F)
   data_pfc_vip<-cbind(data_vol,vip,data)
   write.csv(data_pfc_vip,"data_pfc_vip.csv",row.names = F)
+  cat("classify the metabolites ...\n")
+  #classify the metabolites
+  mid <- data_pfc_vip$ID
+  mid <- as.character(mid)
+  uid<-unique(unlist(strsplit(mid,";")))
+  metabolite.id <- uid[which(uid %in% unique(unlist(specias_pathway_database)))]#filter the metabolites not in kegg
+
+  Allid <- as.character(as.matrix(metabolite.id))
+
+  IDinPathway <- unlist(lapply(specias_pathway_database, function(x) {
+    intersect(x, Allid)#get the mapped metabolites number in each pathway
+  }))
+  aID <- as.data.frame(IDinPathway[!duplicated(IDinPathway)])
+  i <- intersect(aID$`IDinPathway[!duplicated(IDinPathway)]`,metabolite.id)
+  dt <- specias_compound_database[match(i,specias_compound_database$id),]
+  aa <- cbind(aID,dt)
+  pmid <- aa[,-c(2:3)]
+  colnames(pmid) <- c('ID','compound name')
+  write.csv(pmid,'classfied metabolites.csv')
+  ##Metabolite_Distribution_plot
+  bk <- read.csv("classfied metabolites.csv")
+  cda <- as.character(bk$X)
+  cds <- unlist(strsplit(cda,";"))
+  bboy <- grep('hsa',cds)
+  bg <- cds[-bboy]
+  bg <- as.data.frame(bg)
+  ax <- ddply(bg,.(bg),summarize,number=length(bg))
+  pnum <- nrow(unique(bg))
+  ggplot(ax,aes(reorder(bg,number),number))+
+    geom_bar(aes(fill=factor(1:pnum)),stat = "identity",position="dodge",width=0.8)+
+    theme(axis.text.x = element_text(angle = 0, hjust = 1, vjust = .5))+
+    guides(fill=FALSE)+
+    coord_flip()+
+    xlab('Pathway Name')+
+    ylab(('The metabolites number in each pathway'))+
+    annotate("text", label = nrow(unique(bg)), x = 2, y = 20, size = 6)+
+    annotate("text", label = 'pathway number', x = 5, y = 20, size = 6)+
+    annotate("text", label = nrow(unique(bk)), x = 8, y = 20, size = 6)+
+    annotate("text", label = 'metabolites number', x = 12, y = 20, size = 6)+
+    geom_text(mapping = aes(label = ax$number),size=3,vjust=0.5,position = position_stack(vjust = 0.5))+
+    theme(panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),#remove ggplot2 background
+          panel.background = ggplot2::element_blank(),axis.line = ggplot2::element_line(colour = "black"),legend.position = "none")+
+    ggsave("Metabolite_Distribution_plot.png", width = 12, height = 8)
+  #volcano plot
   DataFilter()
   UniqueCompound()
   vol<-read.csv("vol.csv")
@@ -220,23 +306,23 @@ StaAnalysis <- function(p.cutoff = 0,
   dev.off()
 
   if(splot){
-  cat("Draw S plot of foldchange...\n")
-  png(file="S plot of foldchange.png", width = 900, height = 800,res = 56*2)
-  ##S plot of foldchange
-  index<-c(1:nrow(f))
-  datas <- cbind(index,f)
-  Significant_s<- as.factor(ifelse(abs(log2(datas$fc)) > 0.41,
-                                 ifelse(log2(datas$fc) < -0.41,
-                                        "Down","Up"),"Not Sig"))
-  splot <- ggplot2::ggplot(datas, aes(x = reorder(index,fc), y = log2(fc)))+
-    geom_point(aes(color = Significant_s)) +
-    scale_color_manual(values = c("SpringGreen3", "grey","Firebrick1"))+
-    labs(title="S plot of foldchange")+
-    xlab('Index')
-  plot(splot)
+    cat("Draw S plot of foldchange...\n")
+    png(file="S plot of foldchange.png", width = 900, height = 800,res = 56*2)
+    ##S plot of foldchange
+    index<-c(1:nrow(f))
+    datas <- cbind(index,f)
+    Significant_s<- as.factor(ifelse(abs(log2(datas$fc)) > 0.41,
+                                     ifelse(log2(datas$fc) < -0.41,
+                                            "Down","Up"),"Not Sig"))
+    splot <- ggplot2::ggplot(datas, aes(x = reorder(index,fc), y = log2(fc)))+
+      geom_point(aes(color = Significant_s)) +
+      scale_color_manual(values = c("SpringGreen3", "grey","Firebrick1"))+
+      labs(title="S plot of foldchange")+
+      xlab('Index')
+    plot(splot)
 
-  dev.off()
-}
+    dev.off()
+  }
   ##back origin work directory
   setwd("..//")
 

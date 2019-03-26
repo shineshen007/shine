@@ -6,6 +6,8 @@
 \usage{
 StaAnalysis(p.cutoff = 0, group = c("case", "control"),
   splot = FALSE, unitest = c("t.test", "wilcox.test"),
+  specias_pathway_database = c(hsa.kegg.pathway, mmu.kegg.pathway),
+  specias_compound_database = c(hsa_compound_ID, mmu_compound_ID),
   pcorrect = TRUE, xlim = c(-3, 3), paired = FALSE, h = 0.2,
   PCA = FALSE)
 }
@@ -17,6 +19,10 @@ StaAnalysis(p.cutoff = 0, group = c("case", "control"),
 \item{splot}{default is FALSE.}
 
 \item{unitest}{t.test or wilcox.test.}
+
+\item{specias_pathway_database}{the specia of sample}
+
+\item{specias_compound_database}{the specia of sample}
 
 \item{pcorrect}{default is TRUE.}
 
@@ -37,19 +43,6 @@ s plot of foldchange and volcano plot, also can calculate vip value.
 }
 \examples{
 \donttest{
-##---- Be sure the format of data and sample.info is correct!! ----
-##create a folder for Shine demo
-dir.create("Demo for Shine")
-setwd("Demo for Shine")
-##load the demo data
-data(data, package = "Shine")
-data(sample.info, package = "Shine")
-##export the demo data as csv
-write.csv(data, "data.csv", row.names = FALSE)
-write.csv(sample.info, "sample.info.csv", row.names = FALSE)
-##run StaAnalysis
-StaAnalysis(data = data,sample.info = sample.info,group = c("G","M"),
-pcorrect = F)
 }
 }
 \author{
