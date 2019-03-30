@@ -10,7 +10,7 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 ArrangeData <- function(){
-  data <- data.table::fread("peaktable.csv")
+  data <- data.table::fread("peak.table.csv")
   data<- data.table::setDF(data)
 
   data<-data[,-c(3:4,6:10)]#remove redundancy columns

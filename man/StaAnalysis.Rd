@@ -5,11 +5,9 @@
 \title{StaAnalysis}
 \usage{
 StaAnalysis(p.cutoff = 0, group = c("case", "control"),
-  splot = FALSE, unitest = c("t.test", "wilcox.test"),
-  specias_pathway_database = c(hsa.kegg.pathway, mmu.kegg.pathway),
-  specias_compound_database = c(hsa_compound_ID, mmu_compound_ID),
-  pcorrect = TRUE, xlim = c(-3, 3), paired = FALSE, h = 0.2,
-  PCA = FALSE)
+  splot = FALSE, colv = c("SpringGreen3", "grey", "Firebrick1"),
+  unitest = c("t.test", "wilcox.test"), pcorrect = TRUE, xlim = c(-3,
+  3), paired = FALSE, h = 0.2, PCA = FALSE)
 }
 \arguments{
 \item{p.cutoff}{default is 0.05.}
@@ -18,11 +16,9 @@ StaAnalysis(p.cutoff = 0, group = c("case", "control"),
 
 \item{splot}{default is FALSE.}
 
+\item{colv}{the colour of volcano}
+
 \item{unitest}{t.test or wilcox.test.}
-
-\item{specias_pathway_database}{the specia of sample}
-
-\item{specias_compound_database}{the specia of sample}
 
 \item{pcorrect}{default is TRUE.}
 
