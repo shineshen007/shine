@@ -122,7 +122,7 @@ Metabolites_Classify <- function(
   bboy <- grep('hsa',cds)
   bg <- cds[-bboy]
   bg <- as.data.frame(bg)
-  ax <- plyr::ddply(bg,.(bg),summarize,number=length(bg))
+  ax <- plyr::ddply(bg, .(bg),summarize,number=length(bg))
   pnum <- nrow(unique(bg))
   ggplot2::ggplot(ax,aes(reorder(bg,number),number))+
     ggplot2::geom_bar(aes(fill=factor(1:pnum)),stat = "identity",position="dodge",width=0.8)+
