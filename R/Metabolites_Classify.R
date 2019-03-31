@@ -95,7 +95,7 @@ Metabolites_Classify <- function(
   colnames(dsic)[1] <- "compound.name"
   idx <- which(dsic$score < 0.4)
   data <- dsic[-idx,]
-  write.csv(data,'data for classify.csv')
+  write.csv(data,'data for sta.csv')
   cat("classify the metabolites ...\n")
   #classify the metabolites
   mid <- data$ID
