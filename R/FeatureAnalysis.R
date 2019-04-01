@@ -167,18 +167,18 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.9.95.
+  packageStartupMessage("Shine 0.9.96.
                         Maintainer: Xia Shen.
-                        \n2019-03-30
+                        \n2019-04-01
 
                         Notes: sample name in pos and neg mode must be identical
 
                         News: 1: save train data and test data in Biclss
                               2: add permutation test function
-                              3: classify the metabolites in StaAnalysis
+                              3: add metabolites classify function
                               4: add pathway enrichment function
 
-                        Version 0.9.95
+                        Version 0.9.96
                         --------------
                         "
   )

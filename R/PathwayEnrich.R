@@ -1,4 +1,4 @@
-#' @title PathwayMatch
+#' @title PathwayEnrich
 #' @description a function can match differetiate metabolites in differentiate pathway.
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
@@ -10,8 +10,6 @@
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
-#' library(Shine)
-#' PathwayMatch(group = c("S","P"))
 #' }
 PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.pathway),
                           specias_compound_database = c(hsa_compound_ID,mmu_compound_ID),
@@ -22,28 +20,28 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
   mid <- data$ID
   mid <- as.character(mid)
   uid<-unique(unlist(strsplit(mid,";")))
-  metabolite.id <- uid[which(uid %in% unique(unlist(specias)))]#filter the metabolites not in specia
+  metabolite.id <- uid[which(uid %in% unique(unlist(specias_pathway_database)))]#filter the metabolites not in specia
 
-  ALLm <- unname(unique(unlist(specias)))
+  ALLm <- unname(unique(unlist(specias_pathway_database)))
   ALLm <- as.character(as.matrix(ALLm))
   SIGm <- as.character(as.matrix(metabolite.id))
   num_all <- length(ALLm)
   num_sig <- length(SIGm)
 
-  pall <- unlist(lapply(specias, function(x) {
+  pall <- unlist(lapply(specias_pathway_database, function(x) {
     length(intersect(x, ALLm))#get the metabolites number in each pathway
   }))
 
-  psig <- unlist(lapply(specias, function(x) {
+  psig <- unlist(lapply(specias_pathway_database, function(x) {
     length(intersect(x, SIGm))#get the mapped metabolites number in each pathway
   }))
 
-  IDinPathway <- unlist(lapply(specias, function(x) {
+  IDinPathway <- unlist(lapply(specias_pathway_database, function(x) {
     intersect(x, SIGm)#get the mapped metabolites number in each pathway
   }))
   aID <- as.data.frame(IDinPathway[!duplicated(IDinPathway)])
-  i <- intersect(aID$`IDinPathway[!duplicated(IDinPathway)]`,specias_database$id)
-  dt <- specias_database[match(i,specias_database$id),]
+  i <- intersect(aID$`IDinPathway[!duplicated(IDinPathway)]`,specias_compound_database$id)
+  dt <- specias_compound_database[match(i,specias_database$id),]
   sd <- setdiff(aID$`IDinPathway[!duplicated(IDinPathway)]`,dt$id)
   if(length(sd) != 0){
     nsd <- which(aID$`IDinPathway[!duplicated(IDinPathway)]` == sd)
@@ -84,6 +82,9 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
   ab[tfc,]<-"red"
   dfc<-cbind(ab,aaldd)
   dfcc <- dfc[,c(2,1)]
+  ##create a folder for analysis
+  dir.create('PathwayEnrich')
+  setwd('PathwayEnrich')
   write.csv(dfc,'differentiate metabolites in pathway.csv')
   write.csv(dfcc,'metabolites map to pathway.csv')
 
@@ -133,5 +134,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
     ggplot2::coord_flip()+
     ggplot2::xlab('Pathway')+
     ggplot2::ggsave("PathwayBarplot.png", width = 12, height = 8)
+  ##back origin work directory
+  setwd("..//")
 }
 

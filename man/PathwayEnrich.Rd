@@ -2,7 +2,7 @@
 % Please edit documentation in R/PathwayEnrich.R
 \name{PathwayEnrich}
 \alias{PathwayEnrich}
-\title{PathwayMatch}
+\title{PathwayEnrich}
 \usage{
 PathwayEnrich(specias_pathway_database = c(hsa.kegg.pathway,
   mmu.kegg.pathway), specias_compound_database = c(hsa_compound_ID,
@@ -24,8 +24,6 @@ a function can match differetiate metabolites in differentiate pathway.
 \examples{
 \donttest{
 ##---- Be sure the format of data and sample.info is correct!! ----
-library(Shine)
-PathwayMatch(group = c("S","P"))
 }
 }
 \author{
