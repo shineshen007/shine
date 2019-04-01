@@ -31,7 +31,7 @@ StaAnalysis <- function(p.cutoff = 0,
                         PCA = FALSE){
   cat("Analyzing data...\n")
   cat("Import data...\n")
-  data <- data.table::fread("data for classify.csv")
+  data <- data.table::fread("data for sta.csv")
   data <- data.table::setDF(data)
   sample.info <- read.csv("sample.info.csv")
 
