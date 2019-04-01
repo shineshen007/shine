@@ -12,6 +12,7 @@
 #' @param size_row the font size of row
 #' @param size_col the font size of col
 #' @param fontsize the font size
+#' @param cellwidth cellwidth
 #' @param border show boder or not
 #' @return  All the results can be got form other functions and instruction.
 #' @export
@@ -25,6 +26,7 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
                           c=0.04,#(a+b)/d
                           d=100,#interval
                           scale_row = TRUE,
+                          cellwidth = 25,
                           size_row=10,
                           size_col=8,
                           fontsize=10,
@@ -72,7 +74,7 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
                            border_color = border,
                            scale = "none",
                            breaks = bk,
-                           cellwidth = 25,
+                           cellwidth = cellwidth,
                            fontsize=fontsize,
                            cluster_cols = F,
                            fontsize_row=size_row,
