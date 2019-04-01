@@ -7,6 +7,7 @@
 #' @param b toplimit of colour
 #' @param c (abs(a)+b)/d
 #' @param d default 100
+#' @param group group info.
 #' @param scale_row scale or not
 #' @param size_row the font size of row
 #' @param size_col the font size of col
@@ -27,17 +28,24 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
                           size_row=10,
                           size_col=8,
                           fontsize=10,
-                          border = NA
-                          ){
+                          border = NA,
+                          group = c("case","control")
+){
 
   cat("Import data...\n")
-  data <- data.table::fread("data.csv")
+  data <- data.table::fread("data pathway.csv")
   data <- data.table::setDF(data)
   sample.info <- read.csv("sample.info.csv")
-  ###data preparation
-  sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
-  sample<-data[,match(sample.name,colnames(data))]
 
+  case.name<-sample.info$sample.name[sample.info$group==group[1]]#get case name
+  control.name<-sample.info$sample.name[sample.info$group==group[2]]
+  qc.name<-sample.info$sample.name[sample.info$class=="QC"]#get qc index
+  qc.idx<-match(qc.name,colnames(data))#get qc index
+  data <- data[,-qc.idx]
+
+  case<-data[,match(case.name,colnames(data))]
+  control<-data[,match(control.name,colnames(data))]
+  sample <- cbind(case,control)
   cat("Draw Heatmap...\n")
   #### heatmap
   x<-sample
@@ -54,16 +62,24 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
   y[y>b]=b
   y[a>y]=a
   bk = unique(c(seq(a,b,c)))
-  anno<-data.frame(sample.info[,-c(2:4)],row.names = T)
-  png(file="heatmap.png", width = 1600, height = 1200,res = 56*2)
+  cg <- c(rep(group[1],length(case.name)))
+  cog <- c(rep(group[2],length(control.name)))
+  cac <- c(cg,cog)
+  anno <- as.data.frame(cac,row.names = T)
+  rownames(anno) <- colnames(y)
+  colnames(anno) <- "group"
   hm <- pheatmap::pheatmap(y,color=colorRampPalette(colour)(d),
                            border_color = border,
                            scale = "none",
                            breaks = bk,
+                           cellwidth = 25,
                            fontsize=fontsize,
+                           cluster_cols = F,
                            fontsize_row=size_row,
                            fontsize_col=size_col,
-                           annotation=anno)
+                           annotation=anno,
+                           filename = "heatmap.png"
+  )
 
-  dev.off()
+
 }

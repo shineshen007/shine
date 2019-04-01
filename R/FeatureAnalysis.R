@@ -167,7 +167,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.9.96.
+  packageStartupMessage("Shine 0.9.97.
                         Maintainer: Xia Shen.
                         \n2019-04-01
 
@@ -178,7 +178,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
                               3: add metabolites classify function
                               4: add pathway enrichment function
 
-                        Version 0.9.96
+                        Version 0.9.97
                         --------------
                         "
   )

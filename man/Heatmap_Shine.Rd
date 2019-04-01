@@ -6,7 +6,8 @@
 \usage{
 Heatmap_Shine(colour = c("green", "white", "red"), a = -2, b = 2,
   c = 0.04, d = 100, scale_row = TRUE, size_row = 10,
-  size_col = 8, fontsize = 10, border = NA)
+  size_col = 8, fontsize = 10, border = NA, group = c("case",
+  "control"))
 }
 \arguments{
 \item{colour}{colour selection.}
@@ -28,6 +29,8 @@ Heatmap_Shine(colour = c("green", "white", "red"), a = -2, b = 2,
 \item{fontsize}{the font size}
 
 \item{border}{show boder or not}
+
+\item{group}{group info.}
 }
 \value{
 All the results can be got form other functions and instruction.
