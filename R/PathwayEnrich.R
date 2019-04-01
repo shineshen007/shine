@@ -41,7 +41,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
   }))
   aID <- as.data.frame(IDinPathway[!duplicated(IDinPathway)])
   i <- intersect(aID$`IDinPathway[!duplicated(IDinPathway)]`,specias_compound_database$id)
-  dt <- specias_compound_database[match(i,specias_database$id),]
+  dt <- specias_compound_database[match(i,specias_compound_database$id),]
   sd <- setdiff(aID$`IDinPathway[!duplicated(IDinPathway)]`,dt$id)
   if(length(sd) != 0){
     nsd <- which(aID$`IDinPathway[!duplicated(IDinPathway)]` == sd)
@@ -102,7 +102,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
   colnames(PBF) <- c("p.value","q.value", "FDR")
 
   ##calculate the impact of pathway
-  info <- lapply(specias, function(module) {
+  info <- lapply(specias_pathway_database, function(module) {
     overlap.number <- length(intersect(module, metabolite.id))
     pathway.number <- length(module)
     c(pathway.number, overlap.number)
