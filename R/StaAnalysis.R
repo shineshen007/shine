@@ -174,7 +174,6 @@ StaAnalysis <- function(p.cutoff = 0,
 
   #volcano plot
   DataFilter()
-  UniqueCompound()
   vol<-read.csv("vol.csv")
   fc<- vol$fc
   p<- vol$p
