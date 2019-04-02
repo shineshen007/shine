@@ -146,6 +146,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      style="graphics",
                      title = 'PLS-DA')
     dev.off()
+    export::graph2ppt(file='PLSDA neither.png',height=7,width=9)
   }
   cat("Calculate VIP...\n")
   ###VIP

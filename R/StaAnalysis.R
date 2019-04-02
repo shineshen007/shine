@@ -182,7 +182,7 @@ StaAnalysis <- function(p.cutoff = 0,
   Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 0.41,
                                  ifelse(log2(fc) < -0.41,
                                         "Down","Up"),"Not Sig"))
-  png(file="volcano plot.png", width = 1200, height = 1000,res = 56*2)
+  png(file=, width = 1200, height = 1000,res = 56*2)
   volc <- ggplot2::ggplot(vol, ggplot2::aes(x = log2(fc), y = -log10(p)))+
     ggplot2::geom_point(aes(color = Significant),size=3) +
     ggplot2::scale_color_manual(values = colv) +
@@ -204,9 +204,9 @@ StaAnalysis <- function(p.cutoff = 0,
       size = 4,
       box.padding = 0.25,
       point.padding = 0.3
-    )
-  plot(volc)
-  dev.off()
+    )+
+    ggplot2::ggsave("volcano plot.png", width = 12, height = 8)
+    export::graph2ppt(x=volc,file='volcano plot.png',height=7,width=9)
 
   if(splot){
     cat("Draw S plot of foldchange...\n")

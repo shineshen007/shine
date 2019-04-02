@@ -82,6 +82,6 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
                            annotation=anno,
                            filename = "heatmap.png"
   )
-
+  export::graph2ppt(x=hm,file='heatmap.png',height=7,width=9)
 
 }
