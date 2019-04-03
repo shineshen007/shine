@@ -151,8 +151,9 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     style="graphics",
                     abline = T,
                     title = 'PCA')
+    export::graph2ppt(file='PCA neither.png',height=7,width=9)
 
     dev.off()
-    export::graph2ppt(file='PCA neither.png',height=7,width=9)
+
   }
 }
