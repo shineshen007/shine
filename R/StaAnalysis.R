@@ -156,6 +156,7 @@ StaAnalysis <- function(p.cutoff = 0,
                              legend =TRUE,
                              style="graphics",
                              title = 'PLS-DA')
+  export::graph2ppt(file='data.pptx',height=7,width=9)
   dev.off()
 
   cat("Calculate VIP...\n")
@@ -206,7 +207,7 @@ StaAnalysis <- function(p.cutoff = 0,
       point.padding = 0.3
     )+
     ggplot2::ggsave("volcano plot.png", width = 12, height = 8)
-    export::graph2ppt(x=volc,file='volcano plot.png',height=7,width=9)
+    export::graph2ppt(x=volc,file='data.pptx',height=7,width=9,append = TRUE)
 
   if(splot){
     cat("Draw S plot of foldchange...\n")
