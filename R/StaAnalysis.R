@@ -8,6 +8,7 @@
 #' @param p.cutoff default is 0.05.
 #' @param splot default is FALSE.
 #' @param pcorrect default is TRUE.
+#' @param heatmap heatmap
 #' @param unitest t.test or wilcox.test.
 #' @param paired paired test in t.test and wilcox.test,default is FALSE.
 #' @param h the height of group index,default is 0.2
@@ -28,7 +29,8 @@ StaAnalysis <- function(p.cutoff = 0,
                         xlim = c(-3,3),
                         paired = FALSE,
                         h=0.2,
-                        PCA = FALSE){
+                        PCA = FALSE,
+                        heatmap = TRUE){
   cat("Analyzing data...\n")
   cat("Import data...\n")
   data <- data.table::fread("data for sta.csv")
@@ -209,6 +211,10 @@ StaAnalysis <- function(p.cutoff = 0,
     ggplot2::ggsave("volcano plot.png", width = 12, height = 8)
     export::graph2ppt(x=volc,file='data.pptx',height=7,width=9,append = TRUE)
 
+  if(heatmap){
+    write.csv(sample.info,'sample.info.csv',row.names = F)
+    Heatmap_Shine(group = group)
+  }
   if(splot){
     cat("Draw S plot of foldchange...\n")
     png(file="S plot of foldchange.png", width = 900, height = 800,res = 56*2)

@@ -15,8 +15,8 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
                           specias_compound_database = c(hsa_compound_ID,mmu_compound_ID),
                           row = 20#draw the first 30 pathways
 ){
-  data <- fread('data pathway.csv')
-  data<-setDF(data)
+  data <- data.table::fread('data pathway.csv')
+  data <- data.table::setDF(data)
   mid <- data$ID
   mid <- as.character(mid)
   uid<-unique(unlist(strsplit(mid,";")))

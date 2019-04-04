@@ -7,7 +7,7 @@
 StaAnalysis(p.cutoff = 0, group = c("case", "control"),
   splot = FALSE, colv = c("SpringGreen3", "grey", "Firebrick1"),
   unitest = c("t.test", "wilcox.test"), pcorrect = TRUE, xlim = c(-3,
-  3), paired = FALSE, h = 0.2, PCA = FALSE)
+  3), paired = FALSE, h = 0.2, PCA = FALSE, heatmap = TRUE)
 }
 \arguments{
 \item{p.cutoff}{default is 0.05.}
@@ -29,6 +29,8 @@ StaAnalysis(p.cutoff = 0, group = c("case", "control"),
 \item{h}{the height of group index,default is 0.2}
 
 \item{PCA}{draw PCA plot or not}
+
+\item{heatmap}{heatmap}
 }
 \value{
 All the results can be got form other functions and instruction.

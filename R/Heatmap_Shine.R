@@ -12,7 +12,6 @@
 #' @param size_row the font size of row
 #' @param size_col the font size of col
 #' @param fontsize the font size
-#' @param cellwidth cellwidth
 #' @param border show boder or not
 #' @return  All the results can be got form other functions and instruction.
 #' @export
@@ -26,7 +25,6 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
                           c=0.04,#(a+b)/d
                           d=100,#interval
                           scale_row = TRUE,
-                          cellwidth = 25,
                           size_row=10,
                           size_col=8,
                           fontsize=10,
@@ -39,7 +37,7 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
   data <- data.table::setDF(data)
   sample.info <- read.csv("sample.info.csv")
 
-  case.name<-sample.info$sample.name[sample.info$group==group[1]]#get case name
+  case.name<-sample.info$sample.name[sample.info$group==group[1]] #get case name
   control.name<-sample.info$sample.name[sample.info$group==group[2]]
   qc.name<-sample.info$sample.name[sample.info$class=="QC"]#get qc index
   qc.idx<-match(qc.name,colnames(data))#get qc index
@@ -74,7 +72,6 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
                            border_color = border,
                            scale = "none",
                            breaks = bk,
-                           cellwidth = cellwidth,
                            fontsize=fontsize,
                            cluster_cols = F,
                            fontsize_row=size_row,
@@ -82,6 +79,6 @@ Heatmap_Shine <- function(colour = c("green","white","red"),
                            annotation=anno,
                            filename = "heatmap.png"
   )
-  export::graph2ppt(x=hm,file='heatmap.png',height=7,width=9)
+  export::graph2ppt(x=hm,file='heatmap.pptx',height=7,width=9)
 
 }
