@@ -163,7 +163,30 @@ BiClass <- function(times = 1001,#must be odd
     write.csv(train_data,'train_data_rf.csv',row.names = FALSE)
     write.csv(test_data,'test_data_rf.csv',row.names = FALSE)
     fit.rf<-randomForest::randomForest(group~.,data = train_data,importance=TRUE, probability = TRUE)
-    imp <- randomForest::importance(fit.rf,type = 2)
+    imp <- as.data.frame(randomForest::importance(fit.rf,type = 2))
+    ###
+    impo <- data.frame(round(imp$MeanDecreaseGini,2))
+    rn <- rownames(imp)
+    ri <- cbind(rn,impo)
+    ds <- ri[order(ri$round.imp.MeanDecreaseGini..2.,decreasing = T),]
+    index<-c(1:nrow(imp))
+    rii <- cbind(index,ds)
+    colnames(rii) <- c('index','metabolites','importance')
+    splot <- ggplot2::ggplot(rii, aes(x = importance , y = reorder(metabolites,importance)))+
+      geom_point(aes(color = metabolites),size=3) +
+      labs(title="metabolites importance plot")+
+      theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),
+            panel.background = element_blank(),axis.line = element_line(colour = "black"),
+            axis.text.x = element_text(size = 14),
+            axis.text.y = element_text(size = 14),
+            axis.title.x = element_text(size = 14),#the font size of axis title
+            axis.title.y = element_text(size = 14))+
+
+      xlab('importance')+
+      theme(legend.position="none")+
+      ggsave('metabolites importance plot.png', width = 12, height = 8)
+    export::graph2ppt(x=splot,file='metabolites importance plot.pptx',height=7,width=9)
+    ###
     rf.pred<-predict(fit.rf,test_data, type="prob")
 
     roc_rf <- pROC::roc(test_data[,1],rf.pred[,1], ci=T)
