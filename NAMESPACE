@@ -3,7 +3,7 @@
 export(ArrangeData)
 export(BiClass)
 export(BindData)
-export(BoxPlot)
+export(Boxplot_Shine)
 export(CorAnalysis)
 export(CoxAnalysis)
 export(DataFilter)
