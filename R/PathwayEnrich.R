@@ -4,6 +4,7 @@
 #' \email{qq951633542@@163.com}
 #' @param specias_pathway_database the specia of sample
 #' @param specias_compound_database the specia of sample
+#' @param keggmap generate file for keggmap
 #' @param row default is 20
 #' @return  All the results can be got form other functions and instruction.
 #' @export
@@ -13,7 +14,9 @@
 #' }
 PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.pathway),
                           specias_compound_database = c(hsa_compound_ID,mmu_compound_ID),
-                          row = 20#draw the first 30 pathways
+                          row = 20,
+                          #draw the first 30 pathways
+                          keggmap = TRUE
 ){
   data <- data.table::fread('data pathway.csv')
   data <- data.table::setDF(data)
@@ -44,10 +47,11 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
   dt <- specias_compound_database[match(i,specias_compound_database$id),]
   sd <- setdiff(aID$`IDinPathway[!duplicated(IDinPathway)]`,dt$id)
   if(length(sd) != 0){
-    nsd <- which(aID$`IDinPathway[!duplicated(IDinPathway)]` == sd)
+    nsd <- match(sd,aID$`IDinPathway[!duplicated(IDinPathway)]`)
     aa <- cbind(aID[-nsd,],dt)
   }else(aa <- cbind(aID,dt))
 
+if(keggmap){
   ###
   nr <- nrow(data)
   nid <- data$ID
@@ -87,6 +91,8 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
   setwd('PathwayEnrich')
   write.csv(dfc,'differentiate metabolites in pathway.csv')
   write.csv(dfcc,'metabolites map to pathway.csv')
+
+}
 
   P<-NaN
   for (i in 1:length(pall)){
@@ -134,6 +140,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
     ggplot2::coord_flip()+
     ggplot2::xlab('Pathway')+
     ggplot2::ggsave("PathwayBarplot.png", width = 12, height = 8)
+  export::graph2ppt(x=pb,file='PathwayBarplot.pptx',width=12,height=8)
   ##back origin work directory
   setwd("..//")
 }
