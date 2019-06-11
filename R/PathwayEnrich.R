@@ -5,7 +5,6 @@
 #' @param specias_pathway_database the specia of sample
 #' @param specias_compound_database the specia of sample
 #' @param keggmap generate file for keggmap
-#' @param row default is 20
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -14,12 +13,10 @@
 #' }
 PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.pathway),
                           specias_compound_database = c(hsa_compound_ID,mmu_compound_ID),
-                          row = 20,
-                          #draw the first 30 pathways
                           keggmap = TRUE
 ){
-  data <- data.table::fread('data pathway.csv')
-  data <- data.table::setDF(data)
+  data <- read.csv('data pathway.csv')
+
   mid <- data$ID
   mid <- as.character(mid)
   uid<-unique(unlist(strsplit(mid,";")))
@@ -125,6 +122,8 @@ if(keggmap){
   #draw barplot
   dat <- read.csv('pathway impact.csv')
   colnames(dat) <- c('pathway', "p.value","q.value","p","Pathway.length","Overlap" )
+  w <- which(dat$p.value>0.05)
+  row = w[1]+5
   dat <- dat[1:row,]
   group <- ifelse(dat$p < 0.05,"sig", "not sig")
   pb<- ggplot2::ggplot(dat,ggplot2::aes(reorder(pathway,-p),-log10(p)))+##-p control the order
