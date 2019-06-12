@@ -125,8 +125,14 @@ if(keggmap){
   w <- which(dat$p.value>0.05)
   row = w[1]+5
   dat <- dat[1:row,]
+  pa <- as.character(dat$pathway)
+  pid<-unique(unlist(strsplit(pa,";")))
+  an <- seq(2,length(pid),2)
+  pid <- data.frame(pid[-an])
+  colnames(pid) <- 'path'
+  datt <- cbind(pid,dat)
   group <- ifelse(dat$p < 0.05,"sig", "not sig")
-  pb<- ggplot2::ggplot(dat,ggplot2::aes(reorder(pathway,-p),-log10(p)))+##-p control the order
+  pb<- ggplot2::ggplot(datt,ggplot2::aes(reorder(path,-p),-log10(p)))+##-p control the order
     ggplot2::geom_bar(aes(fill=group),stat = "identity",position="dodge",width=0.8)+
     ggplot2::theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
                    panel.background = element_blank(),axis.line = element_line(colour = "black"),
