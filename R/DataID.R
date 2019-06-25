@@ -10,7 +10,7 @@
 #' }
 DataID <- function(){
 
-  data <- data.table::fread("data_after_pre.csv")
+  data <- data.table::fread("peak.table.after.data.cleaning.csv")
   info <- data.table::fread("info.csv")
   info<-data.table::setDF(info)
   data<- data.table::setDF(data)
