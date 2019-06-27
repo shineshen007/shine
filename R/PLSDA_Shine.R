@@ -41,7 +41,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
               "Magenta","HotPink2","DeepSkyBlue2","Green1")#10 color
     lev<-length(levels(class))
     cl<-colour[1:lev]
-    shape <-c(15:18,7:14)
+    shape <-c(15:18,0,1,2,5,6)
     pch<-shape[1:lev]
     YY<-group_pls[sample.index,]
     plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)

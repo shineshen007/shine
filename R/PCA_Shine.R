@@ -39,7 +39,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
   levb<-length(levels(batch))
   cl<-colour[1:lev]
   clo<-colour[1:levb]
-  shape <-c(15:18,7:14)
+  shape <-c(15:18,0,1,2,5,6)
   pch<-shape[1:lev]
   pchb<-shape[1:levb]
 
