@@ -51,8 +51,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
 if(keggmap){
   ###
   nr <- nrow(data)
-  nid <- data$ID
-  cnid <- strsplit(nid,split=';')
+  cnid <- strsplit(mid,split=';')
   a1 <- data.frame(NULL)
   a2 <- data.frame(NULL)
   a3 <- data.frame(NULL)

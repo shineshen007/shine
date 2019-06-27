@@ -19,7 +19,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-Heatmap_Shine <- function(colour = c("green","white","red"),
+Heatmap_Shine <- function(colour = c("green","black","red"),
                           a=-2,#lower limit
                           b=2,#upper limit
                           c=0.04,#(a+b)/d

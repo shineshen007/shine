@@ -4,7 +4,7 @@
 \alias{Heatmap_Shine}
 \title{Heatmap_Shine}
 \usage{
-Heatmap_Shine(colour = c("green", "white", "red"), a = -2, b = 2,
+Heatmap_Shine(colour = c("green", "black", "red"), a = -2, b = 2,
   c = 0.04, d = 100, scale_row = TRUE, size_row = 10,
   size_col = 8, fontsize = 10, border = NA, group = c("case",
   "control"))
