@@ -5,9 +5,9 @@
 \title{Heatmap_Shine}
 \usage{
 Heatmap_Shine(colour = c("green", "black", "red"), a = -2, b = 2,
-  c = 0.04, d = 100, scale_row = TRUE, size_row = 10,
-  size_col = 8, fontsize = 10, border = NA, group = c("case",
-  "control"))
+  d = 100, scale_row = TRUE, size_row = 10, size_col = 8,
+  fontsize = 10, border = NA, cluster_cols = FALSE,
+  group = c("case", "control"))
 }
 \arguments{
 \item{colour}{colour selection.}
@@ -15,8 +15,6 @@ Heatmap_Shine(colour = c("green", "black", "red"), a = -2, b = 2,
 \item{a}{lowerlimt of colour.}
 
 \item{b}{toplimit of colour}
-
-\item{c}{(abs(a)+b)/d}
 
 \item{d}{default 100}
 
@@ -29,6 +27,8 @@ Heatmap_Shine(colour = c("green", "black", "red"), a = -2, b = 2,
 \item{fontsize}{the font size}
 
 \item{border}{show boder or not}
+
+\item{cluster_cols}{default is FALSE}
 
 \item{group}{group info.}
 }

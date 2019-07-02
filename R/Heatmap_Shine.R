@@ -5,7 +5,7 @@
 #' @param colour colour selection.
 #' @param a lowerlimt of colour.
 #' @param b toplimit of colour
-#' @param c (abs(a)+b)/d
+#' @param cluster_cols default is FALSE
 #' @param d default 100
 #' @param group group info.
 #' @param scale_row scale or not
@@ -22,13 +22,14 @@
 Heatmap_Shine <- function(colour = c("green","black","red"),
                           a=-2,#lower limit
                           b=2,#upper limit
-                          c=0.04,#(a+b)/d
+                          #c=0.04,(a+b)/d
                           d=100,#interval
                           scale_row = TRUE,
                           size_row=10,
                           size_col=8,
                           fontsize=10,
                           border = NA,
+                          cluster_cols = FALSE,
                           group = c("case","control")
 ){
 
@@ -61,7 +62,7 @@ Heatmap_Shine <- function(colour = c("green","black","red"),
 
   y[y>b]=b
   y[a>y]=a
-  bk = unique(c(seq(a,b,c)))
+  bk = unique(c(seq(a,b,(a+b)/d)))
   cg <- c(rep(group[1],length(case.name)))
   cog <- c(rep(group[2],length(control.name)))
   cac <- c(cg,cog)
@@ -73,7 +74,7 @@ Heatmap_Shine <- function(colour = c("green","black","red"),
                            scale = "none",
                            breaks = bk,
                            fontsize=fontsize,
-                           cluster_cols = F,
+                           cluster_cols = cluster_cols,
                            fontsize_row=size_row,
                            fontsize_col=size_col,
                            annotation=anno,
