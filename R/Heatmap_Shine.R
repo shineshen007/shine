@@ -63,7 +63,7 @@ Heatmap_Shine <- function(colour = c("green","black","red"),
   y[y>b]=b
   y[a>y]=a
   cc <- (abs(a)+b)/d
-  bk = unique(c(seq(a,b,c)))
+  bk = unique(c(seq(a,b,cc)))
   cg <- c(rep(group[1],length(case.name)))
   cog <- c(rep(group[2],length(control.name)))
   cac <- c(cg,cog)
