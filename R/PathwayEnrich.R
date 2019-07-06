@@ -4,7 +4,8 @@
 #' \email{qq951633542@@163.com}
 #' @param specias_pathway_database the specia of sample
 #' @param specias_compound_database the specia of sample
-#' @param keggmap generate file for keggmap
+#' @param keggmap default is TRUE
+#' @param group group info.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -13,13 +14,71 @@
 #' }
 PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.pathway),
                           specias_compound_database = c(hsa_compound_ID,mmu_compound_ID),
-                          keggmap = TRUE
+                          keggmap = TRUE,
+                          group=c("case","control")
 ){
-  data <- read.csv('data pathway.csv')
+  data <- fread('data after classify.csv')
+  data<-setDF(data)
+  #cytoscape
+  sample.info <- read.csv("sample.info.csv")
+  ###data preparation
+  sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
+  qc.name<-sample.info$sample.name[sample.info$class=="QC"]
 
-  mid <- data$ID
-  mid <- as.character(mid)
-  uid<-unique(unlist(strsplit(mid,";")))
+  sample<-data[,match(sample.name,colnames(data))]
+  qc<-data[,match(qc.name,colnames(data))]
+
+  data_pfc<- as.matrix(cbind(qc,sample))
+
+
+  name <- as.character(data[,"compound.name"])
+
+  class<- sample.info[,"group"]
+
+  group1.index <- which(class == group[1])
+  group2.index <- which(class == group[2])
+
+  fc <- apply(data_pfc,1,function(x) {
+    median(x[group1.index]+0.1)/ median(x[group2.index]+0.1)
+  })
+
+  ptest <- apply(data_pfc, 1, function(x) {
+    wilcox.test(x[group1.index], x[group2.index])
+  })
+
+  p <- unlist(lapply(ptest, function(x)
+    x$p.value))
+
+  p <- p.adjust(p = p, method = "fdr",n=length(p))
+
+  f<-as.data.frame(fc)
+
+  #
+  pvalue<-as.data.frame(p)
+  data_vol<-cbind(name,f,pvalue)
+  #get the vol.csc file ,merge with Quantitative.pathway.metabolite.result.csv
+  data.path<-cbind(data_vol,data)
+  mp <- which(data.path$p>0.05)
+  data.path <- data.path[-mp,]
+
+  if(keggmap){
+    rn<-nrow(data.path)
+    lfc<-which(data.path$fc<1)
+    tfc<-which(data.path$fc>1)
+    ab<-data.frame(1:rn)
+    colnames(ab)<-"colour"
+    ab[lfc,]<-"green"
+    ab[tfc,]<-"red"
+    dfc<-cbind(data.path[,"ID"],ab)
+    ##create a folder for analysis
+    dir.create('PathwayEnrich')
+    setwd('PathwayEnrich')
+    write.csv(dfc,'metabolites map to pathway.csv')
+  }
+  #pathwayenrich
+  mid <- data.path$ID
+  # mid <- as.character(mid)
+  uid<-unique(mid)
   metabolite.id <- uid[which(uid %in% unique(unlist(specias_pathway_database)))]#filter the metabolites not in specia
 
   ALLm <- unname(unique(unlist(specias_pathway_database)))
@@ -44,51 +103,11 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
   dt <- specias_compound_database[match(i,specias_compound_database$id),]
   sd <- setdiff(aID$`IDinPathway[!duplicated(IDinPathway)]`,dt$id)
   if(length(sd) != 0){
-    nsd <- match(sd,aID$`IDinPathway[!duplicated(IDinPathway)]`)
+    nsd <- which(aID$`IDinPathway[!duplicated(IDinPathway)]`%in%sd)
     aa <- cbind(aID[-nsd,],dt)
   }else(aa <- cbind(aID,dt))
 
-if(keggmap){
   ###
-  nr <- nrow(data)
-  cnid <- strsplit(mid,split=';')
-  a1 <- data.frame(NULL)
-  a2 <- data.frame(NULL)
-  a3 <- data.frame(NULL)
-  for (i in 1:nr) {
-    cat(i); cat(" ")
-    if(length(cnid[[i]]) != 1){
-      rss <- data[i,]
-      times <- length(cnid[[i]])
-      for (j in 1:times) {
-        rss$ID <- cnid[[i]][j]
-        a1 <- rbind(a1,rss)
-      }
-    }else{
-      a2 <- data[i,]
-      a3 <- rbind(a3,a2)
-    }
-  }
-  dall <- rbind(a3,a1)
-  idx <- intersect(aa$id,dall$ID)
-  alld <- dall[match(idx,dall$ID),]
-  aaldd <- cbind(aa,alld)
-  rn<-nrow(aaldd)
-  lfc<-which(aaldd$fc<1)
-  tfc<-which(aaldd$fc>1)
-  ab<-data.frame(1:rn)
-  colnames(ab)<-"colour"
-  ab[lfc,]<-"green"
-  ab[tfc,]<-"red"
-  dfc<-cbind(ab,aaldd)
-  dfcc <- dfc[,c(2,1)]
-  ##create a folder for analysis
-  dir.create('PathwayEnrich')
-  setwd('PathwayEnrich')
-  write.csv(dfc,'differentiate metabolites in pathway.csv')
-  write.csv(dfcc,'metabolites map to pathway.csv')
-
-}
 
   P<-NaN
   for (i in 1:length(pall)){
@@ -120,8 +139,9 @@ if(keggmap){
   write.csv(info,'pathway impact.csv')
   #draw barplot
   dat <- read.csv('pathway impact.csv')
+
   colnames(dat) <- c('pathway', "p.value","q.value","p","Pathway.length","Overlap" )
-  w <- which(dat$p.value>0.05)
+  w <- which(dat$p>0.05)
   row = w[1]+5
   dat <- dat[1:row,]
   pa <- as.character(dat$pathway)
@@ -131,20 +151,46 @@ if(keggmap){
   colnames(pid) <- 'path'
   datt <- cbind(pid,dat)
   group <- ifelse(dat$p < 0.05,"sig", "not sig")
+  cat("Draw pathway barplot...\n")
   pb<- ggplot2::ggplot(datt,ggplot2::aes(reorder(path,-p),-log10(p)))+##-p control the order
-    ggplot2::geom_bar(aes(fill=group),stat = "identity",position="dodge",width=0.8)+
-    ggplot2::theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
-                   panel.background = element_blank(),axis.line = element_line(colour = "black"),
-                   legend.position = "none",axis.text.y = element_text(size = 14),#the font size of axis
-                   axis.title.x = element_text(size = 14),#the font size of axis title
-                   axis.title.y = element_text(size = 14))+
+    ggplot2::geom_bar(ggplot2::aes(fill=group),stat = "identity",position="dodge",width=0.8)+
+    ggplot2::theme(panel.grid.major =ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),#remove ggplot2 background
+                   panel.background = ggplot2::element_blank(),axis.line = ggplot2::element_line(colour = "black"),
+                   legend.position = "none",axis.text.y = ggplot2::element_text(size = 14),#the font size of axis
+                   axis.title.x = ggplot2::element_text(size = 14),#the font size of axis title
+                   axis.title.y = ggplot2::element_text(size = 14))+
     ggplot2::geom_hline(yintercept= 1.30103,#draw a line at p=0.05
                         lty=4,col="grey21",lwd=1)+
     ggplot2::labs(title="Pathway Enrichment Analysis")+
     ggplot2::coord_flip()+
     ggplot2::xlab('Pathway')+
     ggplot2::ggsave("PathwayBarplot.png", width = 12, height = 8)
-  export::graph2ppt(x=pb,file='PathwayBarplot.pptx',width=12,height=8)
+  cat("Generate cytoscape data...\n")
+  #cytoscape
+  pathway.p<-dat
+  nume<-length(pathway.p$p<0.05)
+  path1<-as.character(pathway.p[1:nume,1])
+  a<-NULL
+  ct<-data.frame(NULL)
+  for (i in 1:nume){
+    #get the pathway
+    pathway.name<-path1[i]
+    pathway.d<-specias_pathway_database[pathway.name]
+    #get the ID in pathway
+    pathway<-pathway.d[[1]]
+    ix <- intersect(pathway,data.path$ID)
+    pathway_name<-as.data.frame(c(rep(c(pathway.name),length(ix))))
+    pathway_p<-as.data.frame(c(rep(c(pathway.p[i,'p']),length(ix))))
+    foldchange <- data.path$fc[match(ix,data.path$ID)]
+    metabolite <- data.path$compound.name[match(ix,data.path$ID)]
+    cyto <- cbind(pathway_p,pathway_name,metabolite,foldchange)
+
+    ct <- rbind(ct, cyto)
+
+  }
+  colnames(ct)<-c("pathway.p","pathway","metabolites","foldchange")
+  xlsx::write.xlsx(ct,"cytoscape.xlsx",row.names = F)
+
   ##back origin work directory
   setwd("..//")
 }
