@@ -163,7 +163,7 @@ Metabolites_Classify <- function(
   max_uniq = aggregate(am[,"qcm"],list(am[,"compound.name"]),max,drop = FALSE)
   ic <- intersect(max_uniq$Group.1,am$compound.name)
   da <- am[match(ic,am$compound.name),]
-  write.csv(da,'unique_compound.csv',row.names = F)
+
   #write.csv(df,'data after classify.csv',row.names = F)
   cat("classify the metabolites ...\n")
   #classify the metabolites
@@ -184,6 +184,10 @@ Metabolites_Classify <- function(
   pmid <- aa[,-c(2:3)]
   colnames(pmid) <- c('ID','compound name')
   write.csv(pmid,'classfied metabolites.csv')
+  ica <- intersect(da$ID,pmid$ID)
+  dad <- da[match(ica,da$ID),]
+  dad <- dad[,-1]
+  write.csv(da,'unique_compound.csv',row.names = F)
   ##Metabolite_Distribution_plot
   bk <- read.csv("classfied metabolites.csv")
   cda <- as.character(bk$X)
@@ -202,7 +206,7 @@ Metabolites_Classify <- function(
     ggplot2::ylab(('The number of metabolites in each pathway'))+
     ggplot2::annotate("text", label = nrow(unique(bg)), x = 2, y = 20, size = 6)+
     ggplot2::annotate("text", label = 'pathway number', x = 5, y = 20, size = 6)+
-    ggplot2::annotate("text", label = nrow(unique(bk)), x = 8, y = 20, size = 6)+
+    ggplot2::annotate("text", label = nrow(metabolite.id), x = 8, y = 20, size = 6)+
     ggplot2::annotate("text", label = 'metabolites number', x = 12, y = 20, size = 6)+
     ggplot2::geom_text(mapping = ggplot2::aes(label = ax$number),size=3,vjust=0.5,position = ggplot2::position_stack(vjust = 0.5))+
     ggplot2::theme(panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),#remove ggplot2 background
