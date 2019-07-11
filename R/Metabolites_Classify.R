@@ -54,7 +54,7 @@ Metabolites_Classify <- function(
   a2 <- data.frame(NULL)
   a3 <- data.frame(NULL)
   for (i in 1:nr) {
-    cat(i); cat(" ")
+
     if(length(cnid[[i]]) != 1){
       rsi <- data[i,]
       times <- length(cnid[[i]])
@@ -79,7 +79,7 @@ Metabolites_Classify <- function(
   a2 <- data.frame(NULL)
   a3 <- data.frame(NULL)
   for (i in 1:nr) {
-    cat(i); cat(" ")
+
     if(length(cnc[[i]]) != 1){
       rsc <- data[i,]
       times <- length(cnc[[i]])
@@ -105,7 +105,7 @@ Metabolites_Classify <- function(
   a2 <- data.frame(NULL)
   a3 <- data.frame(NULL)
   for (i in 1:nr) {
-    cat(i); cat(" ")
+
     if(length(cni[[i]]) != 1){
       rsci <- data[i,]
       times <- length(cni[[i]])
@@ -131,7 +131,7 @@ Metabolites_Classify <- function(
   a2 <- data.frame(NULL)
   a3 <- data.frame(NULL)
   for (i in 1:nr) {
-    cat(i); cat(" ")
+
     if(length(cna[[i]]) != 1){
       rsca <- data[i,]
       times <- length(cna[[i]])
@@ -206,7 +206,7 @@ Metabolites_Classify <- function(
     ggplot2::ylab(('The number of metabolites in each pathway'))+
     ggplot2::annotate("text", label = nrow(unique(bg)), x = 2, y = 20, size = 6)+
     ggplot2::annotate("text", label = 'pathway number', x = 5, y = 20, size = 6)+
-    ggplot2::annotate("text", label = nrow(metabolite.id), x = 8, y = 20, size = 6)+
+    ggplot2::annotate("text", label = length(metabolite.id), x = 8, y = 20, size = 6)+
     ggplot2::annotate("text", label = 'metabolites number', x = 12, y = 20, size = 6)+
     ggplot2::geom_text(mapping = ggplot2::aes(label = ax$number),size=3,vjust=0.5,position = ggplot2::position_stack(vjust = 0.5))+
     ggplot2::theme(panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),#remove ggplot2 background
