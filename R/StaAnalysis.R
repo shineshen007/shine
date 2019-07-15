@@ -83,6 +83,7 @@ StaAnalysis <- function(p.cutoff = 0,
   FolderName <- paste("StaAnalysis",group[1],sep = " ")
   FolderName <- paste(FolderName,group[2],sep = "&")
   dir.create(FolderName)
+  file.copy('sample.info.csv',FolderName)
   setwd(FolderName)
 
   #parameter decision

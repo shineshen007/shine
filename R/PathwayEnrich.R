@@ -17,7 +17,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
                           keggmap = TRUE,
                           group=c("case","control")
 ){
-  data <- fread('data after classify.csv')
+  data <- fread('data_pfc_vip.csv')
   data<-setDF(data)
   #cytoscape
   sample.info <- read.csv("sample.info.csv")
