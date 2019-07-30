@@ -161,9 +161,9 @@ Metabolites_Classify <- function(
   qcm <- apply(qc, 1, mean)
   am <- cbind(qcm,df)
   max_uniq = aggregate(am[,"qcm"],list(am[,"compound.name"]),max,drop = FALSE)
-  ic <- intersect(max_uniq$Group.1,am$compound.name)
-  da <- am[match(ic,am$compound.name),]
-
+  ic <- intersect(max_uniq$x,am$qcm)
+  da <- am[match(ic,am$qcm),]
+  write.csv(da,'data after classify.csv',row.names = FALSE)
   #write.csv(df,'data after classify.csv',row.names = F)
   cat("classify the metabolites ...\n")
   #classify the metabolites

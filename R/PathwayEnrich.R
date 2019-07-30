@@ -17,9 +17,12 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
                           keggmap = TRUE,
                           group=c("case","control")
 ){
-  data <- fread('data_pfc_vip.csv')
-  data<-setDF(data)
-  #cytoscape
+  da <- fread('data after classify.csv')
+  da<-setDF(da)
+  #unique ID
+  max_score = aggregate(da[,"score"],list(da[,"compound.name"]),max,drop = FALSE)
+  ic <- intersect(max_score$x,da$score)
+  data <- da[match(ic,da$score),]
   sample.info <- read.csv("sample.info.csv")
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
@@ -78,7 +81,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
   #pathwayenrich
   mid <- data.path$ID
   # mid <- as.character(mid)
-  uid<-unique(mid)
+  uid<-mid
   metabolite.id <- uid[which(uid %in% unique(unlist(specias_pathway_database)))]#filter the metabolites not in specia
 
   ALLm <- unname(unique(unlist(specias_pathway_database)))
