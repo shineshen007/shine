@@ -154,7 +154,7 @@ Metabolites_Classify <- function(
   #remove the score<.4
   idx <- which(temp$score < 0.4)
   df <- temp[-idx,]
-
+  write.csv(df,'data after classify.csv',row.names = F)
   #unique compound
   qcinx <- grep('qc',colnames(df))
   qc <- df[,qcinx]
@@ -163,8 +163,8 @@ Metabolites_Classify <- function(
   max_uniq = aggregate(am[,"qcm"],list(am[,"compound.name"]),max,drop = FALSE)
   ic <- intersect(max_uniq$x,am$qcm)
   da <- am[match(ic,am$qcm),]
-  write.csv(da,'data after classify.csv',row.names = FALSE)
-  #write.csv(df,'data after classify.csv',row.names = F)
+  write.csv(da,'unique_compound.csv',row.names = F)
+
   cat("classify the metabolites ...\n")
   #classify the metabolites
   mid <- as.character(da$ID)
@@ -184,10 +184,10 @@ Metabolites_Classify <- function(
   pmid <- aa[,-c(2:3)]
   colnames(pmid) <- c('ID','compound name')
   write.csv(pmid,'classfied metabolites.csv')
-  ica <- intersect(da$ID,pmid$ID)
-  dad <- da[match(ica,da$ID),]
-  dad <- dad[,-1]
-  write.csv(da,'unique_compound.csv',row.names = F)
+  # ica <- intersect(da$ID,pmid$ID)
+  # dad <- da[match(ica,da$ID),]
+  # dad <- dad[,-1]
+
   ##Metabolite_Distribution_plot
   bk <- read.csv("classfied metabolites.csv")
   cda <- as.character(bk$X)
