@@ -4,9 +4,13 @@
 \alias{iMatch}
 \title{iMatch}
 \usage{
-iMatch(name = "name")
+iMatch(d1 = 1, d2 = 2, name = "name")
 }
 \arguments{
+\item{d1}{the position of the file in dir()}
+
+\item{d2}{the position of the file in dir()}
+
 \item{name}{the column which you want to match}
 }
 \value{
