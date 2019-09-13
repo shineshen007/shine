@@ -168,6 +168,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
     ggplot2::coord_flip()+
     ggplot2::xlab('Pathway')+
     ggplot2::ggsave("PathwayBarplot.png", width = 12, height = 8)
+  export::graph2ppt(x=pb,file='PathwayBarplot.pptx',height=7,width=9)
   cat("Generate cytoscape data...\n")
   #cytoscape
   pathway.p<-dat
