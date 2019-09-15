@@ -27,7 +27,7 @@ CorAnalysis<-function(number.cex = 0.6,#number size in cicle
   cor<-psych::corr.test(core1,core2,adjust = adjust)
   #cor plot
   r<-cor[["r"]]
-  write.csv(r,'correlation.csv',row.names = F)
+  write.csv(r,'correlation.csv')
   png(file="bicor plot.png", width = 1200, height = 1000,res = 56*2)
   col=colorRampPalette(c("navy","white","firebrick3"))
   corrplot::corrplot(r,tl.col="black", tl.srt=45,tl.cex = tl.cex,number.cex = number.cex,
@@ -36,7 +36,7 @@ CorAnalysis<-function(number.cex = 0.6,#number size in cicle
   dev.off()
 
   p<-cor[["p"]]
-  write.csv(p,'correlation pvalue.csv',row.names = F)
+  write.csv(p,'correlation pvalue.csv')
   png(file="pvalue plot.png", width = 1200, height = 1000,res = 56*2)
   corrplot::corrplot(p,tl.col="black", tl.srt=45,tl.cex = tl.cex,number.cex = number.cex,
            cl.lim = c(0,1),addCoef.col = "black",number.digits = number.digits)

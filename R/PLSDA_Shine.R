@@ -107,6 +107,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      legend =TRUE,
                      style="graphics",
                      title = 'PLS-DA')
+    export::graph2ppt(file='PLSDA ellipse.png',height=7,width=9)
     dev.off()
   }
   if(both){

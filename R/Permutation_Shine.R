@@ -59,7 +59,7 @@ Permutation_Shine <- function(repeats = 200, ncomp = 2,
   pdf(FileName)
   par(xpd = F)
   par(mar=c(5,5,4,2))
-  plot(x = 0, y = 0, xlim = c(0,1),
+  pm <- plot(x = 0, y = 0, xlim = c(0,1),
        ylim = c(min(c(q2,r2,Q2,R2)),1.2*max(c(q2,r2,Q2,R2))),
        col = "white",
        xlab = "Correlation",
@@ -87,5 +87,7 @@ Permutation_Shine <- function(repeats = 200, ncomp = 2,
          legend = c(paste("Q2",round(intercept.q2,2), sep = ": "), paste("R2",round(intercept.r2,2),sep=": ")),
          col = c("palegreen", "royalblue"), pch = 19, pt.cex = 1.3, cex = 1.3, bty = "n")
   par(xpd = T)
+  #export::graph2ppt(x=pm,file='Permutation.png',height=7,width=9)
   dev.off()
+
 }
