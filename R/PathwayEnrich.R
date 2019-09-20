@@ -23,7 +23,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
   max_score = aggregate(da[,"score"],list(da[,"compound.name"]),max,drop = FALSE)
   ic <- intersect(max_score$x,da$score)
   data <- da[match(ic,da$score),]
-  sample.info <- read.csv("sample.info.csv")
+  sample.info <- readr::read_csv("sample.info.csv")
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
   qc.name<-sample.info$sample.name[sample.info$class=="QC"]
@@ -76,7 +76,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
     ##create a folder for analysis
     dir.create('PathwayEnrich')
     setwd('PathwayEnrich')
-    write.csv(dfc,'metabolites map to pathway.csv')
+    readr::write_csv(dfc,'metabolites map to pathway.csv')
   }
   #pathwayenrich
   mid <- data.path$ID
@@ -139,9 +139,9 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
 
   info <- info[order(info[,1]),]
 
-  write.csv(info,'pathway impact.csv')
+  readr::write_csv(info,'pathway impact.csv')
   #draw barplot
-  dat <- read.csv('pathway impact.csv')
+  dat <- readr::read_csv('pathway impact.csv')
 
   colnames(dat) <- c('pathway', "p.value","q.value","p","Pathway.length","Overlap" )
   w <- which(dat$p>0.05)

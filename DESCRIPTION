@@ -1,7 +1,7 @@
 Package: Shine
 Type: Package
 Title: R package for metabolonmic data analysis
-Version: 0.1.93
+Version: 0.1.95
 Date: 2018-03-09
 Author: Shen Shine
 Maintainer: Shen Shine<qq951633542@163.com>
@@ -11,7 +11,7 @@ Encoding: UTF-8
 LazyData: true
 Imports: ggplot2,ggrepel,gplots,mixOmics,pheatmap,data.table,corrplot,e1071,
          ggbeeswarm,ggpubr,pROC,randomForest,meta,survminer,survival,psych,
-         plsdepot,plyr,export
+         plsdepot,plyr,export,readr
 Suggests: xlsx         
 Depends: R (>= 3.3)
 RoxygenNote: 6.1.1

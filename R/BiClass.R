@@ -20,7 +20,7 @@ BiClass <- function(times = 1001,#must be odd
                     SVM = TRUE
 ){
 
-  data <- utils::read.csv("data for roc.csv",stringsAsFactors = T)
+  data <- readr::read_csv("data for roc.csv",stringsAsFactors = T)
   d <- dim(data)
   num <- list()#save the split list
   au_lg <- NULL#save logistic auc
@@ -75,8 +75,8 @@ BiClass <- function(times = 1001,#must be odd
     ind_lg <- num[[num_auc_lg]]#get the median auc split
     train_data_lg<-data[ind_lg,]
     test_data_lg<-data[-ind_lg,]
-    write.csv(train_data_lg,'train_data_lg.csv',row.names = FALSE)
-    write.csv(test_data_lg,'test_data_lg.csv',row.names = FALSE)
+    readr::write_csv(train_data_lg,'train_data_lg.csv',row.names = FALSE)
+    readr::write_csv(test_data_lg,'test_data_lg.csv',row.names = FALSE)
     fit.log<-glm(group~.,data = train_data_lg,family = binomial())
     step.fit<-step(fit.log)
     prob<-predict(step.fit,test_data_lg,type="response")
@@ -108,6 +108,7 @@ BiClass <- function(times = 1001,#must be odd
       ggplot2::annotate("text", x=1.25, y=med_lg-0.01, label=med_lg, colour='black', size=5)+
       ggplot2::annotate("text", x=1.25, y=lower_lg-0.01, label=lower_lg, colour='black', size=5)+
       ggplot2::ggsave("AUC logistic.png",width=10,height=6)
+    export::graph2ppt(x=p,file='biclass.pptx',height=7,width=9)
   }
 
   #SVM
@@ -118,8 +119,8 @@ BiClass <- function(times = 1001,#must be odd
     ind <- num[[num_auc_svm]]
     train_data_svm<-data[ind,]
     test_data_svm<-data[-ind,]
-    write.csv(train_data_svm,'train_data_svm.csv',row.names = FALSE)
-    write.csv(test_data_svm,'test_data_svm.csv',row.names = FALSE)
+    readr::write_csv(train_data_svm,'train_data_svm.csv',row.names = FALSE)
+    readr::write_csv(test_data_svm,'test_data_svm.csv',row.names = FALSE)
     fit.svm<-e1071::svm(group~.,data = train_data_svm,probability = T)
     svm.pred <- predict(fit.svm,test_data_svm, type="prob",probability = T)
     prob.svm <- attr (svm.pred, "probabilities")[, 1]
@@ -133,7 +134,7 @@ BiClass <- function(times = 1001,#must be odd
     v <- cbind(cc,au_svm)
     colnames(v) <- c("index","auc")
     label="95% CI"
-    p <- ggplot2::ggplot(mapping= ggplot2::aes(v$index, v$auc)) +
+    ps <- ggplot2::ggplot(mapping= ggplot2::aes(v$index, v$auc)) +
       ggplot2::theme(panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),
                      panel.background = ggplot2::element_blank(),axis.line = ggplot2::element_line(colour = "black"),legend.position = "none")+
       ggbeeswarm::geom_quasirandom(ggplot2::aes(color="grey"))+
@@ -150,7 +151,7 @@ BiClass <- function(times = 1001,#must be odd
       ggplot2::annotate("text", x=1.25, y=med_svm-0.01, label=med_svm, colour='black', size=5)+
       ggplot2::annotate("text", x=1.25, y=lower_svm-0.01, label=lower_svm, colour='black', size=5)+
       ggplot2::ggsave("AUC svm.png",width=10,height=6)
-
+    export::graph2ppt(x=ps,file='biclass.pptx',height=7,width=9,append=TRUE)
   }
 
   #random forest
@@ -160,8 +161,8 @@ BiClass <- function(times = 1001,#must be odd
     ind <- num[[num_auc_rf]]
     train_data<-data[ind,]
     test_data<-data[-ind,]
-    write.csv(train_data,'train_data_rf.csv',row.names = FALSE)
-    write.csv(test_data,'test_data_rf.csv',row.names = FALSE)
+    readr::write_csv(train_data,'train_data_rf.csv',row.names = FALSE)
+    readr::write_csv(test_data,'test_data_rf.csv',row.names = FALSE)
     fit.rf<-randomForest::randomForest(group~.,data = train_data,importance=TRUE, probability = TRUE)
     imp <- as.data.frame(randomForest::importance(fit.rf,type = 2))
     ###
@@ -185,7 +186,7 @@ BiClass <- function(times = 1001,#must be odd
       xlab('importance')+
       theme(legend.position="none")+
       ggsave('metabolites importance plot.png', width = 12, height = 8)
-    export::graph2ppt(x=splot,file='metabolites importance plot.pptx',height=7,width=9)
+    export::graph2ppt(x=splot,file='biclass.pptx',height=7,width=9,append=TRUE)
     ###
     rf.pred<-predict(fit.rf,test_data, type="prob")
 
@@ -194,39 +195,52 @@ BiClass <- function(times = 1001,#must be odd
     upper_rf <- round(roc_rf[["ci"]][3],2)
     med_rf <- round(median(au_rf),2)
     lower_rf <- round(roc_rf[["ci"]][1],2)
-    png(file="ROC.png", width = 1200, height = 1000,res = 56*2)
+
     #roclg
     rocc_lg<-pROC::plot.roc(roc_lg,col="black"#, print.auc = T
                             #,print.thres = "best"
     )
     #rocsvm
-    rocc<-pROC::plot.roc(roc_svm,col="blue",add = TRUE#,print.auc = T
+    rocs<-pROC::plot.roc(roc_svm,col="blue",add = TRUE#,print.auc = T
                          #,print.thres = "best"
     )
     #rocrf
-    rocc<-pROC::plot.roc(roc_rf,col="red",add = TRUE#,print.auc = T
+    rocr<-pROC::plot.roc(roc_rf,col="red",add = TRUE#,print.auc = T
                          #,print.thres = "best"
     )
 
-    legend(0.65,0.15, legend=c('Logistic Regression', "SVM","RandomForest"),
-           col=c("black", "blue","red"), lwd=2,bty = "n")
-    legend(0.4,0.15, legend=c(med_lg,med_svm,med_rf),
-           bty = "n")
-    legend(0.3,0.15, legend=c(upper_lg,upper_svm,upper_rf),
-           bty = "n")
-    legend(0.24,0.15, legend=c('--',"--","--"),
-           bty = "n")
-    legend(0.21,0.15, legend=c(lower_lg,lower_svm,lower_rf),
-           bty = "n")
-    text(0.2,0.15,labels = "(95%CI)")
-    text(0.33,0.15,labels = "AUC value")
-    dev.off()
+    rocp <-ggroc(list(lg=rocc_lg,svm=rocs,rf=rocr),size=1.5)+
+
+      ggplot2::theme(panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),
+                     panel.background = ggplot2::element_blank(),axis.line = ggplot2::element_line(colour = "black"),
+                     legend.position = "none")+
+      #scale_colour_manual()+
+      ggplot2::annotate("text", x=0.45, y=0.05, label='Logistic Regression', colour="OrangeRed", size=4)+
+      ggplot2::annotate("text", x=0.45, y=0.15, label="SVM", colour= "Green4", size=4)+
+      ggplot2::annotate("text", x=0.45, y=0.25, label="RandomForest", colour="RoyalBlue", size=4)+
+      ggplot2::annotate("text", x=0.28, y=0.05, label=med_lg, colour="OrangeRed", size=4)+
+      ggplot2::annotate("text", x=0.28, y=0.15, label= med_svm, colour= "Green4", size=4)+
+      ggplot2::annotate("text", x=0.28, y=0.25, label=med_rf, colour="RoyalBlue", size=4)+
+      ggplot2::annotate("text", x=0.14, y=0.05, label=upper_lg, colour="OrangeRed", size=4)+
+      ggplot2::annotate("text", x=0.14, y=0.15, label= upper_svm, colour= "Green4", size=4)+
+      ggplot2::annotate("text", x=0.14, y=0.25, label=upper_rf, colour="RoyalBlue", size=4)+
+      ggplot2::annotate("text", x=0.2, y=0.05, label=lower_lg, colour="OrangeRed", size=4)+
+      ggplot2::annotate("text", x=0.2, y=0.15, label= lower_svm, colour= "Green4", size=4)+
+      ggplot2::annotate("text", x=0.2, y=0.25, label=lower_rf, colour="RoyalBlue", size=4)+
+      ggplot2::annotate("text", x=0.16, y=0.05, label='--', colour="OrangeRed", size=4)+
+      ggplot2::annotate("text", x=0.16, y=0.15, label= '--', colour= "RoyalBlue", size=4)+
+      ggplot2::annotate("text", x=0.16, y=0.25, label='--', colour="RoyalBlue", size=4)+
+      ggplot2::annotate("text", x=0.28, y=0.32, label="AUC", colour= "black", size=4)+
+      ggplot2::annotate("text", x=0.175, y=0.32, label='(95%CI)', colour="black", size=4)+
+      ggsave("ROC.png",width=9,height=7)
+
+    export::graph2ppt(x=rocp,file='biclass.pptx',height=7,width=9,append=TRUE)
 
     cc <- data.frame(rep("1",times))
     v <- cbind(cc,au_rf)
     colnames(v) <- c("index","auc")
     label="95% CI"
-    p <- ggplot2::ggplot(mapping = ggplot2::aes(v$index, v$auc)) +
+    pr <- ggplot2::ggplot(mapping = ggplot2::aes(v$index, v$auc)) +
       ggplot2::theme(panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),
                      panel.background = ggplot2::element_blank(),axis.line = ggplot2::element_line(colour = "black"),legend.position = "none")+
       ggbeeswarm::geom_quasirandom(ggplot2::aes(color="grey"))+
@@ -243,6 +257,7 @@ BiClass <- function(times = 1001,#must be odd
       ggplot2::annotate("text", x=1.25, y=med_rf-0.01, label=med_rf, colour='black', size=5)+
       ggplot2::annotate("text", x=1.25, y=lower_rf-0.01, label=lower_rf, colour='black', size=5)+
       ggplot2::ggsave("AUC rf.png",width=10,height=6)
+    export::graph2ppt(x=pr,file='biclass.pptx',height=7,width=9,append=TRUE)
   }
 }
 

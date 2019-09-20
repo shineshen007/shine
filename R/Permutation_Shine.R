@@ -18,7 +18,7 @@ Permutation_Shine <- function(repeats = 200, ncomp = 2,
   cat("Import data...\n")
   data <- data.table::fread("data.csv")
   data <- data.table::setDF(data)
-  sample.info <- read.csv("sample.info.csv")
+  sample.info <- readr::read_csv("sample.info.csv")
   class<- sample.info[,"group"]
 
   group1.index <- which(class == group[1])

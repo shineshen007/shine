@@ -6,8 +6,10 @@
 \usage{
 Heatmap_Shine(colour = c("green", "black", "red"), a = -2, b = 2,
   d = 100, scale_row = TRUE, size_row = 10, size_col = 8,
-  fontsize = 10, border = NA, cluster_cols = FALSE,
-  group = c("case", "control"))
+  fontsize = 10, ppt_heigth = 7, ppt_width = 9, cellwidth = NA,
+  cellheight = NA, border = NA, show_colnames = FALSE,
+  show_rownames = FALSE, cluster_cols = FALSE, group = c("case",
+  "control"))
 }
 \arguments{
 \item{colour}{colour selection.}
@@ -26,11 +28,23 @@ Heatmap_Shine(colour = c("green", "black", "red"), a = -2, b = 2,
 
 \item{fontsize}{the font size}
 
+\item{ppt_width}{ppt_width}
+
+\item{cellwidth}{cellwidth}
+
+\item{cellheight}{cellheight}
+
 \item{border}{show boder or not}
+
+\item{show_colnames}{show_colnames}
+
+\item{show_rownames}{show_rownames}
 
 \item{cluster_cols}{default is FALSE}
 
 \item{group}{group info.}
+
+\item{ppt_height}{ppt_height}
 }
 \value{
 All the results can be got form other functions and instruction.

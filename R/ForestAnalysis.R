@@ -18,7 +18,7 @@ ForestAnalysis<-function(group = c("case","control"),ncol=19){
   cat("Import data...\n")
   data <- data.table::fread("data.csv")
   data <- data.table::setDF(data)
-  sample.info <- read.csv("sample.info.csv")
+  sample.info <- readr::read_csv("sample.info.csv")
 
   case.name<-sample.info$sample.name[sample.info$group==group[1]]#get case name
   control.name<-sample.info$sample.name[sample.info$group==group[2]]
@@ -61,6 +61,7 @@ ForestAnalysis<-function(group = c("case","control"),ncol=19){
                              studlab=paste(data$compound.name),comb.random=FALSE)
   png(file="forest plot.png", width = 1200, height = 1000,res = 56*2)
   meta::forest(metaresult,leftlabs = c("Metabolites",NA,NA,NA,NA))
+  export::graph2ppt(file='forest plot.pptx',height=7,width=9)
   dev.off()
 
   e <- as.data.frame(expose_1)
@@ -106,7 +107,7 @@ ForestAnalysis<-function(group = c("case","control"),ncol=19){
   upperci <- data.frame(upperci[,1])
   result <- cbind(dta,lowerci,upperci)
   all <- cbind(oddr,lowerci,upperci,data)
-  write.csv(all,"data_result.csv",row.names = F)
+  readr::write_csv(all,"data_result.csv",row.names = F)
 
   filterOR <- all[!is.na(all$OR),]
   filterlow <- filterOR[!is.na(filterOR$lowerci...1.),]
@@ -119,5 +120,5 @@ ForestAnalysis<-function(group = c("case","control"),ncol=19){
   drc <- dr[-c(1:ncol),]
   drcc <- cbind(gnn,drc)
   colnames(drcc) <-c('group',droc$compound.name)
-  write.csv(drcc,"data for roc.csv",row.names = F)
+  readr::write_csv(drcc,"data for roc.csv",row.names = F)
 }

@@ -34,7 +34,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
   cat("Import data...\n")
   data <- data.table::fread("data.csv")
   data <- data.table::setDF(data)
-  sample.info <- utils::read.csv("sample.info.csv")
+  sample.info <-readr::read_csv("sample.info.csv")
 
   cat("Analyzing data...\n")
   ##create a folder for analysis
@@ -48,7 +48,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
                   which(data$isotope == "")),]
   }
   data <-isotope_filter(data)
-  utils::write.csv(data,"filter.isotope.csv",row.names = FALSE)
+  readr::write_csv(data,"filter.isotope.csv",row.names = FALSE)
   }
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]#get sample index
@@ -72,7 +72,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
       check_zero <- check_zero[idx.check,]
     }
     zero.data <- zero_check(data)
-    write.csv(zero.data,"zero.rows.csv",row.names = FALSE)
+    readr::write_csv(zero.data,"zero.rows.csv",row.names = FALSE)
   }
 
   if(zero.filter){
@@ -90,7 +90,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
     }
     data_zero_filter <- zero_filter(data)
     data <- data_zero_filter
-    write.csv(data,"filter.zero.csv",row.names = FALSE)
+    readr::write_csv(data,"filter.zero.csv",row.names = FALSE)
 
   }
 
@@ -105,12 +105,12 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
     })
   }
   rsd.data <- RSD(qc)##run function
-  write.csv(rsd.data,"rsd.csv",row.names = FALSE)
+  readr::write_csv(rsd.data,"rsd.csv",row.names = FALSE)
 
   cat("Draw QC distribution plot...\n")
   ### QC distribution plot
   png(file="QC distribution.png", width = 900, height = 800,res = 56*2)
-  d <- read.csv("rsd.csv")
+  d <- readr::read_csv("rsd.csv")
   percent <- round(sum(d$x<0.3)/nrow(d),3)
   txt <- paste(percent*100,"%")
   scatter.data<-as.data.frame(rsd.data[order(rsd.data)])
@@ -142,7 +142,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
       rsd_data <- data_rsd[-idx.filter,]
     }
     filter.rsd.data <- RSD_filter(data_rsd)
-    write.csv(filter.rsd.data,"data for sta.csv",row.names = FALSE)
+    readr::write_csv(filter.rsd.data,"data for sta.csv",row.names = FALSE)
   }
   cat("Draw mz VS RT plot...\n")
   if(mzrt){
@@ -167,14 +167,14 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.1.93.
+  packageStartupMessage("Shine 0.1.95.
                         Maintainer: Xia Shen.
-                        \n2019-09-15
+                        \n2019-09-20
 
                         Notes: sample name in pos and neg mode must be identical
 
 
-                        Version 0.1.93
+                        Version 0.1.95
                         --------------
                         "
   )

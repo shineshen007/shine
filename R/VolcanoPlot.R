@@ -34,7 +34,7 @@ volcano <- function(p.cutoff = 0,
   cat("Import data...\n")
   data <- data.table::fread("data.csv")
   data <- data.table::setDF(data)
-  sample.info <- read.csv("sample.info.csv")
+  sample.info <- readr::read_csv("sample.info.csv")
   cat("Analyzing data...\n")
 
   #parameter decision
@@ -67,7 +67,7 @@ volcano <- function(p.cutoff = 0,
 
   Volcano <- rbind(Volcano.parameters,c("Version", "0.0.984"))
   colnames(Volcano) <- c('parameter', 'value')
-  write.csv(Volcano,"Volcano.parameters.csv",row.names = F)
+  readr::write_csv(Volcano,"Volcano.parameters.csv",row.names = F)
 
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
@@ -116,8 +116,8 @@ volcano <- function(p.cutoff = 0,
   f<-as.data.frame(fc)
   pvalue<-as.data.frame(p)
   data_vol<-cbind(name,f,pvalue)
-  write.csv(data_vol,"vol.csv",row.names = F)
-  vol<-read.csv("vol.csv")
+  readr::write_csv(data_vol,"vol.csv",row.names = F)
+  vol<-readr::read_csv("vol.csv")
   fc<- vol$fc
   p<- vol$p
   group1<-group[1]#group index on the plot

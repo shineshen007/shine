@@ -13,6 +13,12 @@
 #' @param size_col the font size of col
 #' @param fontsize the font size
 #' @param border show boder or not
+#' @param cellwidth cellwidth
+#' @param cellheight cellheight
+#' @param show_colnames show_colnames
+#' @param show_rownames show_rownames
+#' @param ppt_width ppt_width
+#' @param ppt_height ppt_height
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -28,7 +34,13 @@ Heatmap_Shine <- function(colour = c("green","black","red"),
                           size_row=10,
                           size_col=8,
                           fontsize=10,
+                          ppt_heigth = 7,
+                          ppt_width = 9,
+                          cellwidth=NA,
+                          cellheight=NA,
                           border = NA,
+                          show_colnames=FALSE,
+                          show_rownames=FALSE,
                           cluster_cols = FALSE,
                           group = c("case","control")
 ){
@@ -36,7 +48,7 @@ Heatmap_Shine <- function(colour = c("green","black","red"),
   cat("Import data...\n")
   data <- data.table::fread("data pathway.csv")
   data <- data.table::setDF(data)
-  sample.info <- read.csv("sample.info.csv")
+  sample.info <- readr::read_csv("sample.info.csv")
 
   case.name<-sample.info$sample.name[sample.info$group==group[1]] #get case name
   control.name<-sample.info$sample.name[sample.info$group==group[2]]
@@ -74,13 +86,17 @@ Heatmap_Shine <- function(colour = c("green","black","red"),
                            border_color = border,
                            scale = "none",
                            breaks = bk,
+                           show_rownames = show_rownames,
+                           show_colnames = show_colnames,
                            fontsize=fontsize,
+                           cellwidth=cellwidth,
+                           cellheight =cellheight,
                            cluster_cols = cluster_cols,
                            fontsize_row=size_row,
                            fontsize_col=size_col,
                            annotation=anno,
                            filename = "heatmap.png"
   )
-  export::graph2ppt(x=hm,file='heatmap.pptx',height=7,width=9)
+  export::graph2ppt(x=hm,file='heatmap.pptx',height=ppt_heigth,width=ppt_width)
 
 }

@@ -20,14 +20,14 @@ CorAnalysis<-function(number.cex = 0.6,#number size in cicle
                       number.digits=4,
                       adjust = c("holm", "bonferroni", "BH", "fdr", "none")){
 
-  data1<-read.csv("data1.csv",check.names = F)
-  data2<-read.csv("data2.csv",check.names = F)
+  data1<-readr::read_csv("data1.csv",check.names = F)
+  data2<-readr::read_csv("data2.csv",check.names = F)
   core1<-as.data.frame(data1[,-1])
   core2<-as.data.frame(data2[,-1])
   cor<-psych::corr.test(core1,core2,adjust = adjust)
   #cor plot
   r<-cor[["r"]]
-  write.csv(r,'correlation.csv')
+  readr::write_csv(r,'correlation.csv')
   png(file="bicor plot.png", width = 1200, height = 1000,res = 56*2)
   col=colorRampPalette(c("navy","white","firebrick3"))
   corrplot::corrplot(r,tl.col="black", tl.srt=45,tl.cex = tl.cex,number.cex = number.cex,
@@ -36,7 +36,7 @@ CorAnalysis<-function(number.cex = 0.6,#number size in cicle
   dev.off()
 
   p<-cor[["p"]]
-  write.csv(p,'correlation pvalue.csv')
+  readr::write_csv(p,'correlation pvalue.csv')
   png(file="pvalue plot.png", width = 1200, height = 1000,res = 56*2)
   corrplot::corrplot(p,tl.col="black", tl.srt=45,tl.cex = tl.cex,number.cex = number.cex,
            cl.lim = c(0,1),addCoef.col = "black",number.digits = number.digits)

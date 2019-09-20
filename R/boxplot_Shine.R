@@ -9,7 +9,7 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 Boxplot_Shine <- function(){
-  data <- read.csv("data.csv")
+  data <- readr::read_csv("data.csv")
   mn <- ncol(data)
   da <- data.frame(data[,1])
   for (i in 2:mn) {

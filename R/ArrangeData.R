@@ -16,6 +16,6 @@ ArrangeData <- function(){
   data<-data[,-c(3:4,6:10)]#remove redundancy columns
   colnames(data)[2] <- 'mz'
   colnames(data)[3] <- 'rt'
-  utils::write.csv(data,"data for svr.csv",row.names = F)
+  readr::write_csv(data,"data for svr.csv",row.names = F)
 
 }
