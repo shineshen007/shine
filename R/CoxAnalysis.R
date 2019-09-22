@@ -39,7 +39,7 @@ CoxAnalysis <- function(){
                          })
   res <- t(as.data.frame(univ_results, check.names = FALSE))
   as.data.frame(res)
-  readr::write_csv(res,"uniresult.csv",row.names = T)
+  write.csv(res,"uniresult.csv",row.names = T)
 
   ###multivariate cox
   covariatesp <- paste0(covariates[1:9], " +")
@@ -67,6 +67,6 @@ CoxAnalysis <- function(){
   res<-cbind(HR, p.value)
   names(res)<-c("HR (95% CI for HR)",
                 "p.value")
-  readr::write_csv(res,"multi_result.csv",row.names = T)
+  write.csv(res,"multi_result.csv",row.names = T)
 }
 

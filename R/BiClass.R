@@ -75,8 +75,8 @@ BiClass <- function(times = 1001,#must be odd
     ind_lg <- num[[num_auc_lg]]#get the median auc split
     train_data_lg<-data[ind_lg,]
     test_data_lg<-data[-ind_lg,]
-    readr::write_csv(train_data_lg,'train_data_lg.csv',row.names = FALSE)
-    readr::write_csv(test_data_lg,'test_data_lg.csv',row.names = FALSE)
+    write.csv(train_data_lg,'train_data_lg.csv',row.names = FALSE)
+    write.csv(test_data_lg,'test_data_lg.csv',row.names = FALSE)
     fit.log<-glm(group~.,data = train_data_lg,family = binomial())
     step.fit<-step(fit.log)
     prob<-predict(step.fit,test_data_lg,type="response")
@@ -119,8 +119,8 @@ BiClass <- function(times = 1001,#must be odd
     ind <- num[[num_auc_svm]]
     train_data_svm<-data[ind,]
     test_data_svm<-data[-ind,]
-    readr::write_csv(train_data_svm,'train_data_svm.csv',row.names = FALSE)
-    readr::write_csv(test_data_svm,'test_data_svm.csv',row.names = FALSE)
+    write.csv(train_data_svm,'train_data_svm.csv',row.names = FALSE)
+    write.csv(test_data_svm,'test_data_svm.csv',row.names = FALSE)
     fit.svm<-e1071::svm(group~.,data = train_data_svm,probability = T)
     svm.pred <- predict(fit.svm,test_data_svm, type="prob",probability = T)
     prob.svm <- attr (svm.pred, "probabilities")[, 1]
@@ -161,8 +161,8 @@ BiClass <- function(times = 1001,#must be odd
     ind <- num[[num_auc_rf]]
     train_data<-data[ind,]
     test_data<-data[-ind,]
-    readr::write_csv(train_data,'train_data_rf.csv',row.names = FALSE)
-    readr::write_csv(test_data,'test_data_rf.csv',row.names = FALSE)
+    write.csv(train_data,'train_data_rf.csv',row.names = FALSE)
+    write.csv(test_data,'test_data_rf.csv',row.names = FALSE)
     fit.rf<-randomForest::randomForest(group~.,data = train_data,importance=TRUE, probability = TRUE)
     imp <- as.data.frame(randomForest::importance(fit.rf,type = 2))
     ###

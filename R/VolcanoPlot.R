@@ -67,7 +67,7 @@ volcano <- function(p.cutoff = 0,
 
   Volcano <- rbind(Volcano.parameters,c("Version", "0.0.984"))
   colnames(Volcano) <- c('parameter', 'value')
-  readr::write_csv(Volcano,"Volcano.parameters.csv",row.names = F)
+  write.csv(Volcano,"Volcano.parameters.csv",row.names = F)
 
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
@@ -116,7 +116,7 @@ volcano <- function(p.cutoff = 0,
   f<-as.data.frame(fc)
   pvalue<-as.data.frame(p)
   data_vol<-cbind(name,f,pvalue)
-  readr::write_csv(data_vol,"vol.csv",row.names = F)
+  write.csv(data_vol,"vol.csv",row.names = F)
   vol<-readr::read_csv("vol.csv")
   fc<- vol$fc
   p<- vol$p

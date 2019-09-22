@@ -107,7 +107,7 @@ ForestAnalysis<-function(group = c("case","control"),ncol=19){
   upperci <- data.frame(upperci[,1])
   result <- cbind(dta,lowerci,upperci)
   all <- cbind(oddr,lowerci,upperci,data)
-  readr::write_csv(all,"data_result.csv",row.names = F)
+  write.csv(all,"data_result.csv",row.names = F)
 
   filterOR <- all[!is.na(all$OR),]
   filterlow <- filterOR[!is.na(filterOR$lowerci...1.),]
@@ -120,5 +120,5 @@ ForestAnalysis<-function(group = c("case","control"),ncol=19){
   drc <- dr[-c(1:ncol),]
   drcc <- cbind(gnn,drc)
   colnames(drcc) <-c('group',droc$compound.name)
-  readr::write_csv(drcc,"data for roc.csv",row.names = F)
+  write.csv(drcc,"data for roc.csv",row.names = F)
 }

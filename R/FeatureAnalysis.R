@@ -48,7 +48,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
                   which(data$isotope == "")),]
   }
   data <-isotope_filter(data)
-  readr::write_csv(data,"filter.isotope.csv",row.names = FALSE)
+  write.csv(data,"filter.isotope.csv",row.names = FALSE)
   }
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]#get sample index
@@ -72,7 +72,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
       check_zero <- check_zero[idx.check,]
     }
     zero.data <- zero_check(data)
-    readr::write_csv(zero.data,"zero.rows.csv",row.names = FALSE)
+    write.csv(zero.data,"zero.rows.csv",row.names = FALSE)
   }
 
   if(zero.filter){
@@ -90,7 +90,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
     }
     data_zero_filter <- zero_filter(data)
     data <- data_zero_filter
-    readr::write_csv(data,"filter.zero.csv",row.names = FALSE)
+    write.csv(data,"filter.zero.csv",row.names = FALSE)
 
   }
 
@@ -105,7 +105,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
     })
   }
   rsd.data <- RSD(qc)##run function
-  readr::write_csv(rsd.data,"rsd.csv",row.names = FALSE)
+  write.csv(rsd.data,"rsd.csv",row.names = FALSE)
 
   cat("Draw QC distribution plot...\n")
   ### QC distribution plot
@@ -143,7 +143,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
       rsd_data <- data_rsd[-idx.filter,]
     }
     filter.rsd.data <- RSD_filter(data_rsd)
-    readr::write_csv(filter.rsd.data,"data for sta.csv",row.names = FALSE)
+    write.csv(filter.rsd.data,"data for sta.csv",row.names = FALSE)
   }
   cat("Draw mz VS RT plot...\n")
   if(mzrt){

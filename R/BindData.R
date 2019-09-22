@@ -20,15 +20,15 @@ BindData <- function(){#bind pos and neg mode data
   ID_neg <- data.table::setDF(ID_neg)
   #r
   data_ID_pos<-cbind(ID_pos,data_pos)
-  readr::write_csv(data_ID_pos,"data_ID_pos.csv",row.names = F)
+  write.csv(data_ID_pos,"data_ID_pos.csv",row.names = F)
   data_ID_neg<-cbind(ID_neg,data_neg)
-  readr::write_csv(data_ID_neg,"data_ID_neg.csv",row.names = F)
+  write.csv(data_ID_neg,"data_ID_neg.csv",row.names = F)
   #
   ID_both<-rbind(ID_pos,ID_neg)
-  readr::write_csv(ID_both,"ID both.csv",row.names = F)
+  write.csv(ID_both,"ID both.csv",row.names = F)
   #
   data_both<-rbind(data_ID_pos,data_ID_neg)
-  readr::write_csv(data_both,"data pos and neg.csv",row.names = F)
+  write.csv(data_both,"data pos and neg.csv",row.names = F)
   data<-data_both[,-c(15:17)]
-  readr::write_csv(data,"data for next.csv",row.names = F)
+  write.csv(data,"data for next.csv",row.names = F)
 }

@@ -112,7 +112,7 @@ StaAnalysis <- function(p.cutoff = 0,
 
   StaAnalysis <- rbind(StaAnalysis.parameters,c("Version", "Shine"))
   colnames(StaAnalysis) <- c('parameter', 'value')
-  readr::write_csv(StaAnalysis,"StaAnalysis.parameters.csv",row.names = F)
+  write.csv(StaAnalysis,"StaAnalysis.parameters.csv",row.names = F)
 
   if(PCA){
     cat("Draw PCA plot...\n")
@@ -165,16 +165,16 @@ StaAnalysis <- function(p.cutoff = 0,
   cat("Calculate VIP...\n")
   ###VIP
   vip<- mixOmics::vip(plsda.datatm)
-  readr::write_csv(vip,"VIP.csv",row.names = F)
+  write.csv(vip,"VIP.csv",row.names = F)
 
   cat("Draw Volcano plot...\n")
   #### volcano plot(double line)###data only contain 3 columns:name,p,fc
   f<-as.data.frame(fc)
   pvalue<-as.data.frame(p)
   data_vol<-cbind(name,f,pvalue)
-  readr::write_csv(data_vol,"vol.csv",row.names = F)
+  write.csv(data_vol,"vol.csv",row.names = F)
   data_pfc_vip<-cbind(data_vol,vip,data)
-  readr::write_csv(data_pfc_vip,"data_pfc_vip.csv",row.names = F)
+  write.csv(data_pfc_vip,"data_pfc_vip.csv",row.names = F)
 
   #volcano plot
   DataFilter()
@@ -213,7 +213,7 @@ StaAnalysis <- function(p.cutoff = 0,
     export::graph2ppt(x=volc,file='data.pptx',height=7,width=9,append = TRUE)
 
   if(heatmap){
-    readr::write_csv(sample.info,'sample.info.csv',row.names = F)
+    write.csv(sample.info,'sample.info.csv',row.names = F)
     Heatmap_Shine(group = group)
   }
   if(splot){
