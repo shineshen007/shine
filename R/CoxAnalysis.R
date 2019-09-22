@@ -9,7 +9,7 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 CoxAnalysis <- function(){
-  data<-read.csv("data.csv")#data contain columns of patients'name,age,sex etc
+  data<- readr::read_csv("data.csv")#data contain columns of patients'name,age,sex etc
 
   ###unvariate analysis
   cln <- colnames(data)
@@ -39,7 +39,7 @@ CoxAnalysis <- function(){
                          })
   res <- t(as.data.frame(univ_results, check.names = FALSE))
   as.data.frame(res)
-  write.csv(res,"uniresult.csv",row.names = T)
+  readr::write_csv(res,"uniresult.csv",row.names = T)
 
   ###multivariate cox
   covariatesp <- paste0(covariates[1:9], " +")
@@ -48,10 +48,11 @@ CoxAnalysis <- function(){
   formulas <- as.formula(paste('Surv(time, status)~', paste(x, collapse= "+")))
   mres.cox <- survival::coxph(formulas, data = data)
   ##forest plot
-  png(file="forest plot of multiv_cox.png", width = 1200, height = 1000,res = 56*2)
-  survminer::ggforest(mres.cox,main = "Hazard ratio",cpositions = c(0.02, 0.22, 0.4),
+  #png(file="forest plot of multiv_cox.png", width = 1200, height = 1000,res = 56*2)
+  sf <- survminer::ggforest(mres.cox,main = "Hazard ratio",cpositions = c(0.02, 0.22, 0.4),
            fontsize = 0.8,refLabel = "reference", noDigits = 2,data = data)
-  dev.off()
+  export::graph2ppt(x=sf,file='correlation.pptx',height=7,width=9)
+  #dev.off()
   summary(mres.cox)
 
   x <- summary(mres.cox)
@@ -66,6 +67,6 @@ CoxAnalysis <- function(){
   res<-cbind(HR, p.value)
   names(res)<-c("HR (95% CI for HR)",
                 "p.value")
-  write.csv(res,"multi_result.csv",row.names = T)
+  readr::write_csv(res,"multi_result.csv",row.names = T)
 }
 

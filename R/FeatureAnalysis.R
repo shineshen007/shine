@@ -109,7 +109,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 
   cat("Draw QC distribution plot...\n")
   ### QC distribution plot
-  png(file="QC distribution.png", width = 900, height = 800,res = 56*2)
+  #png(file="QC distribution.png", width = 900, height = 800,res = 56*2)
   d <- readr::read_csv("rsd.csv")
   percent <- round(sum(d$x<0.3)/nrow(d),3)
   txt <- paste(percent*100,"%")
@@ -123,7 +123,8 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
     ggplot2::geom_text(data = d,aes(x= 400,y= 1.2,label= txt))
   ggplot2::geom_hline(ggplot2::aes(yintercept=0.3,linetype="dashed"))
   plot(qc_dis)
-  dev.off()
+  export::graph2ppt(x=qc_dis,file='qc_dis.pptx',height=7,width=9)
+  #dev.off()
 
   if(RSD.filter){
     cat("RSD filtering...\n")
@@ -147,7 +148,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
   cat("Draw mz VS RT plot...\n")
   if(mzrt){
     #### mz VS RT plot
-    png(file="mz.rt.png", width = 900, height = 800,res = 56*2)
+    #png(file="mz.rt.png", width = 900, height = 800,res = 56*2)
     col <- apply(sample,1,median)
     mr <- ggplot2::ggplot(data,ggplot2::aes(x=rt,y=mz,colour=log10(col)))+
       geom_point()+
@@ -157,7 +158,8 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
       ggplot2::labs(colour="log10(intensity)")+
       ggplot2::theme(legend.position = c(0.95,0.9))
     plot(mr)
-    dev.off()
+    #dev.off()
+    export::graph2ppt(x=mr,file='data.pptx',height=7,width=9)
   }
 
   ##back origin work directory
@@ -167,14 +169,14 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.1.95.
+  packageStartupMessage("Shine 0.1.96.
                         Maintainer: Xia Shen.
-                        \n2019-09-20
+                        \n2019-09-22
 
                         Notes: sample name in pos and neg mode must be identical
 
 
-                        Version 0.1.95
+                        Version 0.1.96
                         --------------
                         "
   )

@@ -18,7 +18,7 @@
 #' @param show_colnames show_colnames
 #' @param show_rownames show_rownames
 #' @param ppt_width ppt_width
-#' @param ppt_height ppt_height
+#' @param ppt_height ppt_height.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -34,7 +34,7 @@ Heatmap_Shine <- function(colour = c("green","black","red"),
                           size_row=10,
                           size_col=8,
                           fontsize=10,
-                          ppt_heigth = 7,
+                          ppt_height = 7,
                           ppt_width = 9,
                           cellwidth=NA,
                           cellheight=NA,

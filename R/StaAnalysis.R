@@ -116,7 +116,7 @@ StaAnalysis <- function(p.cutoff = 0,
 
   if(PCA){
     cat("Draw PCA plot...\n")
-    png(file="PCA.png", width = 1200, height = 1000,res = 56*2)
+    #png(file="PCA.png", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<- mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcap<- mixOmics::plotIndiv(pca,
@@ -131,13 +131,14 @@ StaAnalysis <- function(p.cutoff = 0,
                                style="graphics",
                                abline = T,
                                title = 'PCA')
-    dev.off()
+    export::graph2ppt(x=pcap,file='data.pptx',height=7,width=9)
+    #dev.off()
   }
 
 
   cat("Draw PLSDA plot...\n")
   ###PLS-DA
-  png(file="PLSDA.png", width = 1200, height = 1000,res = 56*2)
+  #png(file="PLSDA.png", width = 1200, height = 1000,res = 56*2)
   sample.info1<-sample.info[c(group1.index,group2.index),]
   ###data preparation
   sample.name1<-sample.info1$sample.name[sample.info1$class=="Subject"]
@@ -159,10 +160,8 @@ StaAnalysis <- function(p.cutoff = 0,
                              legend =TRUE,
                              style="graphics",
                              title = 'PLS-DA')
-  export::graph2ppt(file='data.pptx',height=7,width=9)
-  dev.off()
-  dev.off()
-  dev.off()
+  export::graph2ppt(file='data.pptx',height=7,width=9,append=TRUE)
+
   cat("Calculate VIP...\n")
   ###VIP
   vip<- mixOmics::vip(plsda.datatm)
@@ -187,7 +186,7 @@ StaAnalysis <- function(p.cutoff = 0,
   Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 0.41,
                                  ifelse(log2(fc) < -0.41,
                                         "Down","Up"),"Not Sig"))
-  png(file=, width = 1200, height = 1000,res = 56*2)
+  #png(file=, width = 1200, height = 1000,res = 56*2)
   volc <- ggplot2::ggplot(vol, ggplot2::aes(x = log2(fc), y = -log10(p)))+
     ggplot2::geom_point(aes(color = Significant),size=3) +
     ggplot2::scale_color_manual(values = colv) +
@@ -209,8 +208,8 @@ StaAnalysis <- function(p.cutoff = 0,
       size = 4,
       box.padding = 0.25,
       point.padding = 0.3
-    )+
-    ggplot2::ggsave("volcano plot.png", width = 12, height = 8)
+    )
+    #ggplot2::ggsave("volcano plot.png", width = 12, height = 8)
     export::graph2ppt(x=volc,file='data.pptx',height=7,width=9,append = TRUE)
 
   if(heatmap){

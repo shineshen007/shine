@@ -20,7 +20,7 @@ BiClass <- function(times = 1001,#must be odd
                     SVM = TRUE
 ){
 
-  data <- readr::read_csv("data for roc.csv",stringsAsFactors = T)
+  data <- read.csv("data for roc.csv",stringsAsFactors = T)
   d <- dim(data)
   num <- list()#save the split list
   au_lg <- NULL#save logistic auc
@@ -97,7 +97,7 @@ BiClass <- function(times = 1001,#must be odd
       ggbeeswarm::geom_quasirandom(ggplot2::aes(color="grey"))+
       ggplot2::labs(x=NULL,
                     y="Area Under Curve(AUC)",
-                    title="AUC Distribution plot")+
+                    title="AUC Distribution plot of logistic")+
       ggplot2::geom_segment(mapping = ggplot2::aes(x=0.9,y=upper_lg),xend=1.1,yend=upper_lg)+
       ggplot2::geom_segment(mapping = ggplot2::aes(x=0.7,y=med_lg),xend=1.3,yend=med_lg)+
       ggplot2::geom_segment(mapping = ggplot2::aes(x=0.9,y=lower_lg),xend=1.1,yend=lower_lg)+
@@ -140,7 +140,7 @@ BiClass <- function(times = 1001,#must be odd
       ggbeeswarm::geom_quasirandom(ggplot2::aes(color="grey"))+
       ggplot2::labs(x=NULL,
                     y="Area Under Curve(AUC)",
-                    title="AUC Distribution plot")+
+                    title="AUC Distribution plot of SVM")+
       ggplot2::geom_segment(mapping = ggplot2::aes(x=0.9,y=upper_svm),xend=1.1,yend=upper_svm)+
       ggplot2::geom_segment(mapping = ggplot2::aes(x=0.7,y=med_svm),xend=1.3,yend=med_svm)+
       ggplot2::geom_segment(mapping = ggplot2::aes(x=0.9,y=lower_svm),xend=1.1,yend=lower_svm)+
@@ -196,20 +196,20 @@ BiClass <- function(times = 1001,#must be odd
     med_rf <- round(median(au_rf),2)
     lower_rf <- round(roc_rf[["ci"]][1],2)
 
-    #roclg
-    rocc_lg<-pROC::plot.roc(roc_lg,col="black"#, print.auc = T
-                            #,print.thres = "best"
-    )
-    #rocsvm
-    rocs<-pROC::plot.roc(roc_svm,col="blue",add = TRUE#,print.auc = T
-                         #,print.thres = "best"
-    )
-    #rocrf
-    rocr<-pROC::plot.roc(roc_rf,col="red",add = TRUE#,print.auc = T
-                         #,print.thres = "best"
-    )
+    # #roclg
+    # rocc_lg<-pROC::plot.roc(roc_lg,col="black"#, print.auc = T
+    #                         #,print.thres = "best"
+    # )
+    # #rocsvm
+    # rocs<-pROC::plot.roc(roc_svm,col="blue",add = TRUE#,print.auc = T
+    #                      #,print.thres = "best"
+    # )
+    # #rocrf
+    # rocr<-pROC::plot.roc(roc_rf,col="red",add = TRUE#,print.auc = T
+    #                      #,print.thres = "best"
+    # )
 
-    rocp <-ggroc(list(lg=rocc_lg,svm=rocs,rf=rocr),size=1.5)+
+    rocp <-ggroc(list(lg=roc_lg,svm=roc_svm,rf=roc_rf),size=1.5)+
 
       ggplot2::theme(panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),
                      panel.background = ggplot2::element_blank(),axis.line = ggplot2::element_line(colour = "black"),
@@ -246,7 +246,7 @@ BiClass <- function(times = 1001,#must be odd
       ggbeeswarm::geom_quasirandom(ggplot2::aes(color="grey"))+
       ggplot2::labs(x=NULL,
                     y="Area Under Curve(AUC)",
-                    title="AUC Distribution plot")+
+                    title="AUC Distribution plot of RandomForest")+
       ggplot2::geom_segment(mapping = ggplot2::aes(x=0.9,y=upper_rf),xend=1.1,yend=upper_rf)+
       ggplot2::geom_segment(mapping = ggplot2::aes(x=0.7,y=med_rf),xend=1.3,yend=med_rf)+
       ggplot2::geom_segment(mapping = ggplot2::aes(x=0.9,y=lower_rf),xend=1.1,yend=lower_rf)+
