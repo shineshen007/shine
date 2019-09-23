@@ -20,29 +20,59 @@ CorAnalysis<-function(number.cex = 0.6,#number size in cicle
                       number.digits=4,
                       adjust = c("holm", "bonferroni", "BH", "fdr", "none")){
 
-  data1<-readr::read_csv("data1.csv",check.names = F)
-  data2<-readr::read_csv("data2.csv",check.names = F)
+  data1<-read.csv("data1.csv",check.names = F)
+  data2<-read.csv("data2.csv",check.names = F)
   core1<-as.data.frame(data1[,-1])
   core2<-as.data.frame(data2[,-1])
   cor<-psych::corr.test(core1,core2,adjust = adjust)
   #cor plot
   r<-cor[["r"]]
-  readr::write_csv(r,'correlation.csv')
-  png(file="bicor plot.png", width = 1200, height = 1000,res = 56*2)
+  #unique cor
+  pjc <- NULL
+  for (i in 1:ncol(r)) {
+    padc <- rep(rownames(r)[i],ncol(r))%>%
+      #cbind(.,colnames(pa))%>%
+      cbind(.,r[i,])
+    pjc <- rbind(pjc,padc)
+  }
+  #png(file="bicor plot.png", width = 1200, height = 1000,res = 56*2)
   col=colorRampPalette(c("navy","white","firebrick3"))
   corrplot::corrplot(r,tl.col="black", tl.srt=45,tl.cex = tl.cex,number.cex = number.cex,
-           addCoefasPercent = TRUE,cl.lim = c(-1,1),addCoef.col = "black",col = col(10))
+                     addCoefasPercent = TRUE,cl.lim = c(-1,1),addCoef.col = "black",col = col(10))
+  #plot(cp)
   export::graph2ppt(file='correlation.pptx',height=7,width=9)
-  dev.off()
+  #dev.off()
 
   p<-cor[["p"]]
-  readr::write_csv(p,'correlation pvalue.csv')
-  png(file="pvalue plot.png", width = 1200, height = 1000,res = 56*2)
+  #png(file="pvalue plot.png", width = 1200, height = 1000,res = 56*2)
   corrplot::corrplot(p,tl.col="black", tl.srt=45,tl.cex = tl.cex,number.cex = number.cex,
-           cl.lim = c(0,1),addCoef.col = "black",number.digits = number.digits)
-  export::graph2ppt(file='correlation.pptx',height=7,width=9,append = TRUE)
-  dev.off()
+                     cl.lim = c(0,1),addCoef.col = "black",number.digits = number.digits)
 
+  export::graph2ppt(file='correlation.pptx',height=7,width=9,append = TRUE)
+  #dev.off()
+  #unique p
+  pj <- NULL
+  for (i in 1:ncol(p)) {
+    pad <- rep(rownames(p)[i],ncol(p))%>%
+      #cbind(.,colnames(pa))%>%
+      cbind(.,p[i,])
+    pj <- rbind(pj,pad)
+  }
+
+  #
+  result <- cbind(pjc,pj)#%>%
+  result <-  result[, -3]
+
+  colnames(result) = c('M2',"cor",'pval')
+  write.csv(result,'result.csv')
+  #rm p>0.05&pcor=1 generate data for cyto
+  rst <- read.csv('result.csv')
+  rs <- rst[-which(rst$pval>0.05),]
+  rs <- rs[-which(rs$cor==1),]
+  colnames(rs)[1] <- 'M1'
+  dup <- which(duplicated(rs$cor))
+  rsu <- rs[-dup,]
+  xlsx::write.xlsx(rsu,'cor network.xlsx',row.names = F)
   #chart plot
   #png(file="chart plot.png", width = 1200, height = 1000,res = 56*2)
   #chart.Correlation(core,histogram = TRUE,pch=19)

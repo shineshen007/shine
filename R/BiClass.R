@@ -209,7 +209,7 @@ BiClass <- function(times = 1001,#must be odd
     #                      #,print.thres = "best"
     # )
 
-    rocp <-ggroc(list(lg=roc_lg,svm=roc_svm,rf=roc_rf),size=1.5)+
+    rocp <- pROC::ggroc(list(lg=roc_lg,svm=roc_svm,rf=roc_rf),size=1.5)+
 
       ggplot2::theme(panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),
                      panel.background = ggplot2::element_blank(),axis.line = ggplot2::element_line(colour = "black"),
