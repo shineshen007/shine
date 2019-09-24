@@ -2,30 +2,35 @@
 #' @description a function to draw BoxPlot
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
+#' @param ppt_width default is 9
+#' @param ngroup number of grouo
+#' @param palette colour selection
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-Boxplot_Shine <- function(){
-  data <- readr::read_csv("data.csv")
-  mn <- ncol(data)
-  da <- data.frame(data[,1])
-  for (i in 2:mn) {
-    dao <- scale(data[,i])
-    da <- cbind(da,dao)
-  }
-  colnames(da) <- colnames(data)
-  for (i in 2:mn) {
-    s <- ggboxplot(data = da,x='group',y = colnames(da)[i],color = "group",
-                   palette = "jco",add = "jitter",size = 1 #,ylab = ylab
-    )+
-      stat_compare_means()
-    plot(s)
-    export::graph2ppt(file='boxplot.pptx',height=7,width=9,append = TRUE)
-  }
+Boxplot_Shine <- function(ppt_width=9,
+                          ngroup=3,
+                          palette = c('BottleRocket1', 'BottleRocket2', 'Rushmore1', 'Royal1', 'Royal2',
+                                      'Zissou1', 'Darjeeling1', 'Darjeeling2', 'Chevalier1' , 'FantasticFox1' ,
+                                      'Moonrise1', 'Moonrise2', 'Moonrise3', 'Cavalcanti1', 'GrandBudapest1',
+                                      'GrandBudapest2', 'IsleofDogs1', 'IsleofDogs2')
+){
+  data <- read.csv("data for boxplot.csv")
+  s <- ggpubr::ggboxplot(data = data,x='metabolites',y = 'abundance',color = "group",
+                         palette = wesanderson::wes_palette(n=ngroup, name=palette),
+                         add = "jitter"
+                         #,ylab = ylab
+  )+
+    theme(axis.text.x=element_text(family="myFont2",face="bold",angle=45, hjust=1, vjust=1))+
+    stat_compare_means(aes(group = group),label = "p.signif", label.x = 1.5)
+
+  plot(s)
+  export::graph2ppt(file='boxplot.pptx',height=7,width=ppt_width)
 }
+
 
 
 

@@ -4,7 +4,18 @@
 \alias{Boxplot_Shine}
 \title{Boxplot_Shine}
 \usage{
-Boxplot_Shine()
+Boxplot_Shine(ppt_width = 9, ngroup = 3, palette = c("BottleRocket1",
+  "BottleRocket2", "Rushmore1", "Royal1", "Royal2", "Zissou1",
+  "Darjeeling1", "Darjeeling2", "Chevalier1", "FantasticFox1", "Moonrise1",
+  "Moonrise2", "Moonrise3", "Cavalcanti1", "GrandBudapest1",
+  "GrandBudapest2", "IsleofDogs1", "IsleofDogs2"))
+}
+\arguments{
+\item{ppt_width}{default is 9}
+
+\item{ngroup}{number of grouo}
+
+\item{palette}{colour selection}
 }
 \value{
 All the results can be got form other functions and instruction.
