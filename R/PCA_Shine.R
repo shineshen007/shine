@@ -47,7 +47,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     cat("Draw PCA plot of QC...\n")
     ###PCA"
     n <- which(sample.info$group=="QC")
-    png(file="PCA qc both.png", width = 1200, height = 1000,res = 56*2)
+    #png(file="PCA qc both.png", width = 1200, height = 1000,res = 56*2)
     temp<-qc
     pca<- mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcap<- mixOmics::plotIndiv(pca,
@@ -59,10 +59,10 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     style="graphics",
                     abline = T,
                     title = 'PCA')
+    export::graph2ppt(file='PCA qc.png',height=7,width=9)
+    #dev.off()
 
-    dev.off()
-
-    png(file="PCA qc neither.png", width = 1200, height = 1000,res = 56*2)
+    #png(file="PCA qc neither.png", width = 1200, height = 1000,res = 56*2)
     temp<-qc
     pca<- mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcap<-mixOmics::plotIndiv(pca,
@@ -75,14 +75,15 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     style="graphics",
                     abline = T,
                     title = 'PCA')
+    export::graph2ppt(file='PCA qc.png',height=7,width=9,append=TRUE)
 
-    dev.off()
+    #dev.off()
   }
 
   cat("Draw PCA plot...\n")
   if(ind){
   ###PCA"
-  png(file="PCA ind.png", width = 1200, height = 1000,res = 56*2)
+  #png(file="PCA ind.png", width = 1200, height = 1000,res = 56*2)
   temp<-data_pfc
   pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
   pcap<-mixOmics::plotIndiv(pca,
@@ -94,12 +95,12 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
             style="graphics",
             abline = T,
             title = 'PCA')
-
-  dev.off()
+  export::graph2ppt(file='PCA ind.png',height=7,width=9)
+  #dev.off()
   }
   if(ellipse){
     ###PCA
-    png(file="PCA ellipse.png", width = 1200, height = 1000,res = 56*2)
+    #png(file="PCA ellipse.png", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcap<-mixOmics::plotIndiv(pca,
@@ -114,12 +115,12 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     style="graphics",
                     abline = T,
                     title = 'PCA')
-
-    dev.off()
+    export::graph2ppt(file='PCA ellipse.png',height=7,width=9)
+    #dev.off()
   }
   if(both){
     ###PCA
-    png(file="PCA both.png", width = 1200, height = 1000,res = 56*2)
+    #png(file="PCA both.png", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcap<-mixOmics::plotIndiv(pca,
@@ -131,12 +132,12 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     cex=1.6,
                     abline = T,
                     title = 'PCA')
-
-    dev.off()
+    export::graph2ppt(file='PCA both.png',height=7,width=9)
+    #dev.off()
   }
   if(neither){
     ###PCA
-    png(file="PCA neither.png", width = 1200, height = 1000,res = 56*2)
+    #png(file="PCA neither.png", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcap<-mixOmics::plotIndiv(pca,
@@ -153,7 +154,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     title = 'PCA')
     export::graph2ppt(file='PCA neither.png',height=7,width=9)
 
-    dev.off()
+    #dev.off()
 
   }
   dev.off()

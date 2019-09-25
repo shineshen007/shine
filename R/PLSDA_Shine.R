@@ -32,7 +32,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     sample<-data[,match(sample.name,colnames(data))]
     sample.index <- which(sample.info$class=="Subject")
     ###PLS-DA
-    png(file="PLSDA.png", width = 1200, height = 1000,res = 56*2)
+    #png(file="PLSDA.png", width = 1200, height = 1000,res = 56*2)
     datat<-sample
     datatm<-as.matrix(datat)
     XXt<-t(datatm)
@@ -54,11 +54,12 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      legend =TRUE,
                      style="graphics",
                      title = 'PLS-DA')
-    dev.off()
+    export::graph2ppt(file='PLSDA multiclass.png',height=7,width=9)
+    #dev.off()
     cat("Calculate VIP...\n")
     ###VIP
     vip<-mixOmics::vip(plsda.datatm)
-    write.csv(vip,"VIP.csv",row.names = F)
+    write.csv(vip,"VIP multiclass.csv",row.names = F)
   }
 
   group1.index <- which(class == group[1])
@@ -73,7 +74,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
   cat("Draw PLSDA plot...\n")
   if(ind){
   ###PLS-DA
-  png(file="PLSDA ind.png", width = 1200, height = 1000,res = 56*2)
+  #png(file="PLSDA ind.png", width = 1200, height = 1000,res = 56*2)
   datat<-sample
   datatm<-as.matrix(datat)
   XXt<-t(datatm)
@@ -87,11 +88,12 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
             legend =TRUE,
             style="graphics",
             title = 'PLS-DA')
-  dev.off()
+  export::graph2ppt(file='PLSDA ind.png',height=7,width=9)
+  #dev.off()
   }
   if(ellipse){
     ###PLS-DA
-    png(file="PLSDA ellipse.png", width = 1200, height = 1000,res = 56*2)
+    #png(file="PLSDA ellipse.png", width = 1200, height = 1000,res = 56*2)
     datat<-sample
     datatm<-as.matrix(datat)
     XXt<-t(datatm)
@@ -108,12 +110,12 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      style="graphics",
                      title = 'PLS-DA')
     export::graph2ppt(file='PLSDA ellipse.png',height=7,width=9)
-    dev.off()
+    #dev.off()
   }
-  dev.off()
+  #dev.off()
   if(both){
     ###PLS-DA
-    png(file="PLSDA both.png", width = 1200, height = 1000,res = 56*2)
+    #png(file="PLSDA both.png", width = 1200, height = 1000,res = 56*2)
     datat<-sample
     datatm<-as.matrix(datat)
     XXt<-t(datatm)
@@ -127,11 +129,12 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      legend =TRUE,
                      style="graphics",
                      title = 'PLS-DA')
-    dev.off()
+    export::graph2ppt(file='PLSDA both.png',height=7,width=9)
+    #dev.off()
   }
   if(neither){
     ###PLS-DA
-    png(file="PLSDA neither.png", width = 1200, height = 1000,res = 56*2)
+    #png(file="PLSDA neither.png", width = 1200, height = 1000,res = 56*2)
     datat<-sample
     datatm<-as.matrix(datat)
     XXt<-t(datatm)
@@ -148,10 +151,10 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      style="graphics",
                      title = 'PLS-DA')
     export::graph2ppt(file='PLSDA neither.png',height=7,width=9)
-    dev.off()
+    #dev.off()
 
   }
-  dev.off()
+  #dev.off()
   cat("Calculate VIP...\n")
   ###VIP
   vip<-mixOmics::vip(plsda.datatm)
