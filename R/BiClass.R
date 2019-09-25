@@ -232,6 +232,10 @@ BiClass <- function(times = 1001,#must be odd
       ggplot2::annotate("text", x=0.16, y=0.25, label='--', colour="RoyalBlue", size=4)+
       ggplot2::annotate("text", x=0.28, y=0.32, label="AUC", colour= "black", size=4)+
       ggplot2::annotate("text", x=0.175, y=0.32, label='(95%CI)', colour="black", size=4)+
+      theme(axis.text.x = element_text(size = 16),
+            axis.text.y = element_text(size = 16),
+            axis.title.x = element_text(size = 16),#the font size of axis title
+            axis.title.y = element_text(size = 16))+
       ggsave("ROC.png",width=9,height=7)
 
     export::graph2ppt(x=rocp,file='biclass.pptx',height=7,width=9,append=TRUE)

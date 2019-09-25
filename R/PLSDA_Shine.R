@@ -110,6 +110,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     export::graph2ppt(file='PLSDA ellipse.png',height=7,width=9)
     dev.off()
   }
+  dev.off()
   if(both){
     ###PLS-DA
     png(file="PLSDA both.png", width = 1200, height = 1000,res = 56*2)
@@ -150,6 +151,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     dev.off()
 
   }
+  dev.off()
   cat("Calculate VIP...\n")
   ###VIP
   vip<-mixOmics::vip(plsda.datatm)

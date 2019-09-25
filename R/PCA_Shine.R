@@ -156,4 +156,5 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     dev.off()
 
   }
+  dev.off()
 }
