@@ -9,7 +9,7 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 CoxAnalysis <- function(){
-  data<- readr::read_csv("data.csv")#data contain columns of patients'name,age,sex etc
+  data<- read.csv("data.csv")#data contain columns of patients'name,age,sex etc
 
   ###unvariate analysis
   cln <- colnames(data)

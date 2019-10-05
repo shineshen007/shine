@@ -34,7 +34,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
   cat("Import data...\n")
   data <- data.table::fread("data.csv")
   data <- data.table::setDF(data)
-  sample.info <-readr::read_csv("sample.info.csv")
+  sample.info <-read.csv("sample.info.csv")
 
   cat("Analyzing data...\n")
   ##create a folder for analysis
@@ -110,7 +110,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
   cat("Draw QC distribution plot...\n")
   ### QC distribution plot
   #png(file="QC distribution.png", width = 900, height = 800,res = 56*2)
-  d <- readr::read_csv("rsd.csv")
+  d <- read.csv("rsd.csv")
   percent <- round(sum(d$x<0.3)/nrow(d),3)
   txt <- paste(percent*100,"%")
   scatter.data<-as.data.frame(rsd.data[order(rsd.data)])

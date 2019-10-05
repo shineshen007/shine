@@ -35,7 +35,7 @@ StaAnalysis <- function(p.cutoff = 0,
   cat("Import data...\n")
   data <- data.table::fread("data for sta.csv")
   data <- data.table::setDF(data)
-  sample.info <- readr::read_csv("sample.info.csv")
+  sample.info <- read.csv("sample.info.csv")
 
   ###data preparation
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
@@ -178,7 +178,7 @@ StaAnalysis <- function(p.cutoff = 0,
 
   #volcano plot
   DataFilter()
-  vol<-readr::read_csv("vol.csv")
+  vol<-read_csv("vol.csv")
   fc<- vol$fc
   p<- vol$p
   group1<-group[1]

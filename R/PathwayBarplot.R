@@ -4,7 +4,7 @@
 PathwayBarplot <- function(row = 30#draw the first 30 pathways
                            ){
   cat("Import data...\n")
-  data <- readr::read_csv("data.csv")
+  data <- read.csv("data.csv")
   data <- data[1:row,]
   group <- ifelse(data$p < 0.05,"sig", "not sig")
   pb<- ggplot2::ggplot(data,ggplot2::aes(reorder(pathway,-p),-log10(p)))+##-p control the order

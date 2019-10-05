@@ -22,7 +22,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
   cat("Import data...\n")
   data <- data.table::fread("data.csv")
   data <- data.table::setDF(data)
-  sample.info <- readr::read_csv("sample.info.csv")
+  sample.info <- read.csv("sample.info.csv")
   class<- sample.info[,"group"]
 
 

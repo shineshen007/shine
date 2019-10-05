@@ -18,7 +18,7 @@ ForestAnalysis<-function(group = c("case","control"),ncol=19){
   cat("Import data...\n")
   data <- data.table::fread("data.csv")
   data <- data.table::setDF(data)
-  sample.info <- readr::read_csv("sample.info.csv")
+  sample.info <- read.csv("sample.info.csv")
 
   case.name<-sample.info$sample.name[sample.info$group==group[1]]#get case name
   control.name<-sample.info$sample.name[sample.info$group==group[2]]
