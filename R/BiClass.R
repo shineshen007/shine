@@ -90,6 +90,7 @@ BiClass <- function(times = 1001,#must be odd
     cc_lg <- data.frame(rep("1",times))
     v <- cbind(cc_lg,au_lg)
     colnames(v) <- c("index","auc")
+    write.csv(v,'logistic.csv')
     label="95% CI"
     p <- ggplot2::ggplot(mapping= ggplot2::aes(v$index, v$auc)) +
       ggplot2::theme(panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),#remove ggplot2 background
@@ -134,6 +135,7 @@ BiClass <- function(times = 1001,#must be odd
     v <- cbind(cc,au_svm)
     colnames(v) <- c("index","auc")
     label="95% CI"
+    write.csv(v,'svm.csv')
     ps <- ggplot2::ggplot(mapping= ggplot2::aes(v$index, v$auc)) +
       ggplot2::theme(panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),
                      panel.background = ggplot2::element_blank(),axis.line = ggplot2::element_line(colour = "black"),legend.position = "none")+
@@ -173,6 +175,7 @@ BiClass <- function(times = 1001,#must be odd
     index<-c(1:nrow(imp))
     rii <- cbind(index,ds)
     colnames(rii) <- c('index','metabolites','importance')
+    write.csv(rii,'importance.csv')
     splot <- ggplot2::ggplot(rii, aes(x = importance , y = reorder(metabolites,importance)))+
       geom_point(aes(color = metabolites),size=3) +
       labs(title="metabolites importance plot")+
@@ -243,6 +246,7 @@ BiClass <- function(times = 1001,#must be odd
     cc <- data.frame(rep("1",times))
     v <- cbind(cc,au_rf)
     colnames(v) <- c("index","auc")
+    write.csv(v,'rf.csv')
     label="95% CI"
     pr <- ggplot2::ggplot(mapping = ggplot2::aes(v$index, v$auc)) +
       ggplot2::theme(panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),

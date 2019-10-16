@@ -24,7 +24,13 @@ Boxplot_Shine <- function(ppt_width=9,
                          add = "jitter"
                          #,ylab = ylab
   )+
-    theme(axis.text.x=element_text(family="myFont2",face="bold",angle=45, hjust=1, vjust=1))+
+    theme(axis.text.x=element_text(family="myFont2",face="bold",angle=45, hjust=1, vjust=1),
+          legend.title=element_blank(),
+          legend.text = element_text(size = 16),
+          axis.text.y = element_text(size = 18),
+          axis.title.x = element_text(size = 18),#the font size of axis title
+          axis.title.y = element_text(size = 18)
+          )+
     stat_compare_means(aes(group = group),label = "p.signif", label.x = 1.5)
 
   plot(s)

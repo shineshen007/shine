@@ -44,7 +44,49 @@ Heatmap_Shine <- function(colour = c("green","black","red"),
                           cluster_cols = FALSE,
                           group = c("case","control")
 ){
+  ##save parameters
+  heatmap.parameters <- c(
+    paste(colour, collapse = ","),
+    paste(group, collapse = ","),
+    a,
+    b,
+    d,
+    scale_row,
+    size_col,
+    fontsize,
+    ppt_height,
+    ppt_width,
+    cellwidth,
+    cellheight,
+    border,
+    show_colnames,
+    show_rownames,
+    cluster_cols
+  )
+  heatmap.parameters <- data.frame(c(
+    'colour',
+    'group',
+    'a',
+    'b',
+    'd',
+    'scale_row',
+    'size_col',
+    'fontsize',
+    'ppt_height',
+    'ppt_width',
+    'cellwidth',
+    'cellheight',
+    'border',
+    'show_colnames',
+    'show_rownames',
+    'cluster_cols'
+  ),
+  heatmap.parameters, stringsAsFactors = FALSE)
 
+  heatmap <- rbind(heatmap.parameters,c("Version", "Shine"))
+  colnames(heatmap) <- c('parameter', 'value')
+  write.csv(heatmap,"heatmap.parameters.csv",row.names = F)
+  #
   cat("Import data...\n")
   data <- data.table::fread("data pathway.csv")
   data <- data.table::setDF(data)

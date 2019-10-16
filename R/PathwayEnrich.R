@@ -160,9 +160,9 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
     ggplot2::geom_bar(ggplot2::aes(fill=group),stat = "identity",position="dodge",width=0.8)+
     ggplot2::theme(panel.grid.major =ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),#remove ggplot2 background
                    panel.background = ggplot2::element_blank(),axis.line = ggplot2::element_line(colour = "black"),
-                   legend.position = "none",axis.text.y = ggplot2::element_text(size = 14),#the font size of axis
-                   axis.title.x = ggplot2::element_text(size = 14),#the font size of axis title
-                   axis.title.y = ggplot2::element_text(size = 14))+
+                   legend.position = "none",axis.text.y = ggplot2::element_text(size = 16),#the font size of axis
+                   axis.title.x = ggplot2::element_text(size = 18),#the font size of axis title
+                   axis.title.y = ggplot2::element_text(size = 18))+
     ggplot2::geom_hline(yintercept= 1.30103,#draw a line at p=0.05
                         lty=4,col="grey21",lwd=1)+
     ggplot2::labs(title="Pathway Enrichment Analysis")+
