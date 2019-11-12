@@ -4,7 +4,8 @@
 \alias{TransformData}
 \title{TransformData}
 \usage{
-TransformData(group = "N", data_position = 1, info_position = 2)
+TransformData(group = "N", data_position = 1, info_position = 2,
+  name = "compound.name", boxplot_data = FALSE)
 }
 \arguments{
 \item{group}{the group you want to remove}
@@ -12,6 +13,10 @@ TransformData(group = "N", data_position = 1, info_position = 2)
 \item{data_position}{data_position}
 
 \item{info_position}{info_position}
+
+\item{name}{compound.name}
+
+\item{boxplot_data}{default is FALSE}
 }
 \value{
 All the results can be got form other functions and instruction.

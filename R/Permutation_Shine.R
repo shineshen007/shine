@@ -12,8 +12,8 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 Permutation_Shine <- function(repeats = 200, ncomp = 2,
-                           group = c('case','control')
-                           ) {
+                              group = c('case','control')
+) {
 
   cat("Import data...\n")
   data <- data.table::fread("data.csv")
@@ -30,7 +30,9 @@ Permutation_Shine <- function(repeats = 200, ncomp = 2,
 
   sample.index <- which(sample.info$class=="Subject")
   datat<-sample
-  datatm<-as.matrix(datat)
+  #z-score
+  datatm<-apply(datat,2, function(x) {
+    (x-mean(x))/sd(x)})
   XXt<-t(datatm)
   group_pls<-as.data.frame(sample.info$group)
   YY<-as.numeric(group_pls[sample.index,])
@@ -51,43 +53,33 @@ Permutation_Shine <- function(repeats = 200, ncomp = 2,
     cor[i] <- abs(cor(Yt, YY))
     cat(i); cat(" ")
   }
-
-  ##draw perumtation test
-  FileName <- paste('permutation test', group[1], sep = " ")
-  FileName <- paste(FileName, group[2], sep = "")
-  FileName <- paste(FileName, ".pdf", sep = "")
-  pdf(FileName)
-  par(xpd = F)
-  par(mar=c(5,5,4,2))
-  pm <- plot(x = 0, y = 0, xlim = c(0,1),
-       ylim = c(min(c(q2,r2,Q2,R2)),1.2*max(c(q2,r2,Q2,R2))),
-       col = "white",
-       xlab = "Correlation",
-       ylab = "Values (Q2, R2)",
-       cex.axis = 1.5, cex.lab = 1.8)
-  abline( h = 0, lty = 2)
-
-  points(x = cor, y = q2, col = "palegreen", pch = 19)
-  points(x = cor, y = r2, col = "royalblue", pch = 19)
-
-  points(x = 1, y = Q2, col = "palegreen", pch = 19)
-  points(x = 1, y = R2, col = "royalblue", pch = 19)
-
+  qr <- as.data.frame(cbind(q2,r2,cor))
+  #
   lm.r2 <- lm(c(R2,r2)~c(1, cor))
   lm.q2 <- lm(c(Q2,q2)~c(1, cor))
-
   intercept.q2 <- lm.q2$coefficients[1]
   intercept.r2 <- lm.r2$coefficients[1]
-
-  segments(x0 = 0, y0 = intercept.q2, x1 = 1, y1 = Q2, lty = 2, lwd = 2)
-  segments(x0 = 0, y0 = intercept.r2, x1 = 1, y1 = R2, lty =2, lwd = 2)
-
-
-  legend("bottomright", title = "Intercepts",
-         legend = c(paste("Q2",round(intercept.q2,2), sep = ": "), paste("R2",round(intercept.r2,2),sep=": ")),
-         col = c("palegreen", "royalblue"), pch = 19, pt.cex = 1.3, cex = 1.3, bty = "n")
-  par(xpd = T)
-  #export::graph2ppt(x=pm,file='Permutation.png',height=7,width=9)
-  dev.off()
-
+  slope.q2 <- lm.q2$coefficients[2]
+  slope.r2 <- lm.r2$coefficients[2]
+  #
+  per <- ggplot2::ggplot(qr)+
+    geom_point(aes(x=cor,y=q2,color='Q2'),size=3) +
+    geom_point(aes(x = cor, y = r2,color='R2'),size=3)+
+    geom_point(aes(x = 1, y = R2,color='R2'),size=3)+
+    geom_point(aes(x=1,y=Q2,color='Q2'),size=3) +
+    scale_color_manual(labels = c(paste("Q2",round(intercept.q2,2), sep = ": "), paste("R2",round(intercept.r2,2),sep=": ")),
+                       values = c("royalblue", "palegreen"),name = "Intercepts") +
+    theme_bw(base_size = 16) +
+    theme(legend.position = 'bottom',legend.text = element_text(size = 16),
+          axis.text.x=element_text(size = 16),
+          axis.text.y=element_text(size = 16))+
+    geom_segment(x = 0, y = intercept.q2, xend = 1, yend = Q2, lty = 2)+
+    geom_segment(x = 0, y = intercept.r2, xend = 1, yend = R2, lty =2)+
+    labs(x="Correlation",
+         y="Values (Q2, R2)",
+         title="Permutation test")+
+    xlim(0:1)+
+    ylim(c(min(c(q2,r2,Q2,R2)),1.2*max(c(q2,r2,Q2,R2))))
+  export::graph2ppt(x=per,file='permutation.pptx',width=9,height=7)
 }
+

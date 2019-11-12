@@ -5,6 +5,8 @@
 #' @param group the group you want to remove
 #' @param data_position data_position
 #' @param info_position info_position
+#' @param name compound.name
+#' @param boxplot_data default is FALSE
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -13,7 +15,9 @@
 #' }
 TransformData <- function(group = "N",#the group you want to remove
                           data_position = 1,
-                          info_position = 2
+                          info_position = 2,
+                          name='compound.name',
+                          boxplot_data=FALSE
                           ){
 
   data <- readr::read_csv(dir()[data_position])
@@ -22,21 +26,24 @@ TransformData <- function(group = "N",#the group you want to remove
 
   sample<-data[,match(sample.name,colnames(data))]%>%
     t(.)
-  colnames(sample) <- data$compound.name
-  #data for boxplot
-  for (i in 1:nrow(sample)) {
-    rownames(sample)[i]=info$group[info$sample.name==rownames(sample)[i]]
+  colnames(sample) <- data$name
+  if(boxplot_data){
+    #data for boxplot
+    for (i in 1:nrow(sample)) {
+      rownames(sample)[i]=info$group[info$sample.name==rownames(sample)[i]]
+    }
+    nc <- ncol(sample)
+    df <- NULL
+    for (i in 1:nc) {
+      ads <- cbind(rownames(sample),scale(sample[,i]),rep(colnames(sample)[i],nrow(sample)))
+      adf <- NULL
+      ds <- rbind(adf,ads)
+      df <- rbind(df,ds)
+    }
+    colnames(df) <- c('group','abundance','metabolites')
+    write.csv(df,'data for boxplot.csv',row.names = F)
   }
-  nc <- ncol(sample)
-  df <- NULL
-  for (i in 1:nc) {
-    ads <- cbind(rownames(sample),scale(sample[,i]),rep(colnames(sample)[i],nrow(sample)))
-    adf <- NULL
-    ds <- rbind(adf,ads)
-    df <- rbind(df,ds)
-  }
-  colnames(df) <- c('group','abundance','metabolites')
-  write.csv(df,'data for boxplot.csv',row.names = F)
+
   #data for roc
   s <- which(rownames(sample)== group)
   as <- sample[-s,]
