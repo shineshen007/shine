@@ -6,13 +6,15 @@
 #' @param repeats the repeats to do,default is 200
 #' @param ncomp the components of pls
 #' @param group the group of the data
+#' @param scale scale method
 #' @export
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 Permutation_Shine <- function(repeats = 200, ncomp = 2,
-                              group = c('case','control')
+                              group = c('case','control'),
+                              scale = c('UV','pareto')
 ) {
 
   cat("Import data...\n")
@@ -31,8 +33,13 @@ Permutation_Shine <- function(repeats = 200, ncomp = 2,
   sample.index <- which(sample.info$class=="Subject")
   datat<-sample
   #z-score
-  datatm<-apply(datat,2, function(x) {
-    (x-mean(x))/sd(x)})
+  if (scale=="pareto") {
+    datatm<-apply(datat,2, function(x) {
+      (x-mean(x))/sqrt(sd(x))})}
+  if (scale=="UV") {
+    datatm<-apply(datat,2, function(x) {
+      (x-mean(x))/sd(x)})}
+
   XXt<-t(datatm)
   group_pls<-as.data.frame(sample.info$group)
   YY<-as.numeric(group_pls[sample.index,])
@@ -80,6 +87,11 @@ Permutation_Shine <- function(repeats = 200, ncomp = 2,
          title="Permutation test")+
     xlim(0:1)+
     ylim(c(min(c(q2,r2,Q2,R2)),1.2*max(c(q2,r2,Q2,R2))))
-  export::graph2ppt(x=per,file='permutation.pptx',width=9,height=7)
+  FileName <- paste('permutation test', group[1], sep = " ")
+  FileName <- paste(FileName, group[2], sep = "")
+  FileName <- paste(FileName, scale, sep = " ")
+  FileName <- paste(FileName, ".pptx", sep = "")
+  export::graph2ppt(x=per,file=FileName,width=9,height=7)
 }
+
 

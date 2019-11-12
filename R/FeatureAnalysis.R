@@ -176,7 +176,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
                         Notes: sample name in pos and neg mode must be identical
 
 
-                        Version 0.1.90
+                        Version 0.1.99
                         --------------
                         "
   )

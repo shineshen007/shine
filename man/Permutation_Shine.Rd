@@ -5,7 +5,7 @@
 \title{Permutation_Shine}
 \usage{
 Permutation_Shine(repeats = 200, ncomp = 2, group = c("case",
-  "control"))
+  "control"), scale = c("UV", "pareto"))
 }
 \arguments{
 \item{repeats}{the repeats to do,default is 200}
@@ -13,6 +13,8 @@ Permutation_Shine(repeats = 200, ncomp = 2, group = c("case",
 \item{ncomp}{the components of pls}
 
 \item{group}{the group of the data}
+
+\item{scale}{scale method}
 }
 \value{
 get data you want.
