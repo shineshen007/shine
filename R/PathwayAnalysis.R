@@ -50,7 +50,6 @@ PathwayAnalysis <- function(data='data pathway.csv',
     ggplot2::coord_flip()+
     ggplot2::xlab('Pathway')
     save(pb,file = 'barplot.Rda')
-
     export::graph2ppt(x=pb,file='pathway.pptx',height=7,width=9)
     #####
     vol<-read.csv("pathway_results.csv") #%>%
@@ -79,6 +78,7 @@ PathwayAnalysis <- function(data='data pathway.csv',
     axis(2);
     grid(col="blue");
     symbols(Impact, -log(p), add = TRUE, inches = F, circles = radi.vec, bg = bg.vec, xpd=T);
+
     export::graph2ppt(file='pathway.pptx',height=7,width=9,append=T)
 
     ##
@@ -104,6 +104,7 @@ PathwayAnalysis <- function(data='data pathway.csv',
         size = 4,
         box.padding = 0.25,
         point.padding = 0.3)
+    save(ph,file = 'pathway.Rda')
     export::graph2ppt(x=ph,file='pathway.pptx',height=7,width=9,append=T)
     setwd('..//')
 }

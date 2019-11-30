@@ -160,6 +160,7 @@ StaAnalysis <- function(p.cutoff = 0,
                              legend =TRUE,
                              style="graphics",
                              title = 'PLS-DA')
+  save(pls,file = 'plsda_neither.Rda')
   export::graph2ppt(file='data.pptx',height=7,width=9,append=TRUE)
 
   cat("Calculate VIP...\n")
@@ -209,6 +210,7 @@ StaAnalysis <- function(p.cutoff = 0,
       box.padding = 0.25,
       point.padding = 0.3
     )
+  save(volc,file = 'volcano.Rda')
     #ggplot2::ggsave("volcano plot.png", width = 12, height = 8)
     export::graph2ppt(x=volc,file='data.pptx',height=7,width=9,append = TRUE)
 

@@ -72,8 +72,9 @@ MUVR_ANALYSIS <- function(group = "N",#the group you want to remove
   # classModel$nVar                   # Number of variables for min, mid and max models
 
   a <-cbind(Y, classModel$yClass)    # Actual class side-by-side with min, mid and max predictions
-  plotVAL(classModel)
-  export::graph2ppt(file = 'MUVR.pptx',
+  mv <- plotVAL(classModel)
+  save(mv,file = 'muvr.Rda')
+  export::graph2ppt(x=mv,file = 'MUVR.pptx',
                     height = 7,
                     width = 9)
   v <- getVIP(classModel, model = 'min')
@@ -83,6 +84,23 @@ MUVR_ANALYSIS <- function(group = "N",#the group you want to remove
   vmax <- getVIP(classModel, model = 'max')
   rdmax <- data[match(intersect(row.names(vmax),data$name),data$name),] %>%
     write.csv(., 'MUVR max.csv', row.names = F)
+  #
+  #
+  iplot <- ggplot2::ggplot(v, aes(x = rank , y = reorder(name,rank)))+
+    geom_point(aes(color = name),size=3) +
+    labs(title="metabolites importance plot")+
+    theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),
+          panel.background = element_blank(),axis.line = element_line(colour = "black"),
+          axis.text.x = element_text(size = 14),
+          axis.text.y = element_text(size = 14),
+          axis.title.x = element_text(size = 14),#the font size of axis title
+          axis.title.y = element_text(size = 14))+
+    xlab('importance')+
+    theme(legend.position="none")
+  save(iplot,file = 'importance.Rda')
+  #ggsave('metabolites importance plot.png', width = 12, height = 8)
+  export::graph2ppt(x=iplot,file='MUVR.pptx',height=7,width=9,append=TRUE)
+  #
   ia <- NULL
   for (i in 1:nrow(v)) {
     r <- grep(row.names(v)[i], colnames(data_MUVR))

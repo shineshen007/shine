@@ -122,7 +122,8 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
     ggplot2::geom_point(ggplot2::aes(colour=scatter.data<0.3))+
     ggplot2::geom_text(data = d,aes(x= 400,y= 1.2,label= txt))
   ggplot2::geom_hline(ggplot2::aes(yintercept=0.3,linetype="dashed"))
-  plot(qc_dis)
+  #plot(qc_dis)
+  save(qc_dis,file = 'qc_dis.Rda')
   export::graph2ppt(x=qc_dis,file='qc_dis.pptx',height=7,width=9)
   #dev.off()
 
@@ -157,8 +158,9 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
       ggplot2::ylab("Mass to charge ratio(m/z)")+
       ggplot2::labs(colour="log10(intensity)")+
       ggplot2::theme(legend.position = c(0.95,0.9))
-    plot(mr)
+    #plot(mr)
     #dev.off()
+    save(mr,file = 'mr.Rda')
     export::graph2ppt(x=mr,file='data.pptx',height=7,width=9)
   }
 

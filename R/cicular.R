@@ -78,7 +78,7 @@ CircularPlot <- function(label_size=5){
     # Add base line information
     geom_segment(data=base_data, aes(x = start, y = -5, xend = end, yend = -5), colour = "black", alpha=0.8, size=0.6 , inherit.aes = FALSE )  +
     geom_text(data=base_data, aes(x = title, y = -18, label=group), hjust=c(1,1,0), colour = "black", alpha=0.8, size=4, fontface="bold", inherit.aes = FALSE)
-
+  save(p,file = 'circular.Rda')
   export::graph2ppt(x=p,file='circular.pptx',height=8,width=10)
 }
 

@@ -39,18 +39,18 @@ CorAnalysis<-function(number.cex = 0.6,#number size in cicle
   }
   #png(file="bicor plot.png", width = 1200, height = 1000,res = 56*2)
   col=colorRampPalette(c("navy","white","firebrick3"))
-  corrplot::corrplot(r,tl.col="black", tl.srt=45,tl.cex = tl.cex,number.cex = number.cex,
+  cp <- corrplot::corrplot(r,tl.col="black", tl.srt=45,tl.cex = tl.cex,number.cex = number.cex,
                      addCoefasPercent = TRUE,cl.lim = c(-1,1),addCoef.col = "black",col = col(10))
-  #plot(cp)
-  export::graph2ppt(file='correlation.pptx',height=7,width=9)
+  save(cp,file = 'correlation.Rda')
+  export::graph2ppt(x=cp,file='correlation.pptx',height=7,width=9)
   #dev.off()
 
   p<-cor[["p"]]
   #png(file="pvalue plot.png", width = 1200, height = 1000,res = 56*2)
-  corrplot::corrplot(p,tl.col="black", tl.srt=45,tl.cex = tl.cex,number.cex = number.cex,
+  cpp <- corrplot::corrplot(p,tl.col="black", tl.srt=45,tl.cex = tl.cex,number.cex = number.cex,
                      cl.lim = c(0,1),addCoef.col = "black",number.digits = number.digits)
-
-  export::graph2ppt(file='correlation.pptx',height=7,width=9,append = TRUE)
+  save(cpp,file = 'correlation_p.Rda')
+  export::graph2ppt(x=cpp,file='correlation.pptx',height=7,width=9,append = TRUE)
   #dev.off()
   #unique p
   pj <- NULL

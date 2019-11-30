@@ -150,6 +150,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      legend =TRUE,
                      style="graphics",
                      title = 'PLS-DA')
+    save(pls,file = 'plsda_neither.Rda')
     export::graph2ppt(file='PLSDA neither.png',height=7,width=9)
     #dev.off()
 

@@ -61,6 +61,7 @@ ForestAnalysis<-function(group = c("case","control"),ncol=19){
                              studlab=paste(data$compound.name),comb.random=FALSE)
   #png(file="forest plot.png", width = 1200, height = 1000,res = 56*2)
   mf <- meta::forest(metaresult,leftlabs = c("Metabolites",NA,NA,NA,NA))
+  save(mf,file = 'forest.Rda')
   export::graph2ppt(x=mf,file='forest plot.pptx',height=7,width=9)
   #dev.off()
 

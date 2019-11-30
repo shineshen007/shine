@@ -109,8 +109,9 @@ BiClass <- function(times = 1001,#must be odd
       ggplot2::annotate("text", x=1.45, y=med_lg, label=label, colour='black', size=4)+
       ggplot2::annotate("text", x=1.25, y=upper_lg-0.01, label=upper_lg, colour='black', size=5)+
       ggplot2::annotate("text", x=1.25, y=med_lg-0.01, label=med_lg, colour='black', size=5)+
-      ggplot2::annotate("text", x=1.25, y=lower_lg-0.01, label=lower_lg, colour='black', size=5)+
-      ggplot2::ggsave("AUC logistic.png",width=10,height=6)
+      ggplot2::annotate("text", x=1.25, y=lower_lg-0.01, label=lower_lg, colour='black', size=5)
+      #ggplot2::ggsave("AUC logistic.png",width=10,height=6)
+    save(p,file = 'AUC logistic.Rda')
     export::graph2ppt(x=p,file='biclass.pptx',height=7,width=9)
   }
 
@@ -153,8 +154,9 @@ BiClass <- function(times = 1001,#must be odd
       ggplot2::annotate("text", x=1.45, y=med_svm, label=label, colour='black', size=4)+
       ggplot2::annotate("text", x=1.25, y=upper_svm-0.01, label=upper_svm, colour='black', size=5)+
       ggplot2::annotate("text", x=1.25, y=med_svm-0.01, label=med_svm, colour='black', size=5)+
-      ggplot2::annotate("text", x=1.25, y=lower_svm-0.01, label=lower_svm, colour='black', size=5)+
-      ggplot2::ggsave("AUC svm.png",width=10,height=6)
+      ggplot2::annotate("text", x=1.25, y=lower_svm-0.01, label=lower_svm, colour='black', size=5)
+      #ggplot2::ggsave("AUC svm.png",width=10,height=6)
+    save(ps,file = 'AUC svm.Rda')
     export::graph2ppt(x=ps,file='biclass.pptx',height=7,width=9,append=TRUE)
   }
 
@@ -227,9 +229,9 @@ BiClass <- function(times = 1001,#must be odd
       theme(axis.text.x = element_text(size = 16),
             axis.text.y = element_text(size = 16),
             axis.title.x = element_text(size = 16),#the font size of axis title
-            axis.title.y = element_text(size = 16))+
-      ggsave("ROC.png",width=9,height=7)
-
+            axis.title.y = element_text(size = 16))
+      #ggsave("ROC.png",width=9,height=7)
+    save(rocp,file = 'ROC.Rda')
     export::graph2ppt(x=rocp,file='biclass.pptx',height=7,width=9,append=TRUE)
 
     cc <- data.frame(rep("1",times))
@@ -252,8 +254,9 @@ BiClass <- function(times = 1001,#must be odd
       ggplot2::annotate("text", x=1.45, y=med_rf, label=label, colour='black', size=4)+
       ggplot2::annotate("text", x=1.25, y=upper_rf-0.01, label=upper_rf, colour='black', size=5)+
       ggplot2::annotate("text", x=1.25, y=med_rf-0.01, label=med_rf, colour='black', size=5)+
-      ggplot2::annotate("text", x=1.25, y=lower_rf-0.01, label=lower_rf, colour='black', size=5)+
-      ggplot2::ggsave("AUC rf.png",width=10,height=6)
+      ggplot2::annotate("text", x=1.25, y=lower_rf-0.01, label=lower_rf, colour='black', size=5)
+      #ggplot2::ggsave("AUC rf.png",width=10,height=6)
+    save(pr,file = 'AUC rf.Rda')
     export::graph2ppt(x=pr,file='biclass.pptx',height=7,width=9,append=TRUE)
   }
 }
