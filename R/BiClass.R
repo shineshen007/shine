@@ -168,16 +168,16 @@ BiClass <- function(times = 1001,#must be odd
     write.csv(train_data,'train_data_rf.csv',row.names = FALSE)
     write.csv(test_data,'test_data_rf.csv',row.names = FALSE)
     fit.rf<-randomForest::randomForest(group~.,data = train_data,importance=TRUE, probability = TRUE)
-    imp <- as.data.frame(randomForest::importance(fit.rf,type = 2))
+    #imp <- as.data.frame(randomForest::importance(fit.rf,type = 2))
     ###
-    impo <- data.frame(round(imp$MeanDecreaseGini,2))
-    rn <- rownames(imp)
-    ri <- cbind(rn,impo)
-    ds <- ri[order(ri$round.imp.MeanDecreaseGini..2.,decreasing = T),]
-    index<-c(1:nrow(imp))
-    rii <- cbind(index,ds)
-    colnames(rii) <- c('index','metabolites','importance')
-    write.csv(rii,'importance.csv')
+    # impo <- data.frame(round(imp$MeanDecreaseGini,2))
+    # rn <- rownames(imp)
+    # ri <- cbind(rn,impo)
+    # ds <- ri[order(ri$round.imp.MeanDecreaseGini..2.,decreasing = T),]
+    # index<-c(1:nrow(imp))
+    # rii <- cbind(index,ds)
+    # colnames(rii) <- c('index','metabolites','importance')
+    # write.csv(rii,'importance.csv')
     # splot <- ggplot2::ggplot(rii, aes(x = importance , y = reorder(metabolites,importance)))+
     #   geom_point(aes(color = metabolites),size=3) +
     #   labs(title="metabolites importance plot")+

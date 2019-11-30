@@ -77,6 +77,12 @@ MUVR_ANALYSIS <- function(group = "N",#the group you want to remove
                     height = 7,
                     width = 9)
   v <- getVIP(classModel, model = 'min')
+  vmid <- getVIP(classModel, model = 'mid')
+  rdmid <- data[match(intersect(row.names(vmid),data$name),data$name),] %>%
+    write.csv(., 'MUVR mid.csv', row.names = F)
+  vmax <- getVIP(classModel, model = 'max')
+  rdmax <- data[match(intersect(row.names(vmax),data$name),data$name),] %>%
+    write.csv(., 'MUVR max.csv', row.names = F)
   ia <- NULL
   for (i in 1:nrow(v)) {
     r <- grep(row.names(v)[i], colnames(data_MUVR))
