@@ -1,5 +1,4 @@
 #' @title ArrangeData
-#' @title ArrangeData
 #' @description a function to arrange data for svr
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}

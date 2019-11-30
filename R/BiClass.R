@@ -67,6 +67,8 @@ BiClass <- function(times = 1001,#must be odd
     au_rf <- c(au_rf,aa_rf)
 
   }
+  dir.create('Biclass')
+  setwd('Biclass')
   #logistic
   if(logistic){
     AUC_lg_med <- median(au_lg)
@@ -176,20 +178,20 @@ BiClass <- function(times = 1001,#must be odd
     rii <- cbind(index,ds)
     colnames(rii) <- c('index','metabolites','importance')
     write.csv(rii,'importance.csv')
-    splot <- ggplot2::ggplot(rii, aes(x = importance , y = reorder(metabolites,importance)))+
-      geom_point(aes(color = metabolites),size=3) +
-      labs(title="metabolites importance plot")+
-      theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),
-            panel.background = element_blank(),axis.line = element_line(colour = "black"),
-            axis.text.x = element_text(size = 14),
-            axis.text.y = element_text(size = 14),
-            axis.title.x = element_text(size = 14),#the font size of axis title
-            axis.title.y = element_text(size = 14))+
-
-      xlab('importance')+
-      theme(legend.position="none")+
-      ggsave('metabolites importance plot.png', width = 12, height = 8)
-    export::graph2ppt(x=splot,file='biclass.pptx',height=7,width=9,append=TRUE)
+    # splot <- ggplot2::ggplot(rii, aes(x = importance , y = reorder(metabolites,importance)))+
+    #   geom_point(aes(color = metabolites),size=3) +
+    #   labs(title="metabolites importance plot")+
+    #   theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),
+    #         panel.background = element_blank(),axis.line = element_line(colour = "black"),
+    #         axis.text.x = element_text(size = 14),
+    #         axis.text.y = element_text(size = 14),
+    #         axis.title.x = element_text(size = 14),#the font size of axis title
+    #         axis.title.y = element_text(size = 14))+
+    #
+    #   xlab('importance')+
+    #   theme(legend.position="none")+
+    #   ggsave('metabolites importance plot.png', width = 12, height = 8)
+    # export::graph2ppt(x=splot,file='biclass.pptx',height=7,width=9,append=TRUE)
     ###
     rf.pred<-predict(fit.rf,test_data, type="prob")
 
@@ -198,19 +200,6 @@ BiClass <- function(times = 1001,#must be odd
     upper_rf <- round(roc_rf[["ci"]][3],2)
     med_rf <- round(median(au_rf),2)
     lower_rf <- round(roc_rf[["ci"]][1],2)
-
-    # #roclg
-    # rocc_lg<-pROC::plot.roc(roc_lg,col="black"#, print.auc = T
-    #                         #,print.thres = "best"
-    # )
-    # #rocsvm
-    # rocs<-pROC::plot.roc(roc_svm,col="blue",add = TRUE#,print.auc = T
-    #                      #,print.thres = "best"
-    # )
-    # #rocrf
-    # rocr<-pROC::plot.roc(roc_rf,col="red",add = TRUE#,print.auc = T
-    #                      #,print.thres = "best"
-    # )
 
     rocp <- pROC::ggroc(list(lg=roc_lg,svm=roc_svm,rf=roc_rf),size=1.5)+
 
