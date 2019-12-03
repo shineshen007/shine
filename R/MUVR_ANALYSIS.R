@@ -68,8 +68,8 @@ MUVR_ANALYSIS <- function(group = "N",#the group you want to remove
   # classModel$nVar                   # Number of variables for min, mid and max models
 
   a <-cbind(Y, classModel$yClass)    # Actual class side-by-side with min, mid and max predictions
-  mv <- plotVAL(classModel)
-  save(mv,file = 'muvr_plot.Rda')
+  plotVAL(classModel)
+
   export::graph2ppt(x=mv,file = 'MUVR.pptx',
                     height = 7,
                     width = 9)
