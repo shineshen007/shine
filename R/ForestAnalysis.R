@@ -3,7 +3,6 @@
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
 #' @param group group set.
-#' @param ncol the columns of data
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @import meta
@@ -13,7 +12,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-ForestAnalysis<-function(group = c("case","control"),ncol=19){
+ForestAnalysis<-function(group = c("Gout","Normal")){
 
   cat("Import data...\n")
   data <- data.table::fread("data.csv")
@@ -58,7 +57,7 @@ ForestAnalysis<-function(group = c("case","control"),ncol=19){
   fdt<-as.data.frame(cbind(p,fd))
 
   metaresult<- meta::metabin(expose_1,case_all,expose_2,control_all,data=fdt,sm="OR",
-                             studlab=paste(data$compound.name),comb.random=FALSE)
+                             studlab=paste(data$name),comb.random=FALSE)
   #png(file="forest plot.png", width = 1200, height = 1000,res = 56*2)
   mf <- meta::forest(metaresult,leftlabs = c("Metabolites",NA,NA,NA,NA))
   save(mf,file = 'forest.Rda')
@@ -115,11 +114,19 @@ ForestAnalysis<-function(group = c("case","control"),ncol=19){
   filterupper <- filterlow[!is.na(filterlow$upperci...1.),]
   fn <- which(filterupper$lowerci...1.<1&filterupper$upperci...1.>1)
   droc <- filterupper[-fn,]
-  gn <- intersect(colnames(droc),sample.info$sample.name)
-  gnn <- sample.info$group[match(gn,sample.info$sample.name)]
-  dr <- data.frame(t(droc))
-  drc <- dr[-c(1:ncol),]
-  drcc <- cbind(gnn,drc)
-  colnames(drcc) <-c('group',droc$compound.name)
-  write.csv(drcc,"data for roc.csv",row.names = F)
+  #
+  sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
+  rd<-droc[,match(sample.name,colnames(droc))]%>%
+    t(.)
+  colnames(rd) <- droc$name
+  rownames(rd)=sample.info$group[match(rownames(rd),sample.info$sample.name)]
+  #
+  cs <- which(rownames(rd) == group[1])
+  ct <- which(rownames(rd) == group[2])
+  as <- rd[c(cs,ct),]
+  write.csv(as,'ls.csv')
+  roc <- read_csv('ls.csv')
+  colnames(roc)[1] <- 'group'
+  unlink('ls.csv')
+  write.csv(roc,"data for roc.csv",row.names = F)
 }
