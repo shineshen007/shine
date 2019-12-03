@@ -74,6 +74,8 @@ MUVR_ANALYSIS <- function(group = "N",#the group you want to remove
                     height = 7,
                     width = 9)
   v <- getVIP(classModel, model = 'min')
+  rdmin <- data[match(intersect(row.names(v),data$name),data$name),] %>%
+    write.csv(., 'MUVR min.csv', row.names = F)
   vmid <- getVIP(classModel, model = 'mid')
   rdmid <- data[match(intersect(row.names(vmid),data$name),data$name),] %>%
     write.csv(., 'MUVR mid.csv', row.names = F)
