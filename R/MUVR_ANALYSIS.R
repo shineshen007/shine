@@ -11,7 +11,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-MUVR_ANALYSIS <- function(group = "N",#the group you want to remove
+MUVR_ANALYSIS <- function(group = "Normal",#the group you want to remove
                           data_position = 1,
                           info_position = 2
 ){
@@ -20,7 +20,7 @@ MUVR_ANALYSIS <- function(group = "N",#the group you want to remove
   info <- readr::read_csv(dir()[info_position])
   sample.name<-info$sample.name[info$class=="Subject"]
 
-  sample<-data[,match(sample.name,colnames(data))]%>%
+  sample<-data[,match(intersect(sample.name,colnames(data)),colnames(data))]%>%
     t(.)
   colnames(sample) <- data$name
   rownames(sample)=info$group[match(rownames(sample),info$sample.name)]
