@@ -70,7 +70,7 @@ MUVR_ANALYSIS <- function(group = "Normal",#the group you want to remove
   a <-cbind(Y, classModel$yClass)    # Actual class side-by-side with min, mid and max predictions
   plotVAL(classModel)
 
-  export::graph2ppt(x=mv,file = 'MUVR.pptx',
+  export::graph2ppt(file = 'MUVR.pptx',
                     height = 7,
                     width = 9)
   v <- getVIP(classModel, model = 'min')
