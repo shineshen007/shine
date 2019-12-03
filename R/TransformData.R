@@ -13,21 +13,21 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-TransformData <- function(group = "N",#the group you want to remove
+TransformData <- function(group = "Normal",#the group you want to remove
                           data_position = 1,
                           info_position = 2,
-                          name='compound.name',
+                          name='name',
                           boxplot_data=FALSE
-                          ){
+){
 
   data <- readr::read_csv(dir()[data_position])
   info <- readr::read_csv(dir()[info_position])
   sample.name<-info$sample.name[info$class=="Subject"]
 
-  sample<-data[,match(sample.name,colnames(data))]%>%
+  sample<-data[,match(intersect(colnames(data),sample.name),colnames(data)),]%>%
     t(.)
   colnames(sample) <- data$name
-  rownames(rd)=sample.info$group[match(rownames(rd),sample.info$sample.name)]
+  rownames(sample)=info$group[match(rownames(sample),info$sample.name)]
   if(boxplot_data){
     #data for boxplot
     df <- NULL
@@ -48,6 +48,7 @@ TransformData <- function(group = "N",#the group you want to remove
   roc <- read_csv('ls.csv')
   colnames(roc)[1] <- 'group'
   unlink('ls.csv')
-  write.csv(roc,'data transformed.csv',row.names = F)
+  write.csv(roc,'data for roc.csv',row.names = F)
 }
+
 

@@ -23,11 +23,7 @@ MUVR_ANALYSIS <- function(group = "N",#the group you want to remove
   sample<-data[,match(sample.name,colnames(data))]%>%
     t(.)
   colnames(sample) <- data$name
-
-  for (i in 1:nrow(sample)) {
-    rownames(sample)[i]=info$group[info$sample.name==rownames(sample)[i]]
-  }
-
+  rownames(sample)=info$group[match(rownames(sample),info$sample.name)]
   #data for roc
   s <- which(rownames(sample) == group)
   as <- sample[-s,]
@@ -73,7 +69,7 @@ MUVR_ANALYSIS <- function(group = "N",#the group you want to remove
 
   a <-cbind(Y, classModel$yClass)    # Actual class side-by-side with min, mid and max predictions
   mv <- plotVAL(classModel)
-  save(mv,file = 'muvr.Rda')
+  save(mv,file = 'muvr_plot.Rda')
   export::graph2ppt(x=mv,file = 'MUVR.pptx',
                     height = 7,
                     width = 9)
