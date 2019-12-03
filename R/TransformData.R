@@ -27,14 +27,11 @@ TransformData <- function(group = "N",#the group you want to remove
   sample<-data[,match(sample.name,colnames(data))]%>%
     t(.)
   colnames(sample) <- data$name
+  rownames(rd)=sample.info$group[match(rownames(rd),sample.info$sample.name)]
   if(boxplot_data){
     #data for boxplot
-    for (i in 1:nrow(sample)) {
-      rownames(sample)[i]=info$group[info$sample.name==rownames(sample)[i]]
-    }
-    nc <- ncol(sample)
     df <- NULL
-    for (i in 1:nc) {
+    for (i in 1:ncol(sample)) {
       ads <- cbind(rownames(sample),scale(sample[,i]),rep(colnames(sample)[i],nrow(sample)))
       adf <- NULL
       ds <- rbind(adf,ads)

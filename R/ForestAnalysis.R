@@ -114,6 +114,7 @@ ForestAnalysis<-function(group = c("Gout","Normal")){
   filterupper <- filterlow[!is.na(filterlow$upperci...1.),]
   fn <- which(filterupper$lowerci...1.<1&filterupper$upperci...1.>1)
   droc <- filterupper[-fn,]
+  write.csv(droc,"data sig_OR.csv",row.names = F)
   #
   sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
   rd<-droc[,match(sample.name,colnames(droc))]%>%
