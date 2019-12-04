@@ -33,7 +33,7 @@ Boxplot_Shine <- function(ppt_width=9,
           )+
     stat_compare_means(aes(group = group),label = "p.signif", label.x = 1.5)
   save(s,file = 'boxplot.Rda')
-  export::graph2ppt(file='boxplot.pptx',height=7,width=ppt_width)
+  export::graph2ppt(x=s,file='boxplot.pptx',height=7,width=ppt_width)
 }
 
 

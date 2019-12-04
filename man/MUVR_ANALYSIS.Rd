@@ -4,7 +4,7 @@
 \alias{MUVR_ANALYSIS}
 \title{MUVR_ANALYSIS}
 \usage{
-MUVR_ANALYSIS(group = "N", data_position = 1, info_position = 2)
+MUVR_ANALYSIS(group = "Normal", data_position = 1, info_position = 2)
 }
 \arguments{
 \item{group}{group}
