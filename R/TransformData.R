@@ -16,17 +16,17 @@
 TransformData <- function(group = "Normal",#the group you want to remove
                           data_position = 1,
                           info_position = 2,
-                          name='name',
+                          name='compound.name',
                           boxplot_data=FALSE
 ){
 
-  data <- readr::read_csv(dir()[data_position])
+  data <- readr::read_csv(dir()[data_position]) %>% as.data.frame()
   info <- readr::read_csv(dir()[info_position])
   sample.name<-info$sample.name[info$class=="Subject"]
 
   sample<-data[,match(intersect(colnames(data),sample.name),colnames(data)),]%>%
     t(.)
-  colnames(sample) <- data$name
+  colnames(sample) <- data[,name]
   rownames(sample)=info$group[match(rownames(sample),info$sample.name)]
   if(boxplot_data){
     #data for boxplot
