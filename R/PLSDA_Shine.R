@@ -45,7 +45,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     pch<-shape[1:lev]
     YY<-group_pls[sample.index,]
     plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
-    plsm <- mixOmics::plotIndiv(plsda.datatm,
+    plsm <- ggplotify::as.ggplot(~mixOmics::plotIndiv(plsda.datatm,
                      ind.names = F,
                      ellipse = T,
                      pch = pch,
@@ -53,7 +53,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      point.lwd=3,#point line size
                      legend =TRUE,
                      style="ggplot2",legend.position = "bottom",
-                     title = 'PLS-DA') %>% ggplotify::as.ggplot()
+                     title = 'PLS-DA'))
     save(plsm,file = 'PLSDA multiclass.Rda')
     export::graph2ppt(file='PLSDA multiclass.pptx',height=7,width=9)
     #dev.off()
@@ -101,7 +101,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     group_pls<-as.data.frame(sample.info$group)
     YY<-group_pls[sample.index,]
     plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
-    plse <- mixOmics::plotIndiv(plsda.datatm,
+    plse <- ggplotify::as.ggplot(~mixOmics::plotIndiv(plsda.datatm,
                      ind.names = F,
                      ellipse = T,
                      pch = 16,
@@ -109,7 +109,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      point.lwd=3,#point line size
                      legend =TRUE,
                      style="ggplot2",legend.position = "bottom",
-                     title = 'PLS-DA')%>% ggplotify::as.ggplot()
+                     title = 'PLS-DA'))
     save(plse,file = 'PLSDA ellipse.Rda')
     export::graph2ppt(file='PLSDA ellipse.pptx',height=7,width=9)
     #dev.off()
@@ -144,7 +144,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     YY<-group_pls[sample.index,]
     plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
 
-    plsn <- mixOmics::plotIndiv(plsda.datatm,
+    plsn <- ggplotify::as.ggplot(~mixOmics::plotIndiv(plsda.datatm,
                      ind.names = F,
                      pch = 16,
                      cex=1.6,
@@ -152,7 +152,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      point.lwd=3,#point line size
                      legend =TRUE,
                      style="ggplot2",legend.position = "bottom",
-                     title = 'PLS-DA')%>% ggplotify::as.ggplot()
+                     title = 'PLS-DA'))
     save(plsn,file = 'plsda_neither.Rda')
     export::graph2ppt(file='PLSDA neither.pptx',height=7,width=9)
     #dev.off()
