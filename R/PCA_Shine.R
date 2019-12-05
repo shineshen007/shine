@@ -144,6 +144,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     #png(file="PCA neither.png", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
+    save(pca,file = 'pca_neither.Rda')
     pcan<-mixOmics::plotIndiv(pca,
                     group = sample.info$group,
                     ind.names = F,###label
@@ -156,7 +157,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     style="graphics",
                     abline = T,
                     title = 'PCA')
-    save(pcan,file = 'pca_neither.Rda')
+
     export::graph2ppt(file='PCA neither.pptx',height=7,width=9)
 
     #dev.off()

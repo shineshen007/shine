@@ -143,6 +143,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     group_pls<-as.data.frame(sample.info$group)
     YY<-group_pls[sample.index,]
     plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
+    save(plsda.datatm,file = 'plsda_neither.Rda')
     plsn <- mixOmics::plotIndiv(plsda.datatm,
                      ind.names = F,
                      pch = 16,
@@ -152,7 +153,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      legend =TRUE,
                      style="graphics",
                      title = 'PLS-DA')
-    save(plsn,file = 'plsda_neither.Rda')
+
     export::graph2ppt(file='PLSDA neither.pptx',height=7,width=9)
     #dev.off()
 
