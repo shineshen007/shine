@@ -105,7 +105,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     #png(file="PCA ellipse.png", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
-    pcae<-ggplotify::as.ggplot(~mixOmics::plotIndiv(pca,
+    pcae<-ggplotify::as.ggplot(function()mixOmics::plotIndiv(pca,
                     group = sample.info$group,
                     ind.names = F,###label
                     ellipse = T,###confidence interval
@@ -145,7 +145,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     temp<-data_pfc
     pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
 
-    pcan<-ggplotify::as.ggplot(~mixOmics::plotIndiv(pca,
+    pcan<-ggplotify::as.ggplot(function()mixOmics::plotIndiv(pca,
                     group = sample.info$group,
                     ind.names = F,###label
                     ellipse = F,###confidence interval

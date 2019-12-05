@@ -45,7 +45,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     pch<-shape[1:lev]
     YY<-group_pls[sample.index,]
     plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
-    plsm <- ggplotify::as.ggplot(~mixOmics::plotIndiv(plsda.datatm,
+    plsm <- ggplotify::as.ggplot(function()mixOmics::plotIndiv(plsda.datatm,
                      ind.names = F,
                      ellipse = T,
                      pch = pch,
@@ -101,7 +101,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     group_pls<-as.data.frame(sample.info$group)
     YY<-group_pls[sample.index,]
     plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
-    plse <- ggplotify::as.ggplot(~mixOmics::plotIndiv(plsda.datatm,
+    plse <- ggplotify::as.ggplot(function()mixOmics::plotIndiv(plsda.datatm,
                      ind.names = F,
                      ellipse = T,
                      pch = 16,
@@ -144,7 +144,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     YY<-group_pls[sample.index,]
     plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
 
-    plsn <- ggplotify::as.ggplot(~mixOmics::plotIndiv(plsda.datatm,
+    plsn <- ggplotify::as.ggplot(function()mixOmics::plotIndiv(plsda.datatm,
                      ind.names = F,
                      pch = 16,
                      cex=1.6,
