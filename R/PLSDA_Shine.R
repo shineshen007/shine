@@ -52,7 +52,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      cex=1.6,
                      point.lwd=3,#point line size
                      legend =TRUE,
-                     style="graphics",
+                     style="ggplot2",
                      title = 'PLS-DA')
     save(plsm,file = 'PLSDA multiclass.Rda')
     export::graph2ppt(file='PLSDA multiclass.pptx',height=7,width=9)
@@ -87,7 +87,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
             ellipse = F,
             cex=1.6,
             legend =TRUE,
-            style="graphics",
+            style="ggplot2",
             title = 'PLS-DA')
   export::graph2ppt(file='PLSDA ind.pptx',height=7,width=9)
   #dev.off()
@@ -108,7 +108,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      cex=1.6,
                      point.lwd=3,#point line size
                      legend =TRUE,
-                     style="graphics",
+                     style="ggplot2",
                      title = 'PLS-DA')
     save(plse,file = 'PLSDA ellipse.Rda')
     export::graph2ppt(file='PLSDA ellipse.pptx',height=7,width=9)
@@ -129,7 +129,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      ellipse = T,
                      cex=1.6,
                      legend =TRUE,
-                     style="graphics",
+                     style="ggplot2",
                      title = 'PLS-DA')
     export::graph2ppt(file='PLSDA both.png',height=7,width=9)
     #dev.off()
@@ -143,7 +143,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     group_pls<-as.data.frame(sample.info$group)
     YY<-group_pls[sample.index,]
     plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
-    save(plsda.datatm,file = 'plsda_neither.Rda')
+
     plsn <- mixOmics::plotIndiv(plsda.datatm,
                      ind.names = F,
                      pch = 16,
@@ -151,9 +151,9 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      ellipse = F,
                      point.lwd=3,#point line size
                      legend =TRUE,
-                     style="graphics",
+                     style="ggplot2",
                      title = 'PLS-DA')
-
+    save(plsn,file = 'plsda_neither.Rda')
     export::graph2ppt(file='PLSDA neither.pptx',height=7,width=9)
     #dev.off()
 
