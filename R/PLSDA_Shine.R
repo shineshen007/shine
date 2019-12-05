@@ -52,8 +52,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      cex=1.6,
                      point.lwd=3,#point line size
                      legend =TRUE,
-                     style="ggplot2",
-                     title = 'PLS-DA')
+                     style="ggplot2",legend.position = "bottom",
+                     title = 'PLS-DA') %>% ggplotify::as.ggplot()
     save(plsm,file = 'PLSDA multiclass.Rda')
     export::graph2ppt(file='PLSDA multiclass.pptx',height=7,width=9)
     #dev.off()
@@ -108,8 +108,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      cex=1.6,
                      point.lwd=3,#point line size
                      legend =TRUE,
-                     style="ggplot2",
-                     title = 'PLS-DA')
+                     style="ggplot2",legend.position = "bottom",
+                     title = 'PLS-DA')%>% ggplotify::as.ggplot()
     save(plse,file = 'PLSDA ellipse.Rda')
     export::graph2ppt(file='PLSDA ellipse.pptx',height=7,width=9)
     #dev.off()
@@ -151,8 +151,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      ellipse = F,
                      point.lwd=3,#point line size
                      legend =TRUE,
-                     style="ggplot2",
-                     title = 'PLS-DA')
+                     style="ggplot2",legend.position = "bottom",
+                     title = 'PLS-DA')%>% ggplotify::as.ggplot()
     save(plsn,file = 'plsda_neither.Rda')
     export::graph2ppt(file='PLSDA neither.pptx',height=7,width=9)
     #dev.off()

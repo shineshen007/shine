@@ -115,8 +115,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     point.lwd=3,
                     cex=1.6,
                     style="ggplot2",
-                    abline = T,
-                    title = 'PCA')
+                    abline = T,legend.position = "bottom",
+                    title = 'PCA')%>% ggplotify::as.ggplot()
     save(pcae,file = 'PCA_ellipse.Rda')
     export::graph2ppt(file='PCA ellipse.pptx',height=7,width=9)
     #dev.off()
@@ -155,8 +155,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     pch = pch,
                     cex=1.6,
                     style="ggplot2",
-                    abline = T,
-                    title = 'PCA')
+                    abline = T,legend.position = "bottom",
+                    title = 'PCA')%>% ggplotify::as.ggplot()
     save(pcan,file = 'pca_neither.Rda')
     export::graph2ppt(file='PCA neither.pptx',height=7,width=9)
 
