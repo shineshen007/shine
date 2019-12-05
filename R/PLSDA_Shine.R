@@ -45,7 +45,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     pch<-shape[1:lev]
     YY<-group_pls[sample.index,]
     plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
-    pls <- mixOmics::plotIndiv(plsda.datatm,
+    plsm <- mixOmics::plotIndiv(plsda.datatm,
                      ind.names = F,
                      ellipse = T,
                      pch = pch,
@@ -54,7 +54,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      legend =TRUE,
                      style="graphics",
                      title = 'PLS-DA')
-    export::graph2ppt(file='PLSDA multiclass.png',height=7,width=9)
+    save(plsm,file = 'PLSDA multiclass.Rda')
+    export::graph2ppt(x=plsm,file='PLSDA multiclass.pptx',height=7,width=9)
     #dev.off()
     cat("Calculate VIP...\n")
     ###VIP
@@ -88,7 +89,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
             legend =TRUE,
             style="graphics",
             title = 'PLS-DA')
-  export::graph2ppt(file='PLSDA ind.png',height=7,width=9)
+  export::graph2ppt(file='PLSDA ind.pptx',height=7,width=9)
   #dev.off()
   }
   if(ellipse){
@@ -100,7 +101,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     group_pls<-as.data.frame(sample.info$group)
     YY<-group_pls[sample.index,]
     plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
-    pls <- mixOmics::plotIndiv(plsda.datatm,
+    plse <- mixOmics::plotIndiv(plsda.datatm,
                      ind.names = F,
                      ellipse = T,
                      pch = 16,
@@ -109,7 +110,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      legend =TRUE,
                      style="graphics",
                      title = 'PLS-DA')
-    export::graph2ppt(file='PLSDA ellipse.png',height=7,width=9)
+    save(plse,file = 'PLSDA ellipse.Rda')
+    export::graph2ppt(x=plse,file='PLSDA ellipse.pptx',height=7,width=9)
     #dev.off()
   }
   #dev.off()
@@ -141,7 +143,7 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     group_pls<-as.data.frame(sample.info$group)
     YY<-group_pls[sample.index,]
     plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
-    pls <- mixOmics::plotIndiv(plsda.datatm,
+    plsn <- mixOmics::plotIndiv(plsda.datatm,
                      ind.names = F,
                      pch = 16,
                      cex=1.6,
@@ -150,8 +152,8 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                      legend =TRUE,
                      style="graphics",
                      title = 'PLS-DA')
-    save(pls,file = 'plsda_neither.Rda')
-    export::graph2ppt(file='PLSDA neither.png',height=7,width=9)
+    save(plsn,file = 'plsda_neither.Rda')
+    export::graph2ppt(x=plsn,file='PLSDA neither.pptx',height=7,width=9)
     #dev.off()
 
   }

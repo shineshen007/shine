@@ -50,7 +50,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     #png(file="PCA qc both.png", width = 1200, height = 1000,res = 56*2)
     temp<-qc
     pca<- mixOmics::pca(t(temp), ncomp=2, scale=T)
-    pcap<- mixOmics::plotIndiv(pca,
+    pcaqi<- mixOmics::plotIndiv(pca,
                     group = as.factor(sample.info$batch[n]),
                     ind.names = T,###label
                     ellipse = T,###confidence interval
@@ -59,13 +59,14 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     style="graphics",
                     abline = T,
                     title = 'PCA')
-    export::graph2ppt(file='PCA qc.png',height=7,width=9)
+    #save(pcaqi,file = 'PCA_qc.Rda')
+    export::graph2ppt(x=pcaqi,file='PCA qc.pptx',height=7,width=9)
     #dev.off()
 
     #png(file="PCA qc neither.png", width = 1200, height = 1000,res = 56*2)
     temp<-qc
     pca<- mixOmics::pca(t(temp), ncomp=2, scale=T)
-    pcap<-mixOmics::plotIndiv(pca,
+    pcaqn<-mixOmics::plotIndiv(pca,
                     group = as.factor(sample.info$batch[n]),
                     ind.names = F,###label
                     ellipse = F,###confidence interval
@@ -75,7 +76,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     style="graphics",
                     abline = T,
                     title = 'PCA')
-    export::graph2ppt(file='PCA qc.png',height=7,width=9,append=TRUE)
+    #save(pcaqn,file = 'PCA_qc.Rda')
+    export::graph2ppt(x=pcaqn,file='PCA qc.pptx',height=7,width=9,append=TRUE)
 
     #dev.off()
   }
@@ -95,7 +97,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
             style="graphics",
             abline = T,
             title = 'PCA')
-  export::graph2ppt(file='PCA ind.png',height=7,width=9)
+  export::graph2ppt(file='PCA ind.pptx',height=7,width=9)
   #dev.off()
   }
   if(ellipse){
@@ -103,7 +105,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     #png(file="PCA ellipse.png", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
-    pcap<-mixOmics::plotIndiv(pca,
+    pcae<-mixOmics::plotIndiv(pca,
                     group = sample.info$group,
                     ind.names = F,###label
                     ellipse = T,###confidence interval
@@ -115,15 +117,16 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     style="graphics",
                     abline = T,
                     title = 'PCA')
-    export::graph2ppt(file='PCA ellipse.png',height=7,width=9)
+    save(pcae,file = 'PCA_ellipse.Rda')
+    export::graph2ppt(x=pcae,file='PCA ellipse.pptx',height=7,width=9)
     #dev.off()
   }
   if(both){
     ###PCA
-    #png(file="PCA both.png", width = 1200, height = 1000,res = 56*2)
+    #png(file="PCA both=pc.png", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
-    pcap<-mixOmics::plotIndiv(pca,
+    pcab<-mixOmics::plotIndiv(pca,
                     group = sample.info$group,
                     ind.names = T,###label
                     ellipse = T,###confidence interval
@@ -132,7 +135,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     cex=1.6,
                     abline = T,
                     title = 'PCA')
-    export::graph2ppt(file='PCA both.png',height=7,width=9)
+    #save(pcab,file = 'PCA_both.Rda')
+    export::graph2ppt(x=pcab,file='PCA both.pptx',height=7,width=9)
     #dev.off()
   }
   if(neither){
@@ -140,7 +144,7 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     #png(file="PCA neither.png", width = 1200, height = 1000,res = 56*2)
     temp<-data_pfc
     pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
-    pcap<-mixOmics::plotIndiv(pca,
+    pcan<-mixOmics::plotIndiv(pca,
                     group = sample.info$group,
                     ind.names = F,###label
                     ellipse = F,###confidence interval
@@ -152,8 +156,8 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                     style="graphics",
                     abline = T,
                     title = 'PCA')
-    save(pcap,file = 'pca_neither.Rda')
-    export::graph2ppt(file='PCA neither.png',height=7,width=9)
+    save(pcan,file = 'pca_neither.Rda')
+    export::graph2ppt(x=pcan,file='PCA neither.pptx',height=7,width=9)
 
     #dev.off()
 
