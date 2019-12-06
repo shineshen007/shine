@@ -74,8 +74,8 @@ MUVR_ANALYSIS <- function(group = "Normal",#the group you want to remove
                     height = 7,
                     width = 9)
   v <- getVIP(classModel, model = 'min')
-  rdmin <- cbind(v,data[match(intersect(row.names(v),data$name),data$name),]) %>%
-    write.csv(., 'MUVR min.csv', row.names = F)
+  rdmin <- cbind(v,data[match(intersect(row.names(v),data$name),data$name),])
+    write.csv(rdmin, 'MUVR min.csv', row.names = F)
   vmid <- getVIP(classModel, model = 'mid')
   rdmid <- cbind(vmid,data[match(intersect(row.names(vmid),data$name),data$name),]) %>%
     write.csv(., 'MUVR mid.csv', row.names = F)
@@ -108,6 +108,8 @@ MUVR_ANALYSIS <- function(group = "Normal",#the group you want to remove
   colnames(dr)[1] <- 'group'
   write.csv(dr, 'data for roc.csv', row.names = F)
   #get roc data
-  rd <- data[match(intersect(colnames(dr)[-1],data$name),data$name),]
+  rd <- data[match(intersect(colnames(dr)[-1],data$name),data$name),] %>%
+    add_column(.,rdmin[,'rank'],.after='name')
+  colnames(rd)[4]='rank'
   xlsx::write.xlsx(rd,'roc data.xlsx')
 }
