@@ -111,5 +111,5 @@ MUVR_ANALYSIS <- function(group = "Normal",#the group you want to remove
   rd <- data[match(intersect(colnames(dr)[-1],data$name),data$name),] %>%
     add_column(.,rdmin[,'rank'],.after='name')
   colnames(rd)[4]='rank'
-  xlsx::write.xlsx(rd,'roc data.xlsx')
+  write.csv(rd,'roc data.csv')
 }

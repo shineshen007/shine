@@ -10,9 +10,9 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-PathwayAnalysis <- function(data='data pathway.csv',
+PathwayAnalysis <- function(
                             nrow=5){
-  rawdata <- read.csv(data)
+  rawdata <- read.csv('data pathway.csv')
   dir.create('pathway')
   setwd('pathway')
   #library(MetaboAnalystR)
