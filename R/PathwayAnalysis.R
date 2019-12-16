@@ -51,6 +51,7 @@ PathwayAnalysis <- function(
     ggplot2::xlab('Pathway')
     save(pb,file = 'barplot.Rda')
     export::graph2ppt(x=pb,file='pathway.pptx',height=7,width=9)
+    dev.off()
     #####
     vol<-read.csv("pathway_results.csv") #%>%
 
