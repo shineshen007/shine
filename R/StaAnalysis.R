@@ -191,8 +191,8 @@ StaAnalysis <- function(p.cutoff = 0,
   volc <- ggplot2::ggplot(vol, ggplot2::aes(x = log2(fc), y = -log10(p)))+
     ggplot2::geom_point(aes(color = Significant),size=3) +
     ggplot2::scale_color_manual(values = colv) +
-    ggplot2::annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999)-h,label=group2)+
-    ggplot2::annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group1)+
+    #ggplot2::annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999)-h,label=group2)+
+    #ggplot2::annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group1)+
     ggplot2::theme_bw(base_size = 16) +
     ggplot2::geom_vline(xintercept=c(-0.41,0.41),
                         lty=4,col="orange",lwd=1)+ #
