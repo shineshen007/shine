@@ -30,7 +30,7 @@ StaAnalysis <- function(p.cutoff = 0,
                         paired = FALSE,
                         h=0.2,
                         PCA = FALSE,
-                        heatmap = TRUE){
+                        heatmap = FALSE){
   cat("Analyzing data...\n")
   cat("Import data...\n")
   data <- data.table::fread("data for sta.csv")
@@ -161,7 +161,7 @@ StaAnalysis <- function(p.cutoff = 0,
                              style="graphics",
                              title = 'PLS-DA')
   save(pls,file = 'plsda_neither.Rda')
-  export::graph2ppt(file='data.pptx',height=7,width=9,append=TRUE)
+  export::graph2ppt(x=pls,file='data.pptx',height=7,width=9,append=TRUE)
 
   cat("Calculate VIP...\n")
   ###VIP
