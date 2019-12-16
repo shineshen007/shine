@@ -209,21 +209,21 @@ BiClass <- function(times = 1001,#must be odd
                      panel.background = ggplot2::element_blank(),axis.line = ggplot2::element_line(colour = "black"),
                      legend.position = "none")+
       #scale_colour_manual()+
-      ggplot2::annotate("text", x=0.45, y=0.05, label='Logistic Regression', colour="OrangeRed", size=4)+
-      ggplot2::annotate("text", x=0.45, y=0.15, label="SVM", colour= "Green4", size=4)+
-      ggplot2::annotate("text", x=0.45, y=0.25, label="RandomForest", colour="RoyalBlue", size=4)+
-      ggplot2::annotate("text", x=0.28, y=0.05, label=med_lg, colour="OrangeRed", size=4)+
-      ggplot2::annotate("text", x=0.28, y=0.15, label= med_svm, colour= "Green4", size=4)+
-      ggplot2::annotate("text", x=0.28, y=0.25, label=med_rf, colour="RoyalBlue", size=4)+
-      ggplot2::annotate("text", x=0.14, y=0.05, label=upper_lg, colour="OrangeRed", size=4)+
-      ggplot2::annotate("text", x=0.14, y=0.15, label= upper_svm, colour= "Green4", size=4)+
-      ggplot2::annotate("text", x=0.14, y=0.25, label=upper_rf, colour="RoyalBlue", size=4)+
-      ggplot2::annotate("text", x=0.2, y=0.05, label=lower_lg, colour="OrangeRed", size=4)+
-      ggplot2::annotate("text", x=0.2, y=0.15, label= lower_svm, colour= "Green4", size=4)+
-      ggplot2::annotate("text", x=0.2, y=0.25, label=lower_rf, colour="RoyalBlue", size=4)+
-      ggplot2::annotate("text", x=0.16, y=0.05, label='--', colour="OrangeRed", size=4)+
-      ggplot2::annotate("text", x=0.16, y=0.15, label= '--', colour= "RoyalBlue", size=4)+
-      ggplot2::annotate("text", x=0.16, y=0.25, label='--', colour="RoyalBlue", size=4)+
+      ggplot2::annotate("text", x=0.45, y=0.05, label='Logistic Regression', colour="orangered", size=4)+
+      ggplot2::annotate("text", x=0.45, y=0.15, label="SVM", colour= "green4", size=4)+
+      ggplot2::annotate("text", x=0.45, y=0.25, label="RandomForest", colour="royalblue", size=4)+
+      ggplot2::annotate("text", x=0.28, y=0.05, label=med_lg, colour="orangered", size=4)+
+      ggplot2::annotate("text", x=0.28, y=0.15, label= med_svm, colour= "green4", size=4)+
+      ggplot2::annotate("text", x=0.28, y=0.25, label=med_rf, colour="royalblue", size=4)+
+      ggplot2::annotate("text", x=0.14, y=0.05, label=upper_lg, colour="orangered", size=4)+
+      ggplot2::annotate("text", x=0.14, y=0.15, label= upper_svm, colour= "green4", size=4)+
+      ggplot2::annotate("text", x=0.14, y=0.25, label=upper_rf, colour="royalblue", size=4)+
+      ggplot2::annotate("text", x=0.2, y=0.05, label=lower_lg, colour="orangered", size=4)+
+      ggplot2::annotate("text", x=0.2, y=0.15, label= lower_svm, colour= "green4", size=4)+
+      ggplot2::annotate("text", x=0.2, y=0.25, label=lower_rf, colour="royalblue", size=4)+
+      ggplot2::annotate("text", x=0.16, y=0.05, label='--', colour="orangered", size=4)+
+      ggplot2::annotate("text", x=0.16, y=0.15, label= '--', colour= "royalblue", size=4)+
+      ggplot2::annotate("text", x=0.16, y=0.25, label='--', colour="royalblue", size=4)+
       ggplot2::annotate("text", x=0.28, y=0.32, label="AUC", colour= "black", size=4)+
       ggplot2::annotate("text", x=0.175, y=0.32, label='(95%CI)', colour="black", size=4)+
       theme(axis.text.x = element_text(size = 16),
