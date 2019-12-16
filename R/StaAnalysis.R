@@ -151,15 +151,15 @@ StaAnalysis <- function(p.cutoff = 0,
   group_pls<-as.data.frame(sample.info1$group)
   YY<-group_pls[sample.index,]
   plsda.datatm <- mixOmics::plsda(XXt, YY, ncomp = 2)
-  pls <- mixOmics::plotIndiv(plsda.datatm,
-                             ind.names = F,
-                             ellipse = T,
-                             pch = 16,#point shape
-                             cex=1.6,#point size
-                             point.lwd=3,# line size
-                             legend =TRUE,
-                             style="graphics",
-                             title = 'PLS-DA')
+  pls <- as.ggplot(function()mixOmics::plotIndiv(plsda.datatm,
+                                                 ind.names = F,
+                                                 ellipse = T,
+                                                 pch = 16,#point shape
+                                                 cex=1.6,#point size
+                                                 point.lwd=3,# line size
+                                                 legend =TRUE,
+                                                 style="ggplot2",
+                                                 title = 'PLS-DA'))
   save(pls,file = 'plsda_neither.Rda')
   export::graph2ppt(x=pls,file='data.pptx',height=7,width=9,append=TRUE)
 
@@ -211,8 +211,8 @@ StaAnalysis <- function(p.cutoff = 0,
       point.padding = 0.3
     )
   save(volc,file = 'volcano.Rda')
-    #ggplot2::ggsave("volcano plot.png", width = 12, height = 8)
-    export::graph2ppt(x=volc,file='data.pptx',height=7,width=9,append = TRUE)
+  #ggplot2::ggsave("volcano plot.png", width = 12, height = 8)
+  export::graph2ppt(x=volc,file='data.pptx',height=7,width=9,append = TRUE)
 
   if(heatmap){
     write.csv(sample.info,'sample.info.csv',row.names = F)
