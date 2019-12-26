@@ -4,11 +4,9 @@
 \alias{PathwayAnalysis}
 \title{PathwayAnalysis}
 \usage{
-PathwayAnalysis(data = "data pathway.csv", nrow = 5)
+PathwayAnalysis(nrow = 5)
 }
 \arguments{
-\item{data}{data}
-
 \item{nrow}{5}
 }
 \value{

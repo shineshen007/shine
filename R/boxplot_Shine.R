@@ -5,20 +5,23 @@
 #' @param ppt_width default is 9
 #' @param ngroup number of grouo
 #' @param palette colour selection
+#' @param levels order of group
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-Boxplot_Shine <- function(ppt_width=9,
-                          ngroup=3,
+Boxplot_Shine <- function(ppt_width = 9,
+                          ngroup = 3,
+                          levels =c ("Normal","Hyperuricemia","Gout"),
                           palette = c('BottleRocket1', 'BottleRocket2', 'Rushmore1', 'Royal1', 'Royal2',
                                       'Zissou1', 'Darjeeling1', 'Darjeeling2', 'Chevalier1' , 'FantasticFox1' ,
                                       'Moonrise1', 'Moonrise2', 'Moonrise3', 'Cavalcanti1', 'GrandBudapest1',
                                       'GrandBudapest2', 'IsleofDogs1', 'IsleofDogs2')
 ){
   data <- read.csv("data for boxplot.csv")
+  data$group <- factor(data$group, levels = levels)
   s <- ggpubr::ggboxplot(data = data,x='metabolites',y = 'abundance',color = "group",
                          palette = wesanderson::wes_palette(n=ngroup, name=palette),
                          add = "jitter"

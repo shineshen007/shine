@@ -2,7 +2,6 @@
 #' @description a function to do PathwayAnalysis
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
-#' @param data data
 #' @param nrow 5
 #' @return  All the results can be got form other functions and instruction.
 #' @export

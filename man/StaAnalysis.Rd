@@ -7,7 +7,7 @@
 StaAnalysis(p.cutoff = 0, group = c("case", "control"),
   splot = FALSE, colv = c("SpringGreen3", "grey", "Firebrick1"),
   unitest = c("t.test", "wilcox.test"), pcorrect = TRUE, xlim = c(-3,
-  3), paired = FALSE, h = 0.2, PCA = FALSE, heatmap = TRUE)
+  3), paired = FALSE, h = 0.2, PCA = FALSE, heatmap = FALSE)
 }
 \arguments{
 \item{p.cutoff}{default is 0.05.}
