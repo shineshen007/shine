@@ -184,17 +184,17 @@ StaAnalysis <- function(p.cutoff = 0,
   p<- vol$p
   group1<-group[1]
   group2<-group[2]
-  Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 0.41,
-                                 ifelse(log2(fc) < -0.41,
+  Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 0.4150375,
+                                 ifelse(log2(fc) < -0.4150375,
                                         "Down","Up"),"Not Sig"))
   #png(file=, width = 1200, height = 1000,res = 56*2)
   volc <- ggplot2::ggplot(vol, ggplot2::aes(x = log2(fc), y = -log10(p)))+
     ggplot2::geom_point(aes(color = Significant),size=3) +
     ggplot2::scale_color_manual(values = colv) +
-    #ggplot2::annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999)-h,label=group2)+
-    #ggplot2::annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999),label=group1)+
+    annotate("text",x=xlim[2]-1,y=quantile(-log10(p),0.9999)-h,label=sum((p < 0.05 & log2(fc) > 0.4150375)))+
+    annotate("text",x=xlim[1]+1,y=quantile(-log10(p),0.9999),label=sum((p < 0.05 & log2(fc) < -0.4150375)))+
     ggplot2::theme_bw(base_size = 16) +
-    ggplot2::geom_vline(xintercept=c(-0.41,0.41),
+    ggplot2::geom_vline(xintercept=c(-0.4150375,0.4150375),
                         lty=4,col="orange",lwd=1)+ #
     ggplot2::geom_hline(yintercept = -log10(0.05),
                         lty=4,col="orange",lwd=1)+ #
@@ -203,7 +203,7 @@ StaAnalysis <- function(p.cutoff = 0,
          title="Volcano plot")+
     xlim(xlim)+
     ggrepel::geom_text_repel(
-      data = subset(vol, p < p.cutoff&abs(log2(fc))>0.41),###
+      data = subset(vol, p < p.cutoff&abs(log2(fc))>0.4150375),###
       max.iter = 100000,
       aes(label = name),
       size = 4,
@@ -224,8 +224,8 @@ StaAnalysis <- function(p.cutoff = 0,
     ##S plot of foldchange
     index<-c(1:nrow(f))
     datas <- cbind(index,f)
-    Significant_s<- as.factor(ifelse(abs(log2(datas$fc)) > 0.41,
-                                     ifelse(log2(datas$fc) < -0.41,
+    Significant_s<- as.factor(ifelse(abs(log2(datas$fc)) > 0.4150375,
+                                     ifelse(log2(datas$fc) < -0.4150375,
                                             "Down","Up"),"Not Sig"))
     splot <- ggplot2::ggplot(datas, aes(x = reorder(index,fc), y = log2(fc)))+
       geom_point(aes(color = Significant_s)) +

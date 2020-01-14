@@ -85,8 +85,8 @@ PathwayAnalysis <- function(
     ph <- ggplot2::ggplot(vol, aes(x = Impact, y = -log(Raw.p)))+
       geom_point(size=radi.vec*300,color=bg.vec) +
       #scale_color_manual(values = colour)
-      geom_vline(xintercept=0.75,
-                 lty=4,col="black",lwd=0.5)+ # add vetical line
+      # geom_vline(xintercept=0.75,
+      #            lty=4,col="black",lwd=0.5)+ # add vetical line
       geom_hline(yintercept = -log(0.05),
                  lty=4,col="black",lwd=0.5)+ #add hori line
       labs(x="Pathway Impact",

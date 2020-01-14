@@ -28,6 +28,7 @@ BiClass <- function(times = 1001,#must be odd
   au_rf <- NULL#save rf auc
   set.seed(1234)
   for (i in 1:times ){
+    cat(i); cat(" ")
     split <- list(sample(d[1],d[1]*(2/3)))#split data
     numo <- list()#save the list of data selection
     nn <- c(numo,split)
