@@ -22,10 +22,8 @@ CorAnalysis<-function(number.cex = 0.6,#number size in cicle
 
   data1<-read.csv("data1.csv",check.names = F)
   data2<-read.csv("data2.csv",check.names = F)
-  core1<-as.data.frame(data1[,-1])%>%
-    log10(.)
-  core2<-as.data.frame(data2[,-1])%>%
-    log10(.)
+  core1<-as.data.frame(data1[,-1])
+  core2<-as.data.frame(data2[,-1])
   cor<-psych::corr.test(core1,core2,adjust = adjust)
   #cor plot
   r<-cor[["r"]]
