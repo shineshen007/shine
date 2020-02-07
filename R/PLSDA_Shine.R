@@ -82,13 +82,13 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
   group_pls<-as.data.frame(sample.info$group)
   YY<-group_pls[sample.index,]
   plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
-  pls <- mixOmics::plotIndiv(plsda.datatm,
+  pls <- ggplotify::as.ggplot(function()mixOmics::plotIndiv(plsda.datatm,
             ind.names = T,
             ellipse = F,
             cex=1.6,
             legend =TRUE,
             style="ggplot2",
-            title = 'PLS-DA')
+            title = 'PLS-DA'))
   export::graph2ppt(file='PLSDA ind.pptx',height=7,width=9)
   #dev.off()
   }
@@ -124,13 +124,13 @@ PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
     group_pls<-as.data.frame(sample.info$group)
     YY<-group_pls[sample.index,]
     plsda.datatm <-mixOmics::plsda(XXt, YY, ncomp = 2)
-    pls <- mixOmics::plotIndiv(plsda.datatm,
+    pls <- ggplotify::as.ggplot(function()mixOmics::plotIndiv(plsda.datatm,
                      ind.names = T,
                      ellipse = T,
                      cex=1.6,
                      legend =TRUE,
                      style="ggplot2",
-                     title = 'PLS-DA')
+                     title = 'PLS-DA'))
     export::graph2ppt(file='PLSDA both.png',height=7,width=9)
     #dev.off()
   }
