@@ -4,8 +4,12 @@
 \alias{Permutation_Shine}
 \title{Permutation_Shine}
 \usage{
-Permutation_Shine(repeats = 200, ncomp = 2, group = c("case",
-  "control"), scale = c("UV", "pareto"))
+Permutation_Shine(
+  repeats = 200,
+  ncomp = 2,
+  group = c("case", "control"),
+  scale = c("UV", "pareto")
+)
 }
 \arguments{
 \item{repeats}{the repeats to do,default is 200}

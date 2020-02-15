@@ -4,11 +4,19 @@
 \alias{volcano}
 \title{volcano}
 \usage{
-volcano(p.cutoff = 0, group = c("case", "control"),
-  colour = c("springgreen3", "grey", "firebrick1"), pcorrect = TRUE,
-  singleline = TRUE, xlim = c(-3, 3), fc.cutoff = 0.4150375,
-  doubleline = FALSE, unitest = c("t.test", "wilcox.test"),
-  paired = FALSE, h = 0.2)
+volcano(
+  p.cutoff = 0,
+  group = c("case", "control"),
+  colour = c("springgreen3", "grey", "firebrick1"),
+  pcorrect = TRUE,
+  singleline = TRUE,
+  xlim = c(-3, 3),
+  fc.cutoff = 0.4150375,
+  doubleline = FALSE,
+  unitest = c("t.test", "wilcox.test"),
+  paired = FALSE,
+  h = 0.2
+)
 }
 \arguments{
 \item{p.cutoff}{default is 0.05.}

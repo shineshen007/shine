@@ -4,9 +4,12 @@
 \alias{PathwayEnrich}
 \title{PathwayEnrich}
 \usage{
-PathwayEnrich(specias_pathway_database = c(hsa.kegg.pathway,
-  mmu.kegg.pathway), specias_compound_database = c(hsa_compound_ID,
-  mmu_compound_ID), keggmap = TRUE, group = c("case", "control"))
+PathwayEnrich(
+  specias_pathway_database = c(hsa.kegg.pathway, mmu.kegg.pathway),
+  specias_compound_database = c(hsa_compound_ID, mmu_compound_ID),
+  keggmap = TRUE,
+  group = c("case", "control")
+)
 }
 \arguments{
 \item{specias_pathway_database}{the specia of sample}

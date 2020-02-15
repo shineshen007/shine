@@ -4,11 +4,15 @@
 \alias{Metabolites_Classify}
 \title{Metabolites_Classify}
 \usage{
-Metabolites_Classify(specias_pathway_database = c(hsa.kegg.pathway,
-  mmu.kegg.pathway), specias_compound_database = c(hsa_compound_ID,
-  mmu_compound_ID))
+Metabolites_Classify(
+  data_name = "data for classify.csv",
+  specias_pathway_database = c(hsa.kegg.pathway, mmu.kegg.pathway),
+  specias_compound_database = c(hsa_compound_ID, mmu_compound_ID)
+)
 }
 \arguments{
+\item{data_name}{the data_name}
+
 \item{specias_pathway_database}{the specia of sample}
 
 \item{specias_compound_database}{the specia of sample}
@@ -21,6 +25,8 @@ a function Metabolites_Classify.
 }
 \examples{
 \donttest{
+Metabolites_Classify(specias_pathway_database= hsa.kegg.pathway,
+specias_compound_database = hsa_compound_ID)
 }
 }
 \author{

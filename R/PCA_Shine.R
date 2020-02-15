@@ -1,7 +1,7 @@
 #' @title PCA_Shine
 #' @description a function can generate PCA.
-#' @author Shine Shen
-#' \email{qq951633542@@163.com}
+#' @author Xia Shen
+#' \email{qq951633542@163.com}
 #' @param ind default is FALSE.
 #' @param ellipse default is FALSE.
 #' @param both default is FALSE.
@@ -12,9 +12,11 @@
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
+#' #the data must be named as 'data.csv' and 'sample.info.csv'
+#' PCA()
 #' }
-PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
-               both = FALSE,neither = TRUE,QC = FALSE){
+PCA <- function(ind = FALSE,ellipse = FALSE,
+                both = FALSE,neither = TRUE,QC = FALSE){
 
   cat("Import data...\n")
   data <- data.table::fread("data.csv")
@@ -51,14 +53,14 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     temp<-qc
     pca<- mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcaqi<- ggplotify::as.ggplot(function()mixOmics::plotIndiv(pca,
-                    group = as.factor(sample.info$batch[n]),
-                    ind.names = T,###label
-                    ellipse = T,###confidence interval
-                    legend =TRUE,
-                    cex=1.6,
-                    style="ggplot2",
-                    abline = T,
-                    title = 'PCA'))
+                                                               group = as.factor(sample.info$batch[n]),
+                                                               ind.names = T,###label
+                                                               ellipse = T,###confidence interval
+                                                               legend =TRUE,
+                                                               cex=1.6,
+                                                               style="ggplot2",
+                                                               abline = T,
+                                                               title = 'PCA'))
     #save(pcaqi,file = 'PCA_qc.Rda')
     export::graph2ppt(x=pcaqi,file='PCA qc.pptx',height=7,width=9)
     #dev.off()
@@ -67,15 +69,15 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     temp<-qc
     pca<- mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcaqn<-ggplotify::as.ggplot(function()mixOmics::plotIndiv(pca,
-                    group = as.factor(sample.info$batch[n]),
-                    ind.names = F,###label
-                    ellipse = F,###confidence interval
-                    legend =TRUE,
-                    pch = pchb,
-                    cex=1.6,
-                    style="ggplot2",
-                    abline = T,
-                    title = 'PCA'))
+                                                              group = as.factor(sample.info$batch[n]),
+                                                              ind.names = F,###label
+                                                              ellipse = F,###confidence interval
+                                                              legend =TRUE,
+                                                              pch = pchb,
+                                                              cex=1.6,
+                                                              style="ggplot2",
+                                                              abline = T,
+                                                              title = 'PCA'))
     #save(pcaqn,file = 'PCA_qc.Rda')
     export::graph2ppt(x=pcaqn,file='PCA qc.pptx',height=7,width=9,append=TRUE)
 
@@ -84,21 +86,21 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
 
   cat("Draw PCA plot...\n")
   if(ind){
-  ###PCA"
-  #png(file="PCA ind.png", width = 1200, height = 1000,res = 56*2)
-  temp<-data_pfc
-  pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
-  pcap<-ggplotify::as.ggplot(function()mixOmics::plotIndiv(pca,
-            group = sample.info$group,
-            ind.names = T,###label
-            ellipse = F,###confidence interval
-            legend =TRUE,
-            cex=1.6,
-            style="ggplot2",
-            abline = T,
-            title = 'PCA'))
-  export::graph2ppt(x=pcap,file='PCA ind.pptx',height=7,width=9)
-  #dev.off()
+    ###PCA"
+    #png(file="PCA ind.png", width = 1200, height = 1000,res = 56*2)
+    temp<-data_pfc
+    pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
+    pcap<-ggplotify::as.ggplot(function()mixOmics::plotIndiv(pca,
+                                                             group = sample.info$group,
+                                                             ind.names = T,###label
+                                                             ellipse = F,###confidence interval
+                                                             legend =TRUE,
+                                                             cex=1.6,
+                                                             style="ggplot2",
+                                                             abline = T,
+                                                             title = 'PCA'))
+    export::graph2ppt(x=pcap,file='PCA ind.pptx',height=7,width=9)
+    #dev.off()
   }
   if(ellipse){
     ###PCA
@@ -106,17 +108,17 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     temp<-data_pfc
     pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcae<-ggplotify::as.ggplot(function()mixOmics::plotIndiv(pca,
-                    group = sample.info$group,
-                    ind.names = F,###label
-                    ellipse = T,###confidence interval
-                    legend =TRUE,
-                    col=cl,
-                    pch = pch,
-                    point.lwd=3,
-                    cex=1.6,
-                    style="ggplot2",
-                    abline = T,legend.position = "bottom",
-                    title = 'PCA'))
+                                                             group = sample.info$group,
+                                                             ind.names = F,###label
+                                                             ellipse = T,###confidence interval
+                                                             legend =TRUE,
+                                                             col=cl,
+                                                             pch = pch,
+                                                             point.lwd=3,
+                                                             cex=1.6,
+                                                             style="ggplot2",
+                                                             abline = T,legend.position = "bottom",
+                                                             title = 'PCA'))
     save(pcae,file = 'PCA_ellipse.Rda')
     export::graph2ppt(x=pcae,file='PCA ellipse.pptx',height=7,width=9)
     #dev.off()
@@ -127,14 +129,14 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     temp<-data_pfc
     pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
     pcab<-ggplotify::as.ggplot(function()mixOmics::plotIndiv(pca,
-                    group = sample.info$group,
-                    ind.names = T,###label
-                    ellipse = T,###confidence interval
-                    legend =TRUE,
-                    style="ggplot2",
-                    cex=1.6,
-                    abline = T,
-                    title = 'PCA'))
+                                                             group = sample.info$group,
+                                                             ind.names = T,###label
+                                                             ellipse = T,###confidence interval
+                                                             legend =TRUE,
+                                                             style="ggplot2",
+                                                             cex=1.6,
+                                                             abline = T,
+                                                             title = 'PCA'))
     #save(pcab,file = 'PCA_both.Rda')
     export::graph2ppt(x=pcab,file='PCA both.pptx',height=7,width=9)
     #dev.off()
@@ -146,17 +148,17 @@ PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
     pca<-mixOmics::pca(t(temp), ncomp=2, scale=T)
 
     pcan<-ggplotify::as.ggplot(function()mixOmics::plotIndiv(pca,
-                    group = sample.info$group,
-                    ind.names = F,###label
-                    ellipse = F,###confidence interval
-                    legend =TRUE,
-                    col=cl,
-                    point.lwd=3,
-                    pch = pch,
-                    cex=1.6,
-                    style="ggplot2",
-                    abline = T,legend.position = "bottom",
-                    title = 'PCA'))
+                                                             group = sample.info$group,
+                                                             ind.names = F,###label
+                                                             ellipse = F,###confidence interval
+                                                             legend =TRUE,
+                                                             col=cl,
+                                                             point.lwd=3,
+                                                             pch = pch,
+                                                             cex=1.6,
+                                                             style="ggplot2",
+                                                             abline = T,legend.position = "bottom",
+                                                             title = 'PCA'))
     save(pcan,file = 'pca_neither.Rda')
     export::graph2ppt(x=pcan,file='PCA neither.pptx',height=7,width=9)
 

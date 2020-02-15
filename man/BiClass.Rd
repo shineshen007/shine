@@ -4,8 +4,7 @@
 \alias{BiClass}
 \title{BiClass}
 \usage{
-BiClass(times = 1001, logistic = TRUE, RandomForest = TRUE,
-  SVM = TRUE)
+BiClass(times = 1001, logistic = TRUE, RandomForest = TRUE, SVM = TRUE)
 }
 \arguments{
 \item{times}{the loop times in sample selection,default is 1001,and the number must be odd number.}

@@ -4,8 +4,7 @@
 \alias{OPLSDA}
 \title{OPLSDA}
 \usage{
-OPLSDA(group = "Gout", data_position = 1, scale = "ParetoNorm",
-  repeats = 200)
+OPLSDA(group = "Gout", data_position = 1, scale = "ParetoNorm", repeats = 200)
 }
 \arguments{
 \item{group}{group}

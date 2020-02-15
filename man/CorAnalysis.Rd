@@ -4,8 +4,12 @@
 \alias{CorAnalysis}
 \title{CorAnalysis}
 \usage{
-CorAnalysis(number.cex = 0.6, tl.cex = 0.6, number.digits = 4,
-  adjust = c("holm", "bonferroni", "BH", "fdr", "none"))
+CorAnalysis(
+  number.cex = 0.6,
+  tl.cex = 0.6,
+  number.digits = 4,
+  adjust = c("holm", "bonferroni", "BH", "fdr", "none")
+)
 }
 \arguments{
 \item{number.cex}{The cex parameter to send to the call to text when

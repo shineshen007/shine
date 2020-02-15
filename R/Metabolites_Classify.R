@@ -4,18 +4,21 @@
 #' \email{qq951633542@@163.com}
 #' @param specias_pathway_database the specia of sample
 #' @param specias_compound_database the specia of sample
+#' @param data_name the data_name
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @import ggplot2
 #' @examples
 #' \donttest{
+#' Metabolites_Classify(specias_pathway_database= hsa.kegg.pathway,
+#' specias_compound_database = hsa_compound_ID)
 #' }
-Metabolites_Classify <- function(
+Metabolites_Classify <- function(data_name="data for classify.csv",
   specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.pathway),
   specias_compound_database = c(hsa_compound_ID,mmu_compound_ID)
 ){
   cat("Import data...\n")
-  data <- data.table::fread("data for classify.csv")
+  data <- data.table::fread(data_name)
   data <- data.table::setDF(data)
   cat("filter the metabolites' score lower than 0.4...\n")
   ##filter the score lower than 0.4
@@ -44,7 +47,8 @@ Metabolites_Classify <- function(
   idc <- which(colnames(dalls)=="compound.name")
   idi <- which(colnames(dalls)=="isotope")
   ida <- which(colnames(dalls)=="adduct")
-  dcsore <- dalls[,-c(idn,idc,idi,ida)]
+  idg <- which(colnames(dalls)=="confidence")
+  dcsore <- dalls[,-c(idn,idc,idi,ida,idg)]
 
   ##unique ID
   cat("unique the ID ...\n")
@@ -54,7 +58,7 @@ Metabolites_Classify <- function(
   a2 <- data.frame(NULL)
   a3 <- data.frame(NULL)
   for (i in 1:nr) {
-
+    cat(i); cat(" ")
     if(length(cnid[[i]]) != 1){
       rsi <- data[i,]
       times <- length(cnid[[i]])
@@ -69,8 +73,8 @@ Metabolites_Classify <- function(
   }
   dall <- rbind(a3,a1)
   idns <- which(colnames(dall)=="ID")
-  dsi <- cbind(dall[,idns],dcsore)
-  colnames(dsi)[1] <- "ID"
+  dsi <- add_column(dcsore,dall[,idns],.after = 'name')
+  colnames(dsi)[2] <- "ID"
   ##unique compound
   cat("unique the compound ...\n")
   nc <- data$compound.name
@@ -79,7 +83,7 @@ Metabolites_Classify <- function(
   a2 <- data.frame(NULL)
   a3 <- data.frame(NULL)
   for (i in 1:nr) {
-
+    cat(i); cat(" ")
     if(length(cnc[[i]]) != 1){
       rsc <- data[i,]
       times <- length(cnc[[i]])
@@ -94,8 +98,8 @@ Metabolites_Classify <- function(
   }
   dallc <- rbind(a3,a1)
   idnc <- which(colnames(dallc)=="compound.name")
-  dsic <- cbind(dallc[,idnc],dsi)
-  colnames(dsic)[1] <- "compound.name"
+  dsic <- add_column(dsi,dallc[,idnc],.after = 'ID')
+  colnames(dsic)[3] <- "compound.name"
   #
   ##unique isotope
   cat("unique the isotope ...\n")
@@ -105,7 +109,7 @@ Metabolites_Classify <- function(
   a2 <- data.frame(NULL)
   a3 <- data.frame(NULL)
   for (i in 1:nr) {
-
+    cat(i); cat(" ")
     if(length(cni[[i]]) != 1){
       rsci <- data[i,]
       times <- length(cni[[i]])
@@ -120,8 +124,8 @@ Metabolites_Classify <- function(
   }
   dalli <- rbind(a3,a1)
   idni <- which(colnames(dalli)=="isotope")
-  dsici <- cbind(dalli[,idni],dsic)
-  colnames(dsici)[1] <- "isotope"
+  dsici <- add_column(dsic,dalli[,idni],.after = 'compound.name')
+  colnames(dsici)[4] <- "isotope"
   #
   ##unique adduct
   cat("unique the adduct ...\n")
@@ -131,7 +135,7 @@ Metabolites_Classify <- function(
   a2 <- data.frame(NULL)
   a3 <- data.frame(NULL)
   for (i in 1:nr) {
-
+    cat(i); cat(" ")
     if(length(cna[[i]]) != 1){
       rsca <- data[i,]
       times <- length(cna[[i]])
@@ -146,25 +150,51 @@ Metabolites_Classify <- function(
   }
   dalla <- rbind(a3,a1)
   idna <- which(colnames(dalla)=="adduct")
-  dsica <- cbind(dalla[,idna],dsici)
-  colnames(dsica)[1] <- "adduct"
+  dsica <- add_column(dsici,dalla[,idna],.after = 'isotope')
+  colnames(dsica)[5] <- "adduct"
+  ##unique confidence
+
+  cat("unique the confidence ...\n")
+  ncg <- data$confidence
+  cng <- strsplit(ncg,split=';')
+  a1 <- data.frame(NULL)
+  a2 <- data.frame(NULL)
+  a3 <- data.frame(NULL)
+  for (i in 1:nr) {
+    cat(i); cat(" ")
+    if(length(cng[[i]]) != 1){
+      rscg <- data[i,]
+      times <- length(cng[[i]])
+      for (j in 1:times) {
+        rscg$confidence <- cng[[i]][j]
+        a1 <- rbind(a1,rscg)
+      }
+    }else{
+      a2 <- data[i,]
+      a3 <- rbind(a3,a2)
+    }
+  }
+  dallg <- rbind(a3,a1)
+  idng <- which(colnames(dallg)=="confidence")
+  dsicg <- add_column(dsica,dallg[,idng],.after = 'adduct')
+  colnames(dsicg)[6] <- "confidence"
   #remove the isotope
-  temp<- dsica[c(grep("\\[M\\]",dsica$isotope),
-                 which(dsica$isotope == "")),]
+  temp<- dsicg[c(grep("\\[M\\]",dsicg$isotope),
+                 which(dsicg$isotope == "")),]
   #remove the score<.4
   idx <- which(temp$score < 0.4)
   df <- temp[-idx,]
-  write.csv(df,'data after classify.csv',row.names = F)
+
   #unique compound
   qcinx <- grep('qc',colnames(df))
   qc <- df[,qcinx]
   qcm <- apply(qc, 1, mean)
-  am <- cbind(qcm,df)
+  am <- add_column(df,qcm,.after = 'rt')
   max_uniq = aggregate(am[,"qcm"],list(am[,"compound.name"]),max,drop = FALSE)
-  ic <- intersect(max_uniq$x,am$qcm)
-  da <- am[match(ic,am$qcm),]
+  ic <- intersect(max_uniq$Group.1,am$compound.name)
+  da <- am[match(ic,am$compound.name),]
   write.csv(da,'unique_compound.csv',row.names = F)
-
+  #write.csv(df,'data after classify.csv',row.names = F)
   cat("classify the metabolites ...\n")
   #classify the metabolites
   mid <- as.character(da$ID)
@@ -184,12 +214,8 @@ Metabolites_Classify <- function(
   pmid <- aa[,-c(2:3)]
   colnames(pmid) <- c('ID','compound name')
   write.csv(pmid,'classfied metabolites.csv')
-  # ica <- intersect(da$ID,pmid$ID)
-  # dad <- da[match(ica,da$ID),]
-  # dad <- dad[,-1]
-
   ##Metabolite_Distribution_plot
-  bk <- read_csv("classfied metabolites.csv")
+  bk <- read.csv("classfied metabolites.csv")
   cda <- as.character(bk$X)
   cds <- unlist(strsplit(cda,";"))
   bboy <- grep('hsa',cds)#delete the rows hsa000101 etc
@@ -206,7 +232,7 @@ Metabolites_Classify <- function(
     ggplot2::ylab(('The number of metabolites in each pathway'))+
     ggplot2::annotate("text", label = nrow(unique(bg)), x = 2, y = 20, size = 6)+
     ggplot2::annotate("text", label = 'pathway number', x = 5, y = 20, size = 6)+
-    ggplot2::annotate("text", label = length(metabolite.id), x = 8, y = 20, size = 6)+
+    ggplot2::annotate("text", label = nrow(unique(bk)), x = 8, y = 20, size = 6)+
     ggplot2::annotate("text", label = 'metabolites number', x = 12, y = 20, size = 6)+
     ggplot2::geom_text(mapping = ggplot2::aes(label = ax$number),size=3,vjust=0.5,position = ggplot2::position_stack(vjust = 0.5))+
     ggplot2::theme(panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),#remove ggplot2 background

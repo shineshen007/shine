@@ -1,8 +1,8 @@
 Package: Shine
 Type: Package
 Title: R package for metabolonmic data analysis
-Version: 0.2.3
-Date: 2020-02-07
+Version: 0.2.6
+Date: 2020-02-15
 Author: Shen Shine
 Maintainer: Shen Shine<qq951633542@163.com>
 Description: multifunctional data analysis tools.
@@ -14,4 +14,4 @@ Imports: ggplot2,ggrepel,gplots,mixOmics,pheatmap,data.table,corrplot,e1071,
          plsdepot,plyr,export,readr,wesanderson,MetaboAnalystR,ggplotify
 Suggests: xlsx         
 Depends: R (>= 3.3)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2

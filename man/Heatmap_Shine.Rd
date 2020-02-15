@@ -4,12 +4,25 @@
 \alias{Heatmap_Shine}
 \title{Heatmap_Shine}
 \usage{
-Heatmap_Shine(colour = c("green", "black", "red"), a = -2, b = 2,
-  d = 100, scale_row = TRUE, size_row = 10, size_col = 8,
-  fontsize = 10, ppt_height = 7, ppt_width = 9, cellwidth = NA,
-  cellheight = NA, border = NA, show_colnames = FALSE,
-  show_rownames = FALSE, cluster_cols = FALSE, group = c("case",
-  "control"))
+Heatmap_Shine(
+  colour = c("green", "black", "red"),
+  a = -2,
+  b = 2,
+  d = 100,
+  scale_row = TRUE,
+  size_row = 10,
+  size_col = 8,
+  fontsize = 10,
+  ppt_height = 7,
+  ppt_width = 9,
+  cellwidth = NA,
+  cellheight = NA,
+  border = NA,
+  show_colnames = FALSE,
+  show_rownames = FALSE,
+  cluster_cols = FALSE,
+  group = c("case", "control")
+)
 }
 \arguments{
 \item{colour}{colour selection.}

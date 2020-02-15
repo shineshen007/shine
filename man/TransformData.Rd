@@ -4,8 +4,13 @@
 \alias{TransformData}
 \title{TransformData}
 \usage{
-TransformData(group = "Normal", data_position = 1, info_position = 2,
-  name = "compound.name", boxplot_data = FALSE)
+TransformData(
+  group = "Normal",
+  data_position = 1,
+  info_position = 2,
+  name = "compound.name",
+  boxplot_data = FALSE
+)
 }
 \arguments{
 \item{group}{the group you want to remove}

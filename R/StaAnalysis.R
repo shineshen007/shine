@@ -19,6 +19,7 @@
 #' @import ggplot2
 #' @examples
 #' \donttest{
+#' StaAnalysis()
 #' }
 StaAnalysis <- function(p.cutoff = 0,
                         group = c("case","control"),

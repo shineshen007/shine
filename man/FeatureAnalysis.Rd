@@ -4,8 +4,13 @@
 \alias{FeatureAnalysis}
 \title{FeatureAnalysis}
 \usage{
-FeatureAnalysis(zero.filter = FALSE, RSD.filter = FALSE,
-  zero.check = TRUE, mzrt = FALSE, FilterIsotope = TRUE)
+FeatureAnalysis(
+  zero.filter = FALSE,
+  RSD.filter = FALSE,
+  zero.check = TRUE,
+  mzrt = FALSE,
+  FilterIsotope = TRUE
+)
 }
 \arguments{
 \item{zero.filter}{default is FALSE,if the zero value exsit in your data,

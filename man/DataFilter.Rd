@@ -4,8 +4,13 @@
 \alias{DataFilter}
 \title{DataFilter}
 \usage{
-DataFilter(p = 0.05, comp1 = 1, comp2 = 1, fc_toplimit = 4/3,
-  fc_lowerlimit = 3/4)
+DataFilter(
+  p = 0.05,
+  comp1 = 1,
+  comp2 = 1,
+  fc_toplimit = 4/3,
+  fc_lowerlimit = 3/4
+)
 }
 \arguments{
 \item{p}{p value}
