@@ -4,10 +4,12 @@
 \alias{PathwayAnalysis}
 \title{PathwayAnalysis}
 \usage{
-PathwayAnalysis(font_size = 15, nrow = 5)
+PathwayAnalysis(font_size = 15, path_font_size = 5, nrow = 5)
 }
 \arguments{
 \item{font_size}{15}
+
+\item{path_font_size}{5}
 
 \item{nrow}{5}
 }

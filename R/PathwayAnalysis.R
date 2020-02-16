@@ -4,13 +4,14 @@
 #' \email{qq951633542@@163.com}
 #' @param nrow 5
 #' @param font_size 15
+#' @param path_font_size 5
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-PathwayAnalysis <- function(font_size = 15,
+PathwayAnalysis <- function(font_size = 15,path_font_size = 5,
                             nrow=5){
   rawdata <- read.csv('data pathway.csv')
   dir.create('pathway')
@@ -102,7 +103,7 @@ PathwayAnalysis <- function(font_size = 15,
         data = subset(vol,Raw.p< 0.05),
         #max.iter = 10,
         aes(label = X),
-        size = 4,
+        size = path_font_size,
         box.padding = 0.25,
         point.padding = 0.3)
     save(ph,file = 'pathway.Rda')
