@@ -19,6 +19,7 @@
 #' @param show_rownames show_rownames
 #' @param ppt_width ppt_width
 #' @param ppt_height ppt_height.
+#' @param pdf_width 7
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -28,7 +29,7 @@
 Heatmap_Shine <- function(colour = c("green","black","red"),
                           a=-2,#lower limit
                           b=2,#upper limit
-                          #c=0.04,(a+b)/d
+                          pdf_width = 7,
                           d=100,#interval
                           scale_row = TRUE,
                           size_row=10,
@@ -136,7 +137,7 @@ Heatmap_Shine <- function(colour = c("green","black","red"),
                            cluster_cols = cluster_cols,
                            fontsize_row=size_row,
                            fontsize_col=size_col,
-                           annotation=anno,
+                           annotation=anno,width = pdf_width,
                            filename = "heatmap.pdf"
   )
   save(hm,file = 'heatmap.Rda')

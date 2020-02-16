@@ -1,7 +1,5 @@
 # Shine
 
-![](docs/shine.png)
-
 ## About
 
 `Shine` is a R packge which is used for analyzing untargeted metabolomics data based UPLC-HRMS 

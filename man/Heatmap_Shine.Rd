@@ -8,6 +8,7 @@ Heatmap_Shine(
   colour = c("green", "black", "red"),
   a = -2,
   b = 2,
+  pdf_width = 7,
   d = 100,
   scale_row = TRUE,
   size_row = 10,
@@ -30,6 +31,8 @@ Heatmap_Shine(
 \item{a}{lowerlimt of colour.}
 
 \item{b}{toplimit of colour}
+
+\item{pdf_width}{7}
 
 \item{d}{default 100}
 
