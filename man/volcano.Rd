@@ -6,26 +6,21 @@
 \usage{
 volcano(
   p.cutoff = 0,
-  group = c("case", "control"),
+  font_size = 15,
   colour = c("springgreen3", "grey", "firebrick1"),
-  pcorrect = TRUE,
   singleline = TRUE,
   xlim = c(-3, 3),
   fc.cutoff = 0.4150375,
   doubleline = FALSE,
-  unitest = c("t.test", "wilcox.test"),
-  paired = FALSE,
   h = 0.2
 )
 }
 \arguments{
 \item{p.cutoff}{default is 0.05.}
 
-\item{group}{group set.}
+\item{font_size}{15}
 
-\item{colour}{the colour of points}
-
-\item{pcorrect}{default is TRUE.}
+\item{colour}{the colour of point}
 
 \item{singleline}{default is FALSE.}
 
@@ -34,10 +29,6 @@ volcano(
 \item{fc.cutoff}{default is 1}
 
 \item{doubleline}{default is TRUE.}
-
-\item{unitest}{t.test or wilcox.test.}
-
-\item{paired}{paired test in t.test and wilcox.test,default is FALSE.}
 
 \item{h}{the height of group index,default is 0.2}
 }
