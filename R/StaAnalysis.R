@@ -4,7 +4,6 @@
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
 #' @param group group set.
-#' @param xlim xlim.
 #' @param p.cutoff default is 0.05.
 #' @param splot default is FALSE.
 #' @param pcorrect default is TRUE.
@@ -27,7 +26,6 @@ StaAnalysis <- function(p.cutoff = 0,
                         colv = c("SpringGreen3","grey","Firebrick1"),
                         unitest =c("t.test","wilcox.test"),
                         pcorrect = TRUE,
-                        xlim = c(-3,3),
                         paired = FALSE,
                         h=0.2,
                         PCA = FALSE,
@@ -183,6 +181,7 @@ StaAnalysis <- function(p.cutoff = 0,
   vol<-read_csv("vol.csv")
   fc<- vol$fc
   p<- vol$p
+  xlim=c(-log2(max(max(fc),abs(min(fc)))),log2(max(max(fc),abs(min(fc)))))
   group1<-group[1]
   group2<-group[2]
   Significant<- as.factor(ifelse(p < 0.05 & abs(log2(fc)) > 0.4150375,

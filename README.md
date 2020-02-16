@@ -1,5 +1,6 @@
 # Shine
-R package for data processing in statistical
+
+![](docs/shine.png)
 
 ## About
 

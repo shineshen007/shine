@@ -3,7 +3,6 @@
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
 #' @param font_size 15
-#' @param xlim xlim.
 #' @param p.cutoff default is 0.05.
 #' @param doubleline default is TRUE.
 #' @param singleline default is FALSE.
@@ -20,7 +19,6 @@ volcano <- function(p.cutoff = 0,
                     font_size = 15,
                     colour = c("springgreen3", "grey","firebrick1"),
                     singleline = TRUE,
-                    xlim = c(-3,3),
                     fc.cutoff = 0.4150375,
                     doubleline = FALSE,
                     h=0.2){
@@ -114,6 +112,7 @@ volcano <- function(p.cutoff = 0,
   vol<-read.csv("vol.csv")
   fc<- vol$fc
   p<- vol$p
+  xlim=c(-log2(max(max(fc),abs(min(fc)))),log2(max(max(fc),abs(min(fc)))))
   #group1<-group[1]#group index on the plot
   #group2<-group[2]
   if(doubleline){

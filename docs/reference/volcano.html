@@ -111,15 +111,12 @@
 
     <pre class="usage"><span class='fu'>volcano</span>(
   <span class='kw'>p.cutoff</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"case"</span>, <span class='st'>"control"</span>),
+  <span class='kw'>font_size</span> <span class='kw'>=</span> <span class='fl'>15</span>,
   <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"springgreen3"</span>, <span class='st'>"grey"</span>, <span class='st'>"firebrick1"</span>),
-  <span class='kw'>pcorrect</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>singleline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>3</span>, <span class='fl'>3</span>),
   <span class='kw'>fc.cutoff</span> <span class='kw'>=</span> <span class='fl'>0.4150375</span>,
   <span class='kw'>doubleline</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>unitest</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"t.test"</span>, <span class='st'>"wilcox.test"</span>),
-  <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>0.2</span>
 )</pre>
 
@@ -131,16 +128,12 @@
       <td><p>default is 0.05.</p></td>
     </tr>
     <tr>
-      <th>group</th>
-      <td><p>group set.</p></td>
+      <th>font_size</th>
+      <td><p>15</p></td>
     </tr>
     <tr>
       <th>colour</th>
-      <td><p>the colour of points</p></td>
-    </tr>
-    <tr>
-      <th>pcorrect</th>
-      <td><p>default is TRUE.</p></td>
+      <td><p>the colour of point</p></td>
     </tr>
     <tr>
       <th>singleline</th>
@@ -157,14 +150,6 @@
     <tr>
       <th>doubleline</th>
       <td><p>default is TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>unitest</th>
-      <td><p>t.test or wilcox.test.</p></td>
-    </tr>
-    <tr>
-      <th>paired</th>
-      <td><p>paired test in t.test and wilcox.test,default is FALSE.</p></td>
     </tr>
     <tr>
       <th>h</th>

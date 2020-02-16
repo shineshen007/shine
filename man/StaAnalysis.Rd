@@ -11,7 +11,6 @@ StaAnalysis(
   colv = c("SpringGreen3", "grey", "Firebrick1"),
   unitest = c("t.test", "wilcox.test"),
   pcorrect = TRUE,
-  xlim = c(-3, 3),
   paired = FALSE,
   h = 0.2,
   PCA = FALSE,
@@ -30,8 +29,6 @@ StaAnalysis(
 \item{unitest}{t.test or wilcox.test.}
 
 \item{pcorrect}{default is TRUE.}
-
-\item{xlim}{xlim.}
 
 \item{paired}{paired test in t.test and wilcox.test,default is FALSE.}
 

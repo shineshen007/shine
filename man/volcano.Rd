@@ -9,7 +9,6 @@ volcano(
   font_size = 15,
   colour = c("springgreen3", "grey", "firebrick1"),
   singleline = TRUE,
-  xlim = c(-3, 3),
   fc.cutoff = 0.4150375,
   doubleline = FALSE,
   h = 0.2
@@ -23,8 +22,6 @@ volcano(
 \item{colour}{the colour of point}
 
 \item{singleline}{default is FALSE.}
-
-\item{xlim}{xlim.}
 
 \item{fc.cutoff}{default is 1}
 
