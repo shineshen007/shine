@@ -3,13 +3,14 @@
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
 #' @param nrow 5
+#' @param font_size 15
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-PathwayAnalysis <- function(
+PathwayAnalysis <- function(font_size = 15,
                             nrow=5){
   rawdata <- read.csv('data pathway.csv')
   dir.create('pathway')
@@ -39,10 +40,10 @@ PathwayAnalysis <- function(
     scale_fill_manual(values = c('Turquoise3','Firebrick1'))+
     ggplot2::theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
                    panel.background = element_blank(),axis.line = element_line(colour = "black"),
-                   legend.position = "none",axis.text.y = element_text(size = 14),
-                   axis.text.x = element_text(size = 14),#the font size of axis
-                   axis.title.x = element_text(size = 14),#the font size of axis title
-                   axis.title.y = element_text(size = 14))+
+                   legend.position = "none",axis.text.y = element_text(size = font_size),
+                   axis.text.x = element_text(size = font_size),#the font size of axis
+                   axis.title.x = element_text(size = font_size),#the font size of axis title
+                   axis.title.y = element_text(size = font_size))+
     ggplot2::geom_hline(yintercept= 1.30103,#draw a line at p=0.05
                         lty=4,col="grey21",lwd=1)+
     ggplot2::labs(title="Pathway Enrichment Analysis")+
@@ -93,10 +94,10 @@ PathwayAnalysis <- function(
            y="-log10(p-value)")+
       ggplot2::theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
                      panel.background = element_blank(),axis.line = element_line(colour = "black"),
-                     legend.position = "none",axis.text.y = element_text(size = 14),
-                     axis.text.x = element_text(size = 14),#the font size of axis
-                     axis.title.x = element_text(size = 14),#the font size of axis title
-                     axis.title.y = element_text(size = 14))+
+                     legend.position = "none",axis.text.y = element_text(size = font_size),
+                     axis.text.x = element_text(size = font_size),#the font size of axis
+                     axis.title.x = element_text(size = font_size),#the font size of axis title
+                     axis.title.y = element_text(size = font_size))+
       ggrepel::geom_text_repel(
         data = subset(vol,Raw.p< 0.05),
         #max.iter = 10,
