@@ -7,6 +7,7 @@
 Boxplot_Shine(
   ppt_width = 9,
   ngroup = 3,
+  font_size = 16,
   levels = c("Normal", "Hyperuricemia", "Gout"),
   palette = c("BottleRocket1", "BottleRocket2", "Rushmore1", "Royal1", "Royal2",
     "Zissou1", "Darjeeling1", "Darjeeling2", "Chevalier1", "FantasticFox1", "Moonrise1",
@@ -18,6 +19,8 @@ Boxplot_Shine(
 \item{ppt_width}{default is 9}
 
 \item{ngroup}{number of grouo}
+
+\item{font_size}{font_size}
 
 \item{levels}{order of group}
 
