@@ -1,4 +1,4 @@
-# Shine
+# Shine <img src="man/pics/shine.png" align="right" alt="" width="120" />
 
 ## About
 
