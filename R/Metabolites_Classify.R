@@ -213,7 +213,13 @@ Metabolites_Classify <- function(data_name="data for classify.csv",
   aa <- cbind(IDinPathway,dt)
   pmid <- aa[,-c(2:3)]
   colnames(pmid) <- c('ID','compound name')
-  write.csv(pmid,'classfied metabolites.csv')
+  ######
+  as <- da[,c('name','ID','compound.name','fc','p')]
+  ass <- as[match(intersect(pmid$ID,as$ID),as$ID),]
+  asp <- pmid[match(intersect(pmid$ID,ass$ID),pmid$ID),]
+  aspd <- cbind(asp,ass)
+  #######
+  write.csv(aspd,'classfied metabolites.csv')
   ##Metabolite_Distribution_plot
   bk <- read.csv("classfied metabolites.csv")
   cda <- as.character(bk$X)
