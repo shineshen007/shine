@@ -84,12 +84,12 @@ PathwayAnalysis <- function(font_size = 15,path_font_size = 5,
     export::graph2ppt(file='pathway.pptx',height=7,width=9,append=T)
 
     ##
-    ph <- ggplot2::ggplot(vol, aes(x = Impact, y = -log(Raw.p)))+
+    ph <- ggplot2::ggplot(vol, aes(x = Impact, y = -log10(Raw.p)))+
       geom_point(size=radi.vec*300,color=bg.vec) +
       #scale_color_manual(values = colour)
       # geom_vline(xintercept=0.75,
       #            lty=4,col="black",lwd=0.5)+ # add vetical line
-      geom_hline(yintercept = -log(0.05),
+      geom_hline(yintercept = -log10(0.05),
                  lty=4,col="black",lwd=0.5)+ #add hori line
       labs(x="Pathway Impact",
            y="-log10(p-value)")+
