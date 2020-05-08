@@ -15,7 +15,7 @@ MUVR_ANALYSIS <- function(group = "Normal",#the group you want to remove
                           data_position = 1,
                           info_position = 2
 ){
-
+  pacman::p_load(MUVR,doParallel)
   data <- readr::read_csv(dir()[data_position])
   info <- readr::read_csv(dir()[info_position])
   sample.name<-info$sample.name[info$class=="Subject"]
@@ -31,6 +31,8 @@ MUVR_ANALYSIS <- function(group = "Normal",#the group you want to remove
   roc <- read_csv('ls.csv')
   colnames(roc)[1] <- 'group'
   unlink('ls.csv')
+  dir.create('MUVR')
+  setwd('MUVR')
   #MUVR
   # library(MUVR)
   # library(parallel)
@@ -112,4 +114,5 @@ MUVR_ANALYSIS <- function(group = "Normal",#the group you want to remove
     add_column(.,rdmin[,'rank'],.after='name')
   colnames(rd)[4]='rank'
   write.csv(rd,'roc data.csv')
+  setwd('..//')
 }
