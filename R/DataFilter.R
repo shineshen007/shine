@@ -24,7 +24,7 @@ DataFilter <- function(p=0.05,comp1=1,comp2=1,
         idx.pp<-which(data$p>p)
         data_pathway<-data[-idx.pp,]
         write.csv(data_pathway,"data pathway.csv",row.names = FALSE)
-        #
+        #[which(md$comp1>1&md$comp2>1&md$p<0.05&md$fc<3/4|md$comp1>1&md$comp2>1&md$p<0.05&md$fc>4/3),]
         idx.vip1<-which(data$comp1<comp1)
         data<-data[-idx.vip1,]
         idx.vip2<-which(data$comp2<comp2)
