@@ -4,7 +4,6 @@
 #' \email{qq951633542@@163.com}
 #' @param group the group you want to remove
 #' @param data_position data_position
-#' @param info_position info_position
 #' @param name compound.name
 #' @param boxplot_data default is FALSE
 #' @return  All the results can be got form other functions and instruction.
@@ -15,13 +14,13 @@
 #' }
 TransformData <- function(group = "Normal",#the group you want to remove
                           data_position = 1,
-                          info_position = 2,
-                          name='compound.name',
+                          #info_position = 2,
+                          name='name',
                           boxplot_data=FALSE
 ){
 
   data <- readr::read_csv(dir()[data_position]) %>% as.data.frame()
-  info <- readr::read_csv(dir()[info_position])
+  info <- readr::read_csv('sample.info.csv')
   sample.name<-info$sample.name[info$class=="Subject"]
 
   sample<-data[,match(intersect(colnames(data),sample.name),colnames(data)),]%>%

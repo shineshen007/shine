@@ -7,8 +7,7 @@
 TransformData(
   group = "Normal",
   data_position = 1,
-  info_position = 2,
-  name = "compound.name",
+  name = "name",
   boxplot_data = FALSE
 )
 }
@@ -16,8 +15,6 @@ TransformData(
 \item{group}{the group you want to remove}
 
 \item{data_position}{data_position}
-
-\item{info_position}{info_position}
 
 \item{name}{compound.name}
 
