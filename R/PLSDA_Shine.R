@@ -17,7 +17,7 @@
 #'  #the data must be named as 'data.csv' and 'sample.info.csv'
 #' PLSDA()
 #' }
-PLSDA <- function(ind = FALSE,ellipse = FALSE,
+PLSDA_Shine <- function(ind = FALSE,ellipse = FALSE,
                   both = FALSE,neither = TRUE,
                   group = c("case","control"),multiclass=FALSE){
 

@@ -1,4 +1,4 @@
-#' @title ForestAnalysis
+#' @title ForestAnalysis_Shine
 #' @description a function can do forest analysis
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
@@ -12,7 +12,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-ForestAnalysis<-function(group = c("Gout","Normal")){
+ForestAnalysis_Shine <-function(group = c("Gout","Normal")){
 
   cat("Import data...\n")
   data <- data.table::fread("data.csv")

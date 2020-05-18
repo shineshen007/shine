@@ -1,4 +1,4 @@
-#' @title StaAnalysis
+#' @title StaAnalysis_Shine
 #' @description a function can generate PCA,PLSDA,heatmap,
 #' s plot of foldchange and volcano plot, also can calculate vip value.
 #' @author Shine Shen
@@ -20,7 +20,7 @@
 #' \donttest{
 #' StaAnalysis()
 #' }
-StaAnalysis <- function(p.cutoff = 0,
+StaAnalysis_Shine <- function(p.cutoff = 0,
                         group = c("case","control"),
                         splot = FALSE,
                         colv = c("SpringGreen3","grey","Firebrick1"),

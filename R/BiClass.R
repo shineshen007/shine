@@ -1,4 +1,4 @@
-#' @title BiClass
+#' @title BiClass_Shine
 #' @description a function can do classify analysis using logistic,svm and randomforest
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
@@ -14,7 +14,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-BiClass <- function(times = 1001,#must be odd
+BiClass_Shine <- function(times = 1001,#must be odd
                     logistic = TRUE,
                     RandomForest = TRUE,
                     SVM = TRUE

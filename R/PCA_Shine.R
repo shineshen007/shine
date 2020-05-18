@@ -15,7 +15,7 @@
 #' #the data must be named as 'data.csv' and 'sample.info.csv'
 #' PCA()
 #' }
-PCA <- function(ind = FALSE,ellipse = FALSE,
+PCA_Shine <- function(ind = FALSE,ellipse = FALSE,
                 both = FALSE,neither = TRUE,QC = FALSE){
 
   cat("Import data...\n")

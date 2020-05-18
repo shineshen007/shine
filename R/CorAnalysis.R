@@ -1,4 +1,4 @@
-#' @title CorAnalysis
+#' @title CorAnalysis_Shine
 #' @description a function can do correlation analysis
 #' @param number.cex The cex parameter to send to the call to text when
 #' writing the correlation coefficients into the plot.
@@ -15,7 +15,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-CorAnalysis<-function(number.cex = 0.6,#number size in cicle
+CorAnalysis_Shine <- function(number.cex = 0.6,#number size in cicle
                       tl.cex = 0.6,#font size of label
                       number.digits=4,
                       adjust = c("holm", "bonferroni", "BH", "fdr", "none")){

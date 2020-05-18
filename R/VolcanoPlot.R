@@ -1,4 +1,4 @@
-#' @title volcano
+#' @title volcano_Shine
 #' @description a function can generate volcano plot.
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
@@ -15,7 +15,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-volcano <- function(p.cutoff = 0,
+volcano_Shine <- function(p.cutoff = 0,
                     font_size = 15,
                     colour = c("springgreen3", "grey","firebrick1"),
                     singleline = TRUE,

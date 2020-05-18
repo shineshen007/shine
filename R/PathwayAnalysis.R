@@ -1,4 +1,4 @@
-#' @title PathwayAnalysis
+#' @title PathwayAnalysis_Shine
 #' @description a function to do PathwayAnalysis
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
@@ -11,7 +11,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-PathwayAnalysis <- function(font_size = 15,path_font_size = 5,
+PathwayAnalysis_Shine <- function(font_size = 15,path_font_size = 5,
                             nrow=5){
   rawdata <- read.csv('data pathway.csv')
   dir.create('pathway')

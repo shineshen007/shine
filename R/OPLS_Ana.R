@@ -1,4 +1,4 @@
-#' @title OPLSDA
+#' @title OPLSDA_Shine
 #' @description a function to do OPLSDA
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
@@ -12,7 +12,7 @@
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
-OPLSDA <- function(group='Gout',
+OPLSDA_Shine <- function(group='Gout',
                        data_position = 1,
                        scale="ParetoNorm",
                        repeats=200){
