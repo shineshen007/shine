@@ -4,11 +4,13 @@
 \name{mmu_compound_ID}
 \alias{mmu_compound_ID}
 \title{the pathway compound data for mouse compound}
-\format{A dataframe with 3024 rows and 3 variables:
+\format{
+A dataframe with 3024 rows and 3 variables:
 \describe{
   \item{mmu_compound_ID1}{ID of all compounds in mmu.kegg.pathway}
  ...
-}}
+}
+}
 \usage{
 mmu_compound_ID
 }

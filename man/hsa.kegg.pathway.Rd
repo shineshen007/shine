@@ -4,10 +4,12 @@
 \name{hsa.kegg.pathway}
 \alias{hsa.kegg.pathway}
 \title{pathway data for human}
-\format{A list contain pathway information:
+\format{
+A list contain pathway information:
 \describe{
   \item{hsa.kegg.pathway}{ID of all compounds in hsa.kegg.pathway}
-}}
+}
+}
 \usage{
 hsa.kegg.pathway
 }

@@ -15,7 +15,7 @@
 TransformData <- function(group = "Normal",#the group you want to remove
                           data_position = 1,
                           #info_position = 2,
-                          name='name',
+                          name='compound.name',
                           boxplot_data=FALSE
 ){
 

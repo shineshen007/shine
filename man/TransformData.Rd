@@ -7,7 +7,7 @@
 TransformData(
   group = "Normal",
   data_position = 1,
-  name = "name",
+  name = "compound.name",
   boxplot_data = FALSE
 )
 }

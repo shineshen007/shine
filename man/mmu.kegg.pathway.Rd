@@ -4,10 +4,12 @@
 \name{mmu.kegg.pathway}
 \alias{mmu.kegg.pathway}
 \title{pathway data for mouse}
-\format{A list contain pathway information:
+\format{
+A list contain pathway information:
 \describe{
   \item{mmu.kegg.pathway}{ID of all compounds in mmu.kegg.pathway}
-}}
+}
+}
 \usage{
 mmu.kegg.pathway
 }

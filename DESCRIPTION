@@ -1,7 +1,7 @@
 Package: Shine
 Type: Package
 Title: R package for metabolonmic data analysis
-Version: 0.2.7
+Version: 0.2.8
 Date: 2020-02-15
 Author: Shen Shine
 Maintainer: Shen Shine<qq951633542@163.com>
@@ -10,8 +10,8 @@ License: GPL
 Encoding: UTF-8
 LazyData: true
 Imports: ggplot2,ggrepel,gplots,mixOmics,pheatmap,data.table,corrplot,e1071,
-         ggbeeswarm,ggpubr,pROC,randomForest,meta,survminer,survival,psych,
-         plsdepot,plyr,export,readr,wesanderson,MetaboAnalystR,ggplotify
+         ggbeeswarm,ggpubr,pROC,randomForest,meta,survminer,survival,psych,pacman,
+         plsdepot,plyr,export,readr,wesanderson,MetaboAnalystR,ggplotify,ComplexHeatmap
 Suggests: xlsx         
 Depends: R (>= 3.3)
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
