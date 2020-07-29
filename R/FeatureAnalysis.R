@@ -171,14 +171,14 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
 }
 
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("Shine 0.2.8
+  packageStartupMessage("Shine 0.2.9
                         Maintainer: Xia Shen.
-                        \n2020-07-22
+                        \n2020-07-29
                         News: Add serval functions
                         Notes: sample name in pos and neg mode must be identical
 
 
-                        Version 0.2.8
+                        Version 0.2.9
                         --------------
                         "
   )
