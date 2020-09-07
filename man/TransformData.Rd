@@ -6,19 +6,22 @@
 \usage{
 TransformData(
   group = "Normal",
-  data_position = 1,
+  data_name = "lasso_variable.csv",
   name = "compound.name",
-  boxplot_data = FALSE
+  boxplot_data = TRUE,
+  roc = FALSE
 )
 }
 \arguments{
 \item{group}{the group you want to remove}
 
-\item{data_position}{data_position}
+\item{data_name}{data_position}
 
 \item{name}{compound.name}
 
-\item{boxplot_data}{default is FALSE}
+\item{boxplot_data}{default is TRUE}
+
+\item{roc}{default is FALSE}
 }
 \value{
 All the results can be got form other functions and instruction.

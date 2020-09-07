@@ -7,7 +7,7 @@
 Violinplot_Shine(
   ppt_width = 9,
   font_size = 20,
-  levels = c("Normal", "Hyperuricemia", "Gout")
+  levels = c("Normal", "CHD", "MI")
 )
 }
 \arguments{

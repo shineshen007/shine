@@ -3,9 +3,10 @@
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
 #' @param group the group you want to remove
-#' @param data_position data_position
+#' @param data_name data_position
 #' @param name compound.name
-#' @param boxplot_data default is FALSE
+#' @param boxplot_data default is TRUE
+#' @param roc default is FALSE
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -13,13 +14,14 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 TransformData <- function(group = "Normal",#the group you want to remove
-                          data_position = 1,
+                          data_name = "lasso_variable.csv" ,
                           #info_position = 2,
                           name='compound.name',
-                          boxplot_data=FALSE
+                          boxplot_data = TRUE,
+                          roc =  FALSE
 ){
 
-  data <- readr::read_csv(dir()[data_position]) %>% as.data.frame()
+  data <- readr::read_csv(data_name) %>% as.data.frame()
   info <- readr::read_csv('sample.info.csv')
   sample.name<-info$sample.name[info$class=="Subject"]
 
@@ -39,7 +41,7 @@ TransformData <- function(group = "Normal",#the group you want to remove
     colnames(df) <- c('group','abundance','metabolites')
     write.csv(df,'data for boxplot.csv',row.names = F)
   }
-
+  if(roc){
   #data for roc
   s <- which(rownames(sample)== group)
   as <- sample[-s,]
@@ -48,6 +50,7 @@ TransformData <- function(group = "Normal",#the group you want to remove
   colnames(roc)[1] <- 'group'
   unlink('ls.csv')
   write.csv(roc,'data for roc.csv',row.names = F)
+  }
 }
 
 
