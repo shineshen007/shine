@@ -4,11 +4,7 @@
 \alias{Violinplot_Shine}
 \title{Violinplot_Shine}
 \usage{
-Violinplot_Shine(
-  ppt_width = 9,
-  font_size = 20,
-  levels = c("Normal", "CHD", "MI")
-)
+Violinplot_Shine(ppt_width = 9, font_size = 20, levels = c("Normal", "CHD"))
 }
 \arguments{
 \item{ppt_width}{default is 9}

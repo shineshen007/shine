@@ -13,7 +13,7 @@
 #' }
 Violinplot_Shine <- function(ppt_width = 9,
                           font_size = 20,
-                          levels = c("Normal","CHD","MI")
+                          levels = c("Normal","CHD")
 
 ){
   pacman::p_load(ggplot2,ggsci)
@@ -23,17 +23,18 @@ Violinplot_Shine <- function(ppt_width = 9,
   s <- ggplot(data,aes(x=metabolites,y = abundance))+
     geom_violin(aes(fill = group))+
     theme_bw()+
-    scale_fill_futurama()+
+    scale_fill_npg()+
     theme(axis.text.x=element_text(angle=45, hjust=1, vjust=1,size=font_size),
           legend.title=element_blank(),
           legend.position = 'bottom',
           legend.text = element_text(size = font_size),
           axis.text.y = element_text(size = font_size),
-          axis.title.x = element_text(size = font_size),#the font size of axis title
+          axis.title.x = element_text(size = 0),#the font size of axis title
           axis.title.y = element_text(size = font_size)
     )
   save(s,file = 'violinplot.Rda')
-  export::graph2ppt(x=s,file='violinplot.pptx',height=12,width=ppt_width)
+  ggsave('boxplot.pdf',height=7,width=9)
+  #export::graph2ppt(x=s,file='violinplot.pptx',height=12,width=ppt_width)
 }
 
 

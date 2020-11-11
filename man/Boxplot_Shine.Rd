@@ -8,7 +8,7 @@ Boxplot_Shine(
   ppt_width = 9,
   ngroup = 3,
   font_size = 20,
-  levels = c("Normal", "Hyperuricemia", "Gout")
+  levels = c("NU", "HU", "Gout")
 )
 }
 \arguments{

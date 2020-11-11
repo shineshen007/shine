@@ -15,7 +15,7 @@
 Boxplot_Shine <- function(ppt_width = 9,
                           ngroup = 3,
                           font_size = 20,
-                          levels =c ("Normal","Hyperuricemia","Gout")
+                          levels =c ("NU","HU","Gout")
 
 ){
   pacman::p_load(ggpubr,ggsci)
@@ -30,12 +30,13 @@ Boxplot_Shine <- function(ppt_width = 9,
           legend.title=element_blank(),
           legend.text = element_text(size = font_size),
           axis.text.y = element_text(size = font_size),
-          axis.title.x = element_text(size = font_size),#the font size of axis title
+          axis.title.x = element_text(size = 0),#the font size of axis title
           axis.title.y = element_text(size = font_size)
-          )+
-    stat_compare_means(aes(group = group),label = "p.signif", label.x = 1.5)
+    )+
+    stat_compare_means(aes(group = group),label = "p.signif", label.x = 1.5)+
+    ggsave('boxplot.pdf',height=7,width=9)
   save(s,file = 'boxplot.Rda')
-  export::graph2ppt(x=s,file='boxplot.pptx',height=7,width=ppt_width)
+  #export::graph2ppt(x=s,file='boxplot.pptx',height=7,width=ppt_width)
 }
 
 
