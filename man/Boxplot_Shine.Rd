@@ -5,20 +5,20 @@
 \title{Boxplot_Shine}
 \usage{
 Boxplot_Shine(
-  ppt_width = 9,
-  ngroup = 3,
   font_size = 20,
-  levels = c("NU", "HU", "Gout")
+  levels = c("NU", "HU", "Gout"),
+  height = 7,
+  width = 9
 )
 }
 \arguments{
-\item{ppt_width}{default is 9}
-
-\item{ngroup}{number of grouo}
-
 \item{font_size}{font_size}
 
 \item{levels}{order of group}
+
+\item{height}{7}
+
+\item{width}{9}
 }
 \value{
 All the results can be got form other functions and instruction.

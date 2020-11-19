@@ -4,14 +4,21 @@
 \alias{Violinplot_Shine}
 \title{Violinplot_Shine}
 \usage{
-Violinplot_Shine(ppt_width = 9, font_size = 20, levels = c("Normal", "CHD"))
+Violinplot_Shine(
+  font_size = 20,
+  levels = c("Normal", "CHD"),
+  height = 7,
+  width = 9
+)
 }
 \arguments{
-\item{ppt_width}{default is 9}
-
 \item{font_size}{font_size}
 
 \item{levels}{order of group}
+
+\item{height}{7}
+
+\item{width}{9}
 }
 \value{
 All the results can be got form other functions and instruction.
