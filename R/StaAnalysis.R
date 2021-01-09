@@ -177,7 +177,7 @@ StaAnalysis_Shine <- function(p.cutoff = 0,
   write.csv(data_pfc_vip,"data_pfc_vip.csv",row.names = F)
 
   #volcano plot
-  DataFilter()
+  DataFilter_Shine()
   vol<-read_csv("vol.csv")
   fc<- vol$fc
   p<- vol$p
