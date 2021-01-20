@@ -4,10 +4,10 @@
 \alias{PathwayBarplot}
 \title{pathway enrichment barplot}
 \usage{
-PathwayBarplot(row = 30)
+PathwayBarplot(font_size = 26)
 }
 \arguments{
-\item{row}{the rows be selected to plot,default is 30.}
+\item{font_size}{the font_size of plot,default is 26.}
 }
 \description{
 pathway enrichment barplot
