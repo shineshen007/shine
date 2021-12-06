@@ -1,7 +1,7 @@
 Package: Shine
 Type: Package
 Title: R package for metabolonmic data analysis
-Version: 0.2.11
+Version: 0.2.12
 Date: 2020-02-15
 Author: Shen Shine
 Maintainer: Shen Shine<qq951633542@163.com>
