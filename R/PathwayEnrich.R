@@ -4,8 +4,6 @@
 #' \email{qq951633542@@163.com}
 #' @param specias_pathway_database the specia of sample
 #' @param specias_compound_database the specia of sample
-#' @param keggmap default is TRUE
-#' @param group group info.
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @examples
@@ -13,77 +11,18 @@
 #' ##---- Be sure the format of data and sample.info is correct!! ----
 #' }
 PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.pathway),
-                          specias_compound_database = c(hsa_compound_ID,mmu_compound_ID),
-                          keggmap = TRUE,
-                          group=c("case","control")
+                          specias_compound_database = c(hsa_compound_ID,mmu_compound_ID)
 ){
-  da <- fread('data after classify.csv')
+  da <- fread('data_pathway.csv')
   da<-setDF(da)
   #unique ID
-  max_score = aggregate(da[,"score"],list(da[,"compound.name"]),max,drop = FALSE)
-  ic <- intersect(max_score$x,da$score)
-  data <- da[match(ic,da$score),]
-  sample.info <- read.csv("sample.info.csv")
-  ###data preparation
-  sample.name<-sample.info$sample.name[sample.info$class=="Subject"]
-  qc.name<-sample.info$sample.name[sample.info$class=="QC"]
-
-  sample<-data[,match(sample.name,colnames(data))]
-  qc<-data[,match(qc.name,colnames(data))]
-
-  data_pfc<- as.matrix(cbind(qc,sample))
-
-
-  name <- as.character(data[,"compound.name"])
-
-  class<- sample.info[,"group"]
-
-  group1.index <- which(class == group[1])
-  group2.index <- which(class == group[2])
-
-  fc <- apply(data_pfc,1,function(x) {
-    median(x[group1.index]+0.1)/ median(x[group2.index]+0.1)
-  })
-
-  ptest <- apply(data_pfc, 1, function(x) {
-    wilcox.test(x[group1.index], x[group2.index])
-  })
-
-  p <- unlist(lapply(ptest, function(x)
-    x$p.value))
-
-  p <- p.adjust(p = p, method = "fdr",n=length(p))
-
-  f<-as.data.frame(fc)
-
-  #
-  pvalue<-as.data.frame(p)
-  data_vol<-cbind(name,f,pvalue)
-  #get the vol.csc file ,merge with Quantitative.pathway.metabolite.result.csv
-  data.path<-cbind(data_vol,data)
-  mp <- which(data.path$p>0.05)
-  data.path <- data.path[-mp,]
-  ##create a folder for analysis
-  dir.create('PathwayEnrich')
-  setwd('PathwayEnrich')
-
-  if(keggmap){
-    rn<-nrow(data.path)
-    lfc<-which(data.path$fc<1)
-    tfc<-which(data.path$fc>1)
-    ab<-data.frame(1:rn)
-    colnames(ab)<-"colour"
-    ab[lfc,]<-"green"
-    ab[tfc,]<-"red"
-    dfc<-cbind(data.path[,"ID"],ab)
-
-    write.csv(dfc,'metabolites map to pathway.csv')
+  if(!file.exists('PathwayEnrich')){
+    dir.create('PathwayEnrich')
   }
+  setwd('PathwayEnrich')
   #pathwayenrich
-  mid <- data.path$ID
-  # mid <- as.character(mid)
-  uid<-mid
-  metabolite.id <- uid[which(uid %in% unique(unlist(specias_pathway_database)))]#filter the metabolites not in specia
+  mid <- da$ID
+  metabolite.id <- mid[which(mid %in% unique(unlist(specias_pathway_database)))]#filter the metabolites not in specia
 
   ALLm <- unname(unique(unlist(specias_pathway_database)))
   ALLm <- as.character(as.matrix(ALLm))

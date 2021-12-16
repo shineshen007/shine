@@ -6,19 +6,13 @@
 \usage{
 PathwayEnrich(
   specias_pathway_database = c(hsa.kegg.pathway, mmu.kegg.pathway),
-  specias_compound_database = c(hsa_compound_ID, mmu_compound_ID),
-  keggmap = TRUE,
-  group = c("case", "control")
+  specias_compound_database = c(hsa_compound_ID, mmu_compound_ID)
 )
 }
 \arguments{
 \item{specias_pathway_database}{the specia of sample}
 
 \item{specias_compound_database}{the specia of sample}
-
-\item{keggmap}{default is TRUE}
-
-\item{group}{group info.}
 }
 \value{
 All the results can be got form other functions and instruction.
