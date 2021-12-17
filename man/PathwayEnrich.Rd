@@ -6,26 +6,24 @@
 \usage{
 PathwayEnrich(
   specias_pathway_database = c(hsa.kegg.pathway, mmu.kegg.pathway),
-  specias_compound_database = c(hsa_compound_ID, mmu_compound_ID)
+  specias_compound_database = c(hsa_compound_ID, mmu_compound_ID),
+  font_size = 20
 )
 }
 \arguments{
 \item{specias_pathway_database}{the specia of sample}
 
 \item{specias_compound_database}{the specia of sample}
+
+\item{font_size}{20}
 }
 \value{
 All the results can be got form other functions and instruction.
 }
 \description{
-a function can match differetiate metabolites in differentiate pathway.
-}
-\examples{
-\donttest{
-##---- Be sure the format of data and sample.info is correct!! ----
-}
+a function to do PathwayAnalysis
 }
 \author{
-Shine Shen
+Xia Shen
 \email{qq951633542@163.com}
 }

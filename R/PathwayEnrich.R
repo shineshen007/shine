@@ -1,27 +1,25 @@
 #' @title PathwayEnrich
-#' @description a function can match differetiate metabolites in differentiate pathway.
-#' @author Shine Shen
+#' @description a function to do PathwayAnalysis
+#' @author Xia Shen
 #' \email{qq951633542@@163.com}
+#' @param font_size 20
 #' @param specias_pathway_database the specia of sample
 #' @param specias_compound_database the specia of sample
 #' @return  All the results can be got form other functions and instruction.
 #' @export
-#' @examples
-#' \donttest{
-#' ##---- Be sure the format of data and sample.info is correct!! ----
-#' }
 PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.pathway),
-                          specias_compound_database = c(hsa_compound_ID,mmu_compound_ID)
-){
-  da <- fread('data_pathway.csv')
-  da<-setDF(da)
-  #unique ID
+                          specias_compound_database = c(hsa_compound_ID,mmu_compound_ID),
+                          font_size=20){
+  pacman::p_load(ggplotify,readr,data.table,export,magrittr)
+  da <- read_csv('data_pathway.csv')
   if(!file.exists('PathwayEnrich')){
     dir.create('PathwayEnrich')
   }
-  setwd('PathwayEnrich')
+
   #pathwayenrich
-  mid <- da$ID
+  seed <- dplyr::filter(da,Annotation.type=='seed')
+  #seed <- dplyr::filter(da,confidence=='grade1'|confidence=='grade2')
+  mid <- seed$ID
   metabolite.id <- mid[which(mid %in% unique(unlist(specias_pathway_database)))]#filter the metabolites not in specia
 
   ALLm <- unname(unique(unlist(specias_pathway_database)))
@@ -41,14 +39,14 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
   IDinPathway <- unlist(lapply(specias_pathway_database, function(x) {
     intersect(x, SIGm)#get the mapped metabolites number in each pathway
   }))
-  aID <- as.data.frame(IDinPathway[!duplicated(IDinPathway)])
-  i <- intersect(aID$`IDinPathway[!duplicated(IDinPathway)]`,specias_compound_database$id)
-  dt <- specias_compound_database[match(i,specias_compound_database$id),]
-  sd <- setdiff(aID$`IDinPathway[!duplicated(IDinPathway)]`,dt$id)
-  if(length(sd) != 0){
-    nsd <- which(aID$`IDinPathway[!duplicated(IDinPathway)]`%in%sd)
-    aa <- cbind(aID[-nsd,],dt)
-  }else(aa <- cbind(aID,dt))
+  # aID <- as.data.frame(IDinPathway[!duplicated(IDinPathway)])
+  # i <- intersect(aID$`IDinPathway[!duplicated(IDinPathway)]`,specias_compound_database$id)
+  # dt <- specias_compound_database[match(i,specias_compound_database$id),]
+  # sd <- setdiff(aID$`IDinPathway[!duplicated(IDinPathway)]`,dt$id)
+  # if(length(sd) != 0){
+  #   nsd <- which(aID$`IDinPathway[!duplicated(IDinPathway)]`%in%sd)
+  #   aa <- cbind(aID[-nsd,],dt)
+  # }else(aa <- cbind(aID,dt))
 
   ###
 
@@ -58,7 +56,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
     P[i] <- phyper(q = ball, m = pall[i], n = num_all - pall[i],
                    k = num_sig, lower.tail = FALSE)
   }
-  BHP <- p.adjust(P, method="BH")
+  BHP <- p.adjust(P, method="bonferroni")
   FDR <- p.adjust(P, method="fdr")
 
   PBF <- cbind(P,BHP, FDR)
@@ -76,66 +74,103 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
   colnames(info) <- c("Pathway.length", "Overlap")
 
   info <- data.frame(PBF, info, stringsAsFactors = FALSE)
-
+  setwd('PathwayEnrich')
   info <- info[order(info[,1]),]
+  write.csv(info,'pathway_results.csv')
+  #o('pathway_impact_76_pathway_hsa.all.ID.csv')
+  ##id match to pathway
+  #compound_db <- read_csv('/Users/shineshen/Downloads/demo/kegg/old/kegg_compound_unique.csv')
+  sig_path <- dplyr::filter(info,q.value<0.05)
+  ip <- lapply(hsa_76, function(x){
+    intersect(x,mid)
+  })
 
-  write.csv(info,'pathway impact.csv')
-  #draw barplot
-  dat <- read.csv('pathway impact.csv')
+  for (i in setdiff(names(hsa_76),rownames(sig_path))) {
+    ip[[i]]=NULL
+  }
 
-  colnames(dat) <- c('pathway', "p.value","q.value","p","Pathway.length","Overlap" )
-  w <- which(dat$p>0.05)
-  row = w[1]+5
-  dat <- dat[1:row,]
-  pa <- as.character(dat$pathway)
-  pid<-unique(unlist(strsplit(pa,";")))
-  an <- seq(2,length(pid),2)
-  pid <- data.frame(pid[-an])
-  colnames(pid) <- 'path'
-  datt <- cbind(pid,dat)
-  group <- ifelse(dat$p < 0.05,"sig", "not sig")
-  cat("Draw pathway barplot...\n")
-  pb<- ggplot2::ggplot(datt,ggplot2::aes(reorder(path,-p),-log10(p)))+##-p control the order
-    ggplot2::geom_bar(ggplot2::aes(fill=group),stat = "identity",position="dodge",width=0.8)+
-    ggplot2::theme(panel.grid.major =ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),#remove ggplot2 background
-                   panel.background = ggplot2::element_blank(),axis.line = ggplot2::element_line(colour = "black"),
-                   legend.position = "none",axis.text.y = ggplot2::element_text(size = 16),#the font size of axis
-                   axis.title.x = ggplot2::element_text(size = 18),#the font size of axis title
-                   axis.title.y = ggplot2::element_text(size = 18))+
+  for (i in 1:length(ip)) {
+    ip[[i]] <- seed[match(ip[[i]],seed$ID),]
+  }
+  openxlsx::write.xlsx(ip,'Id_pathway.xlsx')
+  #
+  data <- read.csv("pathway_results.csv")
+  colnames(data)[3] <- 'p'
+  row=sum(data$p<0.05)+5
+  data <- data[1:row,]
+  group <- ifelse(data$p < 0.05,"sig", "not sig")
+  pb <- ggplot2::ggplot(data,ggplot2::aes(reorder(X,-p),-log10(p)))+##-p control the order
+    ggplot2::geom_bar(aes(fill=group),stat = "identity",position="dodge",width=0.8)+
+    scale_fill_manual(values = c('Turquoise3','Firebrick1'))+
+    ggplot2::theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
+                   panel.background = element_blank(),axis.line = element_line(colour = "black"),
+                   legend.position = "none",axis.text.y = element_text(size = font_size),
+                   axis.text.x = element_text(size = font_size),#the font size of axis
+                   axis.title.x = element_text(size = font_size),#the font size of axis title
+                   axis.title.y = element_text(size = font_size))+
     ggplot2::geom_hline(yintercept= 1.30103,#draw a line at p=0.05
                         lty=4,col="grey21",lwd=1)+
     ggplot2::labs(title="Pathway Enrichment Analysis")+
     ggplot2::coord_flip()+
-    ggplot2::xlab('Pathway')+
-    ggplot2::ggsave("PathwayBarplot.png", width = 12, height = 8)
-  export::graph2ppt(x=pb,file='PathwayBarplot.pptx',height=7,width=9)
-  cat("Generate cytoscape data...\n")
-  #cytoscape
-  pathway.p<-dat
-  nume<-length(pathway.p$p<0.05)
-  path1<-as.character(pathway.p[1:nume,1])
-  a<-NULL
-  ct<-data.frame(NULL)
-  for (i in 1:nume){
-    #get the pathway
-    pathway.name<-path1[i]
-    pathway.d<-specias_pathway_database[pathway.name]
-    #get the ID in pathway
-    pathway<-pathway.d[[1]]
-    ix <- intersect(pathway,data.path$ID)
-    pathway_name<-as.data.frame(c(rep(c(pathway.name),length(ix))))
-    pathway_p<-as.data.frame(c(rep(c(pathway.p[i,'p']),length(ix))))
-    foldchange <- data.path$fc[match(ix,data.path$ID)]
-    metabolite <- data.path$compound.name[match(ix,data.path$ID)]
-    cyto <- cbind(pathway_p,pathway_name,metabolite,foldchange)
+    ggplot2::xlab('Pathway')
+  save(pb,file = 'barplot.Rda')
+  export::graph2ppt(x=pb,file='pathway.pptx',height=7,width=9)
+  dev.off()
+  #####
+  # vol<-read.csv("pathway_results.csv") #%>%
+  #
+  # Impact<- vol$Impact
+  # p<- vol$Raw.p
+  #
+  #
+  # sqx <- sqrt(Impact);
+  # min.x<- min(sqx, na.rm = TRUE);
+  # max.x <- max(sqx, na.rm = TRUE);
+  #
+  # if(min.x == max.x){ # only 1 value
+  #   max.x = 1.5*max.x;
+  #   min.x = 0.5*min.x;
+  # }
+  #
+  # maxR <- (max.x - min.x)/40;
+  # minR <- (max.x - min.x)/160;
+  # radi.vec <- minR+(maxR-minR)*(sqx-min.x)/(max.x-min.x)
+  # # set background color according to y
+  # bg.vec <- heat.colors(length(p));
+  # op <- par(mar=c(6,5,2,3));
+  # plot(Impact, -log10(p), type="n", axes=F, xlab="Pathway Impact", ylab="-log10(p)");
+  # axis(1);
+  # axis(2);
+  # grid(col="blue");
+  # symbols(Impact, -log10(p), add = TRUE, inches = F, circles = radi.vec, bg = bg.vec, xpd=T);
+  #
+  # export::graph2ppt(file='pathway.pptx',height=7,width=9,append=T)
 
-    ct <- rbind(ct, cyto)
-
-  }
-  colnames(ct)<-c("pathway.p","pathway","metabolites","foldchange")
-  xlsx::write.xlsx(ct,"cytoscape.xlsx",row.names = F)
-
-  ##back origin work directory
-  setwd("..//")
+  ##
+  # ph <- ggplot2::ggplot(vol, aes(x = Impact, y = -log10(Raw.p)))+
+  #   geom_point(size=radi.vec*300,color=bg.vec) +
+  #   #scale_color_manual(values = colour)
+  #   # geom_vline(xintercept=0.75,
+  #   #            lty=4,col="black",lwd=0.5)+ # add vetical line
+  #   geom_hline(yintercept = -log10(0.05),
+  #              lty=4,col="black",lwd=0.5)+ #add hori line
+  #   labs(x="Pathway Impact",
+  #        y="-log10(p-value)")+
+  #   ggplot2::theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
+  #                  panel.background = element_blank(),axis.line = element_line(colour = "black"),
+  #                  legend.position = "none",axis.text.y = element_text(size = font_size),
+  #                  axis.text.x = element_text(size = font_size),#the font size of axis
+  #                  axis.title.x = element_text(size = font_size),#the font size of axis title
+  #                  axis.title.y = element_text(size = font_size))+
+  #   ggrepel::geom_text_repel(
+  #     data = subset(vol,Raw.p< 0.05),
+  #     #max.iter = 10,
+  #     aes(label = X),
+  #     size = path_font_size,
+  #     box.padding = 0.25,
+  #     point.padding = 0.3)
+  # save(ph,file = 'pathway.Rda')
+  # export::graph2ppt(x=ph,file='pathway.pptx',height=7,width=9,append=T)
+  setwd('..//')
 }
 
