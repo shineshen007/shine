@@ -7,7 +7,10 @@
 PathwayEnrich(
   specias_pathway_database = c(hsa.kegg.pathway, mmu.kegg.pathway),
   specias_compound_database = c(hsa_compound_ID, mmu_compound_ID),
-  font_size = 20
+  font_size = 20,
+  All_ID = FALSE,
+  seed = TRUE,
+  grade1_2 = FALSE
 )
 }
 \arguments{
@@ -16,6 +19,12 @@ PathwayEnrich(
 \item{specias_compound_database}{the specia of sample}
 
 \item{font_size}{20}
+
+\item{All_ID}{default is FALSE}
+
+\item{seed}{default is TRUE}
+
+\item{grade1_2}{default is FALSE}
 }
 \value{
 All the results can be got form other functions and instruction.
