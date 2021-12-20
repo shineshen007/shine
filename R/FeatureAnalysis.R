@@ -174,7 +174,7 @@ FeatureAnalysis <- function(zero.filter = FALSE,RSD.filter = FALSE,
   packageStartupMessage("Shine 0.2.15
                         Maintainer: Xia Shen.
                         \n2021-12-17
-                        News: Add pathway enrich
+                        News: Update KEGG pathway information
                         Notes: sample name in pos and neg mode must be identical
 
 

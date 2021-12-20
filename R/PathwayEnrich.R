@@ -11,15 +11,15 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
                           specias_compound_database = c(hsa_compound_ID,mmu_compound_ID),
                           font_size=20){
   pacman::p_load(ggplotify,readr,data.table,export,magrittr)
-  da <- read_csv('data_pathway.csv')
+  data <- read_csv('data_pathway.csv')
   if(!file.exists('PathwayEnrich')){
     dir.create('PathwayEnrich')
   }
 
   #pathwayenrich
-  seed <- dplyr::filter(da,Annotation.type=='seed')
+  #seed <- dplyr::filter(data,Annotation.type=='seed')
   #seed <- dplyr::filter(da,confidence=='grade1'|confidence=='grade2')
-  mid <- seed$ID
+  mid <- data$ID
   metabolite.id <- mid[which(mid %in% unique(unlist(specias_pathway_database)))]#filter the metabolites not in specia
 
   ALLm <- unname(unique(unlist(specias_pathway_database)))
