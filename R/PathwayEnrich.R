@@ -90,7 +90,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
   }
 
   for (i in 1:length(ip)) {
-    ip[[i]] <- seed[match(ip[[i]],seed$ID),]
+    ip[[i]] <- data[match(ip[[i]],data$ID),]
   }
   openxlsx::write.xlsx(ip,'Id_pathway.xlsx')
   #
