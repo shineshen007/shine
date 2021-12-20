@@ -81,11 +81,11 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
   ##id match to pathway
   #compound_db <- read_csv('/Users/shineshen/Downloads/demo/kegg/old/kegg_compound_unique.csv')
   sig_path <- dplyr::filter(info,q.value<0.05)
-  ip <- lapply(hsa_76, function(x){
+  ip <- lapply(specias_pathway_database, function(x){
     intersect(x,mid)
   })
 
-  for (i in setdiff(names(hsa_76),rownames(sig_path))) {
+  for (i in setdiff(names(specias_pathway_database),rownames(sig_path))) {
     ip[[i]]=NULL
   }
 
@@ -96,7 +96,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
   #
   data <- read.csv("pathway_results.csv")
   colnames(data)[3] <- 'p'
-  row=sum(data$p<0.05)+5
+  row=sum(data$p<0.05)+3
   data <- data[1:row,]
   group <- ifelse(data$p < 0.05,"sig", "not sig")
   pb <- ggplot2::ggplot(data,ggplot2::aes(reorder(X,-p),-log10(p)))+##-p control the order
