@@ -10,7 +10,6 @@
 #' @param colour the colour of point
 #' @param h the height of group index,default is 0.2
 #' @return  All the results can be got form other functions and instruction.
-#' @export
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----

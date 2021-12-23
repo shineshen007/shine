@@ -7,7 +7,6 @@
 #' @param RandomForest do RandomForest
 #' @param SVM do support vector machine
 #' @return  All the results can be got form other functions and instruction.
-#' @export
 #' @import e1071
 #' @import ggbeeswarm
 #' @examples

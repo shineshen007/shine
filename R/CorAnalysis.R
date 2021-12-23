@@ -9,7 +9,6 @@
 #' @author Shine Shen
 #' \email{qq951633542@@163.com}
 #' @return  All the results can be got form other functions and instruction.
-#' @export
 #' @import corrplot
 #' @examples
 #' \donttest{

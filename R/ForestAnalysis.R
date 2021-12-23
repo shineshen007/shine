@@ -4,7 +4,6 @@
 #' \email{qq951633542@@163.com}
 #' @param group group set.
 #' @return  All the results can be got form other functions and instruction.
-#' @export
 #' @import meta
 #' @import survminer
 #' @import survival

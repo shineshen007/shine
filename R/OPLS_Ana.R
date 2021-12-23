@@ -7,7 +7,6 @@
 #' @param scale method to scale data
 #' @param repeats 200
 #' @return  All the results can be got form other functions and instruction.
-#' @export
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----

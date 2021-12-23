@@ -6,7 +6,6 @@
 #' @param font_size 15
 #' @param path_font_size 5
 #' @return  All the results can be got form other functions and instruction.
-#' @export
 #' @examples
 #' \donttest{
 #' ##---- Be sure the format of data and sample.info is correct!! ----

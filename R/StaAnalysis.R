@@ -14,7 +14,6 @@
 #' @param PCA draw PCA plot or not
 #' @param colv the colour of volcano
 #' @return  All the results can be got form other functions and instruction.
-#' @export
 #' @import ggplot2
 #' @examples
 #' \donttest{
