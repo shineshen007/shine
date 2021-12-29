@@ -191,7 +191,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
     group <- ifelse(data$p < 0.05,"sig", "not sig")
     pb <- ggplot2::ggplot(data,ggplot2::aes(reorder(X,-p),-log10(p)))+##-p control the order
       ggplot2::geom_bar(aes(fill=group),stat = "identity",position="dodge",width=0.8)+
-      scale_fill_manual(values = c('Turquoise3','Firebrick1'))+
+      scale_fill_manual(values = color)+
       ggplot2::theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
                      panel.background = element_blank(),axis.line = element_line(colour = "black"),
                      legend.position = "none",axis.text.y = element_text(size = font_size),
@@ -285,7 +285,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
     group <- ifelse(data$p < 0.05,"sig", "not sig")
     pb <- ggplot2::ggplot(data,ggplot2::aes(reorder(X,-p),-log10(p)))+##-p control the order
       ggplot2::geom_bar(aes(fill=group),stat = "identity",position="dodge",width=0.8)+
-      scale_fill_manual(values = c('Turquoise3','Firebrick1'))+
+      scale_fill_manual(values = color)+
       ggplot2::theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
                      panel.background = element_blank(),axis.line = element_line(colour = "black"),
                      legend.position = "none",axis.text.y = element_text(size = font_size),
