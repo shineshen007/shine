@@ -8,6 +8,7 @@ PathwayEnrich(
   specias_pathway_database = c(hsa.kegg.pathway, mmu.kegg.pathway),
   specias_compound_database = c(hsa_compound_ID, mmu_compound_ID),
   font_size = 20,
+  color = c("#3399FF", "#FF3333"),
   All_ID = FALSE,
   seed = TRUE,
   grade1_2 = FALSE
@@ -19,6 +20,8 @@ PathwayEnrich(
 \item{specias_compound_database}{the specia of sample}
 
 \item{font_size}{20}
+
+\item{color}{color}
 
 \item{All_ID}{default is FALSE}
 

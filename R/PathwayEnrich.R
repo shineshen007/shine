@@ -8,11 +8,13 @@
 #' @param grade1_2 default is FALSE
 #' @param specias_pathway_database the specia of sample
 #' @param specias_compound_database the specia of sample
+#' @param color color
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.pathway),
                           specias_compound_database = c(hsa_compound_ID,mmu_compound_ID),
                           font_size = 20,
+                          color = c("#3399FF","#FF3333"),
                           All_ID = FALSE,
                           seed = TRUE,
                           grade1_2 = FALSE
@@ -93,7 +95,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
     group <- ifelse(data$p < 0.05,"sig", "not sig")
     pb <- ggplot2::ggplot(data,ggplot2::aes(reorder(X,-p),-log10(p)))+##-p control the order
       ggplot2::geom_bar(aes(fill=group),stat = "identity",position="dodge",width=0.8)+
-      scale_fill_manual(values = c('Turquoise3','Firebrick1'))+
+      scale_fill_manual(values = color)+
       ggplot2::theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
                      panel.background = element_blank(),axis.line = element_line(colour = "black"),
                      legend.position = "none",axis.text.y = element_text(size = font_size),
