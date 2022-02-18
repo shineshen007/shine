@@ -9,10 +9,6 @@
 #' @return  All the results can be got form other functions and instruction.
 #' @import e1071
 #' @import ggbeeswarm
-#' @examples
-#' \donttest{
-#' ##---- Be sure the format of data and sample.info is correct!! ----
-#' }
 BiClass_Shine <- function(times = 1001,#must be odd
                     logistic = TRUE,
                     RandomForest = TRUE,

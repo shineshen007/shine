@@ -7,10 +7,6 @@
 #' @param height the height of plot
 #' @return  All the results can be got form other functions and instruction.
 #' @export
-#' @examples
-#' \donttest{
-#' ##---- Be sure the format of data and sample.info is correct!! ----
-#' }
 ISboxplot <- function(sample = NULL,width=10,height=6){
 
   data <- read.csv("IS data.csv",check.names = F)

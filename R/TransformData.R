@@ -9,10 +9,6 @@
 #' @param roc default is FALSE
 #' @return  All the results can be got form other functions and instruction.
 #' @export
-#' @examples
-#' \donttest{
-#' ##---- Be sure the format of data and sample.info is correct!! ----
-#' }
 TransformData <- function(group = "Normal",#the group you want to remove
                           data_name = "lasso_variable.csv" ,
                           #info_position = 2,

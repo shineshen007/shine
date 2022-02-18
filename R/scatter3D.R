@@ -4,10 +4,6 @@
 #' \email{qq951633542@@163.com}
 #' @return  All the results can be got form other functions and instruction.
 #' @export
-#' @examples
-#' \donttest{
-#' ##---- Be sure the format of data and sample.info is correct!! ----
-#' }
 Scatter3D <- function(){
   #library(plot3D)
   data <- read_csv('data.csv')

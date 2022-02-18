@@ -7,10 +7,6 @@
 #' @param info_position 2
 #' @return  All the results can be got form other functions and instruction.
 #' @export
-#' @examples
-#' \donttest{
-#' ##---- Be sure the format of data and sample.info is correct!! ----
-#' }
 MUVR_ANALYSIS <- function(group = "Normal",#the group you want to remove
                           data_position = 1,
                           info_position = 2

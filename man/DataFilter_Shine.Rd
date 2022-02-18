@@ -31,11 +31,6 @@ a function to filter p value more than 0.05 or any value you can choose,
 foldchange less than 1.2 and more than 0.8 or any value you can choose,
 and vip less than 1 or any value you can choose
 }
-\examples{
-\donttest{
-##---- Be sure the format of data and sample.info is correct!! ----
-}
-}
 \author{
 Shine Shen
 \email{qq951633542@163.com}

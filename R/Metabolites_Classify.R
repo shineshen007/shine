@@ -8,11 +8,6 @@
 #' @return  All the results can be got form other functions and instruction.
 #' @export
 #' @import ggplot2
-#' @examples
-#' \donttest{
-#' Metabolites_Classify(specias_pathway_database= hsa.kegg.pathway,
-#' specias_compound_database = hsa_compound_ID)
-#' }
 Metabolites_Classify <- function(data_name="data for classify.csv",
   specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.pathway),
   specias_compound_database = c(hsa_compound_ID,mmu_compound_ID)

@@ -4,10 +4,6 @@
 #' \email{qq951633542@@163.com}
 #' @return  All the results can be got form other functions and instruction.
 #' @export
-#' @examples
-#' \donttest{
-#' ##---- Be sure the format of data and sample.info is correct!! ----
-#' }
 CoxAnalysis <- function(){
   data<- read.csv("data.csv")#data contain columns of patients'name,age,sex etc
 

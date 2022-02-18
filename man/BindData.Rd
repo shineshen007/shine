@@ -12,11 +12,6 @@ bind pos and neg data.
 \description{
 a function to combind data.
 }
-\examples{
-\donttest{
-##---- Be sure the format of data and sample.info is correct!! ----
-}
-}
 \author{
 Shine Shen
 \email{qq951633542@163.com}

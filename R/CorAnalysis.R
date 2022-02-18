@@ -10,10 +10,6 @@
 #' \email{qq951633542@@163.com}
 #' @return  All the results can be got form other functions and instruction.
 #' @import corrplot
-#' @examples
-#' \donttest{
-#' ##---- Be sure the format of data and sample.info is correct!! ----
-#' }
 CorAnalysis_Shine <- function(number.cex = 0.6,#number size in cicle
                       tl.cex = 0.6,#font size of label
                       number.digits=4,

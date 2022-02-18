@@ -8,10 +8,6 @@
 #' @param width 9
 #' @return  All the results can be got form other functions and instruction.
 #' @export
-#' @examples
-#' \donttest{
-#' ##---- Be sure the format of data and sample.info is correct!! ----
-#' }
 Violinplot_Shine <- function(
                           font_size = 20,
                           levels = c("Normal","CHD"),

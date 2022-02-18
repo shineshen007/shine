@@ -23,12 +23,6 @@ All the results can be got form other functions and instruction.
 \description{
 a function Metabolites_Classify.
 }
-\examples{
-\donttest{
-Metabolites_Classify(specias_pathway_database= hsa.kegg.pathway,
-specias_compound_database = hsa_compound_ID)
-}
-}
 \author{
 Shine Shen
 \email{qq951633542@163.com}

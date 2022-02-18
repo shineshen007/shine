@@ -7,10 +7,6 @@
 #' @import meta
 #' @import survminer
 #' @import survival
-#' @examples
-#' \donttest{
-#' ##---- Be sure the format of data and sample.info is correct!! ----
-#' }
 ForestAnalysis_Shine <-function(group = c("Gout","Normal")){
 
   cat("Import data...\n")

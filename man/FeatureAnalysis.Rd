@@ -32,23 +32,6 @@ All the results can be got form other functions and instruction.
 a function can generate mz vs rt plot and QC distribution plot,
 also can filter isotope,rsd and zero value.
 }
-\examples{
-\donttest{
-##---- Be sure the format of data and sample.info is correct!! ----
-##create a folder for Shine demo
-dir.create("Demo for Shine")
-setwd("Demo for Shine")
-#load the demo data
-data(data, package = "Shine")
-data(sample.info, package = "Shine")
-# export the demo data as csv
-write.csv(data, "data.csv", row.names = FALSE)
-write.csv(sample.info, "sample.info.csv", row.names = FALSE)
-#run FeatureAnalysis
-FeatureAnalysis(data = data,sample.info = sample.info,RSD.filter = T,
-zero.check = F)
-}
-}
 \author{
 Shine Shen
 \email{qq951633542@163.com}

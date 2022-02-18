@@ -8,10 +8,6 @@
 #' @param group the group of the data
 #' @param scale scale method
 #' @export
-#' @examples
-#' \donttest{
-#' ##---- Be sure the format of data and sample.info is correct!! ----
-#' }
 Permutation_Shine <- function(repeats = 200, ncomp = 2,
                               group = c('case','control'),
                               scale = c('UV','pareto')

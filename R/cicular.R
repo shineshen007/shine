@@ -5,10 +5,6 @@
 #' @param label_size 5
 #' @return  All the results can be got form other functions and instruction.
 #' @export
-#' @examples
-#' \donttest{
-#' ##---- Be sure the format of data and sample.info is correct!! ----
-#' }
 CircularPlot <- function(label_size=5){
 
   #library(tidyverse)

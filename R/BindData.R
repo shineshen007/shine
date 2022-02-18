@@ -4,10 +4,6 @@
 #' \email{qq951633542@@163.com}
 #' @return  bind pos and neg data.
 #' @export
-#' @examples
-#' \donttest{
-#' ##---- Be sure the format of data and sample.info is correct!! ----
-#' }
 BindData <- function(){#bind pos and neg mode data
 
   data_pos <- data.table::fread("data pos.csv")

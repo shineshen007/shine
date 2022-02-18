@@ -86,7 +86,11 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
     for (i in 1:length(ip)) {
       ip[[i]] <- data[match(ip[[i]],data$ID),]
     }
-    openxlsx::write.xlsx(ip,'Id_pathway.xlsx')
+    sheetnames <- nchar(names(ip))
+    if(max(sheetnames)>31){
+      names(ip)[which(sheetnames>31)]=substr(names(ip)[which(sheetnames>31)],1,30)
+    }
+    openxlsx::write.xlsx(ip,'Id_pathway.xlsx',overwrite = T)
     #
     data <- read.csv("pathway_results.csv")
     colnames(data)[3] <- 'p'
@@ -182,7 +186,11 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
     for (i in 1:length(ip)) {
       ip[[i]] <- data[match(ip[[i]],data$ID),]
     }
-    openxlsx::write.xlsx(ip,'Id_pathway.xlsx')
+    sheetnames <- nchar(names(ip))
+    if(max(sheetnames)>31){
+      names(ip)[which(sheetnames>31)]=substr(names(ip)[which(sheetnames>31)],1,30)
+    }
+    openxlsx::write.xlsx(ip,'Id_pathway.xlsx',overwrite = T)
     #
     data <- read.csv("pathway_results.csv")
     colnames(data)[3] <- 'p'
@@ -276,7 +284,11 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
     for (i in 1:length(ip)) {
       ip[[i]] <- data[match(ip[[i]],data$ID),]
     }
-    openxlsx::write.xlsx(ip,'Id_pathway.xlsx')
+    sheetnames <- nchar(names(ip))
+    if(max(sheetnames)>31){
+      names(ip)[which(sheetnames>31)]=substr(names(ip)[which(sheetnames>31)],1,30)
+    }
+    openxlsx::write.xlsx(ip,'Id_pathway.xlsx',overwrite = T)
     #
     data <- read.csv("pathway_results.csv")
     colnames(data)[3] <- 'p'

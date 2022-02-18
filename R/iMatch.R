@@ -7,10 +7,6 @@
 #' @param d2 the position of the file in dir()
 #' @param name the column which you want to match
 #' @export
-#' @examples
-#' \donttest{
-#' ##---- Be sure the format of data and sample.info is correct!! ----
-#' }
 iMatch <- function(d1=1,
                    d2=2,#the data you want to extract
                    name = "name"#the column you want to match

@@ -26,11 +26,6 @@ All the results can be got form other functions and instruction.
 \description{
 a function to draw BoxPlot
 }
-\examples{
-\donttest{
-##---- Be sure the format of data and sample.info is correct!! ----
-}
-}
 \author{
 Shine Shen
 \email{qq951633542@163.com}
