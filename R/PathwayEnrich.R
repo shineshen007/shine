@@ -45,7 +45,7 @@ PathwayEnrich <- function(specias_pathway_database= c(hsa.kegg.pathway,mmu.kegg.
     IDinPathway <- unlist(lapply(specias_pathway_database, function(x) {
       intersect(x, SIGm)#get the mapped metabolites number in each pathway
     }))
-    ###
+    ##
     P<-NaN
     for (i in 1:length(pall)){
       ball <- psig[i]
