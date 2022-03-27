@@ -5,8 +5,8 @@
 \title{PathwayEnrich}
 \usage{
 PathwayEnrich(
-  specias_pathway_database = c(hsa.kegg.pathway, mmu.kegg.pathway),
-  specias_compound_database = c(hsa_compound_ID, mmu_compound_ID),
+  specias_pathway_database = hsa.kegg.pathway,
+  specias_compound_database = hsa_compound_ID,
   font_size = 20,
   color = c("#3399FF", "#FF3333"),
   All_ID = FALSE,
