@@ -6,6 +6,7 @@
 #' @param seed default is TRUE
 #' @param All_ID default is FALSE
 #' @param grade1_2 default is FALSE
+#' @param data_name the data_name
 #' @param specias_pathway_database the specia of sample
 #' @param specias_compound_database the specia of sample
 #' @param color color
@@ -14,6 +15,7 @@
 PathwayEnrich <- function(specias_pathway_database= hsa.kegg.pathway,
                           specias_compound_database = hsa_compound_ID,
                           font_size = 20,
+                          data_name = 'data_pathway.csv',
                           color = c("#3399FF","#FF3333"),
                           All_ID = FALSE,
                           seed = TRUE,
@@ -21,7 +23,7 @@ PathwayEnrich <- function(specias_pathway_database= hsa.kegg.pathway,
 ){
   pacman::p_load(ggplotify,readr,data.table,export,magrittr)
   if(All_ID){
-    data <- read_csv('data_pathway.csv')
+    data <- read_csv(data_name)
     if(!file.exists('PathwayEnrich_All_ID')){
       dir.create('PathwayEnrich_All_ID')
     }
@@ -120,7 +122,7 @@ PathwayEnrich <- function(specias_pathway_database= hsa.kegg.pathway,
   if(seed){
     dir.create('PathwayEnrich_seed')
     #pathwayenrich
-    data <- read_csv('data_pathway.csv')
+    data <- read_csv(data_name)
     data <- dplyr::filter(data,Annotation.type=='seed')
     #seed <- dplyr::filter(da,confidence=='grade1'|confidence=='grade2')
     mid <- data$ID
@@ -221,7 +223,7 @@ PathwayEnrich <- function(specias_pathway_database= hsa.kegg.pathway,
     dir.create('PathwayEnrich_grade1_2')
     #pathwayenrich
     #data <- dplyr::filter(data,Annotation.type=='seed')
-    data <- read_csv('data_pathway.csv')
+    data <- read_csv(data_name)
     data <- dplyr::filter(data,confidence=='grade1'|confidence=='grade2')
     mid <- data$ID
     metabolite.id <- mid[which(mid %in% unique(unlist(specias_pathway_database)))]#filter the metabolites not in specia

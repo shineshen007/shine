@@ -8,6 +8,7 @@ PathwayEnrich(
   specias_pathway_database = hsa.kegg.pathway,
   specias_compound_database = hsa_compound_ID,
   font_size = 20,
+  data_name = "data_pathway.csv",
   color = c("#3399FF", "#FF3333"),
   All_ID = FALSE,
   seed = TRUE,
@@ -20,6 +21,8 @@ PathwayEnrich(
 \item{specias_compound_database}{the specia of sample}
 
 \item{font_size}{20}
+
+\item{data_name}{the data_name}
 
 \item{color}{color}
 
