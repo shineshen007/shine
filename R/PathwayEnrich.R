@@ -17,8 +17,8 @@ PathwayEnrich <- function(specias_pathway_database= hsa.kegg.pathway,
                           font_size = 20,
                           data_name = 'data_pathway.csv',
                           color = c("#3399FF","#FF3333"),
-                          All_ID = FALSE,
-                          seed = TRUE,
+                          All_ID = TRUE,
+                          seed = FALSE,
                           grade1_2 = FALSE
 ){
   pacman::p_load(ggplotify,readr,data.table,export,magrittr)
