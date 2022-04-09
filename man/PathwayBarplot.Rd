@@ -2,13 +2,22 @@
 % Please edit documentation in R/PathwayBarplot.R
 \name{PathwayBarplot}
 \alias{PathwayBarplot}
-\title{pathway enrichment barplot}
+\title{PathwayBarplot}
 \usage{
-PathwayBarplot(font_size = 26)
+PathwayBarplot(font_size = 26, color = c("#3399FF", "#FF3333"))
 }
 \arguments{
-\item{font_size}{the font_size of plot,default is 26.}
+\item{font_size}{font_size}
+
+\item{color}{color}
+}
+\value{
+All the results can be got form other functions and instruction.
 }
 \description{
-pathway enrichment barplot
+a function to draw BoxPlot
+}
+\author{
+Shine Shen
+\email{qq951633542@163.com}
 }
