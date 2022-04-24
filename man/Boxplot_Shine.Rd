@@ -6,19 +6,31 @@
 \usage{
 Boxplot_Shine(
   font_size = 20,
-  levels = c("NU", "HU", "Gout"),
-  height = 7,
-  width = 9
+  stat_type = "parametric",
+  data_name = "data.csv",
+  plot.type = "box",
+  pairwise.display = "significant",
+  p.adjust.method = "fdr",
+  ylab = "log2 metabolites abundance",
+  levels = c("M1", "M2", "M3")
 )
 }
 \arguments{
 \item{font_size}{font_size}
 
+\item{stat_type}{parametric}
+
+\item{data_name}{data.csv}
+
+\item{plot.type}{box}
+
+\item{pairwise.display}{significant}
+
+\item{p.adjust.method}{fdr}
+
+\item{ylab}{name}
+
 \item{levels}{order of group}
-
-\item{height}{7}
-
-\item{width}{9}
 }
 \value{
 All the results can be got form other functions and instruction.
