@@ -9,6 +9,7 @@
 #' @param data_name data.csv
 #' @param pairwise.display significant
 #' @param p.adjust.method fdr
+#' @param p.cutoff 0.05
 #' @param ylab name
 #' @return  All the results can be got form other functions and instruction.
 #' @export
@@ -16,6 +17,7 @@ Boxplot_Shine <- function(font_size = 20,
                           stat_type = 'parametric',
                           data_name = 'data.csv',
                           plot.type = "box",
+                          p.cutoff = 0.05,
                           pairwise.display = "significant",
                           p.adjust.method = "fdr",
                           ylab = "log2 metabolites abundance",
@@ -73,8 +75,8 @@ Boxplot_Shine <- function(font_size = 20,
       pv <- gamesHowellTest(abundance ~ group, data = dd,p.adjust.method = p.adjust.method)
     }
 
-    if(!is.na(any(pv[["p.value"]]<0.05))){
-      if(any(pv[["p.value"]]<0.05)){
+    if(!is.na(any(pv[["p.value"]]<p.cutoff))){
+      if(any(pv[["p.value"]]<p.cutoff)){
         #dd$metabolites <- fct_inorder(dd$metabolites)
         fn <- paste0(me[i],'.pdf')
         s <- ggbetweenstats(data = dd,x='group',y = 'abundance',#color = "group",

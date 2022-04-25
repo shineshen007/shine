@@ -9,6 +9,7 @@ Boxplot_Shine(
   stat_type = "parametric",
   data_name = "data.csv",
   plot.type = "box",
+  p.cutoff = 0.05,
   pairwise.display = "significant",
   p.adjust.method = "fdr",
   ylab = "log2 metabolites abundance",
@@ -23,6 +24,8 @@ Boxplot_Shine(
 \item{data_name}{data.csv}
 
 \item{plot.type}{box}
+
+\item{p.cutoff}{0.05}
 
 \item{pairwise.display}{significant}
 
