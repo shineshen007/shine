@@ -4,6 +4,7 @@
 #' \email{qq951633542@@163.com}
 #' @param levels order of group
 #' @param font_size font_size
+#' @param palette palette
 #' @param stat_type parametric
 #' @param plot.type box
 #' @param data_name data.csv
@@ -18,6 +19,7 @@ Boxplot_Shine <- function(font_size = 20,
                           data_name = 'data.csv',
                           plot.type = "box",
                           p.cutoff = 0.05,
+                          palette = "nrc_npg",#ggsci
                           pairwise.display = "significant",
                           p.adjust.method = "fdr",
                           ylab = "log2 metabolites abundance",
@@ -90,7 +92,7 @@ Boxplot_Shine <- function(font_size = 20,
                             pairwise.display = pairwise.display, ## display only significant pairwise comparisons
                             p.adjust.method = p.adjust.method,
                             package = "ggsci",
-                            palette = "nrc_npg")+
+                            palette = "palette")+
           theme(axis.text.x=element_text(size=font_size),
                 legend.title=element_blank(),
                 legend.text = element_text(size = font_size),
