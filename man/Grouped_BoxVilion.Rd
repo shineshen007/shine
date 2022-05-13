@@ -9,6 +9,7 @@ Grouped_BoxVilion(
   data_name = "data.csv",
   info_name = "info.csv",
   plot.type = "box",
+  zscore = TRUE,
   palette = "nrc_npg",
   plot_nrow = 2,
   pairwise.display = "significant",
@@ -25,6 +26,8 @@ Grouped_BoxVilion(
 \item{info_name}{info_name}
 
 \item{plot.type}{box}
+
+\item{zscore}{default TRUE}
 
 \item{palette}{palette}
 
