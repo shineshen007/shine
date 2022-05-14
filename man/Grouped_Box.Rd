@@ -8,6 +8,7 @@ Grouped_Box(
   font_size = 20,
   levels = c("M1", "M2", "M3"),
   zscore = TRUE,
+  xlab_angle = 45,
   ylab = "Relative Abundance (log2)",
   info_name = "info.csv",
   data_name = "data.csv"
@@ -19,6 +20,8 @@ Grouped_Box(
 \item{levels}{order of group}
 
 \item{zscore}{default TRUE}
+
+\item{xlab_angle}{45}
 
 \item{ylab}{name}
 

@@ -6,6 +6,7 @@
 #' @param font_size font_size
 #' @param zscore default TRUE
 #' @param ylab name
+#' @param xlab_angle 45
 #' @param data_name data_name
 #' @param info_name info_name
 #' @return  All the results can be got form other functions and instruction.
@@ -14,6 +15,7 @@ Grouped_Box <- function(
   font_size = 20,
   levels = c("M1","M2","M3"),
   zscore=TRUE,
+  xlab_angle = 45,
   ylab = "Relative Abundance (log2)",
   info_name = 'info.csv',
   data_name = "data.csv"
@@ -75,7 +77,7 @@ Grouped_Box <- function(
     theme_bw()+
     scale_fill_npg()+
     ylab(ylab)+
-    theme(axis.text.x=element_text(angle=45, hjust=1, vjust=1,size=font_size),
+    theme(axis.text.x=element_text(angle=xlab_angle,size=font_size),
           legend.title=element_blank(),
           legend.position = 'right',
           legend.text = element_text(size = font_size),
