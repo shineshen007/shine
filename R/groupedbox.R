@@ -5,7 +5,7 @@
 #' @param levels order of group
 #' @param font_size font_size
 #' @param zscore default TRUE
-#' @param ylab name
+#' @param title name
 #' @param xlab_angle 45
 #' @param data_name data_name
 #' @param info_name info_name
@@ -16,7 +16,7 @@ Grouped_Box <- function(
   levels = c("M1","M2","M3"),
   zscore=TRUE,
   xlab_angle = 45,
-  ylab = "Relative Abundance (log2)",
+  title = "Relative Abundance (log2)",
   info_name = 'info.csv',
   data_name = "data.csv"
 ){
@@ -72,23 +72,26 @@ Grouped_Box <- function(
   data <- read.csv("data for boxplot.csv")
   data$group <- factor(data$group, levels = levels)
   data$metabolites <- fct_inorder(data$metabolites)
-  s <- ggplot(data,aes(x=metabolites,y = abundance))+
+  my_comparisons <- list(c(levels[1],levels[2]), c(levels[2], levels[3]),
+                         c(levels[1], levels[3]))
+  s <- ggplot(data,aes(x=group,y = abundance))+
     geom_boxplot(aes(fill = group))+
     theme_bw()+
     scale_fill_npg()+
-    ylab(ylab)+
-    theme(axis.text.x=element_text(angle=xlab_angle,size=font_size),
+    labs(title=title)+
+    theme(axis.text.x=element_text(angle=0,size=font_size),
+          plot.title = element_text(size=font_size,hjust = 0.5),
           legend.title=element_blank(),
-          legend.position = 'right',
+          legend.position = 'none',
           legend.text = element_text(size = font_size),
           axis.text.y = element_text(size = font_size),
           axis.title.x = element_text(size = 0),#the font size of axis title
-          axis.title.y = element_text(size = font_size)
+          axis.title.y = element_text(size = 0)
     )+
-    stat_compare_means(aes(group = group),label = "p.signif", #comparisons = my_comparisons,
-                       label.x = 1.5)
+    stat_compare_means(comparisons = my_comparisons)+ #添加成对p值
+    stat_compare_means(label.y = max(data$abundance)+5)
   ggsave('Grouped_Box.pdf')
-  save(s,file = 'Grouped_Box.Rda')
+  #save(s,file = 'Grouped_Box.Rda')
   #export::graph2ppt(x=s,file='violinplot.pptx',height=12,width=ppt_width)
 }
 
