@@ -5,13 +5,16 @@
 \title{Grouped_Box}
 \usage{
 Grouped_Box(
-  font_size = 20,
+  font_size = 15,
   levels = c("M1", "M2", "M3"),
   zscore = TRUE,
   xlab_angle = 45,
-  title = "Relative Abundance (log2)",
+  title = NULL,
+  ylab = "Relative Abundance (log2)",
   info_name = "info.csv",
-  data_name = "data.csv"
+  data_name = "data.csv",
+  group_base = TRUE,
+  variable_base = FALSE
 )
 }
 \arguments{
@@ -25,9 +28,15 @@ Grouped_Box(
 
 \item{title}{name}
 
+\item{ylab}{name}
+
 \item{info_name}{info_name}
 
 \item{data_name}{data_name}
+
+\item{group_base}{group_base}
+
+\item{variable_base}{variable_base}
 }
 \value{
 All the results can be got form other functions and instruction.
