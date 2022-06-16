@@ -120,6 +120,38 @@ PathwayEnrich <- function(specias_pathway_database= hsa.kegg.pathway,
       save(pb,file = 'barplot.Rda')
       export::graph2ppt(x=pb,file='pathway.pptx',height=7,width=9)
       dev.off()
+      ####
+      colnames(data)
+      colnames(data) <- c('pathway','p.value','p.adjust','FDR','Pathway.length','Count')
+      font_size=20
+      #####need modify
+      d1=data %>% dplyr::filter(p.adjust<0.05&Count>1)
+      d1=d1[order(d1$p.adjust),]
+      d1$pathway <- fct_inorder(d1$pathway)
+      d1$Pathway_impact=d1$Count/d1$Pathway.length
+      #d1$Count=d1$Count*2
+      dpp <- ggplot2::ggplot(d1, aes(x = Pathway_impact,y = pathway,color=p.adjust,size=Count))+
+        geom_point()+
+        #scale_fill_brewer(palette = "Set1")
+        scale_color_continuous(low="red", high="blue",
+                               guide=guide_colorbar(reverse=TRUE)) +
+        #scale_fill_gradient(low = "white", high = "red")
+        #scale_color_manual(values = colour)
+        # geom_vline(xintercept=0.75,
+        #            lty=4,col="black",lwd=0.5)+ # add vetical line
+        #labs(title = "Signicant Pathway between M1 and M3")+
+        theme_bw()+
+        ggplot2::theme(#panel.grid.major =element_blank(),
+          #                panel.grid.minor = element_blank(),#remove ggplot2 background
+          #                panel.background = element_blank(),
+          plot.title = element_text(size=22),
+          legend.position = "right",
+          axis.text.y = element_text(size = font_size),
+          axis.text.x = element_text(size = font_size),#the font size of axis
+          axis.title.x = element_text(size = font_size),#the font size of axis title
+          axis.title.y = element_text(size = 0))
+      ggsave('enrichKEGG.pdf',width = 12,height = 9)
+      save(dpp,file = 'enrichKEGG_dotplot.RData')
       setwd('..//')
     }
 
