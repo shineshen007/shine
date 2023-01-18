@@ -23,7 +23,7 @@ PathwayEnrich <- function(specias_pathway_database= hsa.kegg.pathway,
 ){
   pacman::p_load(ggplotify,readr,crayon,export,magrittr)
   if(All_ID){
-    data <- read_csv(data_name)
+    data <- read_csv(data_name) %>% dplyr::filter(fc>1)
     if(!file.exists('PathwayEnrich_All_ID')){
       dir.create('PathwayEnrich_All_ID')
     }
@@ -106,8 +106,11 @@ PathwayEnrich <- function(specias_pathway_database= hsa.kegg.pathway,
       pb <- ggplot2::ggplot(data,ggplot2::aes(reorder(X,-p),-log10(p)))+##-p control the order
         ggplot2::geom_bar(aes(fill=group),stat = "identity",position="dodge",width=0.8)+
         scale_fill_manual(values = color)+
-        ggplot2::theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),#remove ggplot2 background
-                       panel.background = element_blank(),axis.line = element_line(colour = "black"),
+        ggplot2::theme(panel.grid.major =element_blank(),
+                       panel.grid.minor = element_blank(),#remove ggplot2 background
+                       panel.background = element_blank(),
+                       plot.title = element_text(size=24),
+                       axis.line = element_line(colour = "black"),
                        legend.position = "none",axis.text.y = element_text(size = font_size),
                        axis.text.x = element_text(size = font_size),#the font size of axis
                        axis.title.x = element_text(size = font_size),#the font size of axis title
@@ -118,33 +121,27 @@ PathwayEnrich <- function(specias_pathway_database= hsa.kegg.pathway,
         ggplot2::coord_flip()+
         ggplot2::xlab('Pathway')
       save(pb,file = 'barplot.Rda')
-      export::graph2ppt(x=pb,file='pathway.pptx',height=7,width=9)
-      dev.off()
-      ####
-      colnames(data)
+      ggsave('pathway_barplot.pdf',width = 12,height = 9)
+      #export::graph2ppt(x=pb,file='pathway.pptx',height=7,width=9)
+      ####colnames(data)
       colnames(data) <- c('pathway','p.value','p.adjust','FDR','Pathway.length','Count')
-      font_size=20
       #####need modify
       d1=data %>% dplyr::filter(p.adjust<0.05&Count>1)
       d1=d1[order(d1$p.adjust),]
       d1$pathway <- fct_inorder(d1$pathway)
       d1$Pathway_impact=d1$Count/d1$Pathway.length
       #d1$Count=d1$Count*2
-      dpp <- ggplot2::ggplot(d1, aes(x = Pathway_impact,y = pathway,color=p.adjust,size=Count))+
+      dpp <- ggplot2::ggplot(d1, aes(x = Pathway_impact,y = pathway,
+                                     color=p.adjust,size=Count))+
         geom_point()+
         #scale_fill_brewer(palette = "Set1")
         scale_color_continuous(low="red", high="blue",
                                guide=guide_colorbar(reverse=TRUE)) +
-        #scale_fill_gradient(low = "white", high = "red")
-        #scale_color_manual(values = colour)
-        # geom_vline(xintercept=0.75,
-        #            lty=4,col="black",lwd=0.5)+ # add vetical line
-        #labs(title = "Signicant Pathway between M1 and M3")+
         theme_bw()+
         ggplot2::theme(#panel.grid.major =element_blank(),
           #                panel.grid.minor = element_blank(),#remove ggplot2 background
           #                panel.background = element_blank(),
-          plot.title = element_text(size=22),
+          plot.title = element_text(size=24),
           legend.position = "right",
           axis.text.y = element_text(size = font_size),
           axis.text.x = element_text(size = font_size),#the font size of axis
@@ -256,8 +253,8 @@ PathwayEnrich <- function(specias_pathway_database= hsa.kegg.pathway,
         ggplot2::coord_flip()+
         ggplot2::xlab('Pathway')
       save(pb,file = 'barplot.Rda')
-      export::graph2ppt(x=pb,file='pathway.pptx',height=7,width=9)
-      dev.off()
+      ggsave('pathway_barplot.pdf',width = 12,height = 9)
+      #dev.off()
       setwd('..//')
     }}
   ###########
@@ -358,8 +355,7 @@ PathwayEnrich <- function(specias_pathway_database= hsa.kegg.pathway,
         ggplot2::coord_flip()+
         ggplot2::xlab('Pathway')
       save(pb,file = 'barplot.Rda')
-      export::graph2ppt(x=pb,file='pathway.pptx',height=7,width=9)
-      dev.off()
+      ggsave('pathway_barplot.pdf',width = 12,height = 9)
       setwd('..//')
     }
   }
